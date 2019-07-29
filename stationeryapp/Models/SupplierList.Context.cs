@@ -13,10 +13,10 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SupplierList : DbContext
+    public partial class SupplierListDBContext : DbContext
     {
-        public SupplierList()
-            : base("name=SupplierList")
+        public SupplierListDBContext()
+            : base("name=SupplierListDBContext")
         {
         }
     

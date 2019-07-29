@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -207,14 +210,23 @@
       <DependentUpon>Employee.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>Employee.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Employee.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Employee.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Employee.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\InventoryStatus.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InventoryStatus.rpt</DependentUpon>
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Models\OutstandingList.Context.cs">
       <AutoGen>True</AutoGen>
@@ -450,14 +462,17 @@
       <DependentUpon>SupplierList.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SupplierList.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>SupplierList.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SupplierList.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>SupplierList.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupplierList1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SupplierList.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -518,7 +533,7 @@
     <Content Include="Models\Employee.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Employee.edmx</DependentUpon>
-      <LastGenOutput>Employee.cs</LastGenOutput>
+      <LastGenOutput>Employee1.cs</LastGenOutput>
     </Content>
     <Content Include="Models\OutstandingList.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -658,7 +673,7 @@
     <Content Include="Models\SupplierList.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>SupplierList.edmx</DependentUpon>
-      <LastGenOutput>SupplierList.cs</LastGenOutput>
+      <LastGenOutput>SupplierList1.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -753,13 +768,6 @@
     <Content Include="Models\StockAdjustmentVouchers.edmx.diagram">
       <DependentUpon>StockAdjustmentVouchers.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\SupplierList.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SupplierList.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\SupplierList.edmx.diagram">
-      <DependentUpon>SupplierList.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\RequisitionForms.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RequisitionForms.Designer.cs</LastGenOutput>
@@ -787,6 +795,13 @@
     </EntityDeploy>
     <Content Include="Models\StoreSupervisor.edmx.diagram">
       <DependentUpon>StoreSupervisor.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\SupplierList.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SupplierList.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SupplierList.edmx.diagram">
+      <DependentUpon>SupplierList.edmx</DependentUpon>
     </Content>
     <EntityDeploy Include="Models\Employee.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -842,6 +857,13 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Models\InventoryStatus.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>InventoryStatus.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

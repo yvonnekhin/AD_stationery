@@ -37,7 +37,7 @@
           <Property Name="FaxNo" Type="Int32" />
           <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="SupplierList" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="SupplierListDBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="SupplierLists" EntityType="Self.SupplierList" />
         </EntityContainer>
       </Schema>
@@ -45,7 +45,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel18StoreContainer" CdmEntityContainer="SupplierList">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel18StoreContainer" CdmEntityContainer="SupplierListDBContext">
           <EntitySetMapping Name="SupplierLists">
             <EntityTypeMapping TypeName="stationeryModel18.SupplierList">
               <MappingFragment StoreEntitySet="SupplierList">

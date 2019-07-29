@@ -13,10 +13,10 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Employee : DbContext
+    public partial class EmployeeDBContext : DbContext
     {
-        public Employee()
-            : base("name=Employee")
+        public EmployeeDBContext()
+            : base("name=EmployeeDBContext")
         {
         }
     
