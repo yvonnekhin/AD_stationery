@@ -760,13 +760,6 @@
     <Content Include="Models\SupplierList.edmx.diagram">
       <DependentUpon>SupplierList.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\Employee.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Employee.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Employee.edmx.diagram">
-      <DependentUpon>Employee.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\RequisitionForms.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>RequisitionForms.Designer.cs</LastGenOutput>
@@ -794,6 +787,13 @@
     </EntityDeploy>
     <Content Include="Models\StoreSupervisor.edmx.diagram">
       <DependentUpon>StoreSupervisor.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Employee.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Employee.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Employee.edmx.diagram">
+      <DependentUpon>Employee.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
