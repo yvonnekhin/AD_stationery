@@ -55,6 +55,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -130,6 +132,348 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CollectionPoint.cs">
+      <DependentUpon>CollectionPoints.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CollectionPoints.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollectionPoints.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CollectionPoints.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollectionPoints.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CollectionPoints.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CollectionPoints.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DepartmentList.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DepartmentList.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DepartmentList.cs">
+      <DependentUpon>DepartmentList.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DepartmentList.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DepartmentList.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DepartmentList1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DepartmentList.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DisbursementList.cs">
+      <DependentUpon>DisbursementLists.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DisbursementListDetail.cs">
+      <DependentUpon>DisbursementListDetails.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DisbursementListDetails.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisbursementListDetails.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DisbursementListDetails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisbursementListDetails.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DisbursementListDetails.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisbursementListDetails.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DisbursementLists.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisbursementLists.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DisbursementLists.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisbursementLists.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DisbursementLists.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DisbursementLists.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Employee.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.cs">
+      <DependentUpon>Employee.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Employee.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Employee.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OutstandingList.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OutstandingList.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OutstandingList.cs">
+      <DependentUpon>OutstandingList.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OutstandingList.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OutstandingList.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OutstandingList1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OutstandingList.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrder.cs">
+      <DependentUpon>PurchaseOrders.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderDetail.cs">
+      <DependentUpon>PurchaseOrderDetails.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderDetails.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseOrderDetails.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderDetails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseOrderDetails.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderDetails.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseOrderDetails.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrders.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseOrders.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrders.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseOrders.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrders.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PurchaseOrders.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequisitionForm.cs">
+      <DependentUpon>RequisitionForms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequisitionFormDetail.cs">
+      <DependentUpon>RequisitionFormDetails.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequisitionFormDetails.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RequisitionFormDetails.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequisitionFormDetails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RequisitionFormDetails.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequisitionFormDetails.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RequisitionFormDetails.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequisitionForms.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RequisitionForms.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequisitionForms.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RequisitionForms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequisitionForms.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RequisitionForms.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryCatalog.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationeryCatalog.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryCatalog.cs">
+      <DependentUpon>StationeryCatalog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryCatalog.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationeryCatalog.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryCatalog1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationeryCatalog.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryRetrievalForm.cs">
+      <DependentUpon>StationeryRetrievalForms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryRetrievalFormDetail.cs">
+      <DependentUpon>StationeryRetrievalFormDetails.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryRetrievalFormDetails.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationeryRetrievalFormDetails.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryRetrievalFormDetails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationeryRetrievalFormDetails.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryRetrievalFormDetails.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationeryRetrievalFormDetails.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryRetrievalForms.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationeryRetrievalForms.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryRetrievalForms.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationeryRetrievalForms.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryRetrievalForms.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationeryRetrievalForms.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockAdjustmentVoucher.cs">
+      <DependentUpon>StockAdjustmentVouchers.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockAdjustmentVoucherDetail.cs">
+      <DependentUpon>StockAdjustmentVoucherDetails.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockAdjustmentVoucherDetails.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockAdjustmentVoucherDetails.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockAdjustmentVoucherDetails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockAdjustmentVoucherDetails.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockAdjustmentVoucherDetails.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockAdjustmentVoucherDetails.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockAdjustmentVouchers.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockAdjustmentVouchers.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockAdjustmentVouchers.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockAdjustmentVouchers.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockAdjustmentVouchers.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StockAdjustmentVouchers.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreClerk.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreClerk.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreClerk.cs">
+      <DependentUpon>StoreClerk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreClerk.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreClerk.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreClerk1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreClerk.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreManager.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreManager.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreManager.cs">
+      <DependentUpon>StoreManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreManager.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreManager.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreManager1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreManager.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreSupervisor.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreSupervisor.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreSupervisor.cs">
+      <DependentUpon>StoreSupervisor.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreSupervisor.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreSupervisor.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreSupervisor1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreSupervisor.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupplierList.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SupplierList.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupplierList.cs">
+      <DependentUpon>SupplierList.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupplierList.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SupplierList.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupplierList1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SupplierList.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -141,8 +485,331 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\CollectionPoints.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CollectionPoints.edmx</DependentUpon>
+      <LastGenOutput>CollectionPoints.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\CollectionPoints.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>CollectionPoints.edmx</DependentUpon>
+      <LastGenOutput>CollectionPoints.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DepartmentList.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DepartmentList.edmx</DependentUpon>
+      <LastGenOutput>DepartmentList.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DepartmentList.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DepartmentList.edmx</DependentUpon>
+      <LastGenOutput>DepartmentList1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DisbursementListDetails.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DisbursementListDetails.edmx</DependentUpon>
+      <LastGenOutput>DisbursementListDetails.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DisbursementListDetails.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DisbursementListDetails.edmx</DependentUpon>
+      <LastGenOutput>DisbursementListDetails.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DisbursementLists.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DisbursementLists.edmx</DependentUpon>
+      <LastGenOutput>DisbursementLists.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\DisbursementLists.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>DisbursementLists.edmx</DependentUpon>
+      <LastGenOutput>DisbursementLists.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Employee.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Employee.edmx</DependentUpon>
+      <LastGenOutput>Employee.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Employee.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Employee.edmx</DependentUpon>
+      <LastGenOutput>Employee1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\OutstandingList.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OutstandingList.edmx</DependentUpon>
+      <LastGenOutput>OutstandingList.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\OutstandingList.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>OutstandingList.edmx</DependentUpon>
+      <LastGenOutput>OutstandingList1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PurchaseOrderDetails.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PurchaseOrderDetails.edmx</DependentUpon>
+      <LastGenOutput>PurchaseOrderDetails.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PurchaseOrderDetails.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PurchaseOrderDetails.edmx</DependentUpon>
+      <LastGenOutput>PurchaseOrderDetails.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PurchaseOrders.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PurchaseOrders.edmx</DependentUpon>
+      <LastGenOutput>PurchaseOrders.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\PurchaseOrders.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>PurchaseOrders.edmx</DependentUpon>
+      <LastGenOutput>PurchaseOrders.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\RequisitionFormDetails.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RequisitionFormDetails.edmx</DependentUpon>
+      <LastGenOutput>RequisitionFormDetails.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\RequisitionFormDetails.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RequisitionFormDetails.edmx</DependentUpon>
+      <LastGenOutput>RequisitionFormDetails.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\RequisitionForms.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RequisitionForms.edmx</DependentUpon>
+      <LastGenOutput>RequisitionForms.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\RequisitionForms.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>RequisitionForms.edmx</DependentUpon>
+      <LastGenOutput>RequisitionForms.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StationeryCatalog.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StationeryCatalog.edmx</DependentUpon>
+      <LastGenOutput>StationeryCatalog.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StationeryCatalog.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StationeryCatalog.edmx</DependentUpon>
+      <LastGenOutput>StationeryCatalog1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StationeryRetrievalFormDetails.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StationeryRetrievalFormDetails.edmx</DependentUpon>
+      <LastGenOutput>StationeryRetrievalFormDetails.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StationeryRetrievalFormDetails.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StationeryRetrievalFormDetails.edmx</DependentUpon>
+      <LastGenOutput>StationeryRetrievalFormDetails.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StationeryRetrievalForms.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StationeryRetrievalForms.edmx</DependentUpon>
+      <LastGenOutput>StationeryRetrievalForms.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StationeryRetrievalForms.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StationeryRetrievalForms.edmx</DependentUpon>
+      <LastGenOutput>StationeryRetrievalForms.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StockAdjustmentVoucherDetails.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StockAdjustmentVoucherDetails.edmx</DependentUpon>
+      <LastGenOutput>StockAdjustmentVoucherDetails.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StockAdjustmentVoucherDetails.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StockAdjustmentVoucherDetails.edmx</DependentUpon>
+      <LastGenOutput>StockAdjustmentVoucherDetails.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StockAdjustmentVouchers.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StockAdjustmentVouchers.edmx</DependentUpon>
+      <LastGenOutput>StockAdjustmentVouchers.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StockAdjustmentVouchers.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StockAdjustmentVouchers.edmx</DependentUpon>
+      <LastGenOutput>StockAdjustmentVouchers.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StoreClerk.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StoreClerk.edmx</DependentUpon>
+      <LastGenOutput>StoreClerk.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StoreClerk.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StoreClerk.edmx</DependentUpon>
+      <LastGenOutput>StoreClerk1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StoreManager.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StoreManager.edmx</DependentUpon>
+      <LastGenOutput>StoreManager.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StoreManager.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StoreManager.edmx</DependentUpon>
+      <LastGenOutput>StoreManager1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StoreSupervisor.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StoreSupervisor.edmx</DependentUpon>
+      <LastGenOutput>StoreSupervisor.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\StoreSupervisor.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>StoreSupervisor.edmx</DependentUpon>
+      <LastGenOutput>StoreSupervisor1.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SupplierList.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SupplierList.edmx</DependentUpon>
+      <LastGenOutput>SupplierList.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\SupplierList.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>SupplierList.edmx</DependentUpon>
+      <LastGenOutput>SupplierList1.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="Models\StoreClerk.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StoreClerk.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\StoreClerk.edmx.diagram">
+      <DependentUpon>StoreClerk.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\DisbursementListDetails.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DisbursementListDetails.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DisbursementListDetails.edmx.diagram">
+      <DependentUpon>DisbursementListDetails.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\DepartmentList.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DepartmentList.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DepartmentList.edmx.diagram">
+      <DependentUpon>DepartmentList.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\DisbursementLists.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DisbursementLists.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DisbursementLists.edmx.diagram">
+      <DependentUpon>DisbursementLists.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\CollectionPoints.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>CollectionPoints.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\CollectionPoints.edmx.diagram">
+      <DependentUpon>CollectionPoints.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Employee.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Employee.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Employee.edmx.diagram">
+      <DependentUpon>Employee.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\OutstandingList.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OutstandingList.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\OutstandingList.edmx.diagram">
+      <DependentUpon>OutstandingList.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\PurchaseOrderDetails.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PurchaseOrderDetails.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\PurchaseOrderDetails.edmx.diagram">
+      <DependentUpon>PurchaseOrderDetails.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\PurchaseOrders.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>PurchaseOrders.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\PurchaseOrders.edmx.diagram">
+      <DependentUpon>PurchaseOrders.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\RequisitionFormDetails.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RequisitionFormDetails.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\RequisitionFormDetails.edmx.diagram">
+      <DependentUpon>RequisitionFormDetails.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\RequisitionForms.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RequisitionForms.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\RequisitionForms.edmx.diagram">
+      <DependentUpon>RequisitionForms.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\StationeryCatalog.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StationeryCatalog.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\StationeryCatalog.edmx.diagram">
+      <DependentUpon>StationeryCatalog.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\StationeryRetrievalFormDetails.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StationeryRetrievalFormDetails.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\StationeryRetrievalFormDetails.edmx.diagram">
+      <DependentUpon>StationeryRetrievalFormDetails.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\StationeryRetrievalForms.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StationeryRetrievalForms.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\StationeryRetrievalForms.edmx.diagram">
+      <DependentUpon>StationeryRetrievalForms.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\StockAdjustmentVoucherDetails.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StockAdjustmentVoucherDetails.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\StockAdjustmentVoucherDetails.edmx.diagram">
+      <DependentUpon>StockAdjustmentVoucherDetails.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\StockAdjustmentVouchers.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StockAdjustmentVouchers.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\StockAdjustmentVouchers.edmx.diagram">
+      <DependentUpon>StockAdjustmentVouchers.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\StoreManager.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StoreManager.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\StoreManager.edmx.diagram">
+      <DependentUpon>StoreManager.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\StoreSupervisor.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StoreSupervisor.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\StoreSupervisor.edmx.diagram">
+      <DependentUpon>StoreSupervisor.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\SupplierList.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>SupplierList.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\SupplierList.edmx.diagram">
+      <DependentUpon>SupplierList.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -173,7 +840,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="DB\" />
     <Folder Include="Filters\" />
-    <Folder Include="Models\" />
     <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +854,9 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
