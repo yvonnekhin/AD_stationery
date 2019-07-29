@@ -33,7 +33,7 @@
           <Property Name="QuantityAdjusted" Type="Int32" />
           <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities17" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="StockAdjustmentVoucherDetails" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="StockAdjustmentVoucherDetails" EntityType="Self.StockAdjustmentVoucherDetail" />
         </EntityContainer>
       </Schema>
@@ -41,7 +41,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel14StoreContainer" CdmEntityContainer="stationeryEntities17">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel14StoreContainer" CdmEntityContainer="StockAdjustmentVoucherDetails">
           <EntitySetMapping Name="StockAdjustmentVoucherDetails">
             <EntityTypeMapping TypeName="stationeryModel14.StockAdjustmentVoucherDetail">
               <MappingFragment StoreEntitySet="StockAdjustmentVoucherDetails">

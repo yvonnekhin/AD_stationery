@@ -13,10 +13,10 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class stationeryEntities17 : DbContext
+    public partial class StockAdjustmentVoucherDetails : DbContext
     {
-        public stationeryEntities17()
-            : base("name=stationeryEntities17")
+        public StockAdjustmentVoucherDetails()
+            : base("name=StockAdjustmentVoucherDetails")
         {
         }
     

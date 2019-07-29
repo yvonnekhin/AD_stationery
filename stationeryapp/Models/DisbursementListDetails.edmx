@@ -35,7 +35,7 @@
           <Property Name="QuantityReceived" Type="Int32" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities3" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DisbursementListDetails" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DisbursementListDetails" EntityType="Self.DisbursementListDetail" />
         </EntityContainer>
       </Schema>
@@ -43,7 +43,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel3StoreContainer" CdmEntityContainer="stationeryEntities3">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel3StoreContainer" CdmEntityContainer="DisbursementListDetails">
           <EntitySetMapping Name="DisbursementListDetails">
             <EntityTypeMapping TypeName="stationeryModel3.DisbursementListDetail">
               <MappingFragment StoreEntitySet="DisbursementListDetails">

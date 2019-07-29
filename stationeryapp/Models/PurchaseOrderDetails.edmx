@@ -37,7 +37,7 @@
           <Property Name="ReceivedValue" Type="Double" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities10" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="PurchaseOrderDetails" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetail" />
         </EntityContainer>
       </Schema>
@@ -45,7 +45,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel7StoreContainer" CdmEntityContainer="stationeryEntities10">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel7StoreContainer" CdmEntityContainer="PurchaseOrderDetails">
           <EntitySetMapping Name="PurchaseOrderDetails">
             <EntityTypeMapping TypeName="stationeryModel7.PurchaseOrderDetail">
               <MappingFragment StoreEntitySet="PurchaseOrderDetails">

@@ -31,7 +31,7 @@
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities6" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DisbursementLists" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DisbursementLists" EntityType="Self.DisbursementList" />
         </EntityContainer>
       </Schema>
@@ -39,7 +39,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel2StoreContainer" CdmEntityContainer="stationeryEntities6">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel2StoreContainer" CdmEntityContainer="DisbursementLists">
           <EntitySetMapping Name="DisbursementLists">
             <EntityTypeMapping TypeName="stationeryModel2.DisbursementList">
               <MappingFragment StoreEntitySet="DisbursementLists">

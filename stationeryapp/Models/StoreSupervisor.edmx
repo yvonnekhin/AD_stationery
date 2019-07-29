@@ -35,7 +35,7 @@
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities20" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="StoreSupervisor" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="StoreSupervisors" EntityType="Self.StoreSupervisor" />
         </EntityContainer>
       </Schema>
@@ -43,7 +43,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel17StoreContainer" CdmEntityContainer="stationeryEntities20">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel17StoreContainer" CdmEntityContainer="StoreSupervisor">
           <EntitySetMapping Name="StoreSupervisors">
             <EntityTypeMapping TypeName="stationeryModel17.StoreSupervisor">
               <MappingFragment StoreEntitySet="StoreSupervisor">

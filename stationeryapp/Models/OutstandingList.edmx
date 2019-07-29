@@ -39,7 +39,7 @@
           <Property Name="Needed" Type="Int32" />
           <Property Name="POStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities9" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="OutstandingList" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="OutstandingLists" EntityType="Self.OutstandingList" />
         </EntityContainer>
       </Schema>
@@ -47,7 +47,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel6StoreContainer" CdmEntityContainer="stationeryEntities9">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel6StoreContainer" CdmEntityContainer="OutstandingList">
           <EntitySetMapping Name="OutstandingLists">
             <EntityTypeMapping TypeName="stationeryModel6.OutstandingList">
               <MappingFragment StoreEntitySet="OutstandingList">

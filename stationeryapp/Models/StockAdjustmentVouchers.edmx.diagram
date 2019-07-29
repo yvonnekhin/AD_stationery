@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8f8172e035e947bbaff879c00661fe81" Name="Diagram1">
+      <Diagram DiagramId="eb849d5bbe0c4787a796d5a057983b56" Name="Diagram1">
         <EntityTypeShape EntityType="stationeryModel15.StockAdjustmentVoucher" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>

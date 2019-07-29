@@ -47,7 +47,7 @@
           <Property Name="SupplierCode3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Balance" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities14" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="StationeryCatalog" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="StationeryCatalogs" EntityType="Self.StationeryCatalog" />
         </EntityContainer>
       </Schema>
@@ -55,7 +55,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel11StoreContainer" CdmEntityContainer="stationeryEntities14">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel11StoreContainer" CdmEntityContainer="StationeryCatalog">
           <EntitySetMapping Name="StationeryCatalogs">
             <EntityTypeMapping TypeName="stationeryModel11.StationeryCatalog">
               <MappingFragment StoreEntitySet="StationeryCatalog">

@@ -39,7 +39,7 @@
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities13" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RequisitionForms" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="RequisitionForms" EntityType="Self.RequisitionForm" />
         </EntityContainer>
       </Schema>
@@ -47,7 +47,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel10StoreContainer" CdmEntityContainer="stationeryEntities13">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel10StoreContainer" CdmEntityContainer="RequisitionForms">
           <EntitySetMapping Name="RequisitionForms">
             <EntityTypeMapping TypeName="stationeryModel10.RequisitionForm">
               <MappingFragment StoreEntitySet="RequisitionForms">

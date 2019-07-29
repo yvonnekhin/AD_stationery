@@ -31,7 +31,7 @@
           <Property Name="ItemNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Quantity" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities12" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RequisitionFormDetails" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="RequisitionFormDetails" EntityType="Self.RequisitionFormDetail" />
         </EntityContainer>
       </Schema>
@@ -39,7 +39,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel9StoreContainer" CdmEntityContainer="stationeryEntities12">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel9StoreContainer" CdmEntityContainer="RequisitionFormDetails">
           <EntitySetMapping Name="RequisitionFormDetails">
             <EntityTypeMapping TypeName="stationeryModel9.RequisitionFormDetail">
               <MappingFragment StoreEntitySet="RequisitionFormDetails">

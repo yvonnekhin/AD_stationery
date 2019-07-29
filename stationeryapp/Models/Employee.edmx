@@ -39,7 +39,7 @@
           <Property Name="DepartmentCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities8" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Employee" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employees" EntityType="Self.Employee" />
         </EntityContainer>
       </Schema>
@@ -47,7 +47,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel5StoreContainer" CdmEntityContainer="stationeryEntities8">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel5StoreContainer" CdmEntityContainer="Employee">
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="stationeryModel5.Employee">
               <MappingFragment StoreEntitySet="Employee">

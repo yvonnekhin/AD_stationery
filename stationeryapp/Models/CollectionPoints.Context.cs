@@ -13,10 +13,10 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class stationeryEntities7 : DbContext
+    public partial class CollectionPoints : DbContext
     {
-        public stationeryEntities7()
-            : base("name=stationeryEntities7")
+        public CollectionPoints()
+            : base("name=CollectionPoints")
         {
         }
     

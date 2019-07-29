@@ -27,7 +27,7 @@
           <Property Name="FormNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities16" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="StationeryRetrievalForms" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="StationeryRetrievalForms" EntityType="Self.StationeryRetrievalForm" />
         </EntityContainer>
       </Schema>
@@ -35,7 +35,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel13StoreContainer" CdmEntityContainer="stationeryEntities16">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel13StoreContainer" CdmEntityContainer="StationeryRetrievalForms">
           <EntitySetMapping Name="StationeryRetrievalForms">
             <EntityTypeMapping TypeName="stationeryModel13.StationeryRetrievalForm">
               <MappingFragment StoreEntitySet="StationeryRetrievalForms">

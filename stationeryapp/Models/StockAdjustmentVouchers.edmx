@@ -29,7 +29,7 @@
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities18" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="StockAdjustmentVouchers" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="StockAdjustmentVouchers" EntityType="Self.StockAdjustmentVoucher" />
         </EntityContainer>
       </Schema>
@@ -37,7 +37,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel15StoreContainer" CdmEntityContainer="stationeryEntities18">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel15StoreContainer" CdmEntityContainer="StockAdjustmentVouchers">
           <EntitySetMapping Name="StockAdjustmentVouchers">
             <EntityTypeMapping TypeName="stationeryModel15.StockAdjustmentVoucher">
               <MappingFragment StoreEntitySet="StockAdjustmentVouchers">

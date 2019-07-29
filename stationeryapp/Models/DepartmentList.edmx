@@ -37,7 +37,7 @@
           <Property Name="CollectionPoint" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RepresentativeId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities5" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="DepartmentList" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="DepartmentLists" EntityType="Self.DepartmentList" />
         </EntityContainer>
       </Schema>
@@ -45,7 +45,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel1StoreContainer" CdmEntityContainer="stationeryEntities5">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel1StoreContainer" CdmEntityContainer="DepartmentList">
           <EntitySetMapping Name="DepartmentLists">
             <EntityTypeMapping TypeName="stationeryModel1.DepartmentList">
               <MappingFragment StoreEntitySet="DepartmentList">

@@ -31,7 +31,7 @@
           <Property Name="CollectionTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="StoreClerk" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="stationeryEntities7" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CollectionPoints" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="CollectionPoints" EntityType="Self.CollectionPoint" />
         </EntityContainer>
       </Schema>
@@ -39,7 +39,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel4StoreContainer" CdmEntityContainer="stationeryEntities7">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel4StoreContainer" CdmEntityContainer="CollectionPoints">
           <EntitySetMapping Name="CollectionPoints">
             <EntityTypeMapping TypeName="stationeryModel4.CollectionPoint">
               <MappingFragment StoreEntitySet="CollectionPoints">
