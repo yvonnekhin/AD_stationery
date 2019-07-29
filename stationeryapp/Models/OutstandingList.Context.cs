@@ -13,10 +13,10 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class OutstandingList : DbContext
+    public partial class OutstandingListDBContext : DbContext
     {
-        public OutstandingList()
-            : base("name=OutstandingList")
+        public OutstandingListDBContext()
+            : base("name=OutstandingListDBContext")
         {
         }
     

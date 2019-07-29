@@ -159,14 +159,17 @@
       <DependentUpon>DepartmentList.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DepartmentList.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>DepartmentList.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DepartmentList.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DepartmentList.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DepartmentList1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DepartmentList.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DisbursementList.cs">
       <DependentUpon>DisbursementLists.tt</DependentUpon>
@@ -228,14 +231,17 @@
       <DependentUpon>OutstandingList.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OutstandingList.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>OutstandingList.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OutstandingList.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OutstandingList.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OutstandingList1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OutstandingList.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PurchaseOrder.cs">
       <DependentUpon>PurchaseOrders.tt</DependentUpon>
@@ -315,14 +321,17 @@
       <DependentUpon>StationeryCatalog.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StationeryCatalog.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>StationeryCatalog.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StationeryCatalog.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StationeryCatalog.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryCatalog1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StationeryCatalog.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StationeryRetrievalForm.cs">
       <DependentUpon>StationeryRetrievalForms.tt</DependentUpon>
@@ -497,7 +506,7 @@
     <Content Include="Models\DepartmentList.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>DepartmentList.edmx</DependentUpon>
-      <LastGenOutput>DepartmentList.cs</LastGenOutput>
+      <LastGenOutput>DepartmentList1.cs</LastGenOutput>
     </Content>
     <Content Include="Models\DisbursementListDetails.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -537,7 +546,7 @@
     <Content Include="Models\OutstandingList.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>OutstandingList.edmx</DependentUpon>
-      <LastGenOutput>OutstandingList.cs</LastGenOutput>
+      <LastGenOutput>OutstandingList1.cs</LastGenOutput>
     </Content>
     <Content Include="Models\PurchaseOrderDetails.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -587,7 +596,7 @@
     <Content Include="Models\StationeryCatalog.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>StationeryCatalog.edmx</DependentUpon>
-      <LastGenOutput>StationeryCatalog.cs</LastGenOutput>
+      <LastGenOutput>StationeryCatalog1.cs</LastGenOutput>
     </Content>
     <Content Include="Models\StationeryRetrievalFormDetails.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -678,13 +687,6 @@
     <Content Include="Models\CollectionPoints.edmx.diagram">
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\DepartmentList.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DepartmentList.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DepartmentList.edmx.diagram">
-      <DependentUpon>DepartmentList.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\DisbursementListDetails.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DisbursementListDetails.Designer.cs</LastGenOutput>
@@ -698,13 +700,6 @@
     </EntityDeploy>
     <Content Include="Models\DisbursementLists.edmx.diagram">
       <DependentUpon>DisbursementLists.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\OutstandingList.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OutstandingList.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\OutstandingList.edmx.diagram">
-      <DependentUpon>OutstandingList.edmx</DependentUpon>
     </Content>
     <EntityDeploy Include="Models\PurchaseOrderDetails.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -726,13 +721,6 @@
     </EntityDeploy>
     <Content Include="Models\RequisitionFormDetails.edmx.diagram">
       <DependentUpon>RequisitionFormDetails.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\StationeryCatalog.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>StationeryCatalog.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\StationeryCatalog.edmx.diagram">
-      <DependentUpon>StationeryCatalog.edmx</DependentUpon>
     </Content>
     <EntityDeploy Include="Models\StationeryRetrievalFormDetails.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -803,6 +791,27 @@
     </EntityDeploy>
     <Content Include="Models\Employee.edmx.diagram">
       <DependentUpon>Employee.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\DepartmentList.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DepartmentList.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DepartmentList.edmx.diagram">
+      <DependentUpon>DepartmentList.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\StationeryCatalog.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StationeryCatalog.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\StationeryCatalog.edmx.diagram">
+      <DependentUpon>StationeryCatalog.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\OutstandingList.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>OutstandingList.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\OutstandingList.edmx.diagram">
+      <DependentUpon>OutstandingList.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
