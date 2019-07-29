@@ -17,6 +17,7 @@
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="DepartmentCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Designation" Type="nvarchar" MaxLength="50" />
+          <Property Name="SessionId" Type="nvarchar(max)" />
         </EntityType>
         <EntityContainer Name="stationeryModel5StoreContainer">
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -38,6 +39,7 @@
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="DepartmentCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SessionId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityContainer Name="Employee" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employees" EntityType="Self.Employee" />
@@ -59,6 +61,7 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

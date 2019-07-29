@@ -13,10 +13,10 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class StoreManager : DbContext
+    public partial class StoreManagerDBContext : DbContext
     {
-        public StoreManager()
-            : base("name=StoreManager")
+        public StoreManagerDBContext()
+            : base("name=StoreManagerDBContext")
         {
         }
     

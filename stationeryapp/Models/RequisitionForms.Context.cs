@@ -16,7 +16,7 @@ namespace stationeryapp.Models
     public partial class RequisitionFormsDBContext : DbContext
     {
         public RequisitionFormsDBContext()
-            : base("name=RequisitionForms")
+            : base("name=RequisitionFormsDBContext")
         {
         }
     

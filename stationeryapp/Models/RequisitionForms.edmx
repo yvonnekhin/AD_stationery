@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="stationeryModel10.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="stationeryModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="RequisitionForms">
           <Key>
             <PropertyRef Name="FormNumber" />
@@ -17,15 +17,16 @@
           <Property Name="DateReceived" Type="datetime" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
           <Property Name="Comments" Type="nvarchar(max)" />
+          <Property Name="Notification" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityContainer Name="stationeryModel10StoreContainer">
+        <EntityContainer Name="stationeryModelStoreContainer">
           <EntitySet Name="RequisitionForms" EntityType="Self.RequisitionForms" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="stationeryModel10" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="stationeryModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="RequisitionForm">
           <Key>
             <PropertyRef Name="FormNumber" />
@@ -38,8 +39,9 @@
           <Property Name="DateReceived" Type="DateTime" Precision="3" />
           <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Notification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="RequisitionForms" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="RequisitionFormsDBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="RequisitionForms" EntityType="Self.RequisitionForm" />
         </EntityContainer>
       </Schema>
@@ -47,9 +49,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel10StoreContainer" CdmEntityContainer="RequisitionForms">
+        <EntityContainerMapping StorageEntityContainer="stationeryModelStoreContainer" CdmEntityContainer="RequisitionFormsDBContext">
           <EntitySetMapping Name="RequisitionForms">
-            <EntityTypeMapping TypeName="stationeryModel10.RequisitionForm">
+            <EntityTypeMapping TypeName="stationeryModel.RequisitionForm">
               <MappingFragment StoreEntitySet="RequisitionForms">
                 <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
@@ -59,6 +61,7 @@
                 <ScalarProperty Name="DateReceived" ColumnName="DateReceived" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
                 <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="Notification" ColumnName="Notification" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

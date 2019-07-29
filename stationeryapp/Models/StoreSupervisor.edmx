@@ -15,6 +15,7 @@
           <Property Name="EmailAddress" Type="nvarchar" MaxLength="50" />
           <Property Name="UserName" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="SessionId" Type="nvarchar(max)" />
         </EntityType>
         <EntityContainer Name="stationeryModel17StoreContainer">
           <EntitySet Name="StoreSupervisor" EntityType="Self.StoreSupervisor" Schema="dbo" store:Type="Tables" />
@@ -34,8 +35,9 @@
           <Property Name="EmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SessionId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityContainer Name="StoreSupervisor" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="StoreSupervisorDBContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="StoreSupervisors" EntityType="Self.StoreSupervisor" />
         </EntityContainer>
       </Schema>
@@ -43,7 +45,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel17StoreContainer" CdmEntityContainer="StoreSupervisor">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel17StoreContainer" CdmEntityContainer="StoreSupervisorDBContext">
           <EntitySetMapping Name="StoreSupervisors">
             <EntityTypeMapping TypeName="stationeryModel17.StoreSupervisor">
               <MappingFragment StoreEntitySet="StoreSupervisor">
@@ -53,6 +55,7 @@
                 <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

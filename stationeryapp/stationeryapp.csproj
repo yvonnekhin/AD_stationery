@@ -396,8 +396,6 @@
       <DependentUpon>StoreClerk.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StoreClerk.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>StoreClerk.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StoreClerk.Designer.cs">
@@ -405,14 +403,17 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreClerk.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\StoreClerk1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreClerk.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\StoreManager.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreManager.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StoreManager.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>StoreManager.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StoreManager.Designer.cs">
@@ -420,20 +421,28 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreManager.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\StoreManager1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreManager.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\StoreSupervisor.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreSupervisor.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StoreSupervisor.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>StoreSupervisor.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StoreSupervisor.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreSupervisor.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreSupervisor1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StoreSupervisor.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SupplierList.Context.cs">
       <AutoGen>True</AutoGen>
@@ -619,7 +628,7 @@
     <Content Include="Models\StoreClerk.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>StoreClerk.edmx</DependentUpon>
-      <LastGenOutput>StoreClerk.cs</LastGenOutput>
+      <LastGenOutput>StoreClerk1.cs</LastGenOutput>
     </Content>
     <Content Include="Models\StoreManager.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -629,7 +638,7 @@
     <Content Include="Models\StoreManager.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>StoreManager.edmx</DependentUpon>
-      <LastGenOutput>StoreManager.cs</LastGenOutput>
+      <LastGenOutput>StoreManager1.cs</LastGenOutput>
     </Content>
     <Content Include="Models\StoreSupervisor.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -639,7 +648,7 @@
     <Content Include="Models\StoreSupervisor.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>StoreSupervisor.edmx</DependentUpon>
-      <LastGenOutput>StoreSupervisor.cs</LastGenOutput>
+      <LastGenOutput>StoreSupervisor1.cs</LastGenOutput>
     </Content>
     <Content Include="Models\SupplierList.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -681,13 +690,6 @@
     <Content Include="Models\DisbursementLists.edmx.diagram">
       <DependentUpon>DisbursementLists.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\Employee.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Employee.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Employee.edmx.diagram">
-      <DependentUpon>Employee.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\OutstandingList.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>OutstandingList.Designer.cs</LastGenOutput>
@@ -715,13 +717,6 @@
     </EntityDeploy>
     <Content Include="Models\RequisitionFormDetails.edmx.diagram">
       <DependentUpon>RequisitionFormDetails.edmx</DependentUpon>
-    </Content>
-    <EntityDeploy Include="Models\RequisitionForms.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>RequisitionForms.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\RequisitionForms.edmx.diagram">
-      <DependentUpon>RequisitionForms.edmx</DependentUpon>
     </Content>
     <EntityDeploy Include="Models\StationeryCatalog.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -758,19 +753,26 @@
     <Content Include="Models\StockAdjustmentVouchers.edmx.diagram">
       <DependentUpon>StockAdjustmentVouchers.edmx</DependentUpon>
     </Content>
-    <EntityDeploy Include="Models\StoreSupervisor.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>StoreSupervisor.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\StoreSupervisor.edmx.diagram">
-      <DependentUpon>StoreSupervisor.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\SupplierList.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>SupplierList.Designer.cs</LastGenOutput>
     </EntityDeploy>
     <Content Include="Models\SupplierList.edmx.diagram">
       <DependentUpon>SupplierList.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\Employee.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Employee.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Employee.edmx.diagram">
+      <DependentUpon>Employee.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\RequisitionForms.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>RequisitionForms.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\RequisitionForms.edmx.diagram">
+      <DependentUpon>RequisitionForms.edmx</DependentUpon>
     </Content>
     <EntityDeploy Include="Models\StoreClerk.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
@@ -785,6 +787,13 @@
     </EntityDeploy>
     <Content Include="Models\StoreManager.edmx.diagram">
       <DependentUpon>StoreManager.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\StoreSupervisor.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>StoreSupervisor.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\StoreSupervisor.edmx.diagram">
+      <DependentUpon>StoreSupervisor.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
