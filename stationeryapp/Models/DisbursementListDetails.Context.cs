@@ -13,9 +13,9 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DisbursementListDetails : DbContext
+    public partial class DisbursementListDetailsDBContext : DbContext
     {
-        public DisbursementListDetails()
+        public DisbursementListDetailsDBContext()
             : base("name=DisbursementListDetails")
         {
         }

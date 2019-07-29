@@ -13,9 +13,9 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class StockAdjustmentVouchers : DbContext
+    public partial class StockAdjustmentVouchersDBContext : DbContext
     {
-        public StockAdjustmentVouchers()
+        public StockAdjustmentVouchersDBContext()
             : base("name=StockAdjustmentVouchers")
         {
         }

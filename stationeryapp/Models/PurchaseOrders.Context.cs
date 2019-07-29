@@ -13,9 +13,9 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class PurchaseOrders : DbContext
+    public partial class PurchaseOrdersDBContext : DbContext
     {
-        public PurchaseOrders()
+        public PurchaseOrdersDBContext()
             : base("name=PurchaseOrders")
         {
         }

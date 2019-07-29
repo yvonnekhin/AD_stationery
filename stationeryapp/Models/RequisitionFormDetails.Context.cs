@@ -13,9 +13,9 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RequisitionFormDetails : DbContext
+    public partial class RequisitionFormDetailsDBContext : DbContext
     {
-        public RequisitionFormDetails()
+        public RequisitionFormDetailsDBContext()
             : base("name=RequisitionFormDetails")
         {
         }

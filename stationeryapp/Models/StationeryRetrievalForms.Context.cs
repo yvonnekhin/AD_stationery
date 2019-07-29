@@ -13,9 +13,9 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class StationeryRetrievalForms : DbContext
+    public partial class StationeryRetrievalFormsDBContext : DbContext
     {
-        public StationeryRetrievalForms()
+        public StationeryRetrievalFormsDBContext()
             : base("name=StationeryRetrievalForms")
         {
         }

@@ -13,9 +13,9 @@ namespace stationeryapp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CollectionPoints : DbContext
+    public partial class CollectionPointsDBContext : DbContext
     {
-        public CollectionPoints()
+        public CollectionPointsDBContext()
             : base("name=CollectionPoints")
         {
         }
