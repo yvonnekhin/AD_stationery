@@ -23,5 +23,7 @@ namespace stationeryapp.Models
         public string DepartmentCode { get; set; }
         public string Designation { get; set; }
         public string SessionId { get; set; }
+        public Nullable<System.DateTime> DelegateFrom { get; set; }
+        public Nullable<System.DateTime> DelegateTo { get; set; }
     }
 }

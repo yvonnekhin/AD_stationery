@@ -18,6 +18,8 @@
           <Property Name="DepartmentCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Designation" Type="nvarchar" MaxLength="50" />
           <Property Name="SessionId" Type="nvarchar(max)" />
+          <Property Name="DelegateFrom" Type="datetime" />
+          <Property Name="DelegateTo" Type="datetime" />
         </EntityType>
         <EntityContainer Name="stationeryModel5StoreContainer">
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
@@ -40,8 +42,10 @@
           <Property Name="DepartmentCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Designation" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="SessionId" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DelegateFrom" Type="DateTime" Precision="3" />
+          <Property Name="DelegateTo" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityContainer Name="EmployeeDBContext" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="EmployeeDB" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Employees" EntityType="Self.Employee" />
         </EntityContainer>
       </Schema>
@@ -49,7 +53,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel5StoreContainer" CdmEntityContainer="EmployeeDBContext">
+        <EntityContainerMapping StorageEntityContainer="stationeryModel5StoreContainer" CdmEntityContainer="EmployeeDB">
           <EntitySetMapping Name="Employees">
             <EntityTypeMapping TypeName="stationeryModel5.Employee">
               <MappingFragment StoreEntitySet="Employee">
@@ -62,6 +66,8 @@
                 <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
                 <ScalarProperty Name="Designation" ColumnName="Designation" />
                 <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="DelegateFrom" ColumnName="DelegateFrom" />
+                <ScalarProperty Name="DelegateTo" ColumnName="DelegateTo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
