@@ -16,14 +16,14 @@ namespace stationeryapp.Reports {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class CrystalReport3 : ReportClass {
+    public class InventoryStatusReport : ReportClass {
         
-        public CrystalReport3() {
+        public InventoryStatusReport() {
         }
         
         public override string ResourceName {
             get {
-                return "CrystalReport3.rpt";
+                return "InventoryStatusReport.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace stationeryapp.Reports {
         
         public override string FullResourceName {
             get {
-                return "stationeryapp.Reports.CrystalReport3.rpt";
+                return "stationeryapp.Reports.InventoryStatusReport.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace stationeryapp.Reports {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedCrystalReport3 : Component, ICachedReport {
+    public class CachedInventoryStatusReport : Component, ICachedReport {
         
-        public CachedCrystalReport3() {
+        public CachedInventoryStatusReport() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace stationeryapp.Reports {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            CrystalReport3 rpt = new CrystalReport3();
+            InventoryStatusReport rpt = new InventoryStatusReport();
             rpt.Site = this.Site;
             return rpt;
         }

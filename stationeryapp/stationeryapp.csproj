@@ -158,10 +158,10 @@
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ReorderViewModel.cs" />
-    <Compile Include="Reports\CrystalReport3.cs">
+    <Compile Include="Reports\InventoryStatusReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CrystalReport3.rpt</DependentUpon>
+      <DependentUpon>InventoryStatusReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Models\DepartmentList.Context.cs">
@@ -938,9 +938,9 @@
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Reports\CrystalReport3.rpt">
+    <EmbeddedResource Include="Reports\InventoryStatusReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
-      <LastGenOutput>CrystalReport3.cs</LastGenOutput>
+      <LastGenOutput>InventoryStatusReport.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\ReorderReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

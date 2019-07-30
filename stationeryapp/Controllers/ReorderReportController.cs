@@ -12,16 +12,15 @@ namespace stationeryapp.Controllers
 {
     public class ReorderReportController : Controller
     {
-        private StationeryCatalogDB db = new StationeryCatalogDB();
-        private ModelDBContext modeldb = new ModelDBContext();
-   
+        //private StationeryCatalogDB db = new StationeryCatalogDB();
+        private ModelDBContext db = new ModelDBContext();
 
         // GET: ReorderReport
         public ActionResult Index(string sortOrder, string searchString)
         {
-            var item = from i in modeldb.StationeryCatalogs
-                       join i1 in modeldb.PurchaseOrderDetails on i.ItemNumber equals i1.ItemNumber
-                       join i2 in modeldb.PurchaseOrders on i1.PONumber equals i2.PONumber
+            var item = from i in db.StationeryCatalogs                      
+                       join i1 in db.PurchaseOrderDetails on i.ItemNumber equals i1.ItemNumber                       
+                       join i2 in db.PurchaseOrders on i1.PONumber equals i2.PONumber 
                        where i.ItemNumber == i1.ItemNumber
                        select new ReorderViewModel
                        {
@@ -42,36 +41,8 @@ namespace stationeryapp.Controllers
             }
             else
                 return View(item);
-
-            //non-working code
-            //var item = from i1 in modeldb.StationeryCatalogs
-            //           join i2 in modeldb.PurchaseOrderDetails on i1.ItemNumber equals i2.ItemNumber
-            //           join i3 in modeldb.PurchaseOrders on i2.PONumber equals i3.PONumber
-            //           where i1.ItemNumber == i2.ItemNumber
-            //           select new 
-            //                 {
-            //                     col1 = i1.ItemNumber,
-            //                     col2 = i1.Category,
-            //                     col3 = i1.Description,
-            //                     col4 = i1.Balance,
-            //                     col5 = i1.ReorderLevel,
-            //                     col6 = i1.ReorderQuantity,
-            //                     col7 = i2.PONumber,
-            //                     col8 = i3.SupplyByDate
-            //                 };
-            //if (!String.IsNullOrEmpty(searchString))
-            //{
-            //    item = item.Where(i1 => i1.col2.Contains(searchString));
-            //    //ViewData["list"] = item.ToList();
-            //    //return View();
-            //    //return View(stationery);
-            //    return View(item.ToList());
-            //}
-
-            //else
-            //    return View(modeldb.StationeryCatalogs.ToList());
-
-            //Working code
+            
+            //Sample working code
             //var item = from i in db.StationeryCatalogs
             //           select i;
             //if (!String.IsNullOrEmpty(searchString))

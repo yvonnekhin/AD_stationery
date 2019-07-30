@@ -14,7 +14,7 @@ namespace stationeryapp.Controllers
 {
     public class StationeryCatalogReportController : Controller
     {
-        private StationeryCatalogDB db = new StationeryCatalogDB();
+        private ModelDBContext db = new ModelDBContext();
 
         // GET: StationeryCatalogReport
         public ActionResult Index()
@@ -30,8 +30,7 @@ namespace stationeryapp.Controllers
         public ActionResult exportReport()
         {
             ReportDocument rd = new ReportDocument();
-            //rd.Load(FilePathResult.Combine(Server.MapPath("~/ Report"), "CrystalReport3.rpt"));
-            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "CrystalReport3.rpt"));
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "InventoryStatusReport.rpt"));
             rd.SetDataSource(db.StationeryCatalogs.ToList());
             Response.Buffer = false;
             Response.ClearContent();
@@ -48,9 +47,8 @@ namespace stationeryapp.Controllers
             }
         }
 
-
-            // GET: StationeryCatalogReport/Details/5
-            public ActionResult Details(string id)
+        // GET: StationeryCatalogReport/Details/5
+        public ActionResult Details(string id)
         {
             if (id == null)
             {
