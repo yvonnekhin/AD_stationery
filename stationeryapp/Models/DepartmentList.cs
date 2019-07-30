@@ -14,6 +14,15 @@ namespace stationeryapp.Models
     
     public partial class DepartmentList
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DepartmentList()
+        {
+            this.DisbursementLists = new HashSet<DisbursementList>();
+            this.Employees = new HashSet<Employee>();
+            this.OutstandingLists = new HashSet<OutstandingList>();
+            this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
+        }
+    
         public string DepartmentCode { get; set; }
         public string DepartmentName { get; set; }
         public Nullable<int> TelephoneNo { get; set; }
@@ -21,5 +30,17 @@ namespace stationeryapp.Models
         public string HeadId { get; set; }
         public string CollectionPoint { get; set; }
         public string RepresentativeId { get; set; }
+    
+        public virtual CollectionPoint CollectionPoint1 { get; set; }
+        public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DisbursementList> DisbursementLists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Employee> Employees { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OutstandingList> OutstandingLists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StationeryRetrievalFormDetail> StationeryRetrievalFormDetails { get; set; }
     }
 }

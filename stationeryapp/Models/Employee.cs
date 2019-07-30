@@ -14,6 +14,15 @@ namespace stationeryapp.Models
     
     public partial class Employee
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Employee()
+        {
+            this.DepartmentLists = new HashSet<DepartmentList>();
+            this.DepartmentLists1 = new HashSet<DepartmentList>();
+            this.RequisitionForms = new HashSet<RequisitionForm>();
+            this.RequisitionForms1 = new HashSet<RequisitionForm>();
+        }
+    
         public string Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -25,5 +34,15 @@ namespace stationeryapp.Models
         public string SessionId { get; set; }
         public Nullable<System.DateTime> DelegateFrom { get; set; }
         public Nullable<System.DateTime> DelegateTo { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DepartmentList> DepartmentLists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DepartmentList> DepartmentLists1 { get; set; }
+        public virtual DepartmentList DepartmentList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisitionForm> RequisitionForms { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisitionForm> RequisitionForms1 { get; set; }
     }
 }

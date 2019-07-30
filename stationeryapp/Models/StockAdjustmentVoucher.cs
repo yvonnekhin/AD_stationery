@@ -14,8 +14,18 @@ namespace stationeryapp.Models
     
     public partial class StockAdjustmentVoucher
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public StockAdjustmentVoucher()
+        {
+            this.StockAdjustmentVoucherDetails = new HashSet<StockAdjustmentVoucherDetail>();
+        }
+    
         public string AdjustmentVoucherNumber { get; set; }
         public string Status { get; set; }
         public string Remarks { get; set; }
+        public Nullable<System.DateTime> Date { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StockAdjustmentVoucherDetail> StockAdjustmentVoucherDetails { get; set; }
     }
 }

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<stationeryapp.Models.RequisitionFormDetail>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RequisitionForm.EmployeeId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StationeryCatalog.Category)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Quantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RequisitionForm.EmployeeId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.StationeryCatalog.Category)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FormDetailsNumber }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FormDetailsNumber }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FormDetailsNumber })
+        </td>
+    </tr>
+}
+
+</table>

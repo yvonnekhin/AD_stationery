@@ -12,15 +12,12 @@ namespace stationeryapp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class StockAdjustmentVoucherDetail
+    public partial class sysdiagram
     {
-        public string AdjustmentDetailsNumber { get; set; }
-        public string AdjustmentVoucherNumber { get; set; }
-        public string ItemNumber { get; set; }
-        public Nullable<int> QuantityAdjusted { get; set; }
-        public string Reason { get; set; }
-    
-        public virtual StationeryCatalog StationeryCatalog { get; set; }
-        public virtual StockAdjustmentVoucher StockAdjustmentVoucher { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

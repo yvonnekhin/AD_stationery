@@ -1,15 +1,26 @@
-﻿@model IEnumerable<stationeryapp.Models.StationeryCatalog>
+﻿@*@model IEnumerable<stationeryapp.Models.StationeryCatalog>*@
+
+@model IEnumerable<stationeryapp.Models.ReorderViewModel>
+
 
 @{
-    ViewBag.Title = "Inventory Status Report";
+    ViewBag.Title = "Index";
 }
 
-<h2>Inventory Status Report</h2>
+<h2>Index</h2>
 
-<p>
-    @*@Html.ActionLink("Create New", "Create")*@
-    <a class="btn btn=success" href="@Url.Action("exportReport")">Download Report</a>
-</p>
+@*<p>
+        @Html.ActionLink("Create New", "Create")
+    </p>*@
+
+@using (Html.BeginForm())
+{
+    <p>
+        Find by category: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <table class="table">
     <tr>
 
@@ -19,6 +30,27 @@
             @Html.DisplayNameFor(model => model.ItemNumber)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Balance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReorderLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReorderQuantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PONumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplyByDate)
+        </th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Category)
         </th>
         <th>
@@ -35,7 +67,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.ReorderLevel)
-        </th>
+        </th>*@
         @*<th>
             @Html.DisplayNameFor(model => model.ReorderQuantity)
         </th>
@@ -80,6 +112,27 @@
             @Html.DisplayFor(modelItem => item.Description)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Balance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReorderLevel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReorderQuantity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PONumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SupplyByDate)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.BinNumber)
         </td>
         <td>
@@ -90,7 +143,7 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.ReorderLevel)
-        </td>
+        </td>*@
         @*<td>
             @Html.DisplayFor(modelItem => item.ReorderQuantity)
         </td>

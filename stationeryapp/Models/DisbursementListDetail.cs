@@ -20,5 +20,8 @@ namespace stationeryapp.Models
         public Nullable<int> Quantity { get; set; }
         public Nullable<int> QuantityReceived { get; set; }
         public string Remarks { get; set; }
+    
+        public virtual DisbursementList DisbursementList { get; set; }
+        public virtual StationeryCatalog StationeryCatalog { get; set; }
     }
 }

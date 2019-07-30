@@ -14,8 +14,17 @@ namespace stationeryapp.Models
     
     public partial class StationeryRetrievalForm
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public StationeryRetrievalForm()
+        {
+            this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
+        }
+    
         public string FormNumber { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Status { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StationeryRetrievalFormDetail> StationeryRetrievalFormDetails { get; set; }
     }
 }

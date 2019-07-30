@@ -14,6 +14,15 @@ namespace stationeryapp.Models
     
     public partial class SupplierList
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public SupplierList()
+        {
+            this.PurchaseOrders = new HashSet<PurchaseOrder>();
+            this.StationeryCatalogs = new HashSet<StationeryCatalog>();
+            this.StationeryCatalogs1 = new HashSet<StationeryCatalog>();
+            this.StationeryCatalogs2 = new HashSet<StationeryCatalog>();
+        }
+    
         public string SupplierCode { get; set; }
         public string SupplierName { get; set; }
         public string GSTNo { get; set; }
@@ -21,5 +30,14 @@ namespace stationeryapp.Models
         public Nullable<int> PhoneNo { get; set; }
         public Nullable<int> FaxNo { get; set; }
         public string Address { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StationeryCatalog> StationeryCatalogs { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StationeryCatalog> StationeryCatalogs1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StationeryCatalog> StationeryCatalogs2 { get; set; }
     }
 }

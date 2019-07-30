@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="208b262b1aaf4b9e8762642bf3de0699" Name="Diagram1">
+        <EntityTypeShape EntityType="stationeryModel19.CollectionPoint" Width="1.5" PointX="1.5" PointY="31.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.DepartmentList" Width="1.5" PointX="1.5" PointY="26.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.DisbursementListDetail" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.DisbursementList" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.Employee" Width="1.5" PointX="0.75" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.OutstandingList" Width="1.5" PointX="8.25" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.PurchaseOrderDetail" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.PurchaseOrder" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.RequisitionFormDetail" Width="1.5" PointX="5.25" PointY="12.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.RequisitionForm" Width="1.5" PointX="3" PointY="21.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StationeryCatalog" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StationeryRetrievalFormDetail" Width="1.5" PointX="5.25" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StationeryRetrievalForm" Width="1.5" PointX="3" PointY="34.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StockAdjustmentVoucherDetail" Width="1.5" PointX="8.25" PointY="12.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StockAdjustmentVoucher" Width="1.5" PointX="6" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StoreClerk" Width="1.5" PointX="0.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StoreManager" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StoreSupervisor" Width="1.5" PointX="0.75" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.SupplierList" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="stationeryModel19.FK_CollectionPoints_StoreClerk" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_DepartmentList_CollectionPoints" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_DepartmentList_DepartmentHead" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_DepartmentList_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_DisbursementLists_DepartmentList" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_Employee_DepartmentList" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_OutstandingList_DepartmentList" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_StationeryRetrievalFormDetails_DepartmentList" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_DisbursementListDetails_DisbursementLists" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_DisbursementListDetails_StationeryCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_RequisitionForms_DepartmentHead" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_RequisitionForms_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_OutstandingList_RequisitionForms" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_OutstandingList_StationeryCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrderDetails_PurchaseOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrderDetails_StationeryCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_StoreClerk" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_StoreClerk1" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_StoreSupervisor" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_SupplierList" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_RequisitionFormDetails_RequisitionForms" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_RequisitionFormDetails_StationeryCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_RequisitionForms_StoreClerk" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_StationeryCatalog_SupplierList" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_StationeryCatalog_SupplierList1" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_StationeryCatalog_SupplierList2" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_StationeryRetrievalFormDetails_StationeryCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_StockAdjustmentVoucherDetails_StationeryCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_StationeryRetrievalFormDetails_StationeryRetrievalForms" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_StockAdjustmentVoucherDetails_StockAdjustmentVouchers" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

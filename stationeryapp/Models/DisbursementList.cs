@@ -14,9 +14,19 @@ namespace stationeryapp.Models
     
     public partial class DisbursementList
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public DisbursementList()
+        {
+            this.DisbursementListDetails = new HashSet<DisbursementListDetail>();
+        }
+    
         public string ListNumber { get; set; }
         public string DepartmentCode { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Status { get; set; }
+    
+        public virtual DepartmentList DepartmentList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DisbursementListDetail> DisbursementListDetails { get; set; }
     }
 }

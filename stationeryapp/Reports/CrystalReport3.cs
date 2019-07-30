@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace stationeryapp.Models {
+namespace stationeryapp.Reports {
     using System;
     using System.ComponentModel;
     using CrystalDecisions.Shared;
@@ -16,14 +16,14 @@ namespace stationeryapp.Models {
     using CrystalDecisions.CrystalReports.Engine;
     
     
-    public class ReorderReport : ReportClass {
+    public class CrystalReport3 : ReportClass {
         
-        public ReorderReport() {
+        public CrystalReport3() {
         }
         
         public override string ResourceName {
             get {
-                return "ReorderReport.rpt";
+                return "CrystalReport3.rpt";
             }
             set {
                 // Do nothing
@@ -41,7 +41,7 @@ namespace stationeryapp.Models {
         
         public override string FullResourceName {
             get {
-                return "stationeryapp.Models.ReorderReport.rpt";
+                return "stationeryapp.Reports.CrystalReport3.rpt";
             }
             set {
                 // Do nothing
@@ -90,9 +90,9 @@ namespace stationeryapp.Models {
     }
     
     [System.Drawing.ToolboxBitmapAttribute(typeof(CrystalDecisions.Shared.ExportOptions), "report.bmp")]
-    public class CachedReorderReport : Component, ICachedReport {
+    public class CachedCrystalReport3 : Component, ICachedReport {
         
-        public CachedReorderReport() {
+        public CachedCrystalReport3() {
         }
         
         [Browsable(false)]
@@ -129,7 +129,7 @@ namespace stationeryapp.Models {
         }
         
         public virtual CrystalDecisions.CrystalReports.Engine.ReportDocument CreateReport() {
-            ReorderReport rpt = new ReorderReport();
+            CrystalReport3 rpt = new CrystalReport3();
             rpt.Site = this.Site;
             return rpt;
         }

@@ -14,9 +14,19 @@ namespace stationeryapp.Models
     
     public partial class CollectionPoint
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CollectionPoint()
+        {
+            this.DepartmentLists = new HashSet<DepartmentList>();
+        }
+    
         public string CollectionPointCode { get; set; }
         public string CollectionPointName { get; set; }
         public string CollectionTime { get; set; }
         public string StoreClerk { get; set; }
+    
+        public virtual StoreClerk StoreClerk1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DepartmentList> DepartmentLists { get; set; }
     }
 }

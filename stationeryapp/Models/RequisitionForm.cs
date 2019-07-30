@@ -14,6 +14,13 @@ namespace stationeryapp.Models
     
     public partial class RequisitionForm
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public RequisitionForm()
+        {
+            this.OutstandingLists = new HashSet<OutstandingList>();
+            this.RequisitionFormDetails = new HashSet<RequisitionFormDetail>();
+        }
+    
         public string FormNumber { get; set; }
         public string EmployeeId { get; set; }
         public string ApprovedBy { get; set; }
@@ -23,5 +30,13 @@ namespace stationeryapp.Models
         public string Status { get; set; }
         public string Comments { get; set; }
         public string Notification { get; set; }
+    
+        public virtual Employee Employee { get; set; }
+        public virtual Employee Employee1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OutstandingList> OutstandingLists { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisitionFormDetail> RequisitionFormDetails { get; set; }
+        public virtual StoreClerk StoreClerk { get; set; }
     }
 }

@@ -22,5 +22,9 @@ namespace stationeryapp.Models
         public string DepartmentCode { get; set; }
         public Nullable<int> Needed { get; set; }
         public string POStatus { get; set; }
+    
+        public virtual DepartmentList DepartmentList { get; set; }
+        public virtual RequisitionForm RequisitionForm { get; set; }
+        public virtual StationeryCatalog StationeryCatalog { get; set; }
     }
 }
