@@ -16,5 +16,6 @@ namespace stationeryapp.Models
     {
         public string FormNumber { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
+        public string Status { get; set; }
     }
 }
