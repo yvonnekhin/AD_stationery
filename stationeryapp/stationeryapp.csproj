@@ -133,8 +133,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReorderReportController.cs" />
+    <Compile Include="Controllers\ReportHomeController.cs" />
     <Compile Include="Controllers\RequisitionFormDetailsController.cs" />
+    <Compile Include="Controllers\RequisitionFormsController.cs" />
+    <Compile Include="Controllers\RequisitionReportController.cs" />
     <Compile Include="Controllers\StationeryCatalogReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -158,6 +162,7 @@
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\ReorderViewModel.cs" />
+    <Compile Include="Models\RequisitionViewModel.cs" />
     <Compile Include="Reports\InventoryStatusReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -513,6 +518,12 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\RequisitionReport.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RequisitionReport.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Views\StationeryCatalogReport\Report.aspx.cs">
       <DependentUpon>Report.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -526,6 +537,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\ReportsIcon.png" />
+    <Content Include="Content\TrendsIcon.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -913,6 +926,14 @@
     <Content Include="Views\RequisitionFormDetails\Details.cshtml" />
     <Content Include="Views\RequisitionFormDetails\Edit.cshtml" />
     <Content Include="Views\RequisitionFormDetails\Index.cshtml" />
+    <Content Include="Views\RequisitionReport\Create.cshtml" />
+    <Content Include="Views\RequisitionReport\Delete.cshtml" />
+    <Content Include="Views\RequisitionReport\Details.cshtml" />
+    <Content Include="Views\RequisitionReport\Edit.cshtml" />
+    <Content Include="Views\RequisitionReport\Index.cshtml" />
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\RequisitionForms\Index.cshtml" />
+    <Content Include="Views\ReportHome\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -945,6 +966,10 @@
     <EmbeddedResource Include="Reports\ReorderReport.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>ReorderReport.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\RequisitionReport.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>RequisitionReport.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

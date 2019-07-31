@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "View";
+}
+
+<h2>Reports</h2>
+
+<p>
+    <br/>
+    <br/>
+</p>
+
+<table align="center">
+    <tr>
+        <td align="center"><a href=" @Url.Action("Index", "StationeryCatalogReport")" ><img src="~/Content/ReportsIcon.png" height="100" width="90"></a></td>
+        <td style="padding:50px"></td>
+        <td align="center"><a href=" @Url.Action("Index", "ReorderReport")"><img src="~/Content/ReportsIcon.png" height="100" width="90"></a></td>
+    </tr>
+    <tr>
+        <td align="center">Inventory Status Report</td>
+        <td style="padding:20px"></td>
+        <td align="center">Reorder Report By Category</td>
+    </tr>
+    <tr>
+        <td style="padding:20px"></td>
+    </tr>
+    <tr>
+        <td align="center"><a href=" @Url.Action("Index", "RequisitionReport")"><img src="~/Content/ReportsIcon.png" height="100" width="90"></a></td>
+        <td style="padding:50px"></td>
+        <td align="center"><a href=#><img src="~/Content/TrendsIcon.png" height="100" width="90"></a></td>
+    </tr>
+    <tr>
+        <td align="center">Requisition Report By Department</td>
+        <td style="padding:20px"></td>
+        <td align="center">Trend Analysis</td>
+    </tr>
+</table>
+

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<stationeryapp.Models.RequisitionViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Requisition Report By Department</h2>
+
+<p align="right">
+    <a class="btn btn=success" href="@Url.Action("exportRequisitionReport")">Download Report</a>
+</p>
+
+@using (Html.BeginForm())
+{
+    <p align="right">
+        Find by department: @Html.TextBox("SearchString")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+<p>
+    <br>
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ItemNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Needed)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ItemNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DepartmentCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Needed)
+        </td>
+    </tr>
+    }
+
+</table>

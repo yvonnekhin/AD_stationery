@@ -12,38 +12,41 @@ using stationeryapp.Models;
 
 namespace stationeryapp.Controllers
 {
-    public class StationeryCatalogReportController : Controller
+    public class RequisitionReportController : Controller
     {
         private ModelDBContext db = new ModelDBContext();
 
-        // GET: StationeryCatalogReport
-        public ActionResult Index(String searchString)
+        // GET: RequisitionReport
+        public ActionResult Index(string searchString)
         {
-
             var item = from i in db.StationeryCatalogs
-                       select i;
+                       join i1 in db.StationeryRetrievalFormDetails on i.ItemNumber equals i1.ItemNumber                
+                       where i.ItemNumber == i1.ItemNumber
+                       select new RequisitionViewModel
+                       {
+                           ItemNumber = i.ItemNumber,
+                           Category = i.Category,
+                           Description = i.Description,
+                           DepartmentCode = i1.DepartmentCode,
+                           Needed = i1.Needed
+                       };
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                item = item.Where(i => i.Category.Contains(searchString));
+                item = item.Where(i => i.DepartmentCode.Contains(searchString));
                 return View(item);
             }
             else
                 return View(item);
-
-            //return View(db.StationeryCatalogs.ToList());
         }
 
-        public ActionResult Report()
-        {
-            return View();
-        }
-
-        public ActionResult exportReport()
+        public ActionResult exportRequisitionReport()
         {
             ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "InventoryStatusReport.rpt"));
-            rd.SetDataSource(db.StationeryCatalogs.ToList());
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RequisitionReport.rpt"));
+            rd.Database.Tables[0].SetDataSource(db.StationeryCatalogs.ToList());
+            rd.Database.Tables[1].SetDataSource(db.StationeryRetrievalFormDetails.ToList());           
+            Response.Buffer = false;
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
@@ -51,7 +54,7 @@ namespace stationeryapp.Controllers
             {
                 System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
                 stream.Seek(0, System.IO.SeekOrigin.Begin);
-                return File(stream, "application/ pdf", "InventoryStatusReport.pdf");
+                return File(stream, "application/ pdf", "RequisitionReport.pdf");
             }
             catch
             {
@@ -59,7 +62,7 @@ namespace stationeryapp.Controllers
             }
         }
 
-        // GET: StationeryCatalogReport/Details/5
+        // GET: RequisitionReport/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -74,13 +77,16 @@ namespace stationeryapp.Controllers
             return View(stationeryCatalog);
         }
 
-        // GET: StationeryCatalogReport/Create
+        // GET: RequisitionReport/Create
         public ActionResult Create()
         {
+            ViewBag.SupplierCode1 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName");
+            ViewBag.SupplierCode2 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName");
+            ViewBag.SupplierCode3 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName");
             return View();
         }
 
-        // POST: StationeryCatalogReport/Create
+        // POST: RequisitionReport/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -94,10 +100,13 @@ namespace stationeryapp.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.SupplierCode1 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode1);
+            ViewBag.SupplierCode2 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode2);
+            ViewBag.SupplierCode3 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode3);
             return View(stationeryCatalog);
         }
 
-        // GET: StationeryCatalogReport/Edit/5
+        // GET: RequisitionReport/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -109,10 +118,13 @@ namespace stationeryapp.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.SupplierCode1 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode1);
+            ViewBag.SupplierCode2 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode2);
+            ViewBag.SupplierCode3 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode3);
             return View(stationeryCatalog);
         }
 
-        // POST: StationeryCatalogReport/Edit/5
+        // POST: RequisitionReport/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -125,10 +137,13 @@ namespace stationeryapp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.SupplierCode1 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode1);
+            ViewBag.SupplierCode2 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode2);
+            ViewBag.SupplierCode3 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode3);
             return View(stationeryCatalog);
         }
 
-        // GET: StationeryCatalogReport/Delete/5
+        // GET: RequisitionReport/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -143,7 +158,7 @@ namespace stationeryapp.Controllers
             return View(stationeryCatalog);
         }
 
-        // POST: StationeryCatalogReport/Delete/5
+        // POST: RequisitionReport/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

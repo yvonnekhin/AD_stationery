@@ -3,9 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - Stationery Management System</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @{ 
+        string sessionId = (string)ViewData["sessionId"];
+        string username = (string)ViewData["username"];
+    }
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -16,13 +20,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                
+                <p class="navbar-brand">Stationery Management System</p>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (username != null)
+                    {
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { sessionId = sessionId }, new { @class = "hhhh" })</li>
+                        <li style="margin-left:300px"><p style="color:crimson;padding:15px;margin:0;font-size:14px">Welcome---@username</p></li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Login", new { sessionId = sessionId }, new { @class = "hhhh" })</li>
+                    }
                 </ul>
             </div>
         </div>
@@ -31,7 +39,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Stationery Management System</p>
         </footer>
     </div>
 

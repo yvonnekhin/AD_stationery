@@ -1,0 +1,38 @@
+﻿@model IEnumerable<stationeryapp.Models.RequisitionForm>
+
+@{
+    ViewBag.Title = "Index";
+}
+@{ 
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
+}
+
+<h2>RequestForms</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FormNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.Reverse()) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FormNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", "RequisitionFormDetails", new { id=item.FormNumber,sessionId = sessionId },new { @class = "hhhh" })        
+        </td>
+    </tr>
+}
+
+</table>
