@@ -57,28 +57,28 @@ namespace stationeryapp.Controllers
             //    return View(db.StationeryCatalogs.ToList());
         }
 
-        //public ActionResult exportReorderReport()
-        //{           
-        //    ReportDocument rd = new ReportDocument();
-        //    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReorderReport.rpt"));
-        //    rd.Database.Tables[0].SetDataSource(db.StationeryCatalogs.ToList());
-        //    rd.Database.Tables[1].SetDataSource(db.PurchaseOrderDetails.ToList());
-        //    rd.Database.Tables[2].SetDataSource(db.PurchaseOrders.ToList());
-        //    Response.Buffer = false;
-        //    Response.ClearContent();
-        //    Response.ClearHeaders();
+        public ActionResult exportReorderReport()
+        {
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReorderReport.rpt"));
+            rd.Database.Tables[0].SetDataSource(db.StationeryCatalogs.ToList());
+            rd.Database.Tables[1].SetDataSource(db.PurchaseOrderDetails.ToList());
+            rd.Database.Tables[2].SetDataSource(db.PurchaseOrders.ToList());
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
 
-        //    try
-        //    {
-        //        System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-        //        stream.Seek(0, System.IO.SeekOrigin.Begin);
-        //        return File(stream, "application/ pdf", "ReorderReport.pdf");
-        //    }
-        //    catch
-        //    {
-        //        throw;
-        //    }         
-        //}
+            try
+            {
+                System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, System.IO.SeekOrigin.Begin);
+                return File(stream, "application/ pdf", "ReorderReport.pdf");
+            }
+            catch
+            {
+                throw;
+            }
+        }
 
         // GET: ReorderReport/Details/5
         public ActionResult Details(string id)
