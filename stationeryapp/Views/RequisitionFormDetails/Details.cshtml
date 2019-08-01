@@ -3,40 +3,36 @@
 @{
     ViewBag.Title = "Details";
 }
+@{
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
+}
 
-<h2>Details</h2>
+<h2>Request Details</h2>
+<p>Welcome @username</p>
 
 <div>
-    <h4>RequisitionFormDetail</h4>
+    <h4>Request Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Quantity)
+            @Html.DisplayNameFor(model => model.FormDetailsNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FormNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ItemNumber)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Quantity)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.RequisitionForm.EmployeeId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.RequisitionForm.EmployeeId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.StationeryCatalog.Category)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.StationeryCatalog.Category)
-        </dd>
-
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.FormDetailsNumber }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index", "RequisitionForms", new { sessionId = sessionId }, new { @class = "hhhh" })
 </p>

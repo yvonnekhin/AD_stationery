@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
 using stationeryapp.Models;
 
 namespace stationeryapp.Controllers
@@ -30,8 +33,8 @@ namespace stationeryapp.Controllers
                            Balance = i.Balance,
                            ReorderLevel = i.ReorderLevel,
                            ReorderQuantity = i.ReorderQuantity,
-                           PONumber = i1.PONumber,
-                           SupplyByDate = i2.SupplyByDate.Value,
+                           PONumber = i1.PONumber,                          
+                           SupplyByDate = i2.SupplyByDate
                        };
                       
             if (!String.IsNullOrEmpty(searchString))
@@ -52,6 +55,29 @@ namespace stationeryapp.Controllers
             //}
             //else
             //    return View(db.StationeryCatalogs.ToList());
+        }
+
+        public ActionResult exportReorderReport()
+        {
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "ReorderReport.rpt"));
+            rd.Database.Tables[0].SetDataSource(db.StationeryCatalogs.ToList());
+            rd.Database.Tables[1].SetDataSource(db.PurchaseOrderDetails.ToList());
+            rd.Database.Tables[2].SetDataSource(db.PurchaseOrders.ToList());
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            try
+            {
+                System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+                stream.Seek(0, System.IO.SeekOrigin.Begin);
+                return File(stream, "application/ pdf", "ReorderReport.pdf");
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         // GET: ReorderReport/Details/5
