@@ -44,7 +44,7 @@ namespace stationeryapp.Controllers
         {
             if (storeClerk.UserName != null && storeClerk.Password!=null)
             {
-                StoreClerk storeclerk = db.StoreClerks.Where(p => p.UserName == storeClerk.UserName).First();
+                StoreClerk storeclerk = db.StoreClerks.Where(p => p.UserName == storeClerk.UserName).FirstOrDefault();
                 string hashedPassword = CalculateMD5Hash(storeClerk.Password);
                 if (ModelState.IsValid)
                 {
@@ -73,8 +73,9 @@ namespace stationeryapp.Controllers
 
         public ActionResult Logout(string sessionId)
         {
-            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).First();
-            storeclerk.SessionId = null;
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            string newsessionId = Guid.NewGuid().ToString();
+            storeclerk.SessionId = newsessionId;
             db.Entry(storeclerk).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Login");

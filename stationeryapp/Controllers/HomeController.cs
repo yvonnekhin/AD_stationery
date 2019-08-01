@@ -13,7 +13,7 @@ namespace stationeryapp.Controllers
         private RequisitionFormsDBContext db1 = new RequisitionFormsDBContext();
         public ActionResult Index(string sessionId)
         { 
-            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).First();
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             if (storeclerk != null && sessionId != null)
             {
                 ViewData["num"] = db1.RequisitionForms.Where(x => x.Status == "Pending").Count();
