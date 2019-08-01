@@ -1,0 +1,45 @@
+﻿@model IEnumerable<stationeryapp.Models.ViewModelD>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table>
+    <tr>
+        <th>ItemId</th>
+        <th>Department</th>
+        <th>CollectionPoint</th>
+        <th>CollectionTime</th>
+        <th>Status</th>
+
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @*@Html.ActionLink(item.disbursementList.ListNumber, "DisbursementListDetails", "Details")*@
+                <a href='@Url.Action("Details","DisbursementListDetails",new { id= item.disbursementList.ListNumber })'>@item.disbursementList.ListNumber</a>
+            </td>
+            <td>
+                @item.departmentList.DepartmentCode
+            </td>
+            <td>
+                @item.collectionPoint.CollectionPointName
+            </td>
+            <td>
+                @item.collectionPoint.CollectionTime
+            </td>
+            <td>
+                @item.disbursementList.Status
+            </td>
+        </tr>
+    }
+
+</table>
+

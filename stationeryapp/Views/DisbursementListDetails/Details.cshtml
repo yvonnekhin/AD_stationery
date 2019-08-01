@@ -1,0 +1,94 @@
+﻿
+@model List<stationeryapp.Models.DisbursementListDetail>
+
+@{
+    ViewBag.Title = "Details";
+    DateTime date = (DateTime)ViewData["disbursementList"];
+    string collection = (string)ViewData["collection"];
+    string deptName = (string)ViewData["deparment"];
+    string firstName = (string)ViewData["employeeF"];
+    string lastName = (string)ViewData["employeeL"];
+    string name = firstName + "" + lastName;
+}
+
+<h2>Details</h2>
+@using (Html.BeginForm("Update", "DisbursementListDetails", FormMethod.Post))
+{
+    <table>
+        <tr>
+            <th>
+                ListDetailsNumber
+            </th>
+            <th>
+                ItemNumber
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Quantity
+            </th>
+            <th>
+                QuantityReceived
+            </th>
+            <th>
+                Remarks
+            </th>
+        </tr>
+
+
+
+        @*@foreach (var item in Model)*@
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+
+            <tr>
+                <td>
+                    @Html.HiddenFor(Model => Model[i].ListDetailsNumber)
+                    @Html.TextBox("Details[" + @i  + "].ListDetailsNumber",
+                                 Model[i].ListDetailsNumber,
+                                 new { @readonly = "readonly" })
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].StationeryCatalog.ItemNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].StationeryCatalog.Category)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].StationeryCatalog.Description)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => Model[i].Quantity)
+                </td>
+                <td>
+                    @Html.TextBox("Details[" + @i + "].QuantityReceived", Model[i].Quantity)
+
+                </td>
+                <td>
+                    @Html.TextBox("Details[" + @i + "].Remarks", Model[i].Remarks)
+
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="4">
+                <input type="submit" value="Submit"/>
+            </td>
+        </tr>
+    </table>
+}
+
+<br>
+<br>
+<p>Disbersement List at @date</p>
+<p>Collection Point: @collection</p>
+<p>Representative Name: @name</p>
+<p>Department: @deptName</p>
+
