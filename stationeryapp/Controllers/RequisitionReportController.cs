@@ -40,27 +40,27 @@ namespace stationeryapp.Controllers
                 return View(item);
         }
 
-        public ActionResult exportRequisitionReport()
-        {
-            ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RequisitionReport.rpt"));
-            rd.Database.Tables[0].SetDataSource(db.StationeryCatalogs.ToList());
-            rd.Database.Tables[1].SetDataSource(db.StationeryRetrievalFormDetails.ToList());           
-            Response.Buffer = false;
-            Response.Buffer = false;
-            Response.ClearContent();
-            Response.ClearHeaders();
-            try
-            {
-                System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                stream.Seek(0, System.IO.SeekOrigin.Begin);
-                return File(stream, "application/ pdf", "RequisitionReport.pdf");
-            }
-            catch
-            {
-                throw;
-            }
-        }
+        //public ActionResult exportRequisitionReport()
+        //{
+        //    ReportDocument rd = new ReportDocument();
+        //    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "RequisitionReport.rpt"));
+        //    rd.Database.Tables[0].SetDataSource(db.StationeryCatalogs.ToList());
+        //    rd.Database.Tables[1].SetDataSource(db.StationeryRetrievalFormDetails.ToList());           
+        //    Response.Buffer = false;
+        //    Response.Buffer = false;
+        //    Response.ClearContent();
+        //    Response.ClearHeaders();
+        //    try
+        //    {
+        //        System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+        //        stream.Seek(0, System.IO.SeekOrigin.Begin);
+        //        return File(stream, "application/ pdf", "RequisitionReport.pdf");
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //}
 
         // GET: RequisitionReport/Details/5
         public ActionResult Details(string id)

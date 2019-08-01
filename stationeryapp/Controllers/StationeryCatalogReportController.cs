@@ -39,25 +39,25 @@ namespace stationeryapp.Controllers
             return View();
         }
 
-        public ActionResult exportReport()
-        {
-            ReportDocument rd = new ReportDocument();
-            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "InventoryStatusReport.rpt"));
-            rd.SetDataSource(db.StationeryCatalogs.ToList());
-            Response.Buffer = false;
-            Response.ClearContent();
-            Response.ClearHeaders();
-            try
-            {
-                System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
-                stream.Seek(0, System.IO.SeekOrigin.Begin);
-                return File(stream, "application/ pdf", "InventoryStatusReport.pdf");
-            }
-            catch
-            {
-                throw;
-            }
-        }
+        //public ActionResult exportReport()
+        //{
+        //    ReportDocument rd = new ReportDocument();
+        //    rd.Load(Path.Combine(Server.MapPath("~/Reports"), "InventoryStatusReport.rpt"));
+        //    rd.SetDataSource(db.StationeryCatalogs.ToList());
+        //    Response.Buffer = false;
+        //    Response.ClearContent();
+        //    Response.ClearHeaders();
+        //    try
+        //    {
+        //        System.IO.Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+        //        stream.Seek(0, System.IO.SeekOrigin.Begin);
+        //        return File(stream, "application/ pdf", "InventoryStatusReport.pdf");
+        //    }
+        //    catch
+        //    {
+        //        throw;
+        //    }
+        //}
 
         // GET: StationeryCatalogReport/Details/5
         public ActionResult Details(string id)
