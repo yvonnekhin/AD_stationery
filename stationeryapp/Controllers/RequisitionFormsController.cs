@@ -21,8 +21,8 @@ namespace stationeryapp.Controllers
         // GET: RequisitionForms
         public ActionResult Index(string sessionId)
         {
-            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).First();
-            if (storeclerk != null && sessionId != null)
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            if (storeclerk != null && sessionId !=null)
             {
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
