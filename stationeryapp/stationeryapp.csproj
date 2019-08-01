@@ -132,6 +132,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DisbursementListDetailsController.cs" />
+    <Compile Include="Controllers\DisbursementListsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReorderReportController.cs" />
@@ -163,6 +165,7 @@
     </Compile>
     <Compile Include="Models\ReorderViewModel.cs" />
     <Compile Include="Models\RequisitionViewModel.cs" />
+    <Compile Include="Models\ViewModelD.cs" />
     <Compile Include="Reports\InventoryStatusReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -885,6 +888,7 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\StoreClerkImages" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -934,11 +938,22 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\RequisitionForms\Index.cshtml" />
     <Content Include="Views\ReportHome\Index.cshtml" />
+    <Content Include="Views\DisbursementListDetails\Create.cshtml" />
+    <Content Include="Views\DisbursementListDetails\Delete.cshtml" />
+    <Content Include="Views\DisbursementListDetails\Details.cshtml" />
+    <Content Include="Views\DisbursementListDetails\Edit.cshtml" />
+    <Content Include="Views\DisbursementListDetails\Index.cshtml" />
+    <Content Include="Views\DisbursementLists\Create.cshtml" />
+    <Content Include="Views\DisbursementLists\Delete.cshtml" />
+    <Content Include="Views\DisbursementLists\Details.cshtml" />
+    <Content Include="Views\DisbursementLists\Edit.cshtml" />
+    <Content Include="Views\DisbursementLists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DB\" />
     <Folder Include="Filters\" />
+    <Folder Include="Images\" />
     <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>
