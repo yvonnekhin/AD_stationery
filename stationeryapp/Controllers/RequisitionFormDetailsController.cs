@@ -24,10 +24,10 @@ namespace stationeryapp.Controllers
         // GET: RequisitionFormDetails/Details/5
         public ActionResult Details(string id, string sessionId)
         {
-            StoreClerk storeclerk = db2.StoreClerks.Where(p => p.SessionId == sessionId).First();
-            RequisitionForm request = db1.RequisitionForms.Where(p => p.FormNumber == id).First();
-            RequisitionFormDetail detail = db.RequisitionFormDetails.Where(x => x.FormNumber == id).First();
-            if (storeclerk != null && sessionId != null)
+            StoreClerk storeclerk = db2.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            RequisitionForm request = db1.RequisitionForms.Where(p => p.FormNumber == id).FirstOrDefault();
+            RequisitionFormDetail detail = db.RequisitionFormDetails.Where(x => x.FormNumber == id).FirstOrDefault();
+            if (storeclerk != null && sessionId !=null)
             {
                 if (request.Status == "Pending")
                 {
