@@ -4,7 +4,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 
-namespace demo1.Models
+namespace stationeryapp.Models
 {
     public class util
     {

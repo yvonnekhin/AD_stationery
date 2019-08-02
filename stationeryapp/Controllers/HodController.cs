@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using stationery.Models;
-namespace stationery.Controllers
+using stationeryapp.Models;
+namespace stationeryapp.Controllers
 {
     public class HodController : Controller
     {

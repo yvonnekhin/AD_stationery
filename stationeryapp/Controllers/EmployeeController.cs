@@ -5,7 +5,7 @@ using System.Linq;
 using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
-using stationery.Models;
+using stationeryapp.Models;
 
 namespace stationery.Controllers
 {

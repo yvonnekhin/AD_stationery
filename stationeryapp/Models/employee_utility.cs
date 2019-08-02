@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-namespace demo1.Models
+namespace stationeryapp.Models
 {
     public class employee_utility
     {

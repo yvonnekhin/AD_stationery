@@ -142,6 +142,8 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\DisbursementListDetailsController.cs" />
     <Compile Include="Controllers\DisbursementListsController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\HodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReorderReportController.cs" />
@@ -172,8 +174,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\employee_utility.cs" />
     <Compile Include="Models\ReorderViewModel.cs" />
     <Compile Include="Models\RequisitionViewModel.cs" />
+    <Compile Include="Models\util.cs" />
     <Compile Include="Models\ViewModelD.cs" />
     <Compile Include="Reports\InventoryStatusReport.cs">
       <AutoGen>True</AutoGen>
@@ -563,6 +567,13 @@
     <Content Include="Images\Requests.JPG" />
     <Content Include="Images\Retrival Form.PNG" />
     <Content Include="Images\Stock Ajustment.PNG" />
+    <Content Include="image\delegate.png" />
+    <Content Include="image\edit.png" />
+    <Content Include="image\newreq.png" />
+    <Content Include="image\profile.png" />
+    <Content Include="image\reqs.png" />
+    <Content Include="image\stationery.png" />
+    <Content Include="image\user.png" />
     <Content Include="Models\CollectionPoints.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
@@ -970,6 +981,24 @@
     <Content Include="Views\SupplierLists\Details.cshtml" />
     <Content Include="Views\SupplierLists\Edit.cshtml" />
     <Content Include="Views\SupplierLists\Index.cshtml" />
+    <Content Include="Views\Login\EmployeeIndex.cshtml" />
+    <Content Include="Views\HoD\assigndelegate.cshtml" />
+    <Content Include="Views\HoD\editdeptinfo.cshtml" />
+    <Content Include="Views\HoD\Index.cshtml" />
+    <Content Include="Views\HoD\req_forms.cshtml" />
+    <Content Include="Views\HoD\stationaryrequesthistory.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\newrequest.cshtml" />
+    <Content Include="Views\Employee\notify.cshtml" />
+    <Content Include="Views\Employee\sendmail.cshtml" />
+    <Content Include="Views\Employee\viewemail.cshtml" />
+    <Content Include="Views\Employee\viewrequest.cshtml" />
+    <Content Include="Views\Shared\_employeeheader.cshtml" />
+    <Content Include="Views\Shared\_employeeMenuFragment.cshtml" />
+    <Content Include="Views\Shared\_emp_notify.cshtml" />
+    <Content Include="Views\Shared\_hodheader.cshtml" />
+    <Content Include="Views\Shared\_hodMenuFragment.cshtml" />
+    <Content Include="Views\Shared\_hod_notify.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
