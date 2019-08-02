@@ -1,0 +1,43 @@
+﻿@model IEnumerable<stationeryapp.Models.StationeryRetrievalForm>
+
+@{
+    ViewBag.Title = "Retrieval List";
+}
+
+<h2>Retrieval List</h2>
+
+<p>
+    @*@Html.ActionLink("Create New Retrieval Form", "Create")*@
+</p>
+<table class="table" align="center">
+    <tr>
+        <th>Form Number</th>
+        <th>Date Issued</th>
+        <th>Status</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FormNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @{
+                    if (@item.Status == "Pending")
+                    {
+                        @Html.ActionLink(@item.Status, "Create")
+                    }
+                    else
+                    {
+                        @Html.ActionLink(@item.Status, "Details", new { id = @item.FormNumber })
+                    }
+                }
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,47 @@
+﻿@model IEnumerable<stationeryapp.Models.ViewModelOutstanding>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Outstanding List</h2>
+
+<table class="table" align="center">
+    <tr>
+        <th>No</th>
+        <th>Description</th>
+        <th>Shortage Quantity</th>
+        <th>Inventory Quantity</th>
+        <th>PO Status</th>
+    </tr>
+
+    @{
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.retrievalFormDetails.ItemNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.catalogs.Description)
+                </td>
+                <td>
+                    @{ var result = @item.retrievalFormDetails.Needed - @item.retrievalFormDetails.Actual; }
+                    @result
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.catalogs.Balance)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.purchaseOrders.Status)
+                </td>
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.OutstandingListNumber }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.OutstandingListNumber }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.OutstandingListNumber })
+                    </td>*@
+            </tr>
+        }
+    }
+
+</table>

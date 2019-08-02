@@ -1,0 +1,182 @@
+﻿@model IEnumerable<stationeryapp.Models.ViewModelRetrieval>
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Retrieval Form</h2>
+
+
+@using (Html.BeginForm("Update", "StationeryRetrievalForms", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <table>
+        <tr>
+            <td>From:</td>
+            <td>@ViewData["FromDate"]</td>
+        </tr>
+
+        <tr>
+            <td>To:</td>
+            <td><input type="date" name="toDate" /></td>
+        </tr>
+    </table>
+
+    <table class="table" align="center">
+
+        <tr>
+            <th rowspan="2">Bin Number</th>
+            <th rowspan="2">Stationary Description</th>
+            <th colspan="2">Total Quantity</th>
+            <th colspan="3">Breakdown by Department</th>
+        </tr>
+
+        <tr>
+            <th>Needed</th>
+            <th>Retrieved</th>
+            <th>Department Name</th>
+            <th>Needed</th>
+            <th>Actual</th>
+        </tr>
+
+        @functions{
+            public class TempData
+            {
+                public string departmentName;
+                public int needed;
+
+                public TempData(string dname, int n)
+                {
+                    departmentName = dname;
+                    needed = n;
+                }
+            }
+
+            public class Sums
+            {
+                public string description;
+                public int needed;
+
+                public Sums(string desc, int n)
+                {
+                    description = desc;
+                    needed = n;
+                }
+
+                public void addNeeded(int n)
+                {
+                    needed += n;
+                }
+            }
+        }
+
+        @{
+            int sum_needed = 0;
+            int sum_actual = 0;
+            Dictionary<string, List<TempData>> store = new Dictionary<string, List<TempData>>();
+            Dictionary<string, Sums> bin_to_sums = new Dictionary<string, Sums>();
+            foreach (var item in Model)
+            {
+                TempData t = new TempData(@item.employees.DepartmentCode, (int)@item.requisitionFormDetails.Quantity);
+                Sums s = new Sums(@item.catalogs.Description, (int)@item.requisitionFormDetails.Quantity);
+                if (!store.ContainsKey(@item.catalogs.BinNumber))
+                {
+                    List<TempData> list = new List<TempData>();
+                    list.Add(t);
+                    store.Add(@item.catalogs.BinNumber, list);
+                }
+                else
+                {
+                    store[@item.catalogs.BinNumber].Add(t);
+                }
+
+                if (!bin_to_sums.ContainsKey(@item.catalogs.BinNumber))
+                {
+                    bin_to_sums.Add(@item.catalogs.BinNumber, s);
+                }
+                else
+                {
+                    bin_to_sums[@item.catalogs.BinNumber].addNeeded((int)@item.requisitionFormDetails.Quantity);
+                }
+            }
+
+            foreach (var k in store)
+            {
+                List<TempData> l1 = k.Value;
+                <tr>
+                    <td>@k.Key</td>
+                    <td>@bin_to_sums[@k.Key].description</td>
+                    <td>@bin_to_sums[@k.Key].needed</td>
+                    <td><input type="number" value=@bin_to_sums[@k.Key].needed /></td>
+                    <td>@l1[0].departmentName</td>
+                    <td>@l1[0].needed</td>
+                    <td><input type="number" name="neededQuantity" value=@l1[0].needed /></td>
+                    @for (var i = 1; i < l1.Count; i++)
+                    {
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            @l1[i].departmentName
+                        </td>
+                        <td>
+                            @l1[i].needed
+                        </td>
+                        <td>
+                            <input type="number" name="neededQuantity" value=@l1[i].needed />
+                        </td>
+                    </tr>
+                }
+                    </tr>
+                }
+        }
+    </table>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Submit" class="btn btn-default" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+@*<div class="form-horizontal">
+        <h4>StationeryRetrievalForm</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FormNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FormNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FormNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>*@
