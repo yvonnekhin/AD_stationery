@@ -209,7 +209,7 @@ namespace stationeryapp.Controllers
             }
 
             Debug.WriteLine(dept_to_update_coll_point.DepartmentName+ rep.FirstName+current_dept_code);
-            return View("EmployeeIndex");
+            return View("Index");
         }
 
         public ActionResult assigndelegate(string id)

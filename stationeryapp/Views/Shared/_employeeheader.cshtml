@@ -9,7 +9,7 @@
 <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
 <style>
     #Header {
-        height: 15%;
+        height: 10%;
         background-color: #3498db;
         border-color: #3498db;
     }
@@ -51,7 +51,7 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <ul class="nav navbar-nav">
-                <li><img style="height:40px; padding-top:8px; padding-right:10px;" alt="logo" src="~/image/stationery.png"></li>
+                <li><img style="height:40px; padding-top:8px; padding-right:10px;" alt="logo" src="~/Images/stationery.png"></li>
                 <li><a class="navbar-brand" href="#">STATIONERY MANAGEMENT SYSTEM</a></li>
             </ul>
         </div>
@@ -62,11 +62,10 @@
                         <i class="fas fa-bell "></i>
                     </a>
                 </li>
-                <li><a href="#"><img style="height:30px" alt="profile" src="~/image/profile.png">@emp.FirstName</a></li>
+                <li><a href="#"><img style="height:30px" alt="profile" src="~/Images/profile.png">@emp.FirstName</a></li>
                 <li><a href='@Url.Action("EmployeeIndex", "Login")'>Logout</a></li>
             </ul>
         </div>
-        <!--Menu End Here-->
 
     </div>
 </nav>
@@ -74,15 +73,4 @@
 <div class="footer" id="footer">
     <p>Contact us: 65-1234567</p>
 </div>
-
-@*<div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href='@Url.Action("index", "login")'><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
-            </ul>
-        </div>
-    </div>*@
 
