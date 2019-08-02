@@ -1,0 +1,88 @@
+﻿@using stationeryapp.Models;
+@{
+    ViewBag.Title = "_employeeheader";
+    Employee emp = (Employee)Session["user"];
+    int count = (int)Session["count"];
+}
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+<style>
+    #Header {
+        height: 15%;
+        background-color: #3498db;
+        border-color: #3498db;
+    }
+
+        #Header ul li a {
+            color: #ffffff;
+        }
+
+    .footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 6%;
+        background-color: #3498db;
+        color: black;
+        text-align: right;
+        padding-top: 5px;
+        padding-right: 15px;
+    }
+
+    #bell .p1[data-count]:after {
+        position: absolute;
+        right: 10%;
+        top: 8%;
+        content: attr(data-count);
+        font-size: 40%;
+        padding: .2em;
+        border-radius: 50%;
+        line-height: 1em;
+        color: white;
+        background: rgba(255,0,0,.85);
+        text-align: center;
+        min-width: 1em;
+    }
+</style>
+
+<nav class="navbar navbar-default navbar-fixed-top" id="Header">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav">
+                <li><img style="height:40px; padding-top:8px; padding-right:10px;" alt="logo" src="~/image/stationery.png"></li>
+                <li><a class="navbar-brand" href="#">STATIONERY MANAGEMENT SYSTEM</a></li>
+            </ul>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li id="bell">
+                    <a id="bell_count" href="" class="p1 fa-2x has-badge" data-count=@count data-toggle="modal" data-target="#myModal">
+                        <i class="fas fa-bell "></i>
+                    </a>
+                </li>
+                <li><a href="#"><img style="height:30px" alt="profile" src="~/image/profile.png">@emp.FirstName</a></li>
+                <li><a href='@Url.Action("EmployeeIndex", "Login")'>Logout</a></li>
+            </ul>
+        </div>
+        <!--Menu End Here-->
+
+    </div>
+</nav>
+
+<div class="footer" id="footer">
+    <p>Contact us: 65-1234567</p>
+</div>
+
+@*<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href='@Url.Action("index", "login")'><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div>
+    </div>*@
+

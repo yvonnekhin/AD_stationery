@@ -1,0 +1,59 @@
+﻿@Scripts.Render("~/Scripts/dropdownOnchange.js")
+@using stationeryapp.Models;
+@{
+    ViewBag.Title = "assigndelegate";
+    Employee delegate_ = (Employee)ViewData["delegate_"];
+    List<Employee> dept_emp_list = (List<Employee>)ViewData["dept_emp_list"];
+}
+@Html.Partial("_hodheader")
+@Html.Partial("_hodMenuFragment")
+@Html.Partial("_hod_notify")
+<div style="margin-left:15%">
+    <h2>Assign Delegate</h2>
+
+    <table class="table" style="width:80%">
+        <tr>
+            <td> Current Deligate : </td>
+            <td>@delegate_.FirstName @delegate_.LastName</td>
+
+        </tr>
+        <tr>
+            <td>From : @Convert.ToDateTime(@delegate_.DelegateFrom).Date.ToString("dd/MM/yyyy")</td>
+            
+            <td>To: @Convert.ToDateTime(@delegate_.DelegateTo).Date.ToString("dd/MM/yyyy")</td>
+        </tr>
+        @using (Html.BeginForm("edit_delegate", "Hod", FormMethod.Post))
+        {
+            <tr>
+                <td> New Delegate Selection : </td>
+                <td>
+                    @Html.DropDownList("Select Delegate", dept_emp_list.Select(emp => new SelectListItem { Text = emp.FirstName, Value = emp.Id, Selected = (emp.Id == delegate_.Id) ? true : false }), new { @placeholder = "Select New Delegate", id = "delegate_id", onchange = "onChange_delegate()" })
+                </td>
+            </tr>
+            <tr style="display: none;">
+                <td><input style="" id="delegate_id_hidden" value="" name="new_delegate_id" /></td>
+                <td><input type="hidden" id="hidden_dept_head" value=@dept_emp_list.Where(e=>e.Designation=="Head").Select(e=>e.Id).FirstOrDefault().ToString() /></td>
+            </tr>
+            <tr id="show_hide">
+
+                <td>
+                    From : <input type="date" min=@DateTime.Now.Date name="from_date" value="" />
+                </td>
+                <td>
+                    To : <input type="date" name="to_date" value="" required />
+                </td>
+
+            </tr>
+            <tr>
+                <td colspan="2" align="right">
+                    <input type="submit" value="ASSIGN" />
+                    <button>
+                        CANCEL
+                    </button>
+                </td>
+            </tr>
+        }
+    </table>
+
+</div>
+

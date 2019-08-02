@@ -1,0 +1,31 @@
+﻿@using stationeryapp.Models;
+@{
+    ViewBag.Title = "viewrequest";
+    List<RequisitionForm> requestlist = (List<RequisitionForm>)ViewData["requestlist"];
+    Employee emp = (Employee)ViewData["userobj"];
+}
+@Html.Partial("_employeeheader")
+@Html.Partial("_employeeMenuFragment")
+@Html.Partial("_emp_notify")
+
+<div style="margin-left:15%">
+    <h2>View Requests</h2>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Form id</th>
+                <th>Status</th>
+                <th>Comments</th>
+            </tr>
+        </thead>
+        @foreach (var item in requestlist)
+        {
+            <tr>
+                <td><a href="@Url.Action("view_single_request", "Employee", new { form_id = @item.FormNumber })">@(emp.DepartmentCode + "/" + (1000 + int.Parse(item.FormNumber)).ToString())</a> </td>
+                <td>@item.Status</td>
+                <td>@item.Comments</td>
+            </tr>
+        }
+    </table>
+</div>
+

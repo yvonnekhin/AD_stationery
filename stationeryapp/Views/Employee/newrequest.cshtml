@@ -1,0 +1,87 @@
+﻿
+@Scripts.Render("~/Scripts/dropdownOnchange.js")
+@using stationeryapp.Models
+@model RequisitionFormDetail
+@{
+    ViewBag.Title = "newrequest";
+    Boolean single_form_view = ViewData["single_form_view"] != null ? (Boolean)ViewData["single_form_view"] : false;
+    List<StationeryCatalog> items = (List<StationeryCatalog>)ViewData["catalog_list"];
+    List<RequisitionFormDetail> form_cart = (List<RequisitionFormDetail>)ViewData["form_cart"];
+    Employee emp = (Employee)ViewData["emp"];
+    DepartmentList emp_dept = (DepartmentList)ViewData["emp_dept"];
+    string form_number = (string)ViewData["form_number"];
+    RequisitionForm form = (RequisitionForm)ViewData["req_form"];
+}
+
+@Html.Partial("_employeeheader")
+@Html.Partial("_employeeMenuFragment")
+@Html.Partial("_emp_notify")
+
+<div style="margin-left:18%">
+
+    <h3>Form number : @(emp_dept.DepartmentCode + "/" + (1000 + int.Parse(form_number)).ToString())</h3>
+    <h3>Employee name : @emp.FirstName @emp.LastName</h3>
+    <h3>Department name : @emp_dept.DepartmentName</h3>
+
+    <table id="myTable" class="table table-bordered">
+        <tr>
+            <td>Description</td>
+            <td>Quantity</td>
+        </tr>
+        @if (form_cart != null)
+        {
+            foreach (var item in form_cart)
+            {
+                <tr>
+                    <td>
+                        @items.Find(x => x.ItemNumber == item.ItemNumber).Description
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                </tr>
+            }
+        }
+        @if (form != null && form.Comments != "" && form.Comments != null)
+        {
+            <tr><td>COMMENTS :  @form.Comments</td></tr>
+        }
+        @if (!single_form_view)
+        {
+            using (Html.BeginForm("addnew", "Employee", FormMethod.Post))
+            {
+                
+                <tr>
+                    <td>
+                        @Html.DropDownList("Select Item", items.Select(item => new SelectListItem { Text = item.Description, Value = item.ItemNumber }), new { id = "itemId", onchange = "onChange()" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => x.Quantity, new { placeholder = "Enter Quantity", required = "required" })
+                    </td>
+                </tr>
+                <tr>
+                    <td style="display:none;">
+                        @Html.HiddenFor(x => x.FormNumber, new { @Value = @form_number })
+                    </td>
+                    <td style="display:none;">
+                        @Html.HiddenFor(x => x.ItemNumber, new { id = "itemCode", @Value = "C001" })
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Add New" >
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+    @if (form_cart != null && !single_form_view)
+    {
+        using (Html.BeginForm("submitrequest", "Employee", FormMethod.Post))
+        {
+            <input type="hidden" value="@form_number" name="form_number" />
+            <input id="itemCode" type="hidden" value="@emp.Id" name="emp_id" />
+            <input type="submit" value="Submit" class="btn btn-primary">
+        }
+    }
+</div>

@@ -1,0 +1,93 @@
+﻿
+@{
+    String msg = "";
+    ViewBag.Title = "Index";
+    msg = (String)ViewData["msg"];
+}
+
+
+<style>
+    #Header {
+        background-color: #3498db;
+        border-color: #3498db;
+    }
+
+    #footer {
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 30px;
+        background-color: #3498db;
+        color: black;
+        text-align: right;
+        padding-top: 5px;
+        padding-right: 15px;
+    }
+
+    #login {
+        border-collapse: collapse;
+        text-align: center;
+        border: 1px solid black;
+        overflow: hidden;
+        margin-top: 150px;
+    }
+
+    #login, th, td {
+        padding: 10px;
+    }
+</style>
+
+@using (Html.BeginForm("EmployeeLogin","Login", FormMethod.Post))
+{
+    <nav class="navbar navbar-default navbar-fixed-top" id="Header">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <ul class="nav navbar-nav">
+                    <li><img style="height:40px; padding-top:8px; padding-right:10px;" alt="logo" src="~/image/stationery.png"></li>
+                    <li><a class="navbar-brand" href="#" style="color: white;">STATIONERY MANAGEMENT SYSTEM</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="footer" id="footer">
+        <label>Contact us: 65-1234567</label>
+    </div>
+
+    <body>
+        <table align="center" id="login">
+            <tr>
+                <th colspan="2" style="text-align: center">
+                    Employee Login
+                </th>
+            </tr>
+            <tr>
+                <td>UserName : </td>
+                <td>@Html.TextBox("Username","", new {id="Username"})</td>
+            </tr>
+
+            <tr>
+                <td>PassWord :</td>
+                <td>@Html.Password("Password","", new { id = "Password" })</td>
+
+            </tr>
+
+            <tr>
+                @if (msg == "invalid password")
+                {
+                    <td style="color:red;" align="right" colspan="2">INVALID PASSWORD</td>
+                }
+                @if (msg == "invalid user")
+                { 
+                    <td style="color:red" align="right" colspan="2">USER NOT FOUND</td>
+                }
+            </tr>
+
+            <tr>
+                <td colspan="2" align="right"><input type="submit" value="Login" class="btn btn-primary" /></td>
+            </tr>
+            </table>
+    </body>
+
+}

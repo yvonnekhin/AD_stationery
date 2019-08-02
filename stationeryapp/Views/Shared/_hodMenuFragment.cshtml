@@ -1,0 +1,53 @@
+﻿
+@using stationeryapp.Models
+@{ 
+    Employee emp;
+}
+@if ((Session["user"]) != null)
+{
+
+    emp = (Employee)HttpContext.Current.Session["user"];
+}
+else
+{
+    emp = new Employee();
+}
+<style>
+    .sidenav {
+        height: 85%;
+        width: 15%;
+        position: fixed;
+        z-index: 1;
+        top: 50px;
+        left: 0px;
+        background: #eee;
+        overflow-x: hidden;
+        padding: 8px 0;
+    }
+
+    .sidenav a {
+        padding: 25px 8px 25px 15px;
+        /*padding: 6px 8px 6px 10px;*/
+        text-decoration: none;
+        font-size: 20px;
+        color: #2874a6;
+        display: block;
+    }
+
+    .sidenav a:hover {
+        color: black;
+    }
+</style>
+<div class="sidenav">
+    <a href='@Url.Action("index", "Hod",new { id=emp.Id})'>Home</a>
+    <a href='@Url.Action("newstationaryrequest", "Hod",new { id=emp.Id})'>New Stationery Request</a>
+    <a href='@Url.Action("stationaryrequesthistory", "Hod",new { id=emp.Id})'>Stationery Request History</a>
+    <a href='@Url.Action("editdeptinfo", "Hod",new { id=emp.Id})'>Edit Dept Info</a>
+
+    @if (emp.Designation=="Head")
+    {
+          <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id})'>Delegate</a>
+    }
+    
+</div>
+

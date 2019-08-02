@@ -1,0 +1,32 @@
+﻿@using stationeryapp.Models;
+@{
+    ViewBag.Title = "_emp_notify";
+    Employee emp = (Employee)Session["user"];
+    List<RequisitionForm> notify_form_list = (List<RequisitionForm>)Session["notify_form_list"]; ;
+}
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Welcome @emp.FirstName</h4>
+            </div>
+            <div class="modal-body">
+
+                @foreach (var item in notify_form_list)
+                {
+                    <p><a href="@Url.Action("view_single_request", "Employee", new { form_id = @item.FormNumber, notify="seen" })"> @(@emp.DepartmentCode + "/" + (1000 + int.Parse(@item.FormNumber)).ToString()) </a> @(item.Notification == "approved_by_hod"? "Has been Approved" : "Has been Rejected")</p>
+                }
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Modal -->
