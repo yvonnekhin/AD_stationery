@@ -555,6 +555,13 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="image\delegate.png" />
+    <Content Include="image\edit.png" />
+    <Content Include="image\newreq.png" />
+    <Content Include="image\profile.png" />
+    <Content Include="image\reqs.png" />
+    <Content Include="image\stationery.png" />
+    <Content Include="image\user.png" />
     <Content Include="Models\CollectionPoints.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
@@ -961,6 +968,24 @@
     <Content Include="Views\SupplierLists\Details.cshtml" />
     <Content Include="Views\SupplierLists\Edit.cshtml" />
     <Content Include="Views\SupplierLists\Index.cshtml" />
+    <Content Include="Views\Login\EmployeeIndex.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\newrequest.cshtml" />
+    <Content Include="Views\Employee\notify.cshtml" />
+    <Content Include="Views\Employee\sendmail.cshtml" />
+    <Content Include="Views\Employee\viewemail.cshtml" />
+    <Content Include="Views\Employee\viewrequest.cshtml" />
+    <Content Include="Views\HoD\assigndelegate.cshtml" />
+    <Content Include="Views\HoD\editdeptinfo.cshtml" />
+    <Content Include="Views\HoD\Index.cshtml" />
+    <Content Include="Views\HoD\req_forms.cshtml" />
+    <Content Include="Views\HoD\stationaryrequesthistory.cshtml" />
+    <Content Include="Views\Shared\_employeeheader.cshtml" />
+    <Content Include="Views\Shared\_employeeMenuFragment.cshtml" />
+    <Content Include="Views\Shared\_emp_notify.cshtml" />
+    <Content Include="Views\Shared\_hodheader.cshtml" />
+    <Content Include="Views\Shared\_hodMenuFragment.cshtml" />
+    <Content Include="Views\Shared\_hod_notify.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
