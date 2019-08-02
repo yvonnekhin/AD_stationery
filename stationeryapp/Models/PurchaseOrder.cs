@@ -18,6 +18,7 @@ namespace stationeryapp.Models
         public PurchaseOrder()
         {
             this.PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
+            this.OutstandingLists = new HashSet<OutstandingList>();
         }
     
         public string PONumber { get; set; }
@@ -45,5 +46,7 @@ namespace stationeryapp.Models
         public virtual StoreClerk StoreClerk1 { get; set; }
         public virtual StoreSupervisor StoreSupervisor { get; set; }
         public virtual SupplierList SupplierList { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OutstandingList> OutstandingLists { get; set; }
     }
 }

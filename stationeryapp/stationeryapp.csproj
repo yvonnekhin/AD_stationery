@@ -150,6 +150,7 @@
     <Compile Include="Controllers\RequisitionFormsController.cs" />
     <Compile Include="Controllers\RequisitionReportController.cs" />
     <Compile Include="Controllers\StationeryCatalogReportController.cs" />
+    <Compile Include="Controllers\SupplierListsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -964,6 +965,11 @@
     <Content Include="Views\DisbursementLists\Details.cshtml" />
     <Content Include="Views\DisbursementLists\Edit.cshtml" />
     <Content Include="Views\DisbursementLists\Index.cshtml" />
+    <Content Include="Views\SupplierLists\Create.cshtml" />
+    <Content Include="Views\SupplierLists\Delete.cshtml" />
+    <Content Include="Views\SupplierLists\Details.cshtml" />
+    <Content Include="Views\SupplierLists\Edit.cshtml" />
+    <Content Include="Views\SupplierLists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

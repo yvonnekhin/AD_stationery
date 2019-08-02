@@ -21,10 +21,12 @@ namespace stationeryapp.Models
         public Nullable<int> Balance { get; set; }
         public string DepartmentCode { get; set; }
         public Nullable<int> Needed { get; set; }
-        public string POStatus { get; set; }
+        public string PONumber { get; set; }
+        public string Status { get; set; }
     
         public virtual DepartmentList DepartmentList { get; set; }
         public virtual RequisitionForm RequisitionForm { get; set; }
         public virtual StationeryCatalog StationeryCatalog { get; set; }
+        public virtual PurchaseOrder PurchaseOrder { get; set; }
     }
 }

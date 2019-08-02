@@ -73,7 +73,8 @@
           <Property Name="Balance" Type="int" />
           <Property Name="DepartmentCode" Type="nvarchar" MaxLength="50" />
           <Property Name="Needed" Type="int" />
-          <Property Name="POStatus" Type="nvarchar" MaxLength="50" />
+          <Property Name="PONumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PurchaseOrderDetails">
           <Key>
@@ -346,6 +347,18 @@
             </Principal>
             <Dependent Role="OutstandingList">
               <PropertyRef Name="DepartmentCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutstandingList_PurchaseOrders">
+          <End Role="PurchaseOrders" Type="Self.PurchaseOrders" Multiplicity="0..1" />
+          <End Role="OutstandingList" Type="Self.OutstandingList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrders">
+              <PropertyRef Name="PONumber" />
+            </Principal>
+            <Dependent Role="OutstandingList">
+              <PropertyRef Name="PONumber" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -660,6 +673,10 @@
             <End Role="DepartmentList" EntitySet="DepartmentList" />
             <End Role="OutstandingList" EntitySet="OutstandingList" />
           </AssociationSet>
+          <AssociationSet Name="FK_OutstandingList_PurchaseOrders" Association="Self.FK_OutstandingList_PurchaseOrders">
+            <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
+            <End Role="OutstandingList" EntitySet="OutstandingList" />
+          </AssociationSet>
           <AssociationSet Name="FK_OutstandingList_RequisitionForms" Association="Self.FK_OutstandingList_RequisitionForms">
             <End Role="RequisitionForms" EntitySet="RequisitionForms" />
             <End Role="OutstandingList" EntitySet="OutstandingList" />
@@ -835,10 +852,12 @@
           <Property Name="Balance" Type="Int32" />
           <Property Name="DepartmentCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Needed" Type="Int32" />
-          <Property Name="POStatus" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="DepartmentList" Relationship="Self.FK_OutstandingList_DepartmentList" FromRole="OutstandingList" ToRole="DepartmentList" />
           <NavigationProperty Name="RequisitionForm" Relationship="Self.FK_OutstandingList_RequisitionForms" FromRole="OutstandingList" ToRole="RequisitionForms" />
           <NavigationProperty Name="StationeryCatalog" Relationship="Self.FK_OutstandingList_StationeryCatalog" FromRole="OutstandingList" ToRole="StationeryCatalog" />
+          <Property Name="PONumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PurchaseOrder" Relationship="stationeryModel19.FK_OutstandingList_PurchaseOrders" FromRole="OutstandingList" ToRole="PurchaseOrder" />
         </EntityType>
         <EntityType Name="PurchaseOrderDetail">
           <Key>
@@ -876,6 +895,7 @@
           <NavigationProperty Name="StoreClerk1" Relationship="Self.FK_PurchaseOrders_StoreClerk1" FromRole="PurchaseOrders" ToRole="StoreClerk" />
           <NavigationProperty Name="StoreSupervisor" Relationship="Self.FK_PurchaseOrders_StoreSupervisor" FromRole="PurchaseOrders" ToRole="StoreSupervisor" />
           <NavigationProperty Name="SupplierList" Relationship="Self.FK_PurchaseOrders_SupplierList" FromRole="PurchaseOrders" ToRole="SupplierList" />
+          <NavigationProperty Name="OutstandingLists" Relationship="stationeryModel19.FK_OutstandingList_PurchaseOrders" FromRole="PurchaseOrder" ToRole="OutstandingList" />
         </EntityType>
         <EntityType Name="RequisitionFormDetail">
           <Key>
@@ -1548,7 +1568,23 @@
             <End Role="StockAdjustmentVouchers" EntitySet="StockAdjustmentVouchers" />
             <End Role="StockAdjustmentVoucherDetails" EntitySet="StockAdjustmentVoucherDetails" />
           </AssociationSet>
+          <AssociationSet Name="FK_OutstandingList_PurchaseOrders" Association="stationeryModel19.FK_OutstandingList_PurchaseOrders">
+            <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
+            <End Role="OutstandingList" EntitySet="OutstandingLists" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_OutstandingList_PurchaseOrders">
+          <End Type="stationeryModel19.PurchaseOrder" Role="PurchaseOrder" Multiplicity="0..1" />
+          <End Type="stationeryModel19.OutstandingList" Role="OutstandingList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PurchaseOrder">
+              <PropertyRef Name="PONumber" />
+            </Principal>
+            <Dependent Role="OutstandingList">
+              <PropertyRef Name="PONumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1620,6 +1656,8 @@
           <EntitySetMapping Name="OutstandingLists">
             <EntityTypeMapping TypeName="stationeryModel19.OutstandingList">
               <MappingFragment StoreEntitySet="OutstandingList">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
                 <ScalarProperty Name="OutstandingListNumber" ColumnName="OutstandingListNumber" />
                 <ScalarProperty Name="RequisitionFormNumber" ColumnName="RequisitionFormNumber" />
                 <ScalarProperty Name="DateApproved" ColumnName="DateApproved" />
@@ -1627,7 +1665,6 @@
                 <ScalarProperty Name="Balance" ColumnName="Balance" />
                 <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
                 <ScalarProperty Name="Needed" ColumnName="Needed" />
-                <ScalarProperty Name="POStatus" ColumnName="POStatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
