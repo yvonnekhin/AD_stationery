@@ -14,7 +14,7 @@
 <h2>Details</h2>
 @using (Html.BeginForm("Update", "DisbursementListDetails", FormMethod.Post))
 {
-    <table>
+    <table class="table table-bordered table-striped table-hover">
         <tr>
             <th>
                 ListDetailsNumber
@@ -78,7 +78,7 @@
             </tr>
         }
         <tr>
-            <td colspan="4">
+            <td colspan="7">
                 <input type="submit" value="Submit"/>
             </td>
         </tr>

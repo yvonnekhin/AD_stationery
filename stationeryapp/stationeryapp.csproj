@@ -554,6 +554,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Catalog.PNG" />
+    <Content Include="Images\Disbusement List.PNG" />
+    <Content Include="Images\Outstanding.PNG" />
+    <Content Include="Images\PO.PNG" />
+    <Content Include="Images\Reports.PNG" />
+    <Content Include="Images\Requests.JPG" />
+    <Content Include="Images\Retrival Form.PNG" />
+    <Content Include="Images\Stock Ajustment.PNG" />
     <Content Include="Models\CollectionPoints.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
@@ -961,7 +969,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="DB\" />
     <Folder Include="Filters\" />
-    <Folder Include="Images\" />
     <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>

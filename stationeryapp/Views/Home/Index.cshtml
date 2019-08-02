@@ -9,53 +9,72 @@
 
 }
 
-<h2>Home Page</h2>
+<h2 align="center"> Store Clerk Home</h2>
 
 
 
-@*<div class="row">
-        <div class="col-md-4">
-            @Html.ActionLink("RequisitionForms", "Index", "RequisitionForms", new { sessionId = sessionId }, new { @class = "hhhh" })
-            @if (num > 0)
-            {
-              <p style="color:crimson">@num New Requests</p>
-            }
-
-        </div>
-
-    </div>*@
 
 <table align="center">
     <tr>
         <td align="center">
-    
-            <a href=" @Url.Action("Index", "RequisitionForms",new { sessionId = sessionId })"><img src="~/Images/test1.jpg" height="100" width="90"></a>
+            <a href=" @Url.Action("Index", "RequisitionForms",new { sessionId = sessionId })"><img src="~/Images/Requests.jpg" height="100" width="90"></a>
             @if (num > 0)
             {
-                <p style="color:crimson">@num New Requests</p>
+                <p style="color:crimson">@num</p>
             }
         </td>
         <td style="padding:50px"></td>
-        <td align="center"><a href=" @Url.Action("Index", "ReorderReport")"><img src="~/Content/ReportsIcon.png" height="100" width="90"></a></td>
+        <td align="center">
+            <a href=" @Url.Action("Index", "OutStandingContoller")"><img src="~/Images/Outstanding.PNG" height="100" width="90"></a>
+        </td>
+        <td style="padding:50px"></td>
+        <td align="center">
+            <a href=" @Url.Action("Index", "RetrivalController")"><img src="~/Images/Retrival Form.PNG" height="100" width="90"></a>
+        </td>
+        <td style="padding:50px"></td>
+        <td align="center">
+            <a href=" @Url.Action("Index", "DisbursementLists")"><img src="~/Images/Disbusement List.PNG" height="100" width="90"></a>
+        </td>
     </tr>
+    <tr>
+        <td align="center">RequisitionForms</td>
+        <td style="padding:20px"></td>
+        <td align="center">Outstanding</td>
+        <td style="padding:20px"></td>
+        <td align="center">Retrieval Form</td>
+        <td style="padding:20px"></td>
+        <td align="center">Disbursement List</td>
+    </tr>
+
+
+    <tr>
+        <td style="padding:20px"></td>
+    </tr>
+
     <tr>
         <td align="center">
-            RequisitionForms
+            <a href=" @Url.Action("Index", "Catalog")"><img src="~/Images/Catalog.PNG" height="100" width="90"></a>
         </td>
-        <td style="padding:20px"></td>
-        <td align="center">Reorder Report By Category</td>
-    </tr>
-    <tr>
-        <td style="padding:20px"></td>
-    </tr>
-    <tr>
-        <td align="center"><a href=" @Url.Action("Index", "RequisitionReport")"><img src="~/Content/ReportsIcon.png" height="100" width="90"></a></td>
         <td style="padding:50px"></td>
-        <td align="center"><a href=#><img src="~/Content/TrendsIcon.png" height="100" width="90"></a></td>
+        <td align="center">
+            <a href=" @Url.Action("Index", "Purchase Order")"><img src="~/Images/PO.PNG" height="100" width="90"></a>
+        </td>
+        <td style="padding:50px"></td>
+        <td align="center">
+            <a href=" @Url.Action("Index", "Stock Adjustment")"><img src="~/Images/Stock Ajustment.PNG" height="100" width="90"></a>
+        </td>
+        <td style="padding:50px"></td>
+        <td align="center">
+            <a href=" @Url.Action("Index", "ReportHome")"><img src="~/Images/Reports.PNG" height="100" width="90"></a>
+        </td>
     </tr>
     <tr>
-        <td align="center">Requisition Report By Department</td>
+        <td align="center">Catalog</td>
         <td style="padding:20px"></td>
-        <td align="center">Trend Analysis</td>
+        <td align="center">Purchase Order</td>
+        <td style="padding:20px"></td>
+        <td align="center">Stock Adjustment</td>
+        <td style="padding:20px"></td>
+        <td align="center">Reports</td>
     </tr>
 </table>

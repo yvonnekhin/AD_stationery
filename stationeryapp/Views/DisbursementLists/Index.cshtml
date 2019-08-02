@@ -10,7 +10,7 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 
-<table>
+<table class="table table-bordered table-striped table-hover">
     <tr>
         <th>ItemId</th>
         <th>Department</th>
@@ -22,20 +22,21 @@
     @foreach (var item in Model)
     {
         <tr>
+         
             <td>
                 @*@Html.ActionLink(item.disbursementList.ListNumber, "DisbursementListDetails", "Details")*@
                 <a href='@Url.Action("Details","DisbursementListDetails",new { id= item.disbursementList.ListNumber })'>@item.disbursementList.ListNumber</a>
             </td>
-            <td>
+            <td style="background-color:aliceblue">
                 @item.departmentList.DepartmentCode
             </td>
             <td>
                 @item.collectionPoint.CollectionPointName
             </td>
-            <td>
+            <td class="success">
                 @item.collectionPoint.CollectionTime
             </td>
-            <td>
+            <td class="text-primary">
                 @item.disbursementList.Status
             </td>
         </tr>
