@@ -567,6 +567,9 @@
     <Content Include="Images\delegate.png" />
     <Content Include="Images\Disbusement List.PNG" />
     <Content Include="Images\edit.png" />
+    <Content Include="Images\logo1.jpg" />
+    <Content Include="Images\logo2.jpg" />
+    <Content Include="Images\logo3.jpg" />
     <Content Include="Images\newreq.png" />
     <Content Include="Images\Outstanding.PNG" />
     <Content Include="Images\PO.PNG" />
@@ -576,6 +579,7 @@
     <Content Include="Images\Requests.JPG" />
     <Content Include="Images\Retrival Form.PNG" />
     <Content Include="Images\stationery.png" />
+    <Content Include="Images\StationeryManagementlogin.jpg" />
     <Content Include="Images\Stock Ajustment.PNG" />
     <Content Include="Images\user.png" />
     <Content Include="Models\CollectionPoints.Context.tt">
