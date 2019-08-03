@@ -581,6 +581,8 @@
     <Content Include="Images\stationery.png" />
     <Content Include="Images\StationeryManagementlogin.jpg" />
     <Content Include="Images\Stock Ajustment.PNG" />
+    <Content Include="Images\storeclarkprofile.png" />
+    <Content Include="Images\storeclarkprofile2.png" />
     <Content Include="Images\user.png" />
     <Content Include="Models\CollectionPoints.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
