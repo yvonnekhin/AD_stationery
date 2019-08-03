@@ -18,7 +18,9 @@ namespace stationeryapp.Models
         public string FormNumber { get; set; }
         public string ItemNumber { get; set; }
         public Nullable<int> Quantity { get; set; }
-    
+
+        public string Status { get; set; }
+
         public virtual RequisitionForm RequisitionForm { get; set; }
         public virtual StationeryCatalog StationeryCatalog { get; set; }
     }

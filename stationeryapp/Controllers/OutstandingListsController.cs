@@ -24,21 +24,21 @@ namespace stationeryapp.Controllers
             List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
 
             var outstandingListRecord = (from o in outstandingLists                                         
-                                         join r in retrievalFormDetails on o.ItemNumber equals r.ItemNumber into table1
-                                         from r in table1.ToList()
-                                         join c in catalogs on o.ItemNumber equals c.ItemNumber into table2
-                                         from c in table2.ToList()
-                                         join pd in purchaseOrderDetails on o.ItemNumber equals pd.ItemNumber into table3
-                                         from pd in table3.ToList()
-                                         join p in purchaseOrders on pd.PONumber equals p.PONumber into table4
-                                         from p in table4.ToList()
+                                         //join r in retrievalFormDetails on o.ItemNumber equals r.ItemNumber into table1
+                                         //from r in table1.ToList()
+                                         //join c in catalogs on o.ItemNumber equals c.ItemNumber into table2
+                                         //from c in table2.ToList()
+                                         //join pd in purchaseOrderDetails on o.ItemNumber equals pd.ItemNumber into table3
+                                         //from pd in table3.ToList()
+                                         //join p in purchaseOrders on pd.PONumber equals p.PONumber into table4
+                                         //from p in table4.ToList()
                                          select new ViewModelOutstanding
                                          {
-                                             outstandingLists = o,
-                                             retrievalFormDetails = r,
-                                             catalogs = c,
-                                             purchaseOrderDetails = pd,
-                                             purchaseOrders = p
+                                             //outstandingLists = o,
+                                             //retrievalFormDetails = r,
+                                             //catalogs = c,
+                                             //purchaseOrderDetails = pd,
+                                             //purchaseOrders = p
                                          });
 
             return View(outstandingListRecord.ToList());
@@ -86,9 +86,9 @@ namespace stationeryapp.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.DepartmentCode = new SelectList(db.DepartmentLists, "DepartmentCode", "DepartmentName", outstandingList.DepartmentCode);
-            ViewBag.RequisitionFormNumber = new SelectList(db.RequisitionForms, "FormNumber", "EmployeeId", outstandingList.RequisitionFormNumber);
-            ViewBag.ItemNumber = new SelectList(db.StationeryCatalogs, "ItemNumber", "Category", outstandingList.ItemNumber);
+            //ViewBag.DepartmentCode = new SelectList(db.DepartmentLists, "DepartmentCode", "DepartmentName", outstandingList.DepartmentCode);
+            //ViewBag.RequisitionFormNumber = new SelectList(db.RequisitionForms, "FormNumber", "EmployeeId", outstandingList.RequisitionFormNumber);
+            //ViewBag.ItemNumber = new SelectList(db.StationeryCatalogs, "ItemNumber", "Category", outstandingList.ItemNumber);
             ViewBag.PONumber = new SelectList(db.PurchaseOrders, "PONumber", "SupplierCode", outstandingList.PONumber);
             return View(outstandingList);
         }
@@ -105,9 +105,9 @@ namespace stationeryapp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.DepartmentCode = new SelectList(db.DepartmentLists, "DepartmentCode", "DepartmentName", outstandingList.DepartmentCode);
-            ViewBag.RequisitionFormNumber = new SelectList(db.RequisitionForms, "FormNumber", "EmployeeId", outstandingList.RequisitionFormNumber);
-            ViewBag.ItemNumber = new SelectList(db.StationeryCatalogs, "ItemNumber", "Category", outstandingList.ItemNumber);
+            //ViewBag.DepartmentCode = new SelectList(db.DepartmentLists, "DepartmentCode", "DepartmentName", outstandingList.DepartmentCode);
+            //ViewBag.RequisitionFormNumber = new SelectList(db.RequisitionForms, "FormNumber", "EmployeeId", outstandingList.RequisitionFormNumber);
+            //ViewBag.ItemNumber = new SelectList(db.StationeryCatalogs, "ItemNumber", "Category", outstandingList.ItemNumber);
             ViewBag.PONumber = new SelectList(db.PurchaseOrders, "PONumber", "SupplierCode", outstandingList.PONumber);
             return View(outstandingList);
         }
@@ -125,9 +125,9 @@ namespace stationeryapp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.DepartmentCode = new SelectList(db.DepartmentLists, "DepartmentCode", "DepartmentName", outstandingList.DepartmentCode);
-            ViewBag.RequisitionFormNumber = new SelectList(db.RequisitionForms, "FormNumber", "EmployeeId", outstandingList.RequisitionFormNumber);
-            ViewBag.ItemNumber = new SelectList(db.StationeryCatalogs, "ItemNumber", "Category", outstandingList.ItemNumber);
+            //ViewBag.DepartmentCode = new SelectList(db.DepartmentLists, "DepartmentCode", "DepartmentName", outstandingList.DepartmentCode);
+            //ViewBag.RequisitionFormNumber = new SelectList(db.RequisitionForms, "FormNumber", "EmployeeId", outstandingList.RequisitionFormNumber);
+            //ViewBag.ItemNumber = new SelectList(db.StationeryCatalogs, "ItemNumber", "Category", outstandingList.ItemNumber);
             ViewBag.PONumber = new SelectList(db.PurchaseOrders, "PONumber", "SupplierCode", outstandingList.PONumber);
             return View(outstandingList);
         }
