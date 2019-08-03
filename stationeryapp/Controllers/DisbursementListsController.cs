@@ -15,11 +15,12 @@ namespace stationeryapp.Controllers
         private ModelDBContext db = new ModelDBContext();
 
         // GET: DisbursementLists
-        public ActionResult Index()
+        public ActionResult Index(string sessionId)
 
         {
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
 
-            List<DisbursementList> disbursementLists = db.DisbursementLists.ToList();
+           List <DisbursementList> disbursementLists = db.DisbursementLists.ToList();
             List<DepartmentList> departmentLists = db.DepartmentLists.ToList();
             List<CollectionPoint> collectionPoints = db.CollectionPoints.ToList();
 
@@ -35,9 +36,18 @@ namespace stationeryapp.Controllers
                                          departmentList = p
                                      };
 
-
-            return View(disbursementRecord);
+            if (storeclerk != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+                return View(disbursementRecord);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
         }
+
 
 
         // GET: DisbursementLists/Details/5

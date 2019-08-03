@@ -9,6 +9,8 @@
     string firstName = (string)ViewData["employeeF"];
     string lastName = (string)ViewData["employeeL"];
     string name = firstName + "" + lastName;
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
 }
 
 <h2>Details</h2>
@@ -37,6 +39,9 @@
             <th>
                 Remarks
             </th>
+            <th>
+                Session
+            </th>
         </tr>
 
 
@@ -46,36 +51,43 @@
         @for (int i = 0; i < Model.Count; i++)
         {
 
-            <tr>
-                <td>
-                    @Html.HiddenFor(Model => Model[i].ListDetailsNumber)
-                    @Html.TextBox("Details[" + @i  + "].ListDetailsNumber",
-                                 Model[i].ListDetailsNumber,
-                                 new { @readonly = "readonly" })
-                </td>
+        <tr>
+            <td>
+                @Html.HiddenFor(Model => Model[i].ListDetailsNumber)
+                @Html.TextBox("Details[" + @i  + "].ListDetailsNumber",
+                             Model[i].ListDetailsNumber,
+                             new { @readonly = "readonly" })
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => Model[i].StationeryCatalog.ItemNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model[i].StationeryCatalog.Category)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => Model[i].StationeryCatalog.Description)
-                </td>
+            <td>
+                @Model[i].StationeryCatalog.ItemNumber
+                @*@Html.EditorFor(modelItem => Model[i].StationeryCatalog.ItemNumber)*@
+            </td>
+            <td>
+              
+                @Model[i].StationeryCatalog.Category
+            </td>
+            <td>
+                @Model[i].StationeryCatalog.Description
+            </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => Model[i].Quantity)
-                </td>
-                <td>
-                    @Html.TextBox("Details[" + @i + "].QuantityReceived", Model[i].Quantity)
+            <td>
+                @Model[i].Quantity
+            </td>
+            <td>
+                @Html.TextBox("Details[" + @i + "].QuantityReceived", Model[i].Quantity)
 
-                </td>
-                <td>
-                    @Html.TextBox("Details[" + @i + "].Remarks", Model[i].Remarks)
+            </td>
+            <td>
+                @Html.TextBox("Details[" + @i + "].Remarks", Model[i].Remarks)
 
-                </td>
-            </tr>
+            </td>
+            <td>
+                @*@Html.Hidden("sessionId", sessionId)*@
+                @Html.TextBox("sessionId", sessionId)
+
+            </td>
+        </tr>
         }
         <tr>
             <td colspan="7">

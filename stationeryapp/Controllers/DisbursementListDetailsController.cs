@@ -16,7 +16,7 @@ namespace stationeryapp.Controllers
     {
         private ModelDBContext db = new ModelDBContext();
         private StockAdjustmentVouchersDBContext adb = new StockAdjustmentVouchersDBContext();
-        public ActionResult Index()
+        public ActionResult Index(string sessionId)
         {
 
             var disbursementListDetails = db.DisbursementListDetails.Include(d => d.DisbursementList).Include(d => d.StationeryCatalog);
@@ -24,8 +24,9 @@ namespace stationeryapp.Controllers
         }
 
 
-        public ActionResult Details(string id)
+        public ActionResult Details(string id, string sessionId)
         {
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
 
             var disbursementListDetail = db.DisbursementListDetails.Include(d => d.DisbursementList).Include(d => d.StationeryCatalog)
                                          .Where(DisbursementListDetails => DisbursementListDetails.ListNumber == id)
@@ -36,17 +37,28 @@ namespace stationeryapp.Controllers
             CollectionPoint collectionPoint = db.CollectionPoints.Where(c => c.CollectionPointCode == departmentList.CollectionPoint).Single();
             Employee employee = db.Employees.Where(e => e.Id == departmentList.RepresentativeId).Single();
 
-            ViewData["collection"] = collectionPoint.CollectionPointName;
-            ViewData["disbursementList"] = disbursementList.Date;
-            ViewData["deparment"] = departmentList.DepartmentName;
-            ViewData["employeeF"] = employee.FirstName;
-            ViewData["employeeL"] = employee.LastName;
-            return View(disbursementListDetail);
+
+            if (storeclerk != null && sessionId != null)
+            {
+                ViewData["collection"] = collectionPoint.CollectionPointName;
+                ViewData["disbursementList"] = disbursementList.Date;
+                ViewData["deparment"] = departmentList.DepartmentName;
+                ViewData["employeeF"] = employee.FirstName;
+                ViewData["employeeL"] = employee.LastName;
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+                return View(disbursementListDetail);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
         }
 
         [HttpPost]
-        public ActionResult Update(List<DisbursementListDetail> Details)
+        public ActionResult Update(List<DisbursementListDetail> Details,string sessionId)
         {
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             int newNumer = db.StockAdjustmentVouchers.Count();
             int length = Details.Count() + newNumer+1;
             int newNumer2 = db.StockAdjustmentVoucherDetails.Count()+1;
@@ -77,8 +89,8 @@ namespace stationeryapp.Controllers
             {
                 StockAdjustmentVoucher stockAdjustment = new StockAdjustmentVoucher();
                 stockAdjustment.AdjustmentVoucherNumber = Convert.ToString(newNumer+1);
-                stockAdjustment.Remarks ="should not be mine";
-                stockAdjustment.Status = "pending";            
+               // stockAdjustment.Remarks ="should not be mine";
+                stockAdjustment.Status = "Pending";            
                 adb.StockAdjustmentVouchers.Add(stockAdjustment);
                 adb.SaveChanges();
 
@@ -97,6 +109,8 @@ namespace stationeryapp.Controllers
                     adjustmentVoucherDetail.AdjustmentDetailsNumber= Convert.ToString(newNumer2);
                     newNumer2++;
                     adjustmentVoucherDetail.QuantityAdjusted = recivedX;
+                    adjustmentVoucherDetail.ItemNumber = existing.ItemNumber;
+                    // remarks from where?
                     adjustmentVoucherDetail.Reason = Details[i - newNumer - 1].Remarks;
 
                     db.StockAdjustmentVoucherDetails.Add(adjustmentVoucherDetail);
@@ -120,8 +134,15 @@ namespace stationeryapp.Controllers
                 db.Entry(disbursementList).State = EntityState.Modified;
                 db.SaveChanges();
             }
-           
-            return RedirectToAction("Index", "DisbursementListDetails");
+
+            if (storeclerk != null && sessionId != null)
+            {
+                return RedirectToAction("Index","Home", new {@sessionId= sessionId});
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
         }
 
 
@@ -217,13 +238,13 @@ namespace stationeryapp.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

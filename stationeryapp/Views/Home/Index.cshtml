@@ -6,6 +6,7 @@
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
     int num = (int)ViewData["num"];
+    int numDisbuserment = (int)ViewData["numDisbuserment"];
 
 }
 
@@ -33,9 +34,18 @@
         </td>
         <td style="padding:50px"></td>
         <td align="center">
-            <a href=" @Url.Action("Index", "DisbursementLists")"><img src="~/Images/Disbusement List.PNG" height="100" width="90"></a>
+            <a href=" @Url.Action("Index", "DisbursementLists",new { sessionId = sessionId })"><img src="~/Images/Disbusement List.PNG" height="100" width="90"></a>
+            @if (numDisbuserment > 0)
+            {
+                <p style="color:crimson">
+                    @numDisbuserment Notification
+                </p>
+
+
+            }
         </td>
     </tr>
+
     <tr>
         <td align="center">RequisitionForms</td>
         <td style="padding:20px"></td>
@@ -65,7 +75,7 @@
         </td>
         <td style="padding:50px"></td>
         <td align="center">
-            <a href=" @Url.Action("Index", "ReportHome")"><img src="~/Images/Reports.PNG" height="100" width="90"></a>
+            <a href=" @Url.Action("Index", "ReportHome",new { sessionId = sessionId })"><img src="~/Images/Reports.PNG" height="100" width="90"></a>
         </td>
     </tr>
     <tr>
@@ -78,3 +88,18 @@
         <td align="center">Reports</td>
     </tr>
 </table>
+
+@*.catalog_number{
+
+    padding-left: 10px;
+    padding-top: 10px;
+    float: left;
+    color: white;
+    font-size: 12px;
+    font-weight: 500;
+    }
+.catalog_blue_point{
+background: url(../img/run/bluepoint.png) no-repeat;
+background-position: 4px 7px;
+float: left;
+}*@

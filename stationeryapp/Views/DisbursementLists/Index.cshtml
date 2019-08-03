@@ -1,9 +1,14 @@
 ﻿@model IEnumerable<stationeryapp.Models.ViewModelD>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Disbursemnet Lists";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
 }
 
+@{
+
+}
 <h2>Index</h2>
 
 <p>
@@ -22,10 +27,10 @@
     @foreach (var item in Model)
     {
         <tr>
-         
+
             <td>
                 @*@Html.ActionLink(item.disbursementList.ListNumber, "DisbursementListDetails", "Details")*@
-                <a href='@Url.Action("Details","DisbursementListDetails",new { id= item.disbursementList.ListNumber })'>@item.disbursementList.ListNumber</a>
+                <a href='@Url.Action("Details","DisbursementListDetails",new { id= item.disbursementList.ListNumber,sessionId = sessionId})'>@item.disbursementList.ListNumber</a>
             </td>
             <td style="background-color:aliceblue">
                 @item.departmentList.DepartmentCode

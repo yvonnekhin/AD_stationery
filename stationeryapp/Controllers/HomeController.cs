@@ -9,6 +9,7 @@ namespace stationeryapp.Controllers
 {
     public class HomeController : Controller
     {
+        private ModelDBContext dbM = new ModelDBContext();
         private StoreClerkDBContext db = new StoreClerkDBContext();
         private RequisitionFormsDBContext db1 = new RequisitionFormsDBContext();
         public ActionResult Index(string sessionId)
@@ -17,6 +18,7 @@ namespace stationeryapp.Controllers
             if (storeclerk != null && sessionId != null)
             {
                 ViewData["num"] = db1.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                ViewData["numDisbuserment"] = dbM.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
                 return View();
