@@ -45,10 +45,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
-    <Reference Include="CrystalDecisions.Web, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.ReportSource">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportSource.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Shared">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Shared.dll</HintPath>
+    </Reference>
+    <Reference Include="CrystalDecisions.Web">
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Web.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -132,6 +140,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DisbursementListDetailsController.cs" />
+    <Compile Include="Controllers\DisbursementListsController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\HodController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ReorderReportController.cs" />
@@ -140,6 +152,7 @@
     <Compile Include="Controllers\RequisitionFormsController.cs" />
     <Compile Include="Controllers\RequisitionReportController.cs" />
     <Compile Include="Controllers\StationeryCatalogReportController.cs" />
+    <Compile Include="Controllers\SupplierListsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -161,8 +174,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\employee_utility.cs" />
     <Compile Include="Models\ReorderViewModel.cs" />
     <Compile Include="Models\RequisitionViewModel.cs" />
+    <Compile Include="Models\util.cs" />
+    <Compile Include="Models\ViewModelD.cs" />
     <Compile Include="Reports\InventoryStatusReport.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -543,6 +559,21 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\Catalog.PNG" />
+    <Content Include="Images\delegate.png" />
+    <Content Include="Images\Disbusement List.PNG" />
+    <Content Include="Images\edit.png" />
+    <Content Include="Images\newreq.png" />
+    <Content Include="Images\Outstanding.PNG" />
+    <Content Include="Images\PO.PNG" />
+    <Content Include="Images\profile.png" />
+    <Content Include="Images\Reports.PNG" />
+    <Content Include="Images\reqs.png" />
+    <Content Include="Images\Requests.JPG" />
+    <Content Include="Images\Retrival Form.PNG" />
+    <Content Include="Images\stationery.png" />
+    <Content Include="Images\Stock Ajustment.PNG" />
+    <Content Include="Images\user.png" />
     <Content Include="Models\CollectionPoints.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
@@ -885,6 +916,7 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\StoreClerkImages" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -934,6 +966,39 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\RequisitionForms\Index.cshtml" />
     <Content Include="Views\ReportHome\Index.cshtml" />
+    <Content Include="Views\DisbursementListDetails\Create.cshtml" />
+    <Content Include="Views\DisbursementListDetails\Delete.cshtml" />
+    <Content Include="Views\DisbursementListDetails\Details.cshtml" />
+    <Content Include="Views\DisbursementListDetails\Edit.cshtml" />
+    <Content Include="Views\DisbursementListDetails\Index.cshtml" />
+    <Content Include="Views\DisbursementLists\Create.cshtml" />
+    <Content Include="Views\DisbursementLists\Delete.cshtml" />
+    <Content Include="Views\DisbursementLists\Details.cshtml" />
+    <Content Include="Views\DisbursementLists\Edit.cshtml" />
+    <Content Include="Views\DisbursementLists\Index.cshtml" />
+    <Content Include="Views\SupplierLists\Create.cshtml" />
+    <Content Include="Views\SupplierLists\Delete.cshtml" />
+    <Content Include="Views\SupplierLists\Details.cshtml" />
+    <Content Include="Views\SupplierLists\Edit.cshtml" />
+    <Content Include="Views\SupplierLists\Index.cshtml" />
+    <Content Include="Views\Login\EmployeeIndex.cshtml" />
+    <Content Include="Views\HoD\assigndelegate.cshtml" />
+    <Content Include="Views\HoD\editdeptinfo.cshtml" />
+    <Content Include="Views\HoD\Index.cshtml" />
+    <Content Include="Views\HoD\req_forms.cshtml" />
+    <Content Include="Views\HoD\stationaryrequesthistory.cshtml" />
+    <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Employee\newrequest.cshtml" />
+    <Content Include="Views\Employee\notify.cshtml" />
+    <Content Include="Views\Employee\sendmail.cshtml" />
+    <Content Include="Views\Employee\viewemail.cshtml" />
+    <Content Include="Views\Employee\viewrequest.cshtml" />
+    <Content Include="Views\Shared\_employeeheader.cshtml" />
+    <Content Include="Views\Shared\_employeeMenuFragment.cshtml" />
+    <Content Include="Views\Shared\_emp_notify.cshtml" />
+    <Content Include="Views\Shared\_hodheader.cshtml" />
+    <Content Include="Views\Shared\_hodMenuFragment.cshtml" />
+    <Content Include="Views\Shared\_hod_notify.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

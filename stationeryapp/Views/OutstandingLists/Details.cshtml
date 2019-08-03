@@ -1,0 +1,82 @@
+﻿@model stationeryapp.Models.OutstandingList
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>OutstandingList</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DateApproved)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateApproved)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Balance)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Balance)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Needed)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Needed)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentList.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentList.DepartmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RequisitionForm.EmployeeId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RequisitionForm.EmployeeId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StationeryCatalog.Category)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StationeryCatalog.Category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PurchaseOrder.SupplierCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PurchaseOrder.SupplierCode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.OutstandingListNumber }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

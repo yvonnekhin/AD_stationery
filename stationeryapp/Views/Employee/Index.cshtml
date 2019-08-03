@@ -1,0 +1,32 @@
+﻿
+@using stationeryapp.Models;
+@Html.Partial("_employeeheader")
+@Html.Partial("_employeeMenuFragment")
+@Html.Partial("_emp_notify")
+
+@{
+    ViewBag.Title = "Index";
+    Employee emp = (Employee)ViewData["userobj"];
+    List<RequisitionForm> notify_form_list = (List<RequisitionForm>)Session["notify_form_list"]; ;
+}
+
+<div id="main" style="margin-left:15%;">
+    <h3>
+        Welcome, @emp.FirstName @emp.LastName !
+    </h3>
+    <table style="width: 60%; overflow:hidden; margin-top: 50px;" align="center">
+        <tr>
+            <td>
+                <a href=@Url.Action("viewrequest", "Employee",new { id=emp.Id})><img style="width: 70px; height: 70px;" src="~/Images/reqs.png" /></a>
+            </td>
+            <td>
+                <a href='@Url.Action("newrequest", "Employee",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/newreq.png" /></a>
+            </td>
+        </tr>
+        <tr>
+            <td>View Requests</td>
+            <td>New Requests</td>
+        </tr>
+    </table>
+</div>
+

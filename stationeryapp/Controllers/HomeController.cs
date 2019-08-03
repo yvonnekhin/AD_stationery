@@ -28,5 +28,12 @@ namespace stationeryapp.Controllers
                 return RedirectToAction("Login", "Login");
             }
         }
+
+        public ActionResult NotFound(string aspxerrorpath)
+        {
+            Response.Status = "404 Not Found";
+            Response.StatusCode = 404;
+            return View("../Shared/Error");
+        }
     }
 }

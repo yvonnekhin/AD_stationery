@@ -15,10 +15,27 @@ namespace stationeryapp.Controllers
     public class LoginController : Controller
     {
         private StoreClerkDBContext db = new StoreClerkDBContext();
+        ModelDBContext db1 = new ModelDBContext();
 
         // GET: Login/Edit/5
         public ActionResult Login()
         {
+            return View();
+        }
+
+        public ActionResult EmployeeIndex(String msg)
+        {
+            Employee logged_user;
+
+            if (Session["user"] != null)
+            {
+                logged_user = db1.Employees.Find(((Employee)Session["user"]).Id);
+                logged_user.SessionId = null;
+                db1.Entry(logged_user).State = EntityState.Modified;
+                db1.SaveChanges();
+                Session.Remove("user");
+            }
+            ViewData["msg"] = msg;
             return View();
         }
 
@@ -69,6 +86,50 @@ namespace stationeryapp.Controllers
             }
 
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult EmployeeLogin([Bind(Include = "UserName,Password")] Employee emp)
+        {
+            Employee user;
+            string hashedPassword = CalculateMD5Hash(emp.Password);
+
+            user = (from e in db1.Employees
+                    where e.UserName == emp.UserName
+                    select e).FirstOrDefault();
+
+            if (user != null)
+            {
+                if (hashedPassword.Equals(user.Password))
+                {
+                    if (user.Designation == "Head" || user.Designation == "Delegate")
+                    {
+                        Session.Add("user", user);
+                        Session.Add("count", 0);
+                        string sessionId = Guid.NewGuid().ToString();
+                        user.SessionId = sessionId;
+                        db1.Entry(user).State = EntityState.Modified;
+                        db1.SaveChanges();
+
+                        return RedirectToAction("Index", "Hod");
+                    }
+                    else if (user.Designation == "Employee" || user.Designation == "Rep")
+                    {
+                        Session.Add("user", user);
+                        Session.Add("count", 0);
+                        string sessionId = Guid.NewGuid().ToString();
+                        user.SessionId = sessionId;
+                        db1.Entry(user).State = EntityState.Modified;
+                        db1.SaveChanges();
+                        return RedirectToAction("Index", "Employee");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("EmployeeIndex", new { msg = "invalid password" });
+                }
+            }
+            return RedirectToAction("EmployeeIndex", new { msg = "invalid user" });
         }
 
         public ActionResult Logout(string sessionId)

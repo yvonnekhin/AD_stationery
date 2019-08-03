@@ -1,0 +1,50 @@
+﻿@using stationeryapp.Models;
+@{
+    ViewBag.Title = "_employeeMenuFragment";
+    Employee emp;
+}
+
+@if ((Session["user"])!=null)
+{
+
+    emp = (Employee)HttpContext.Current.Session["user"];
+}
+else
+{
+    emp = new Employee();
+}
+
+<style>
+    .sidenav {
+        height: 85%;
+        width: 15%;
+        position: fixed;
+        z-index: 1;
+        top: 50px;
+        left: 0px;
+        background: #eee;
+        overflow-x: hidden;
+        padding: 8px 0;
+    }
+
+        .sidenav a {
+            padding: 20px 8px 20px 15px;
+            /*padding: 6px 8px 6px 10px;*/
+            text-decoration: none;
+            font-size: 20px;
+            color: #2874a6;
+            display: block;
+        }
+
+            .sidenav a:hover {
+                color: black;
+            }
+</style>
+
+<div class="sidenav">
+    <a href='@Url.Action("index", "Employee",new { id=emp.Id})'>Employee Home</a>
+    <a href='@Url.Action("newrequest", "Employee",new { id=emp.Id})'>New Request</a>
+    <a href='@Url.Action("viewrequest", "Employee",new { id=emp.Id})'>View Request(s)</a>
+
+</div>
+<!-- ***************************** -->

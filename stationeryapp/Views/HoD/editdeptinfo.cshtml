@@ -1,0 +1,62 @@
+﻿@Scripts.Render("~/Scripts/dropdownOnchange.js")
+@using stationeryapp.Models
+@{
+    ViewBag.Title = "editdeptinfo";
+    Employee emp = (Employee)ViewData["hod"];
+    Employee current_rep = (Employee)ViewData["current_rep"];
+    DepartmentList dept = (DepartmentList)ViewData["dept"];
+    List<Employee> emp_list = (List<Employee>)ViewData["emp_list"];
+    List<CollectionPoint> coll_list = (List<CollectionPoint>)ViewData["coll_list"];
+}
+@Html.Partial("_hodheader")
+@Html.Partial("_hodMenuFragment")
+@Html.Partial("_hod_notify")
+
+<div style="margin-left:15%; padding-top: 10px;">
+    <h3>Edit Department Information</h3>
+    <table class="table" style="width: 80%;">
+        @using (Html.BeginForm("updatedeptinfo", "Hod", FormMethod.Post))
+        {
+            <tr>
+                <td> Head's Name : </td>
+                <td>@emp.FirstName @emp.LastName</td>
+            </tr>
+            <tr>
+                <td> Current Rep : </td>
+                <td>@current_rep.FirstName @current_rep.LastName</td>
+            </tr>
+
+            <tr>
+                <td> Assign new Representative Name : </td>
+                <td>
+                    @Html.DropDownList("Select Representative", emp_list.Select(item => new SelectListItem { Text = item.FirstName, Value = item.Id, Selected = (item.Id == current_rep.Id) ? true : false }), new { id = "itemId_rep", onchange = "onChange_rep()" })
+                </td>
+            </tr>
+            <tr>
+                <td>Current Collection Point :  </td>
+                <td>@coll_list.Where(e => e.CollectionPointCode == @dept.CollectionPoint).FirstOrDefault().CollectionPointName</td>
+            </tr>
+            <tr>
+                <td> Assign new Collection Point : </td>
+                <td>
+                    @foreach (var item in coll_list)
+                    {
+                        <ul>
+                            @Html.RadioButton("coll_point", item.CollectionPointCode, item.CollectionPointCode == @dept.CollectionPoint ? true : false)@item.CollectionPointName
+                        </ul>
+                    }
+                </td>
+            </tr>
+
+            <tr>
+                <td colspan="2">
+                    <input type="hidden" id="rep_id" value="1" name="rep_id" />
+                    <input type="hidden" id="current_dept_code" value=@dept.DepartmentCode name="current_dept_code" />
+                    <input type="submit" value="Update">
+                    <button onclick="location.href='@Url.Action("Index", "Hod")'">Cancel</button>
+                </td>
+            </tr>
+        }
+    </table>
+</div>
+

@@ -1,0 +1,54 @@
+﻿@using stationeryapp.Models;
+@{
+    ViewBag.Title = "Index";
+    Employee emp = (Employee)Session["user"];
+}
+
+@Html.Partial("_hodheader")
+@Html.Partial("_hodMenuFragment")
+@Html.Partial("_hod_notify")
+
+<style>
+    .tbl {
+        width: 60%;
+        overflow: hidden;
+        margin-top: 50px;
+    }
+
+        .tbl td {
+            height: 150px;
+            align-content: center;
+        }
+</style>
+
+<div id="main" style="margin-left:15%;">
+    <h3>
+        Welcome, @emp.FirstName @emp.LastName !
+    </h3>
+    <table class="tbl" align="center">
+        <tr>
+            <td>
+                <a href='@Url.Action("stationaryrequesthistory", "Hod",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/reqs.png" /></a>
+                <br />View Requests
+            </td>
+            <td>
+                <a href='@Url.Action("newstationaryrequest", "Hod",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/newreq.png" /></a>
+                <br />New Requests
+            </td>
+        </tr>
+        @*<tr>
+                <td>View Requests</td>
+                <td>New Requests</td>
+            </tr>*@
+        <tr>
+            <td>
+                <a href='@Url.Action("editdeptinfo", "Hod",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/edit.png" /></a>
+                <br />Edit Department Information
+            </td>
+            <td>
+                <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/delegate.png" /></a>
+                <br />Delegate
+            </td>
+        </tr>
+    </table>
+</div>

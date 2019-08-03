@@ -105,6 +105,7 @@
           <Property Name="ReceivedDate" Type="datetime" />
           <Property Name="ReceivedValue" Type="float" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="Reason" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="RequisitionFormDetails">
           <Key>
@@ -896,6 +897,7 @@
           <NavigationProperty Name="StoreSupervisor" Relationship="Self.FK_PurchaseOrders_StoreSupervisor" FromRole="PurchaseOrders" ToRole="StoreSupervisor" />
           <NavigationProperty Name="SupplierList" Relationship="Self.FK_PurchaseOrders_SupplierList" FromRole="PurchaseOrders" ToRole="SupplierList" />
           <NavigationProperty Name="OutstandingLists" Relationship="stationeryModel19.FK_OutstandingList_PurchaseOrders" FromRole="PurchaseOrder" ToRole="OutstandingList" />
+          <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="RequisitionFormDetail">
           <Key>
@@ -1684,6 +1686,7 @@
           <EntitySetMapping Name="PurchaseOrders">
             <EntityTypeMapping TypeName="stationeryModel19.PurchaseOrder">
               <MappingFragment StoreEntitySet="PurchaseOrders">
+                <ScalarProperty Name="Reason" ColumnName="Reason" />
                 <ScalarProperty Name="PONumber" ColumnName="PONumber" />
                 <ScalarProperty Name="SupplierCode" ColumnName="SupplierCode" />
                 <ScalarProperty Name="DeliverTo" ColumnName="DeliverTo" />
