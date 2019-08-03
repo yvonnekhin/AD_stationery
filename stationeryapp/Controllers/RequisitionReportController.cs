@@ -28,7 +28,7 @@ namespace stationeryapp.Controllers
                            Category = i.Category,
                            Description = i.Description,
                            DepartmentCode = i1.DepartmentCode,
-                           Needed = i1.Needed
+                           Needed = (int)i1.Needed
                        };
 
             if (!String.IsNullOrEmpty(searchString))

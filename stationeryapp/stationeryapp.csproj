@@ -176,6 +176,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\ConsolidatedRequest.cs" />
     <Compile Include="Models\employee_utility.cs" />
     <Compile Include="Models\ReorderViewModel.cs" />
     <Compile Include="Models\RequisitionViewModel.cs" />

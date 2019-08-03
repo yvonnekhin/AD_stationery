@@ -14,7 +14,7 @@
         <EntityTypeShape EntityType="stationeryModel19.PurchaseOrder" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
         <EntityTypeShape EntityType="stationeryModel19.RequisitionForm" Width="1.5" PointX="3" PointY="21.875" IsExpanded="true" />
         <EntityTypeShape EntityType="stationeryModel19.StationeryCatalog" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="stationeryModel19.StationeryRetrievalFormDetail" Width="1.5" PointX="5.25" PointY="20.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StationeryRetrievalFormDetail" Width="2.5" PointX="5.25" PointY="20.375" IsExpanded="true" />
         <EntityTypeShape EntityType="stationeryModel19.StationeryRetrievalForm" Width="1.5" PointX="3" PointY="34.875" IsExpanded="true" />
         <EntityTypeShape EntityType="stationeryModel19.StockAdjustmentVoucherDetail" Width="1.5" PointX="8.25" PointY="12.5" IsExpanded="true" />
         <EntityTypeShape EntityType="stationeryModel19.StockAdjustmentVoucher" Width="1.5" PointX="6" PointY="5.875" IsExpanded="true" />
@@ -49,7 +49,7 @@
         <AssociationConnector Association="stationeryModel19.FK_StationeryRetrievalFormDetails_StationeryRetrievalForms" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel19.FK_StockAdjustmentVoucherDetails_StockAdjustmentVouchers" ManuallyRouted="false" />
         <EntityTypeShape EntityType="stationeryModel19.OutstandingList" Width="1.5" PointX="10.5" PointY="14.375" />
-        <EntityTypeShape EntityType="stationeryModel19.RequisitionFormDetail" Width="1.5" PointX="8.25" PointY="19" />
+        <EntityTypeShape EntityType="stationeryModel19.RequisitionFormDetail" Width="2.875" PointX="8.25" PointY="19" />
         <AssociationConnector Association="stationeryModel19.FK_OutstandingList_PurchaseOrders" />
         <AssociationConnector Association="stationeryModel19.FK_OutstandingList_RequisitionFormDetails" />
         <AssociationConnector Association="stationeryModel19.FK_RequisitionFormDetails_RequisitionForms" />

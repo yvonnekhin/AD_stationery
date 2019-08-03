@@ -19,7 +19,6 @@ namespace stationeryapp.Models
         {
             this.DisbursementLists = new HashSet<DisbursementList>();
             this.Employees = new HashSet<Employee>();
-            this.OutstandingLists = new HashSet<OutstandingList>();
             this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
         }
     
@@ -38,8 +37,6 @@ namespace stationeryapp.Models
         public virtual ICollection<DisbursementList> DisbursementLists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employees { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OutstandingList> OutstandingLists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StationeryRetrievalFormDetail> StationeryRetrievalFormDetails { get; set; }
     }

@@ -18,38 +18,29 @@ namespace stationeryapp.Models
         public StationeryCatalog()
         {
             this.DisbursementListDetails = new HashSet<DisbursementListDetail>();
-            this.OutstandingLists = new HashSet<OutstandingList>();
             this.PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
-            this.RequisitionFormDetails = new HashSet<RequisitionFormDetail>();
             this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
             this.StockAdjustmentVoucherDetails = new HashSet<StockAdjustmentVoucherDetail>();
+            this.RequisitionFormDetails = new HashSet<RequisitionFormDetail>();
         }
     
         public string ItemNumber { get; set; }
         public string Category { get; set; }
         public string Description { get; set; }
-        //public Nullable<int> ReorderLevel { get; set; }
-        public int ReorderLevel { get; set; }
-        //public Nullable<int> ReorderQuantity { get; set; }
-        public int ReorderQuantity { get; set; }
+        public Nullable<int> ReorderLevel { get; set; }
+        public Nullable<int> ReorderQuantity { get; set; }
         public string UnitOfMeasure { get; set; }
         public string BinNumber { get; set; }
-        //public Nullable<double> Price { get; set; }
-        public double Price { get; set; }
+        public Nullable<double> Price { get; set; }
         public string SupplierCode1 { get; set; }
         public string SupplierCode2 { get; set; }
         public string SupplierCode3 { get; set; }
-        //public Nullable<int> Balance { get; set; }
-        public int Balance { get; set; }
-
+        public Nullable<int> Balance { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DisbursementListDetail> DisbursementListDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OutstandingList> OutstandingLists { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequisitionFormDetail> RequisitionFormDetails { get; set; }
         public virtual SupplierList SupplierList { get; set; }
         public virtual SupplierList SupplierList1 { get; set; }
         public virtual SupplierList SupplierList2 { get; set; }
@@ -57,5 +48,7 @@ namespace stationeryapp.Models
         public virtual ICollection<StationeryRetrievalFormDetail> StationeryRetrievalFormDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StockAdjustmentVoucherDetail> StockAdjustmentVoucherDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisitionFormDetail> RequisitionFormDetails { get; set; }
     }
 }

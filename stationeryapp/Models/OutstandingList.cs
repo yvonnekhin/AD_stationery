@@ -15,14 +15,11 @@ namespace stationeryapp.Models
     public partial class OutstandingList
     {
         public string OutstandingListNumber { get; set; }
-        public string RetrievalFormDetailsNumber { get; set; }
-        
         public string PONumber { get; set; }
         public string Status { get; set; }
+        public string RetrievalFormDetailsNumber { get; set; }
     
-        public virtual StationeryRetrievalFormDetail StationeryRetrievalFormDetail { get; set; }
-        
         public virtual PurchaseOrder PurchaseOrder { get; set; }
-
+        public virtual RequisitionFormDetail RequisitionFormDetail { get; set; }
     }
 }
