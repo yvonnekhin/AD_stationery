@@ -11,7 +11,7 @@ namespace stationeryapp.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class StationeryRetrievalForm
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,7 +19,7 @@ namespace stationeryapp.Models
         {
             this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
         }
-    
+
         public string FormNumber { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Status { get; set; }
