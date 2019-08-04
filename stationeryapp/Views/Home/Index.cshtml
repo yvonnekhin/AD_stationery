@@ -7,99 +7,151 @@
     string username = (string)ViewData["username"];
     int num = (int)ViewData["num"];
     int numDisbuserment = (int)ViewData["numDisbuserment"];
+    int numOutS = 2;
+    int numRetrive = 8;
+    int numCatalog = 8;
+    int numPO = 8;
+    int numStock = 8;
+    int numReport = 8;
 
 }
 
 <h2 align="center"> Store Clerk Home</h2>
-
-
-
-
+<br>
+<br>
 <table align="center">
     <tr>
-        <td align="center">
-            <a href=" @Url.Action("Index", "RequisitionForms",new { sessionId = sessionId })"><img src="~/Images/Requests.jpg" height="100" width="90"></a>
+        <td align="center" class="alarm">
+         <a href=" @Url.Action("Index", "RequisitionForms",new { sessionId = sessionId })"><img src="~/Images/Requests.jpg"></a>
+        <div class="divright">
             @if (num > 0)
-            {
-                <p style="color:crimson">@num</p>
-            }
+            {               
+               <span>@num</span>
+             }
+        </div>
         </td>
         <td style="padding:50px"></td>
-        <td align="center">
-            <a href=" @Url.Action("Index", "OutStandingContoller")"><img src="~/Images/Outstanding.PNG" height="100" width="90"></a>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "OutStandingContoller")"><img src="~/Images/Outstanding.PNG"></a>
+            <div class="divright">
+                @if (numOutS > 0)
+                {
+                    <span>@numOutS</span>
+                }
+            </div>
         </td>
         <td style="padding:50px"></td>
-        <td align="center">
-            <a href=" @Url.Action("Index", "RetrivalController")"><img src="~/Images/Retrival Form.PNG" height="100" width="90"></a>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "RetrivalController")"><img src="~/Images/RetrivalForm.PNG"></a>
+            <div class="divright">
+                @if (numRetrive > 0)
+                {
+                    <span>@numRetrive</span>
+                }
+            </div>
         </td>
         <td style="padding:50px"></td>
-        <td align="center">
-            <a href=" @Url.Action("Index", "DisbursementLists",new { sessionId = sessionId })"><img src="~/Images/Disbusement List.PNG" height="100" width="90"></a>
-            @if (numDisbuserment > 0)
-            {
-                <p style="color:crimson">
-                    @numDisbuserment Notification
-                </p>
-
-
-            }
-        </td>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "DisbursementLists",new { sessionId = sessionId })"><img src="~/Images/DisbusementList.PNG"></a>
+            <div class="divright">
+                @if (numDisbuserment > 0)
+                {
+                    <span>
+                        @numDisbuserment
+                    </span>
+                }
+                </div>
+         </td>
     </tr>
-
     <tr>
         <td align="center">RequisitionForms</td>
         <td style="padding:20px"></td>
         <td align="center">Outstanding</td>
         <td style="padding:20px"></td>
-        <td align="center">Retrieval Form</td>
+        <td align="center">RetrievalForm</td>
         <td style="padding:20px"></td>
-        <td align="center">Disbursement List</td>
+        <td align="center">DisbursementList</td>
     </tr>
-
-
     <tr>
         <td style="padding:20px"></td>
     </tr>
-
     <tr>
-        <td align="center">
-            <a href=" @Url.Action("Index", "Catalog")"><img src="~/Images/Catalog.PNG" height="100" width="90"></a>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "Catalog")"><img src="~/Images/Catalog.PNG"></a>
+            <div class="divright">
+                @if (numCatalog > 0)
+                {
+                    <span>@numCatalog</span>
+                }
+            </div>
         </td>
         <td style="padding:50px"></td>
-        <td align="center">
-            <a href=" @Url.Action("Index", "Purchase Order")"><img src="~/Images/PO.PNG" height="100" width="90"></a>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "Purchase Order")"><img src="~/Images/PO.PNG"></a>
+            <div class="divright">
+                @if (numPO > 0)
+                {
+                    <span>@numPO</span>
+                }
+            </div>
         </td>
         <td style="padding:50px"></td>
-        <td align="center">
-            <a href=" @Url.Action("Index", "Stock Adjustment")"><img src="~/Images/Stock Ajustment.PNG" height="100" width="90"></a>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "Stock Adjustment")"><img src="~/Images/StockAjustment.PNG"></a>
+            <div class="divright">
+                @if (numStock > 0)
+                {
+                    <span>@numStock</span>
+                }
+            </div>
         </td>
         <td style="padding:50px"></td>
-        <td align="center">
-            <a href=" @Url.Action("Index", "ReportHome",new { sessionId = sessionId })"><img src="~/Images/Reports.PNG" height="100" width="90"></a>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "ReportHome",new { sessionId = sessionId })"><img src="~/Images/Reports.PNG"></a>
+            <div class="divright">
+                @if (numReport > 0)
+                {
+                    <span>@numReport</span>
+                }
+            </div>
         </td>
     </tr>
     <tr>
         <td align="center">Catalog</td>
         <td style="padding:20px"></td>
-        <td align="center">Purchase Order</td>
+        <td align="center">PurchaseOrder</td>
         <td style="padding:20px"></td>
-        <td align="center">Stock Adjustment</td>
+        <td align="center">StockAdjustment</td>
         <td style="padding:20px"></td>
         <td align="center">Reports</td>
     </tr>
 </table>
 
-@*.catalog_number{
-
-    padding-left: 10px;
-    padding-top: 10px;
-    float: left;
-    color: white;
-    font-size: 12px;
-    font-weight: 500;
+<style>
+    .alarm {
+        position: relative;
+        width: 40px;
+        height: 30px;
+        margin: 40px;
     }
-.catalog_blue_point{
-background: url(../img/run/bluepoint.png) no-repeat;
-background-position: 4px 7px;
-float: left;
-}*@
+
+     .alarm img {
+            width: 90px;
+            height: 100px;
+        }
+
+    .divright {
+        position: absolute;
+        color: white;
+        font-size: 15px;
+        background-color:red;
+        width: 23px;
+        height: 23px;
+        line-height: -10px;
+        left: 65%;
+        bottom: 5px;
+        text-align: center;
+        -webkit-border-radius: 22px;
+        border-radius: 22px;
+    }
+</style>
