@@ -17,12 +17,9 @@ namespace stationeryapp.Models
         public string PODetailsNumber { get; set; }
         public string PONumber { get; set; }
         public string ItemNumber { get; set; }
-        //public Nullable<int> Quantity { get; set; }
-        public int Quantity { get; set; }
-        //public Nullable<int> ReceivedQuantity { get; set; }
-        public int ReceivedQuantity { get; set; }
-        //public Nullable<double> ReceivedValue { get; set; }
-        public double ReceivedValue { get; set; }
+        public Nullable<int> Quantity { get; set; }
+        public Nullable<int> ReceivedQuantity { get; set; }
+        public Nullable<double> ReceivedValue { get; set; }
         public string Remarks { get; set; }
     
         public virtual PurchaseOrder PurchaseOrder { get; set; }

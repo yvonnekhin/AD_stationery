@@ -17,7 +17,6 @@ namespace stationeryapp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public RequisitionForm()
         {
-            this.OutstandingLists = new HashSet<OutstandingList>();
             this.RequisitionFormDetails = new HashSet<RequisitionFormDetail>();
         }
     
@@ -33,10 +32,8 @@ namespace stationeryapp.Models
     
         public virtual Employee Employee { get; set; }
         public virtual Employee Employee1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OutstandingList> OutstandingLists { get; set; }
+        public virtual StoreClerk StoreClerk { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequisitionFormDetail> RequisitionFormDetails { get; set; }
-        public virtual StoreClerk StoreClerk { get; set; }
     }
 }

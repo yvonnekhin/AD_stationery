@@ -67,14 +67,9 @@
             <PropertyRef Name="OutstandingListNumber" />
           </Key>
           <Property Name="OutstandingListNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="RequisitionFormNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="DateApproved" Type="datetime" />
-          <Property Name="ItemNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="Balance" Type="int" />
-          <Property Name="DepartmentCode" Type="nvarchar" MaxLength="50" />
-          <Property Name="Needed" Type="int" />
           <Property Name="PONumber" Type="nvarchar" MaxLength="50" />
           <Property Name="Status" Type="nvarchar" MaxLength="50" />
+          <Property Name="RetrievalFormDetailsNumber" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PurchaseOrderDetails">
           <Key>
@@ -115,6 +110,7 @@
           <Property Name="FormNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="ItemNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="Quantity" Type="int" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="RequisitionForms">
           <Key>
@@ -339,18 +335,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OutstandingList_DepartmentList">
-          <End Role="DepartmentList" Type="Self.DepartmentList" Multiplicity="0..1" />
-          <End Role="OutstandingList" Type="Self.OutstandingList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DepartmentList">
-              <PropertyRef Name="DepartmentCode" />
-            </Principal>
-            <Dependent Role="OutstandingList">
-              <PropertyRef Name="DepartmentCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OutstandingList_PurchaseOrders">
           <End Role="PurchaseOrders" Type="Self.PurchaseOrders" Multiplicity="0..1" />
           <End Role="OutstandingList" Type="Self.OutstandingList" Multiplicity="*" />
@@ -363,27 +347,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OutstandingList_RequisitionForms">
-          <End Role="RequisitionForms" Type="Self.RequisitionForms" Multiplicity="0..1" />
+        <Association Name="FK_OutstandingList_RequisitionFormDetails">
+          <End Role="RequisitionFormDetails" Type="Self.RequisitionFormDetails" Multiplicity="0..1" />
           <End Role="OutstandingList" Type="Self.OutstandingList" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="RequisitionForms">
-              <PropertyRef Name="FormNumber" />
+            <Principal Role="RequisitionFormDetails">
+              <PropertyRef Name="FormDetailsNumber" />
             </Principal>
             <Dependent Role="OutstandingList">
-              <PropertyRef Name="RequisitionFormNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OutstandingList_StationeryCatalog">
-          <End Role="StationeryCatalog" Type="Self.StationeryCatalog" Multiplicity="0..1" />
-          <End Role="OutstandingList" Type="Self.OutstandingList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StationeryCatalog">
-              <PropertyRef Name="ItemNumber" />
-            </Principal>
-            <Dependent Role="OutstandingList">
-              <PropertyRef Name="ItemNumber" />
+              <PropertyRef Name="RetrievalFormDetailsNumber" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -670,20 +642,12 @@
             <End Role="DepartmentList" EntitySet="DepartmentList" />
             <End Role="Employee" EntitySet="Employee" />
           </AssociationSet>
-          <AssociationSet Name="FK_OutstandingList_DepartmentList" Association="Self.FK_OutstandingList_DepartmentList">
-            <End Role="DepartmentList" EntitySet="DepartmentList" />
-            <End Role="OutstandingList" EntitySet="OutstandingList" />
-          </AssociationSet>
           <AssociationSet Name="FK_OutstandingList_PurchaseOrders" Association="Self.FK_OutstandingList_PurchaseOrders">
             <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
             <End Role="OutstandingList" EntitySet="OutstandingList" />
           </AssociationSet>
-          <AssociationSet Name="FK_OutstandingList_RequisitionForms" Association="Self.FK_OutstandingList_RequisitionForms">
-            <End Role="RequisitionForms" EntitySet="RequisitionForms" />
-            <End Role="OutstandingList" EntitySet="OutstandingList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OutstandingList_StationeryCatalog" Association="Self.FK_OutstandingList_StationeryCatalog">
-            <End Role="StationeryCatalog" EntitySet="StationeryCatalog" />
+          <AssociationSet Name="FK_OutstandingList_RequisitionFormDetails" Association="Self.FK_OutstandingList_RequisitionFormDetails">
+            <End Role="RequisitionFormDetails" EntitySet="RequisitionFormDetails" />
             <End Role="OutstandingList" EntitySet="OutstandingList" />
           </AssociationSet>
           <AssociationSet Name="FK_PurchaseOrderDetails_PurchaseOrders" Association="Self.FK_PurchaseOrderDetails_PurchaseOrders">
@@ -794,7 +758,6 @@
           <NavigationProperty Name="Employee1" Relationship="Self.FK_DepartmentList_Employee" FromRole="DepartmentList" ToRole="Employee" />
           <NavigationProperty Name="DisbursementLists" Relationship="Self.FK_DisbursementLists_DepartmentList" FromRole="DepartmentList" ToRole="DisbursementLists" />
           <NavigationProperty Name="Employees" Relationship="Self.FK_Employee_DepartmentList" FromRole="DepartmentList" ToRole="Employee" />
-          <NavigationProperty Name="OutstandingLists" Relationship="Self.FK_OutstandingList_DepartmentList" FromRole="DepartmentList" ToRole="OutstandingList" />
           <NavigationProperty Name="StationeryRetrievalFormDetails" Relationship="Self.FK_StationeryRetrievalFormDetails_DepartmentList" FromRole="DepartmentList" ToRole="StationeryRetrievalFormDetails" />
         </EntityType>
         <EntityType Name="DisbursementListDetail">
@@ -842,24 +805,6 @@
           <NavigationProperty Name="RequisitionForms" Relationship="Self.FK_RequisitionForms_DepartmentHead" FromRole="Employee" ToRole="RequisitionForms" />
           <NavigationProperty Name="RequisitionForms1" Relationship="Self.FK_RequisitionForms_Employee" FromRole="Employee" ToRole="RequisitionForms" />
         </EntityType>
-        <EntityType Name="OutstandingList">
-          <Key>
-            <PropertyRef Name="OutstandingListNumber" />
-          </Key>
-          <Property Name="OutstandingListNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="RequisitionFormNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DateApproved" Type="DateTime" Precision="3" />
-          <Property Name="ItemNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Balance" Type="Int32" />
-          <Property Name="DepartmentCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Needed" Type="Int32" />
-          <NavigationProperty Name="DepartmentList" Relationship="Self.FK_OutstandingList_DepartmentList" FromRole="OutstandingList" ToRole="DepartmentList" />
-          <NavigationProperty Name="RequisitionForm" Relationship="Self.FK_OutstandingList_RequisitionForms" FromRole="OutstandingList" ToRole="RequisitionForms" />
-          <NavigationProperty Name="StationeryCatalog" Relationship="Self.FK_OutstandingList_StationeryCatalog" FromRole="OutstandingList" ToRole="StationeryCatalog" />
-          <Property Name="PONumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="PurchaseOrder" Relationship="stationeryModel19.FK_OutstandingList_PurchaseOrders" FromRole="OutstandingList" ToRole="PurchaseOrder" />
-        </EntityType>
         <EntityType Name="PurchaseOrderDetail">
           <Key>
             <PropertyRef Name="PODetailsNumber" />
@@ -896,19 +841,8 @@
           <NavigationProperty Name="StoreClerk1" Relationship="Self.FK_PurchaseOrders_StoreClerk1" FromRole="PurchaseOrders" ToRole="StoreClerk" />
           <NavigationProperty Name="StoreSupervisor" Relationship="Self.FK_PurchaseOrders_StoreSupervisor" FromRole="PurchaseOrders" ToRole="StoreSupervisor" />
           <NavigationProperty Name="SupplierList" Relationship="Self.FK_PurchaseOrders_SupplierList" FromRole="PurchaseOrders" ToRole="SupplierList" />
-          <NavigationProperty Name="OutstandingLists" Relationship="stationeryModel19.FK_OutstandingList_PurchaseOrders" FromRole="PurchaseOrder" ToRole="OutstandingList" />
           <Property Name="Reason" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="RequisitionFormDetail">
-          <Key>
-            <PropertyRef Name="FormDetailsNumber" />
-          </Key>
-          <Property Name="FormDetailsNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FormNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ItemNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Int32" />
-          <NavigationProperty Name="RequisitionForm" Relationship="Self.FK_RequisitionFormDetails_RequisitionForms" FromRole="RequisitionFormDetails" ToRole="RequisitionForms" />
-          <NavigationProperty Name="StationeryCatalog" Relationship="Self.FK_RequisitionFormDetails_StationeryCatalog" FromRole="RequisitionFormDetails" ToRole="StationeryCatalog" />
+          <NavigationProperty Name="OutstandingLists" Relationship="stationeryModel19.FK_OutstandingList_PurchaseOrders" FromRole="PurchaseOrder" ToRole="OutstandingList" />
         </EntityType>
         <EntityType Name="RequisitionForm">
           <Key>
@@ -925,9 +859,8 @@
           <Property Name="Notification" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_RequisitionForms_DepartmentHead" FromRole="RequisitionForms" ToRole="Employee" />
           <NavigationProperty Name="Employee1" Relationship="Self.FK_RequisitionForms_Employee" FromRole="RequisitionForms" ToRole="Employee" />
-          <NavigationProperty Name="OutstandingLists" Relationship="Self.FK_OutstandingList_RequisitionForms" FromRole="RequisitionForms" ToRole="OutstandingList" />
-          <NavigationProperty Name="RequisitionFormDetails" Relationship="Self.FK_RequisitionFormDetails_RequisitionForms" FromRole="RequisitionForms" ToRole="RequisitionFormDetails" />
           <NavigationProperty Name="StoreClerk" Relationship="Self.FK_RequisitionForms_StoreClerk" FromRole="RequisitionForms" ToRole="StoreClerk" />
+          <NavigationProperty Name="RequisitionFormDetails" Relationship="stationeryModel19.FK_RequisitionFormDetails_RequisitionForms" FromRole="RequisitionForm" ToRole="RequisitionFormDetail" />
         </EntityType>
         <EntityType Name="StationeryCatalog">
           <Key>
@@ -946,14 +879,13 @@
           <Property Name="SupplierCode3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Balance" Type="Int32" />
           <NavigationProperty Name="DisbursementListDetails" Relationship="Self.FK_DisbursementListDetails_StationeryCatalog" FromRole="StationeryCatalog" ToRole="DisbursementListDetails" />
-          <NavigationProperty Name="OutstandingLists" Relationship="Self.FK_OutstandingList_StationeryCatalog" FromRole="StationeryCatalog" ToRole="OutstandingList" />
           <NavigationProperty Name="PurchaseOrderDetails" Relationship="Self.FK_PurchaseOrderDetails_StationeryCatalog" FromRole="StationeryCatalog" ToRole="PurchaseOrderDetails" />
-          <NavigationProperty Name="RequisitionFormDetails" Relationship="Self.FK_RequisitionFormDetails_StationeryCatalog" FromRole="StationeryCatalog" ToRole="RequisitionFormDetails" />
           <NavigationProperty Name="SupplierList" Relationship="Self.FK_StationeryCatalog_SupplierList" FromRole="StationeryCatalog" ToRole="SupplierList" />
           <NavigationProperty Name="SupplierList1" Relationship="Self.FK_StationeryCatalog_SupplierList1" FromRole="StationeryCatalog" ToRole="SupplierList" />
           <NavigationProperty Name="SupplierList2" Relationship="Self.FK_StationeryCatalog_SupplierList2" FromRole="StationeryCatalog" ToRole="SupplierList" />
           <NavigationProperty Name="StationeryRetrievalFormDetails" Relationship="Self.FK_StationeryRetrievalFormDetails_StationeryCatalog" FromRole="StationeryCatalog" ToRole="StationeryRetrievalFormDetails" />
           <NavigationProperty Name="StockAdjustmentVoucherDetails" Relationship="Self.FK_StockAdjustmentVoucherDetails_StationeryCatalog" FromRole="StationeryCatalog" ToRole="StockAdjustmentVoucherDetails" />
+          <NavigationProperty Name="RequisitionFormDetails" Relationship="stationeryModel19.FK_RequisitionFormDetails_StationeryCatalog" FromRole="StationeryCatalog" ToRole="RequisitionFormDetail" />
         </EntityType>
         <EntityType Name="StationeryRetrievalFormDetail">
           <Key>
@@ -1139,18 +1071,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OutstandingList_DepartmentList">
-          <End Role="DepartmentList" Type="Self.DepartmentList" Multiplicity="0..1" />
-          <End Role="OutstandingList" Type="Self.OutstandingList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DepartmentList">
-              <PropertyRef Name="DepartmentCode" />
-            </Principal>
-            <Dependent Role="OutstandingList">
-              <PropertyRef Name="DepartmentCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_StationeryRetrievalFormDetails_DepartmentList">
           <End Role="DepartmentList" Type="Self.DepartmentList" Multiplicity="0..1" />
           <End Role="StationeryRetrievalFormDetails" Type="Self.StationeryRetrievalFormDetail" Multiplicity="*" />
@@ -1208,30 +1128,6 @@
             </Principal>
             <Dependent Role="RequisitionForms">
               <PropertyRef Name="EmployeeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OutstandingList_RequisitionForms">
-          <End Role="RequisitionForms" Type="Self.RequisitionForm" Multiplicity="0..1" />
-          <End Role="OutstandingList" Type="Self.OutstandingList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RequisitionForms">
-              <PropertyRef Name="FormNumber" />
-            </Principal>
-            <Dependent Role="OutstandingList">
-              <PropertyRef Name="RequisitionFormNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OutstandingList_StationeryCatalog">
-          <End Role="StationeryCatalog" Type="Self.StationeryCatalog" Multiplicity="0..1" />
-          <End Role="OutstandingList" Type="Self.OutstandingList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StationeryCatalog">
-              <PropertyRef Name="ItemNumber" />
-            </Principal>
-            <Dependent Role="OutstandingList">
-              <PropertyRef Name="ItemNumber" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1304,32 +1200,6 @@
             </Principal>
             <Dependent Role="PurchaseOrders">
               <PropertyRef Name="SupplierCode" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RequisitionFormDetails_RequisitionForms">
-          <End Role="RequisitionForms" Type="Self.RequisitionForm" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="RequisitionFormDetails" Type="Self.RequisitionFormDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="RequisitionForms">
-              <PropertyRef Name="FormNumber" />
-            </Principal>
-            <Dependent Role="RequisitionFormDetails">
-              <PropertyRef Name="FormNumber" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_RequisitionFormDetails_StationeryCatalog">
-          <End Role="StationeryCatalog" Type="Self.StationeryCatalog" Multiplicity="0..1" />
-          <End Role="RequisitionFormDetails" Type="Self.RequisitionFormDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="StationeryCatalog">
-              <PropertyRef Name="ItemNumber" />
-            </Principal>
-            <Dependent Role="RequisitionFormDetails">
-              <PropertyRef Name="ItemNumber" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1435,10 +1305,8 @@
           <EntitySet Name="DisbursementListDetails" EntityType="Self.DisbursementListDetail" />
           <EntitySet Name="DisbursementLists" EntityType="Self.DisbursementList" />
           <EntitySet Name="Employees" EntityType="Self.Employee" />
-          <EntitySet Name="OutstandingLists" EntityType="Self.OutstandingList" />
           <EntitySet Name="PurchaseOrderDetails" EntityType="Self.PurchaseOrderDetail" />
           <EntitySet Name="PurchaseOrders" EntityType="Self.PurchaseOrder" />
-          <EntitySet Name="RequisitionFormDetails" EntityType="Self.RequisitionFormDetail" />
           <EntitySet Name="RequisitionForms" EntityType="Self.RequisitionForm" />
           <EntitySet Name="StationeryCatalogs" EntityType="Self.StationeryCatalog" />
           <EntitySet Name="StationeryRetrievalFormDetails" EntityType="Self.StationeryRetrievalFormDetail" />
@@ -1474,10 +1342,6 @@
             <End Role="DepartmentList" EntitySet="DepartmentLists" />
             <End Role="Employee" EntitySet="Employees" />
           </AssociationSet>
-          <AssociationSet Name="FK_OutstandingList_DepartmentList" Association="Self.FK_OutstandingList_DepartmentList">
-            <End Role="DepartmentList" EntitySet="DepartmentLists" />
-            <End Role="OutstandingList" EntitySet="OutstandingLists" />
-          </AssociationSet>
           <AssociationSet Name="FK_StationeryRetrievalFormDetails_DepartmentList" Association="Self.FK_StationeryRetrievalFormDetails_DepartmentList">
             <End Role="DepartmentList" EntitySet="DepartmentLists" />
             <End Role="StationeryRetrievalFormDetails" EntitySet="StationeryRetrievalFormDetails" />
@@ -1497,14 +1361,6 @@
           <AssociationSet Name="FK_RequisitionForms_Employee" Association="Self.FK_RequisitionForms_Employee">
             <End Role="Employee" EntitySet="Employees" />
             <End Role="RequisitionForms" EntitySet="RequisitionForms" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OutstandingList_RequisitionForms" Association="Self.FK_OutstandingList_RequisitionForms">
-            <End Role="RequisitionForms" EntitySet="RequisitionForms" />
-            <End Role="OutstandingList" EntitySet="OutstandingLists" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OutstandingList_StationeryCatalog" Association="Self.FK_OutstandingList_StationeryCatalog">
-            <End Role="StationeryCatalog" EntitySet="StationeryCatalogs" />
-            <End Role="OutstandingList" EntitySet="OutstandingLists" />
           </AssociationSet>
           <AssociationSet Name="FK_PurchaseOrderDetails_PurchaseOrders" Association="Self.FK_PurchaseOrderDetails_PurchaseOrders">
             <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
@@ -1529,14 +1385,6 @@
           <AssociationSet Name="FK_PurchaseOrders_SupplierList" Association="Self.FK_PurchaseOrders_SupplierList">
             <End Role="SupplierList" EntitySet="SupplierLists" />
             <End Role="PurchaseOrders" EntitySet="PurchaseOrders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RequisitionFormDetails_RequisitionForms" Association="Self.FK_RequisitionFormDetails_RequisitionForms">
-            <End Role="RequisitionForms" EntitySet="RequisitionForms" />
-            <End Role="RequisitionFormDetails" EntitySet="RequisitionFormDetails" />
-          </AssociationSet>
-          <AssociationSet Name="FK_RequisitionFormDetails_StationeryCatalog" Association="Self.FK_RequisitionFormDetails_StationeryCatalog">
-            <End Role="StationeryCatalog" EntitySet="StationeryCatalogs" />
-            <End Role="RequisitionFormDetails" EntitySet="RequisitionFormDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_RequisitionForms_StoreClerk" Association="Self.FK_RequisitionForms_StoreClerk">
             <End Role="StoreClerk" EntitySet="StoreClerks" />
@@ -1570,11 +1418,49 @@
             <End Role="StockAdjustmentVouchers" EntitySet="StockAdjustmentVouchers" />
             <End Role="StockAdjustmentVoucherDetails" EntitySet="StockAdjustmentVoucherDetails" />
           </AssociationSet>
+          <EntitySet Name="OutstandingLists" EntityType="stationeryModel19.OutstandingList" />
+          <EntitySet Name="RequisitionFormDetails" EntityType="stationeryModel19.RequisitionFormDetail" />
           <AssociationSet Name="FK_OutstandingList_PurchaseOrders" Association="stationeryModel19.FK_OutstandingList_PurchaseOrders">
             <End Role="PurchaseOrder" EntitySet="PurchaseOrders" />
             <End Role="OutstandingList" EntitySet="OutstandingLists" />
           </AssociationSet>
+          <AssociationSet Name="FK_OutstandingList_RequisitionFormDetails" Association="stationeryModel19.FK_OutstandingList_RequisitionFormDetails">
+            <End Role="RequisitionFormDetail" EntitySet="RequisitionFormDetails" />
+            <End Role="OutstandingList" EntitySet="OutstandingLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequisitionFormDetails_RequisitionForms" Association="stationeryModel19.FK_RequisitionFormDetails_RequisitionForms">
+            <End Role="RequisitionForm" EntitySet="RequisitionForms" />
+            <End Role="RequisitionFormDetail" EntitySet="RequisitionFormDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequisitionFormDetails_StationeryCatalog" Association="stationeryModel19.FK_RequisitionFormDetails_StationeryCatalog">
+            <End Role="StationeryCatalog" EntitySet="StationeryCatalogs" />
+            <End Role="RequisitionFormDetail" EntitySet="RequisitionFormDetails" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="OutstandingList">
+          <Key>
+            <PropertyRef Name="OutstandingListNumber" />
+          </Key>
+          <Property Name="OutstandingListNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PONumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RetrievalFormDetailsNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PurchaseOrder" Relationship="stationeryModel19.FK_OutstandingList_PurchaseOrders" FromRole="OutstandingList" ToRole="PurchaseOrder" />
+          <NavigationProperty Name="RequisitionFormDetail" Relationship="stationeryModel19.FK_OutstandingList_RequisitionFormDetails" FromRole="OutstandingList" ToRole="RequisitionFormDetail" />
+        </EntityType>
+        <EntityType Name="RequisitionFormDetail">
+          <Key>
+            <PropertyRef Name="FormDetailsNumber" />
+          </Key>
+          <Property Name="FormDetailsNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FormNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ItemNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Quantity" Type="Int32" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="OutstandingLists" Relationship="stationeryModel19.FK_OutstandingList_RequisitionFormDetails" FromRole="RequisitionFormDetail" ToRole="OutstandingList" />
+          <NavigationProperty Name="RequisitionForm" Relationship="stationeryModel19.FK_RequisitionFormDetails_RequisitionForms" FromRole="RequisitionFormDetail" ToRole="RequisitionForm" />
+          <NavigationProperty Name="StationeryCatalog" Relationship="stationeryModel19.FK_RequisitionFormDetails_StationeryCatalog" FromRole="RequisitionFormDetail" ToRole="StationeryCatalog" />
+        </EntityType>
         <Association Name="FK_OutstandingList_PurchaseOrders">
           <End Type="stationeryModel19.PurchaseOrder" Role="PurchaseOrder" Multiplicity="0..1" />
           <End Type="stationeryModel19.OutstandingList" Role="OutstandingList" Multiplicity="*" />
@@ -1584,6 +1470,44 @@
             </Principal>
             <Dependent Role="OutstandingList">
               <PropertyRef Name="PONumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutstandingList_RequisitionFormDetails">
+          <End Type="stationeryModel19.RequisitionFormDetail" Role="RequisitionFormDetail" Multiplicity="0..1" />
+          <End Type="stationeryModel19.OutstandingList" Role="OutstandingList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequisitionFormDetail">
+              <PropertyRef Name="FormDetailsNumber" />
+            </Principal>
+            <Dependent Role="OutstandingList">
+              <PropertyRef Name="RetrievalFormDetailsNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequisitionFormDetails_RequisitionForms">
+          <End Type="stationeryModel19.RequisitionForm" Role="RequisitionForm" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="stationeryModel19.RequisitionFormDetail" Role="RequisitionFormDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="RequisitionForm">
+              <PropertyRef Name="FormNumber" />
+            </Principal>
+            <Dependent Role="RequisitionFormDetail">
+              <PropertyRef Name="FormNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequisitionFormDetails_StationeryCatalog">
+          <End Type="stationeryModel19.StationeryCatalog" Role="StationeryCatalog" Multiplicity="0..1" />
+          <End Type="stationeryModel19.RequisitionFormDetail" Role="RequisitionFormDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="StationeryCatalog">
+              <PropertyRef Name="ItemNumber" />
+            </Principal>
+            <Dependent Role="RequisitionFormDetail">
+              <PropertyRef Name="ItemNumber" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1655,21 +1579,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="OutstandingLists">
-            <EntityTypeMapping TypeName="stationeryModel19.OutstandingList">
-              <MappingFragment StoreEntitySet="OutstandingList">
-                <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
-                <ScalarProperty Name="OutstandingListNumber" ColumnName="OutstandingListNumber" />
-                <ScalarProperty Name="RequisitionFormNumber" ColumnName="RequisitionFormNumber" />
-                <ScalarProperty Name="DateApproved" ColumnName="DateApproved" />
-                <ScalarProperty Name="ItemNumber" ColumnName="ItemNumber" />
-                <ScalarProperty Name="Balance" ColumnName="Balance" />
-                <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
-                <ScalarProperty Name="Needed" ColumnName="Needed" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PurchaseOrderDetails">
             <EntityTypeMapping TypeName="stationeryModel19.PurchaseOrderDetail">
               <MappingFragment StoreEntitySet="PurchaseOrderDetails">
@@ -1700,16 +1609,6 @@
                 <ScalarProperty Name="ReceivedDate" ColumnName="ReceivedDate" />
                 <ScalarProperty Name="ReceivedValue" ColumnName="ReceivedValue" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RequisitionFormDetails">
-            <EntityTypeMapping TypeName="stationeryModel19.RequisitionFormDetail">
-              <MappingFragment StoreEntitySet="RequisitionFormDetails">
-                <ScalarProperty Name="FormDetailsNumber" ColumnName="FormDetailsNumber" />
-                <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
-                <ScalarProperty Name="ItemNumber" ColumnName="ItemNumber" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1848,6 +1747,27 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OutstandingLists">
+            <EntityTypeMapping TypeName="stationeryModel19.OutstandingList">
+              <MappingFragment StoreEntitySet="OutstandingList">
+                <ScalarProperty Name="RetrievalFormDetailsNumber" ColumnName="RetrievalFormDetailsNumber" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="PONumber" ColumnName="PONumber" />
+                <ScalarProperty Name="OutstandingListNumber" ColumnName="OutstandingListNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequisitionFormDetails">
+            <EntityTypeMapping TypeName="stationeryModel19.RequisitionFormDetail">
+              <MappingFragment StoreEntitySet="RequisitionFormDetails">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="ItemNumber" ColumnName="ItemNumber" />
+                <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
+                <ScalarProperty Name="FormDetailsNumber" ColumnName="FormDetailsNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

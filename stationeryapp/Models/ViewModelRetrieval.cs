@@ -15,6 +15,10 @@ namespace stationeryapp.Models
         public Employee employees { get; set; }
         public RequisitionFormDetail requisitionFormDetails { get; set; }
 
-        //public RetrievalTest retrievalTest { get; set; }
+        public PurchaseOrder purchaseOrders { get; set; }
+
+        public OutstandingList outstandingLists { get; set; }
+
+        public ConsolidatedRequest consolidatedRequest { get; set; }
     }
 }

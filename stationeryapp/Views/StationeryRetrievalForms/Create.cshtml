@@ -1,4 +1,4 @@
-﻿@model IEnumerable<stationeryapp.Models.ViewModelRetrieval>
+﻿@model List<stationeryapp.Models.ConsolidatedRequest>
 
 @{
     ViewBag.Title = "Create";
@@ -40,99 +40,47 @@
             <th>Actual</th>
         </tr>
 
-        @functions{
-            public class TempData
-            {
-                public string departmentName;
-                public int needed;
-
-                public TempData(string dname, int n)
-                {
-                    departmentName = dname;
-                    needed = n;
-                }
-            }
-
-            public class Sums
-            {
-                public string description;
-                public int needed;
-
-                public Sums(string desc, int n)
-                {
-                    description = desc;
-                    needed = n;
-                }
-
-                public void addNeeded(int n)
-                {
-                    needed += n;
-                }
-            }
-        }
-
-        @{
-            int sum_needed = 0;
-            int sum_actual = 0;
-            Dictionary<string, List<TempData>> store = new Dictionary<string, List<TempData>>();
-            Dictionary<string, Sums> bin_to_sums = new Dictionary<string, Sums>();
-            foreach (var item in Model)
-            {
-                TempData t = new TempData(@item.employees.DepartmentCode, (int)@item.requisitionFormDetails.Quantity);
-                Sums s = new Sums(@item.catalogs.Description, (int)@item.requisitionFormDetails.Quantity);
-                if (!store.ContainsKey(@item.catalogs.BinNumber))
-                {
-                    List<TempData> list = new List<TempData>();
-                    list.Add(t);
-                    store.Add(@item.catalogs.BinNumber, list);
-                }
-                else
-                {
-                    store[@item.catalogs.BinNumber].Add(t);
-                }
-
-                if (!bin_to_sums.ContainsKey(@item.catalogs.BinNumber))
-                {
-                    bin_to_sums.Add(@item.catalogs.BinNumber, s);
-                }
-                else
-                {
-                    bin_to_sums[@item.catalogs.BinNumber].addNeeded((int)@item.requisitionFormDetails.Quantity);
-                }
-            }
-
-            foreach (var k in store)
-            {
-                List<TempData> l1 = k.Value;
-                <tr>
-                    <td>@k.Key</td>
-                    <td>@bin_to_sums[@k.Key].description</td>
-                    <td>@bin_to_sums[@k.Key].needed</td>
-                    <td><input type="number" value=@bin_to_sums[@k.Key].needed /></td>
-                    <td>@l1[0].departmentName</td>
-                    <td>@l1[0].needed</td>
-                    <td><input type="number" name="neededQuantity" value=@l1[0].needed /></td>
-                    @for (var i = 1; i < l1.Count; i++)
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@Model[i].binNumber</td>
+                <td>@Model[i].description</td>
+                <td>@Model[i].totalNeeded</td>
+                <td>@Model[i].totalRetrieved</td>
+                @{
+                    for (int j = 0; j < Model[i].requests.Count; j++)
                     {
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>
-                            @l1[i].departmentName
-                        </td>
-                        <td>
-                            @l1[i].needed
-                        </td>
-                        <td>
-                            <input type="number" name="neededQuantity" value=@l1[i].needed />
-                        </td>
-                    </tr>
+                        if (j == 0)
+                        {
+                            <td>@Model[i].requests[j].departmentCode</td>
+                            <td>@Model[i].requests[j].needed</td>
+                            <td>
+                                @Html.TextBox("Details[" + @i + "]" + @j, Model[i].requests[j].actual)
+                                @*@Model[i].requests[j].actual*@
+                            </td>
+                        }
+                        else
+                        {
+
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>@Model[i].requests[j].departmentCode</td>
+                            <td>@Model[i].requests[j].needed</td>
+                            <td>
+                                @Html.TextBox("Details[" + @i + "]" + @j, Model[i].requests[j].actual)
+                                @*@Model[i].requests[j].actual*@
+                            </td>
+                        </tr>
+                    }
+
                 }
-                    </tr>
                 }
-        }
+                </tr>
+            }
+
     </table>
 
     <div class="form-group">

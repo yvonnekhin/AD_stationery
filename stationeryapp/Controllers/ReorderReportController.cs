@@ -30,11 +30,11 @@ namespace stationeryapp.Controllers
                            ItemNumber = i.ItemNumber,
                            Category = i.Category,
                            Description = i.Description,
-                           Balance = i.Balance,
-                           ReorderLevel = i.ReorderLevel,
-                           ReorderQuantity = i.ReorderQuantity,
+                           Balance = (int)i.Balance,
+                           ReorderLevel = (int)i.ReorderLevel,
+                           ReorderQuantity = (int)i.ReorderQuantity,
                            PONumber = i1.PONumber,                          
-                           SupplyByDate = i2.SupplyByDate
+                           SupplyByDate = (DateTime)i2.SupplyByDate
                        };
                       
             if (!String.IsNullOrEmpty(searchString))

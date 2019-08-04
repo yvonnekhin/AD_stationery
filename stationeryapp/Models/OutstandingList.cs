@@ -15,18 +15,11 @@ namespace stationeryapp.Models
     public partial class OutstandingList
     {
         public string OutstandingListNumber { get; set; }
-        public string RequisitionFormNumber { get; set; }
-        public Nullable<System.DateTime> DateApproved { get; set; }
-        public string ItemNumber { get; set; }
-        public Nullable<int> Balance { get; set; }
-        public string DepartmentCode { get; set; }
-        public Nullable<int> Needed { get; set; }
         public string PONumber { get; set; }
         public string Status { get; set; }
+        public string RetrievalFormDetailsNumber { get; set; }
     
-        public virtual DepartmentList DepartmentList { get; set; }
-        public virtual RequisitionForm RequisitionForm { get; set; }
-        public virtual StationeryCatalog StationeryCatalog { get; set; }
         public virtual PurchaseOrder PurchaseOrder { get; set; }
+        public virtual RequisitionFormDetail RequisitionFormDetail { get; set; }
     }
 }
