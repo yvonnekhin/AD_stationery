@@ -7,60 +7,57 @@
     string username = (string)ViewData["username"];
     int num = (int)ViewData["num"];
     int numDisbuserment = (int)ViewData["numDisbuserment"];
-    int numOutS = 2;
-    int numRetrive = 8;
-    int numCatalog = 8;
+    int numOutS = 0;
+    int numRetrive = 0;
+    int numCatalog = 0;
     int numPO = 8;
-    int numStock = 8;
+    int numStock = 0;
     int numReport = 8;
-
 }
 
-<h2 align="center"> Store Clerk Home</h2>
+<h2 align="center"> Store Clerk Home Page</h2>
 <br>
 <br>
 <table align="center">
     <tr>
         <td align="center" class="alarm">
-         <a href=" @Url.Action("Index", "RequisitionForms",new { sessionId = sessionId })"><img src="~/Images/Requests.jpg"></a>
-        <div class="divright">
+            <a href=" @Url.Action("Index", "RequisitionForms",new { sessionId = sessionId })"><img src="~/Images/Requests.jpg"></a>
             @if (num > 0)
-            {               
-               <span>@num</span>
-             }
-        </div>
-        </td>
+            {
+                <div class="divright">
+                    <span>@num</span>
+                </div>
+            }
+         </td>
         <td style="padding:50px"></td>
         <td align="center" class="alarm">
             <a href=" @Url.Action("Index", "OutStandingContoller")"><img src="~/Images/Outstanding.PNG"></a>
-            <div class="divright">
-                @if (numOutS > 0)
-                {
-                    <span>@numOutS</span>
-                }
-            </div>
-        </td>
+            @if (numOutS > 0)
+            {
+                <div class="divright">
+                    <span>@numOutS</span>                    
+                </div>
+            }
+            </td>
         <td style="padding:50px"></td>
         <td align="center" class="alarm">
             <a href=" @Url.Action("Index", "RetrivalController")"><img src="~/Images/RetrivalForm.PNG"></a>
-            <div class="divright">
-                @if (numRetrive > 0)
-                {
+            @if (numRetrive> 0)
+            {
+                <div class="divright">
                     <span>@numRetrive</span>
-                }
-            </div>
+                </div>
+            }       
         </td>
         <td style="padding:50px"></td>
         <td align="center" class="alarm">
             <a href=" @Url.Action("Index", "DisbursementLists",new { sessionId = sessionId })"><img src="~/Images/DisbusementList.PNG"></a>
-            <div class="divright">
-                @if (numDisbuserment > 0)
-                {
-                    <span>
-                        @numDisbuserment
-                    </span>
-                }
+            @if (numDisbuserment > 0)
+            {
+               <div class="divright">
+                  <span> @numDisbuserment</span>
                 </div>
+             }               
          </td>
     </tr>
     <tr>
@@ -78,42 +75,42 @@
     <tr>
         <td align="center" class="alarm">
             <a href=" @Url.Action("Index", "Catalog")"><img src="~/Images/Catalog.PNG"></a>
-            <div class="divright">
-                @if (numCatalog > 0)
-                {
-                    <span>@numCatalog</span>
-                }
-            </div>
+            @if (numCatalog > 0)
+            {
+                <div class="divright">
+                    <span> @numCatalog</span>
+                </div>
+            }
         </td>
         <td style="padding:50px"></td>
         <td align="center" class="alarm">
             <a href=" @Url.Action("Index", "Purchase Order")"><img src="~/Images/PO.PNG"></a>
-            <div class="divright">
-                @if (numPO > 0)
-                {
-                    <span>@numPO</span>
-                }
-            </div>
+            @if (numPO> 0)
+            {
+                <div class="divright">
+                    <span> @numPO</span>
+                </div>
+            }
         </td>
         <td style="padding:50px"></td>
         <td align="center" class="alarm">
             <a href=" @Url.Action("Index", "Stock Adjustment")"><img src="~/Images/StockAjustment.PNG"></a>
-            <div class="divright">
-                @if (numStock > 0)
-                {
-                    <span>@numStock</span>
-                }
-            </div>
+            @if (numStock > 0)
+            {
+                <div class="divright">
+                    <span> @numStock</span>
+                </div>
+            }
         </td>
         <td style="padding:50px"></td>
         <td align="center" class="alarm">
             <a href=" @Url.Action("Index", "ReportHome",new { sessionId = sessionId })"><img src="~/Images/Reports.PNG"></a>
-            <div class="divright">
-                @if (numReport > 0)
-                {
-                    <span>@numReport</span>
-                }
-            </div>
+            @if (numReport> 0)
+            {
+                <div class="divright">
+                    <span> @numReport</span>
+                </div>
+            }
         </td>
     </tr>
     <tr>
@@ -132,7 +129,7 @@
         position: relative;
         width: 40px;
         height: 30px;
-        margin: 40px;
+        /*margin: 40px;*/
     }
 
      .alarm img {
@@ -147,9 +144,9 @@
         background-color:red;
         width: 23px;
         height: 23px;
-        line-height: -10px;
+        line-height: -5px;
         left: 65%;
-        bottom: 5px;
+        bottom: -5px;
         text-align: center;
         -webkit-border-radius: 22px;
         border-radius: 22px;

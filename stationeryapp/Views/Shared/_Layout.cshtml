@@ -16,44 +16,44 @@
     <div class="navbar navbar-inverse navbar-fixed-top" id="Header" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
         @if (username != null)
         {
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <ul class="nav navbar-nav">
-                        <li><img style="height:50px; padding-top:4px; padding-left:10px;" alt="logo" src="~/Images/logo2.jpg"></li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href='@Url.Action("Index", "Home", new { sessionId = sessionId })'>MENU<span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "RequisitionForms", new { sessionId = sessionId })'>RequisitionForms</a></li>
-                                <li style="margin-bottom:20px"><a href="#">Outstanding</a></li>
-                                <li style="margin-bottom:20px"><a href="#">RetrievalForm</a></li>
-                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "DisbursementLists", new { sessionId = sessionId })'>Disbursement List</a></li>
-                                <li style="margin-bottom:20px"><a href="#">Catalog</a></li>
-                                <li style="margin-bottom:20px"><a href="#">Purchase Order</a></li>
-                                <li style="margin-bottom:20px"><a href="#">Stock Adjustment</a></li>
-                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "ReportHome", new { sessionId = sessionId })'>ReorderReport</a></li>
+        <div class="container-fluid;row">
+            <div class="col-md-8">
+                <ul class="nav navbar-nav">
+                    <li><img style="height:50px; padding-top:4px; padding-left:10px;" alt="logo" src="~/Images/logo2.jpg"></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href='@Url.Action("Index", "Home", new { sessionId = sessionId })'>MENU<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li style="margin-bottom:20px"><a href='@Url.Action("Index", "RequisitionForms", new { sessionId = sessionId })'>RequisitionForms</a></li>
+                            <li style="margin-bottom:20px"><a href="#">Outstanding</a></li>
+                            <li style="margin-bottom:20px"><a href="#">RetrievalForm</a></li>
+                            <li style="margin-bottom:20px"><a href='@Url.Action("Index", "DisbursementLists", new { sessionId = sessionId })'>Disbursement List</a></li>
+                            <li style="margin-bottom:20px"><a href="#">Catalog</a></li>
+                            <li style="margin-bottom:20px"><a href="#">Purchase Order</a></li>
+                            <li style="margin-bottom:20px"><a href="#">Stock Adjustment</a></li>
+                            <li style="margin-bottom:20px"><a href='@Url.Action("Index", "ReportHome", new { sessionId = sessionId })'>ReorderReport</a></li>
 
-                            </ul>
-                        </li>
-                        <li>@Html.ActionLink("STATIONERY MANAGEMENT SYSTEM", "Index", "Home", new { sessionId = sessionId }, new { @class = "navbar-brand" })</li>
-                    </ul>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav navbar-right" style="font-size:medium">
-
-                        @*<li>@Html.ActionLink("Home", "Index", "Home", new { sessionId = sessionId }, new { @class = "hhhh" })</li>*@
-
-                        <li>
-                            <a id="bell_count" href="" class="p1 fa-2x has-badge" data-count=@count data-toggle="modal" data-target="#myModal">
-                                <i class="fas fa-bell "></i>
-                            </a>
-                        </li>
-                        @*<li><p style="color:darkgray;padding:15px;margin:0;font-size:14px"></p></li>*@
-                        <li><a href="#"><img style="height:25px" alt="profile" src="~/Images/storeclarkprofile2.png">Welcome @username</a></li>
-                        <li>@Html.ActionLink("Logout", "Logout", "Login", new { sessionId = sessionId }, new { @class = "hhhh" })</li>
-
-                    </ul>
-                </div>
+                        </ul>
+                    </li>
+                    <li>@Html.ActionLink("STATIONERY MANAGEMENT SYSTEM", "Index", "Home", new { sessionId = sessionId }, new { @class = "navbar-brand" })</li>
+                </ul>
             </div>
+
+            <div class="navbar-collapse collapse col-md-2">
+                <ul class="nav navbar-nav" style="font-size:medium">
+                    <li><a href="#"><img style="height:27px; padding-left:60px" alt="profile" src="~/Images/storeclarkprofile2.png">Welcome @username</a></li>
+                    <li>@Html.ActionLink("Logout", "Logout", "Login", new { sessionId = sessionId }, new { @class = "hhhh" })</li>
+                </ul>
+            </div>
+
+            <div class="navbar-collapse collapse col-md-2">
+                <ul class="nav navbar-nav navbar-right" style="font-size:medium">
+                    <a href="#"><img style="height:40px;padding-top:8px; padding-left:10px"src="~/Images/bellstore2.png"></a>
+                    <li class="divright">
+                        <span> @count</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
         }
     </div>
     <div class="container body-content" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
@@ -103,7 +103,30 @@
         height: 8%;
     }
 
-    #bell .p1[data-count]:after {
+    .alarm {
+        position: relative;
+        width: 20px;
+        height: 20px;
+        /*margin: 40px;*/
+    }
+
+    .divright {
+        position: absolute;
+        color: white;
+        font-size: 12px;
+        background-color: red;
+        width: 20px;
+        height: 20px;
+        line-height: -5px;
+        left: 67%;
+        bottom: -3px;
+        text-align: center;
+        -webkit-border-radius: 22px;
+        border-radius: 22px;
+    }
+
+
+    /*#bell .p1[data-count]:after {
         position: absolute;
         right: 10%;
         top: 8%;
@@ -116,5 +139,5 @@
         background: rgba(255,0,0,.85);
         text-align: center;
         min-width: 1em;
-    }
+    }*/
 </style>

@@ -18,7 +18,6 @@ namespace stationeryapp.Controllers
         private StockAdjustmentVouchersDBContext adb = new StockAdjustmentVouchersDBContext();
         public ActionResult Index(string sessionId)
         {
-
             var disbursementListDetails = db.DisbursementListDetails.Include(d => d.DisbursementList).Include(d => d.StationeryCatalog);
             return View(disbursementListDetails.ToList());
         }
@@ -46,6 +45,7 @@ namespace stationeryapp.Controllers
                 ViewData["employeeF"] = employee.FirstName;
                 ViewData["employeeL"] = employee.LastName;
                 ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["ListDetailsNumber"] = disbursementListDetail.FirstOrDefault().ListDetailsNumber;
                 ViewData["username"] = storeclerk.UserName;
                 return View(disbursementListDetail);
             }
@@ -56,8 +56,11 @@ namespace stationeryapp.Controllers
         }
 
         [HttpPost]
-        public ActionResult Update(List<DisbursementListDetail> Details,string sessionId)
+        public ActionResult Update(List<DisbursementListDetail> Details,string sessionId,string listNumber)
         {
+            string id = db.DisbursementListDetails.Find(listNumber).ListNumber;
+            DisbursementList disbursementList = db.DisbursementLists.Find(id);
+            DisbursementListDetail existing = db.DisbursementListDetails.Find(listNumber);
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             int newNumer = db.StockAdjustmentVouchers.Count();
             int length = Details.Count() + newNumer+1;
@@ -68,7 +71,6 @@ namespace stationeryapp.Controllers
 
             for (int i=newNumer+1; i< length; i++ )
             {
-                DisbursementListDetail existing = db.DisbursementListDetails.Find(Details[i - newNumer-1].ListDetailsNumber);
                 existing.QuantityReceived = Details[i - newNumer-1].QuantityReceived;
                 existing.Remarks = Details[i - newNumer-1].Remarks;
                 recivedX = Convert.ToInt32(existing.Quantity)- Convert.ToInt32(Details[i - newNumer - 1].QuantityReceived);
@@ -97,8 +99,6 @@ namespace stationeryapp.Controllers
             }
             for (int i = newNumer + 1; i < length; i++)
             {
-
-                DisbursementListDetail existing = db.DisbursementListDetails.Find(Details[i - newNumer - 1].ListDetailsNumber);
                 existing.QuantityReceived = Details[i - newNumer - 1].QuantityReceived;
                 existing.Remarks = Details[i - newNumer - 1].Remarks;
                 recivedX = Convert.ToInt32(existing.Quantity) - Convert.ToInt32(Details[i - newNumer - 1].QuantityReceived);
@@ -117,23 +117,25 @@ namespace stationeryapp.Controllers
                     db.SaveChanges();
                 }
             }
-            //update DisbursementList status
+
             if (countnotshow== Details.Count())
             {
-                string id = db.DisbursementListDetails.Find(Details[0].ListDetailsNumber).ListNumber;
-                DisbursementList disbursementList = db.DisbursementLists.Find(id);
                 disbursementList.Status = "Cancelled";
                 db.Entry(disbursementList).State = EntityState.Modified;
                 db.SaveChanges();
             }
             else
             {
-                string id = db.DisbursementListDetails.Find(Details[0].ListDetailsNumber).ListNumber;
-                DisbursementList disbursementList = db.DisbursementLists.Find(id);
                 disbursementList.Status = "Collected";
                 db.Entry(disbursementList).State = EntityState.Modified;
                 db.SaveChanges();
             }
+
+            //form_ = db.RequisitionForms.Find(form_id);
+            //util.SendEmail(form_.Employee.EmailAddress, "From Head Of Dept", form_.Employee.DepartmentCode + "/" + (1000 + int.Parse(form_.FormNumber)).ToString() + " " + email_status);
+            //util.SendEmail(email, "From Store Department", collection + "/" + "Ready For Collection");
+
+    
 
             if (storeclerk != null && sessionId != null)
             {

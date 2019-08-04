@@ -564,6 +564,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\bellstore2.png" />
     <Content Include="Images\Catalog.PNG" />
     <Content Include="Images\delegate.png" />
     <Content Include="Images\DisbusementList.PNG" />

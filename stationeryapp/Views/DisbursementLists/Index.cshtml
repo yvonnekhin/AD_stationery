@@ -6,23 +6,18 @@
     string username = (string)ViewData["username"];
 }
 
-@{
 
-}
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<br>
+<h2>DisbursementList</h2>
+<br>
 
 <table class="table table-bordered table-striped table-hover">
     <tr>
-        <th>ItemId</th>
+        <th>ListNumber</th>
         <th>Department</th>
         <th>CollectionPoint</th>
         <th>CollectionTime</th>
         <th>Status</th>
-
     </tr>
     @foreach (var item in Model)
     {
@@ -32,20 +27,19 @@
                 @*@Html.ActionLink(item.disbursementList.ListNumber, "DisbursementListDetails", "Details")*@
                 <a href='@Url.Action("Details","DisbursementListDetails",new { id= item.disbursementList.ListNumber,sessionId = sessionId})'>@item.disbursementList.ListNumber</a>
             </td>
-            <td style="background-color:aliceblue">
+            <td >
                 @item.departmentList.DepartmentCode
             </td>
             <td>
                 @item.collectionPoint.CollectionPointName
             </td>
-            <td class="success">
+            <td>
                 @item.collectionPoint.CollectionTime
             </td>
-            <td class="text-primary">
+            <td class="success" >
                 @item.disbursementList.Status
             </td>
         </tr>
     }
-
 </table>
 

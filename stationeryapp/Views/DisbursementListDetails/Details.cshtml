@@ -2,7 +2,7 @@
 @model List<stationeryapp.Models.DisbursementListDetail>
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "DesebusermentDetails";
     DateTime date = (DateTime)ViewData["disbursementList"];
     string collection = (string)ViewData["collection"];
     string deptName = (string)ViewData["deparment"];
@@ -11,96 +11,65 @@
     string name = firstName + "" + lastName;
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string listNumber = (string)ViewData["ListDetailsNumber"];
 }
 
-<h2>Details</h2>
+<h2>DisbursementListDetails</h2>
+<br>
 @using (Html.BeginForm("Update", "DisbursementListDetails", FormMethod.Post))
 {
+    @Html.Hidden("sessionId", sessionId)
+    @Html.Hidden("listNumber", listNumber)
     <table class="table table-bordered table-striped table-hover">
         <tr>
-            <th>
-                ListDetailsNumber
-            </th>
-            <th>
-                ItemNumber
-            </th>
-            <th>
-                Category
-            </th>
-            <th>
-                Description
-            </th>
-            <th>
-                Quantity
-            </th>
-            <th>
-                QuantityReceived
-            </th>
-            <th>
-                Remarks
-            </th>
-            <th>
-                Session
-            </th>
+            <th>ItemNumber</th>
+            <th> Category </th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>QuantityReceived</th>
+            <th>Remarks</th>
         </tr>
-
-
-
-        @*@foreach (var item in Model)*@
-
         @for (int i = 0; i < Model.Count; i++)
         {
+            <tr>
+                <td>
+                    @Model[i].StationeryCatalog.ItemNumber
+                </td>
+                <td>
 
-        <tr>
-            <td>
-                @Html.HiddenFor(Model => Model[i].ListDetailsNumber)
-                @Html.TextBox("Details[" + @i  + "].ListDetailsNumber",
-                             Model[i].ListDetailsNumber,
-                             new { @readonly = "readonly" })
-            </td>
+                    @Model[i].StationeryCatalog.Category
+                </td>
+                <td>
+                    @Model[i].StationeryCatalog.Description
+                </td>
 
-            <td>
-                @Model[i].StationeryCatalog.ItemNumber
-                @*@Html.EditorFor(modelItem => Model[i].StationeryCatalog.ItemNumber)*@
-            </td>
-            <td>
-              
-                @Model[i].StationeryCatalog.Category
-            </td>
-            <td>
-                @Model[i].StationeryCatalog.Description
-            </td>
+                <td>
+                    @Model[i].Quantity
+                </td>
+                <td style="background-color:aliceblue">
+                    @Html.TextBox("Details[" + @i + "].QuantityReceived", Model[i].Quantity, new { @maxlength = "4" })
 
-            <td>
-                @Model[i].Quantity
-            </td>
-            <td>
-                @Html.TextBox("Details[" + @i + "].QuantityReceived", Model[i].Quantity)
+                </td>
+                <td style="background-color:aliceblue">
+                    @Html.TextBox("Details[" + @i + "].Remarks", Model[i].Remarks)
 
-            </td>
-            <td>
-                @Html.TextBox("Details[" + @i + "].Remarks", Model[i].Remarks)
-
-            </td>
-            <td>
-                @*@Html.Hidden("sessionId", sessionId)*@
-                @Html.TextBox("sessionId", sessionId)
-
-            </td>
-        </tr>
+                </td>
+            </tr>
         }
-        <tr>
-            <td colspan="7">
-                <input type="submit" value="Submit"/>
-            </td>
-        </tr>
     </table>
+    <div class="form-group">
+        <input type="submit" value="Submit" />
+    </div>
+
 }
+<br>
+<div style="font-size:medium">
 
+    <a href='@Url.Action("Index","DisbursementLists",new {sessionId = sessionId})'> Back To List</a>
+</div>
 <br>
 <br>
-<p>Disbersement List at @date</p>
-<p>Collection Point: @collection</p>
-<p>Representative Name: @name</p>
-<p>Department: @deptName</p>
-
+<p><b>Disbersement List at </b> @date</p>
+<p><b>Collection Point:</b> @collection</p>
+<p><b>Representative Name:</b> @name</p>
+<p><b>Department: </b>@deptName</p>
