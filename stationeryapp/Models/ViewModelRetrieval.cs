@@ -20,5 +20,7 @@ namespace stationeryapp.Models
         public OutstandingList outstandingLists { get; set; }
 
         public ConsolidatedRequest consolidatedRequest { get; set; }
+        
+        public RetrievalRecord retrievalRecord { get; set; }
     }
 }
