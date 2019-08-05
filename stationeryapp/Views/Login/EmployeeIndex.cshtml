@@ -1,4 +1,5 @@
-﻿
+﻿@{ Layout = null;}
+
 @{
     String msg = "";
     ViewBag.Title = "Index";
@@ -10,6 +11,10 @@
     #Header {
         background-color: #3498db;
         border-color: #3498db;
+        position: fixed;
+        top: 0;
+        left:0;
+        width: 100%;
     }
 
     #footer {
@@ -38,18 +43,35 @@
     }
 </style>
 
-@using (Html.BeginForm("EmployeeLogin","Login", FormMethod.Post))
+@using (Html.BeginForm("EmployeeLogin", "Login", FormMethod.Post))
 {
-    <nav class="navbar navbar-default navbar-fixed-top" id="Header">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <ul class="nav navbar-nav">
+    <nav id="Header">
+            <div>
+                <table>
+                    <tr>
+                        <td>
+                            <img style="height:40px; padding-right:10px;" alt="logo" src="~/Images/stationery.png">
+                        </td>
+                        <td><label class="navbar-brand" style="color: white;">STATIONERY MANAGEMENT SYSTEM</label></td>
+                    </tr>
+                </table>
+                @*<ul>
                     <li><img style="height:40px; padding-top:8px; padding-right:10px;" alt="logo" src="~/Images/stationery.png"></li>
                     <li><a class="navbar-brand" href="#" style="color: white;">STATIONERY MANAGEMENT SYSTEM</a></li>
-                </ul>
+                </ul>*@
             </div>
-        </div>
     </nav>
+
+    @*<nav class="navbar navbar-default navbar-fixed-top" id="Header">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <ul class="nav navbar-nav">
+                        <li><img style="height:40px; padding-top:8px; padding-right:10px;" alt="logo" src="~/Images/stationery.png"></li>
+                        <li><a class="navbar-brand" href="#" style="color: white;">STATIONERY MANAGEMENT SYSTEM</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>*@
 
     <div class="footer" id="footer">
         <label>Contact us: 65-1234567</label>
@@ -64,12 +86,12 @@
             </tr>
             <tr>
                 <td>UserName : </td>
-                <td>@Html.TextBox("Username","", new {id="Username"})</td>
+                <td>@Html.TextBox("Username", "", new { id = "Username" })</td>
             </tr>
 
             <tr>
                 <td>PassWord :</td>
-                <td>@Html.Password("Password","", new { id = "Password" })</td>
+                <td>@Html.Password("Password", "", new { id = "Password" })</td>
 
             </tr>
 
@@ -79,15 +101,15 @@
                     <td style="color:red;" align="right" colspan="2">INVALID PASSWORD</td>
                 }
                 @if (msg == "invalid user")
-                { 
+                {
                     <td style="color:red" align="right" colspan="2">USER NOT FOUND</td>
                 }
             </tr>
 
             <tr>
-                <td colspan="2" align="right"><input type="submit" value="Login" class="btn btn-primary" /></td>
+                <td colspan="2" align="right"><input type="submit" style="background: #3498db; color: white;" value="Login"/></td>
             </tr>
-            </table>
+        </table>
     </body>
 
 }

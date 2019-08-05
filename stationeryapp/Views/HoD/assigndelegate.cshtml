@@ -1,6 +1,8 @@
 ﻿@Scripts.Render("~/Scripts/dropdownOnchange.js")
 @using stationeryapp.Models;
 @{
+    String msg = "";
+    msg = (String)ViewData["msg"];
     ViewBag.Title = "assigndelegate";
     Employee delegate_ = (Employee)ViewData["delegate_"];
     List<Employee> dept_emp_list = (List<Employee>)ViewData["dept_emp_list"];
@@ -45,6 +47,14 @@
 
             </tr>
             <tr>
+                @if (msg == "invalid date")
+                {
+                    <td style="color:red;">To Date cannot be earlier than From Date.</td>
+                }
+                else
+                {
+                    <td></td>
+                }
                 <td colspan="2" align="right">
                     <input type="submit" value="ASSIGN" />
                     <button>

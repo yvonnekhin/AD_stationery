@@ -1,0 +1,126 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Stationery Management System</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @{
+        string sessionId = (string)ViewData["sessionId"];
+        string username = (string)ViewData["username"];
+        int count = 1;
+    }
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" id="Header" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+        @if (username != null)
+        {
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <ul class="nav navbar-nav">
+                        <li><img style="height:50px; padding-top:4px; padding-left:10px;" alt="logo" src="~/Images/logo2.jpg"></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href='@Url.Action("Index", "Home", new { sessionId = sessionId })'>MENU<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "RequisitionForms", new { sessionId = sessionId })'>RequisitionForms</a></li>
+                                <li style="margin-bottom:20px"><a href="#">Outstanding</a></li>
+                                <li style="margin-bottom:20px"><a href="#">RetrievalForm</a></li>
+                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "DisbursementLists", new { sessionId = sessionId })'>Disbursement List</a></li>
+                                <li style="margin-bottom:20px"><a href="#">Catalog</a></li>
+                                <li style="margin-bottom:20px"><a href="#">Purchase Order</a></li>
+                                <li style="margin-bottom:20px"><a href="#">Stock Adjustment</a></li>
+                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "ReportHome", new { sessionId = sessionId })'>ReorderReport</a></li>
+
+                            </ul>
+                        </li>
+                        <li>@Html.ActionLink("STATIONERY MANAGEMENT SYSTEM", "Index", "Home", new { sessionId = sessionId }, new { @class = "navbar-brand" })</li>
+                    </ul>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right" style="font-size:medium">
+
+                        @*<li>@Html.ActionLink("Home", "Index", "Home", new { sessionId = sessionId }, new { @class = "hhhh" })</li>*@
+
+                        <li>
+                            <a id="bell_count" href="" class="p1 fa-2x has-badge" data-count=@count data-toggle="modal" data-target="#myModal">
+                                <i class="fas fa-bell "></i>
+                            </a>
+                        </li>
+                        @*<li><p style="color:darkgray;padding:15px;margin:0;font-size:14px"></p></li>*@
+                        <li><a href="#"><img style="height:25px" alt="profile" src="~/Images/storeclarkprofile2.png">Welcome @username</a></li>
+                        <li>@Html.ActionLink("Logout", "Logout", "Login", new { sessionId = sessionId }, new { @class = "hhhh" })</li>
+
+                    </ul>
+                </div>
+            </div>
+        }
+    </div>
+    @*<div class="container body-content" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+        @RenderBody()
+        <br>
+        <br>
+        <br>
+
+    </div>*@
+    <hr />
+    <div class="container" style="font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif">
+        <footer>
+            <div class="row" style="font-size:smaller;color:black" @*;background-color:aliceblue*@>
+                @*one colum, four means 4 colums*@
+                <div class="col-md-4">
+                    <h5><b>SUPPORT</b></h5>
+                    <p>IT Support</p>
+                    <p>Terms of Service</p>
+                    <p>Privacy Policy</p>
+                    @*<p>
+                            <a class="btn btn-default btn-sm" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a>
+
+                        </p>*@
+                </div>
+                <div class="col-md-4">
+                    <h5><b>CONTACT INFO</b></h5>
+                    <p>44 Main Street,Orchard Road,Singapore 99888 </p>
+                    <p>+65-96897760/+65-90306890</p>
+                    <p>support@stationery-management.com</p>
+                    @*<p><a class="btn btn-default btn-sm" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>*@
+                </div>
+                <div class="col-md-4 ">
+                    <h5><b>COMPANY INFO</b></h5>
+                    <p>Web agency created in 2014</p>
+                    <p>Contact us for custom projects</p>
+                    <p>Make a good discount for us</p>
+                    @*<p><a class="btn  btn-default btn-sm" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>*@
+                </div>
+                <hr>
+                <h6 style="align-content:center"><b>&copy; @DateTime.Now.Year -Stationery Management-All Copyright Reserved</b></h6>
+            </div>
+
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @*@RenderSection("scripts", required: false)*@
+</body>
+</html>
+<style>
+    #Header {
+        height: 8%;
+    }
+
+    #bell .p1[data-count]:after {
+        position: absolute;
+        right: 10%;
+        top: 8%;
+        content: attr(data-count);
+        font-size: 40%;
+        padding: .2em;
+        border-radius: 50%;
+        line-height: 1em;
+        color: #ff6a00;
+        background: rgba(255,0,0,.85);
+        text-align: center;
+        min-width: 1em;
+    }
+</style>
