@@ -101,11 +101,11 @@ namespace stationeryapp.Controllers
 
             var requisitionReceived = (from r in requisitionForms
                                        join e in employees on r.EmployeeId equals e.Id into table1
-                                       from e in table1.ToList()
+                                       from e in table1
                                        join d in requisitionFormDetails on r.FormNumber equals d.FormNumber into table2
-                                       from d in table2.ToList()
-                                       join c in catalogs on d.ItemNumber equals c.ItemNumber into table4
-                                       from c in table4.ToList()
+                                       from d in table2
+                                       join c in catalogs on d.ItemNumber equals c.ItemNumber into table3
+                                       from c in table3.ToList()
                                        select new ViewModelRetrieval
                                        {
                                            requisitionForms = r,
@@ -113,6 +113,48 @@ namespace stationeryapp.Controllers
                                            requisitionFormDetails = d,
                                            catalogs = c
                                        }).Where(x => x.requisitionForms.Status == "Received");
+
+            foreach (var item in requisitionReceived)
+            {
+                List<StationeryRetrievalForm> stationeryRetrievalForms = db.StationeryRetrievalForms.ToList();
+                List<StationeryRetrievalFormDetail> stationeryRetrievalFormDetails = db.StationeryRetrievalFormDetails.ToList();
+                int rfCount = stationeryRetrievalForms.Count() + 1;
+                int rfdCount = stationeryRetrievalFormDetails.Count() + 1;
+
+                StationeryRetrievalForm newRF = new StationeryRetrievalForm
+                {
+                    FormNumber = rfCount.ToString(),
+                    Status = "Pending"
+                };
+
+                StationeryRetrievalFormDetail newRFD = new StationeryRetrievalFormDetail
+                {
+                    FormDetailsNumber = rfdCount.ToString(),
+                    FormNumber = newRF.FormNumber,
+                    ItemNumber = item.requisitionFormDetails.ItemNumber,
+                    DepartmentCode = item.employees.DepartmentCode,
+                    Needed = item.requisitionFormDetails.Quantity,
+                };
+
+                db.StationeryRetrievalForms.Add(newRF);
+                db.StationeryRetrievalFormDetails.Add(newRFD);
+                db.SaveChanges();
+            }
+
+            //var requisitionReceived = (from r in requisitionForms
+            //                           join e in employees on r.EmployeeId equals e.Id into table1
+            //                           from e in table1.ToList()
+            //                           join d in requisitionFormDetails on r.FormNumber equals d.FormNumber into table2
+            //                           from d in table2.ToList()
+            //                           join c in catalogs on d.ItemNumber equals c.ItemNumber into table4
+            //                           from c in table4.ToList()
+            //                           select new ViewModelRetrieval
+            //                           {
+            //                               requisitionForms = r,
+            //                               employees = e,
+            //                               requisitionFormDetails = d,
+            //                               catalogs = c
+            //                           }).Where(x => x.requisitionForms.Status == "Received");
 
             //var requisitionOutstanding = (from r in requisitionForms
             //                              join e in employees on r.EmployeeId equals e.Id into table1
@@ -155,25 +197,26 @@ namespace stationeryapp.Controllers
             //result.Concat(clist2);
 
             return View(result);
+
+            //return View(requisitionReceived);
         }
 
         [HttpPost]
         public ActionResult Update(List<RetrievalRecord> Record, string toDate)
         {
-            Console.WriteLine(toDate);
+            //Console.WriteLine(toDate);
 
             //int length = Details.Count() + 1;
             for (int i = 0; i< Record.Count; i++)
             {
-                Console.WriteLine(Record[i].binNumber);
-                Console.WriteLine(Record[i].description);
-                Console.WriteLine(Record[i].departmentCode);
-                Console.WriteLine(Record[i].needed);
-                Console.WriteLine(Record[i].actual);
+                StationeryRetrievalFormDetail obj = adb.StationeryRetrievalFormDetails.Find(Record[i].FormDetailsNumber);
+                obj.Actual = Record[i].actual;
+                adb.Entry(obj).State = EntityState.Modified;
+                adb.SaveChanges();
             }
 
             //Update StationeryRetrievalForms status to "submitted"
-          
+
 
             //Update status in RequisitionForms to "Outstanding" upon submission of retrieval form
 
@@ -325,7 +368,7 @@ namespace stationeryapp.Controllers
             List<RetrievalRecord> result = new List<RetrievalRecord>();
             foreach (var record in retrievalFormRecord)
             {
-                RetrievalRecord rr = new RetrievalRecord(record.catalogs.BinNumber, record.catalogs.Description, record.employees.DepartmentCode,
+                RetrievalRecord rr = new RetrievalRecord(record.retrievalFormDetails.FormDetailsNumber, record.catalogs.BinNumber, record.catalogs.Description, record.employees.DepartmentCode,
                     (int)record.requisitionFormDetails.Quantity, (int)record.requisitionFormDetails.Quantity);
                 result.Add(rr);
             }
