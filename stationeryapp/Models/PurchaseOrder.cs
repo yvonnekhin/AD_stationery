@@ -25,14 +25,19 @@ namespace stationeryapp.Models
         public string SupplierCode { get; set; }
         public string DeliverTo { get; set; }
         public string Attention { get; set; }
-        public Nullable<System.DateTime> SupplyByDate { get; set; }
+        //public Nullable<System.DateTime> SupplyByDate { get; set; }
+        public System.DateTime SupplyByDate { get; set; }
         public string OrderedBy { get; set; }
-        public Nullable<System.DateTime> DateOrdered { get; set; }
+        //public Nullable<System.DateTime> DateOrdered { get; set; }
+        public System.DateTime DateOrdered { get; set; }
         public string ApprovedBy { get; set; }
-        public Nullable<System.DateTime> DateApproved { get; set; }
+        //public Nullable<System.DateTime> DateApproved { get; set; }
+        public System.DateTime DateApproved { get; set; }
         public string ReceivedGoodsFormNo { get; set; }
-        public Nullable<System.DateTime> ReceivedDate { get; set; }
-        public Nullable<double> ReceivedValue { get; set; }
+        //public Nullable<System.DateTime> ReceivedDate { get; set; }
+        public System.DateTime ReceivedDate { get; set; }
+        //public Nullable<double> ReceivedValue { get; set; }
+        public double ReceivedValue { get; set; }
         public string Status { get; set; }
         public string Reason { get; set; }
     
