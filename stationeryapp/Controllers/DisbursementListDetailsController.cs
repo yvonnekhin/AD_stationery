@@ -39,6 +39,10 @@ namespace stationeryapp.Controllers
 
             if (storeclerk != null && sessionId != null)
             {
+
+                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 ViewData["collection"] = collectionPoint.CollectionPointName;
                 ViewData["disbursementList"] = disbursementList.Date;
                 ViewData["deparment"] = departmentList.DepartmentName;
@@ -47,6 +51,7 @@ namespace stationeryapp.Controllers
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["ListDetailsNumber"] = disbursementListDetail.FirstOrDefault().ListDetailsNumber;
                 ViewData["username"] = storeclerk.UserName;
+
                 return View(disbursementListDetail);
             }
             else
@@ -58,6 +63,10 @@ namespace stationeryapp.Controllers
         [HttpPost]
         public ActionResult Update(List<DisbursementListDetail> Details,string sessionId,string listNumber)
         {
+            int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+            int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+            ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+
             string id = db.DisbursementListDetails.Find(listNumber).ListNumber;
             DisbursementList disbursementList = db.DisbursementLists.Find(id);
             DisbursementListDetail existing = db.DisbursementListDetails.Find(listNumber);

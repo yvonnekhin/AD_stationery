@@ -4,6 +4,7 @@
     ViewBag.Title = "Disbursemnet Lists";
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+
 }
 
 
@@ -34,7 +35,7 @@
                 @item.collectionPoint.CollectionPointName
             </td>
             <td>
-                @item.collectionPoint.CollectionTime
+                @item.disbursementList.Date
             </td>
             <td class="success" >
                 @item.disbursementList.Status

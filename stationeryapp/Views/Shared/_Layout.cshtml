@@ -9,7 +9,7 @@
     @{
         string sessionId = (string)ViewData["sessionId"];
         string username = (string)ViewData["username"];
-        int count = 1;
+        string count = (string)ViewData["sumTotal"];
     }
 </head>
 <body>
@@ -124,7 +124,6 @@
         -webkit-border-radius: 22px;
         border-radius: 22px;
     }
-
 
     /*#bell .p1[data-count]:after {
         position: absolute;
