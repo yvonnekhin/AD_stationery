@@ -26,13 +26,14 @@ namespace stationeryapp.Controllers
         {
             StoreClerk storeclerk = db2.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             RequisitionForm request = db1.RequisitionForms.Where(p => p.FormNumber == id).FirstOrDefault();
-            RequisitionFormDetail detail = db.RequisitionFormDetails.Where(x => x.FormNumber == id).FirstOrDefault();
+            List<RequisitionFormDetail> detail = db.RequisitionFormDetails.Where(x => x.FormNumber == id).ToList();
             if (storeclerk != null && sessionId !=null)
             {
                 if (request.Status == "Pending")
                 {
+                    request.DateReceived = DateTime.Now;
                     request.ReceivedBy = storeclerk.Id;
-                }
+                }        
                 request.Status = "Received";
                 db1.Entry(request).State = EntityState.Modified;
                 db1.SaveChanges();
