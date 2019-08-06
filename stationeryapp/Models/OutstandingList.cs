@@ -19,7 +19,7 @@ namespace stationeryapp.Models
         public string Status { get; set; }
         public string RetrievalFormDetailsNumber { get; set; }
     
-        public virtual PurchaseOrder PurchaseOrder { get; set; }
         public virtual RequisitionFormDetail RequisitionFormDetail { get; set; }
+        public virtual PurchaseOrder PurchaseOrder { get; set; }
     }
 }

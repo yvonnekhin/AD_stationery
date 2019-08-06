@@ -14,7 +14,7 @@ namespace stationeryapp.Models
     
     public partial class StockAdjustmentVoucherDetail
     {
-        public string AdjustmentDetailsNumber { get; set; }
+        public int AdjustmentDetailsNumber { get; set; }
         public string AdjustmentVoucherNumber { get; set; }
         public string ItemNumber { get; set; }
         public Nullable<int> QuantityAdjusted { get; set; }

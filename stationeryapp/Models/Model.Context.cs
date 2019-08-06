@@ -31,12 +31,10 @@ namespace stationeryapp.Models
         public virtual DbSet<DisbursementList> DisbursementLists { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
-        public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
         public virtual DbSet<RequisitionForm> RequisitionForms { get; set; }
         public virtual DbSet<StationeryCatalog> StationeryCatalogs { get; set; }
         public virtual DbSet<StationeryRetrievalFormDetail> StationeryRetrievalFormDetails { get; set; }
         public virtual DbSet<StationeryRetrievalForm> StationeryRetrievalForms { get; set; }
-        public virtual DbSet<StockAdjustmentVoucherDetail> StockAdjustmentVoucherDetails { get; set; }
         public virtual DbSet<StockAdjustmentVoucher> StockAdjustmentVouchers { get; set; }
         public virtual DbSet<StoreClerk> StoreClerks { get; set; }
         public virtual DbSet<StoreManager> StoreManagers { get; set; }
@@ -45,5 +43,7 @@ namespace stationeryapp.Models
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<OutstandingList> OutstandingLists { get; set; }
         public virtual DbSet<RequisitionFormDetail> RequisitionFormDetails { get; set; }
+        public virtual DbSet<PurchaseOrder> PurchaseOrders { get; set; }
+        public virtual DbSet<StockAdjustmentVoucherDetail> StockAdjustmentVoucherDetails { get; set; }
     }
 }

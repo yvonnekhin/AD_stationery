@@ -115,7 +115,7 @@ namespace stationeryapp.Controllers
                 {                
                     StockAdjustmentVoucherDetail adjustmentVoucherDetail = new StockAdjustmentVoucherDetail();
                     adjustmentVoucherDetail.AdjustmentVoucherNumber = (newNumer + 1).ToString();
-                    adjustmentVoucherDetail.AdjustmentDetailsNumber= Convert.ToString(newNumer2);
+                    adjustmentVoucherDetail.AdjustmentDetailsNumber= newNumer2;
                     newNumer2++;
                     adjustmentVoucherDetail.QuantityAdjusted = recivedX;
                     adjustmentVoucherDetail.ItemNumber = existing.ItemNumber;
