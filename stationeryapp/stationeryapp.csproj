@@ -931,6 +931,7 @@
     </Content>
     <Content Include="Content\StoreClerkImages" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\dropdownOnchange.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -1022,11 +1023,8 @@
     <Content Include="Views\OutstandingLists\Details.cshtml" />
     <Content Include="Views\OutstandingLists\Edit.cshtml" />
     <Content Include="Views\OutstandingLists\Index.cshtml" />
-
     <Content Include="Views\Shared\_store_header.cshtml" />
-
     <Content Include="Views\Shared\_StoreClerkFooter.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
