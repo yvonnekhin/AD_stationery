@@ -1,4 +1,4 @@
-﻿@model List<stationeryapp.Models.ConsolidatedRequest>
+﻿@model List<stationeryapp.Models.RetrievalRecord>
 
 @{
     ViewBag.Title = "Create";
@@ -35,51 +35,58 @@
         <tr>
             <th>Needed</th>
             <th>Retrieved</th>
-            <th>Department Name</th>
+            <th>Department Code</th>
             <th>Needed</th>
             <th>Actual</th>
         </tr>
 
-        @for (int i = 0; i < Model.Count; i++)
-        {
-            <tr>
-                <td>@Model[i].binNumber</td>
-                <td>@Model[i].description</td>
-                <td>@Model[i].totalNeeded</td>
-                <td>@Model[i].totalRetrieved</td>
-                @{
-                    for (int j = 0; j < Model[i].requests.Count; j++)
+        @{
+            int sum = 0;
+            HashSet<string> bin_number = new HashSet<string>();
+            for (int i = 0; i < Model.Count; i++)
+            {
+                
+                sum += Model[i].needed;
+                <tr>
+                    @if (bin_number.Add(Model[i].binNumber))
                     {
-                        if (j == 0)
-                        {
-                            <td>@Model[i].requests[j].departmentCode</td>
-                            <td>@Model[i].requests[j].needed</td>
-                            <td>
-                                @Html.TextBox("Details[" + @i + "]" + @j, Model[i].requests[j].actual)
-                                @*@Model[i].requests[j].actual*@
-                            </td>
-                        }
-                        else
-                        {
+                        // added, originally not in hashset
+                        <td>
+                            @Html.TextBox("Record[" + @i + "].binNumber", Model[i].binNumber,
+                                new { @readonly = "readonly" })
+                        </td>
+                        <td>
+                            @Html.TextBox("Record[" + @i + "].description", Model[i].description,
+                                new { @readonly = "readonly" })
+                        </td>
 
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td>@Model[i].requests[j].departmentCode</td>
-                            <td>@Model[i].requests[j].needed</td>
-                            <td>
-                                @Html.TextBox("Details[" + @i + "]" + @j, Model[i].requests[j].actual)
-                                @*@Model[i].requests[j].actual*@
-                            </td>
-                        </tr>
+                        <td></td>
+                        <td></td>
                     }
-
-                }
-                }
+                    else
+                    {
+                        // Not added, originally in hashset                        
+                        <td></td>
+                        <td></td>
+                        <td>
+                            @sum
+                        </td>
+                        <td>
+                            @sum
+                        </td>
+                    }
+                    <td>
+                        @Html.TextBox("Record[" + @i + "].departmentCode", Model[i].departmentCode,
+                            new { @readonly = "readonly" })
+                    </td>
+                    <td>
+                        @Html.TextBox("Record[" + @i + "].needed", Model[i].needed,
+                            new { @readonly = "readonly" })
+                    </td>
+                    <td>@Html.TextBox("Record[" + @i + "].actual", Model[i].actual)</td>
                 </tr>
             }
+        }
 
     </table>
 

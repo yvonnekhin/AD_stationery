@@ -38,8 +38,12 @@ namespace stationeryapp.Controllers
 
             if (storeclerk != null && sessionId != null)
             {
+                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
+
                 return View(disbursementRecord);
             }
             else

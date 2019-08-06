@@ -19,8 +19,15 @@ namespace stationeryapp.Controllers
         private ModelDBContext db = new ModelDBContext();
 
         // GET: ReorderReport
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string searchString, string sessionId)
         {
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            if (storeclerk != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+            }
+
             var item = from i in db.StationeryCatalogs                      
                        join i1 in db.PurchaseOrderDetails on i.ItemNumber equals i1.ItemNumber                       
                        join i2 in db.PurchaseOrders on i1.PONumber equals i2.PONumber 
@@ -39,11 +46,15 @@ namespace stationeryapp.Controllers
                       
             if (!String.IsNullOrEmpty(searchString))
             {
+               
                 item = item.Where(i => i.Category.Contains(searchString));
                 return View(item);
             }
             else
+            {            
                 return View(item);
+            }
+                
             
             //Sample working code
             //var item = from i in db.StationeryCatalogs

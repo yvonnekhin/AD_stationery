@@ -18,9 +18,11 @@ namespace stationeryapp.Models
         public string FormNumber { get; set; }
         public string ItemNumber { get; set; }
         public string DepartmentCode { get; set; }
-        public Nullable<int> Needed { get; set; }
-        public Nullable<int> Actual { get; set; }
-    
+        //public Nullable<int> Needed { get; set; }
+        public int Needed { get; set; }
+        //public Nullable<int> Actual { get; set; }
+        public int Actual { get; set; }
+
         public virtual DepartmentList DepartmentList { get; set; }
         public virtual StationeryCatalog StationeryCatalog { get; set; }
         public virtual StationeryRetrievalForm StationeryRetrievalForm { get; set; }

@@ -158,6 +158,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RetrievalRecord.cs" />
     <Compile Include="Models\CollectionPoint.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -564,13 +565,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\bellstore2.png" />
     <Content Include="Images\Catalog.PNG" />
     <Content Include="Images\delegate.png" />
-    <Content Include="Images\Disbusement List.PNG" />
+    <Content Include="Images\DisbusementList.PNG" />
     <Content Include="Images\edit.png" />
-    <Content Include="Images\logo1.jpg" />
     <Content Include="Images\logo2.jpg" />
-    <Content Include="Images\logo3.jpg" />
     <Content Include="Images\newreq.png" />
     <Content Include="Images\Outstanding.PNG" />
     <Content Include="Images\PO.PNG" />
@@ -578,12 +578,12 @@
     <Content Include="Images\Reports.PNG" />
     <Content Include="Images\reqs.png" />
     <Content Include="Images\Requests.JPG" />
-    <Content Include="Images\Retrival Form.PNG" />
+    <Content Include="Images\RetrivalForm.PNG" />
     <Content Include="Images\stationery-management3.jpg" />
     <Content Include="Images\stationery.png" />
     <Content Include="Images\StationeryManagementlogin.jpg" />
     <Content Include="Images\StationeryManagementlogin2.jpg" />
-    <Content Include="Images\Stock Ajustment.PNG" />
+    <Content Include="Images\StockAjustment.PNG" />
     <Content Include="Images\storeclarkprofile.png" />
     <Content Include="Images\storeclarkprofile2.png" />
     <Content Include="Images\user.png" />
@@ -1022,7 +1022,11 @@
     <Content Include="Views\OutstandingLists\Details.cshtml" />
     <Content Include="Views\OutstandingLists\Edit.cshtml" />
     <Content Include="Views\OutstandingLists\Index.cshtml" />
+
     <Content Include="Views\Shared\_store_header.cshtml" />
+
+    <Content Include="Views\Shared\_StoreClerkFooter.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

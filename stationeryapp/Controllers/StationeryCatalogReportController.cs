@@ -17,8 +17,14 @@ namespace stationeryapp.Controllers
         private ModelDBContext db = new ModelDBContext();
 
         // GET: StationeryCatalogReport
-        public ActionResult Index(String searchString)
+        public ActionResult Index(String searchString, string sessionId)
         {
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            if (storeclerk != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+            }
 
             var item = from i in db.StationeryCatalogs
                        select i;

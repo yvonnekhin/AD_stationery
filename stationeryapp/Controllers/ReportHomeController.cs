@@ -1,4 +1,5 @@
-﻿using System;
+﻿using stationeryapp.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,9 +10,16 @@ namespace stationeryapp.Controllers
     public class ReportHomeController : Controller
     {
         // GET: ReportHome
-        public ActionResult Index()
+        private ModelDBContext db = new ModelDBContext();
+        public ActionResult Index(String sessionId)
         {
-            return View();
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            if (storeclerk != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+            }
+                return View();
         }
       
     }

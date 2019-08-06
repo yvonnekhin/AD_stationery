@@ -17,8 +17,15 @@ namespace stationeryapp.Controllers
         private ModelDBContext db = new ModelDBContext();
 
         // GET: RequisitionReport
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string searchString, string sessionId)
         {
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            if (storeclerk != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+            }
+            
             var item = from i in db.StationeryCatalogs
                        join i1 in db.StationeryRetrievalFormDetails on i.ItemNumber equals i1.ItemNumber                
                        where i.ItemNumber == i1.ItemNumber
@@ -32,12 +39,15 @@ namespace stationeryapp.Controllers
                        };
 
             if (!String.IsNullOrEmpty(searchString))
-            {
+            {               
                 item = item.Where(i => i.DepartmentCode.Contains(searchString));
                 return View(item);
             }
             else
+            {                
                 return View(item);
+            }
+                  
         }
 
         public ActionResult exportRequisitionReport()

@@ -27,16 +27,20 @@ namespace stationeryapp.Models
         public string ItemNumber { get; set; }
         public string Category { get; set; }
         public string Description { get; set; }
-        public Nullable<int> ReorderLevel { get; set; }
-        public Nullable<int> ReorderQuantity { get; set; }
+        //public Nullable<int> ReorderLevel { get; set; }
+        public int ReorderLevel { get; set; }
+        //public Nullable<int> ReorderQuantity { get; set; }
+        public int ReorderQuantity { get; set; }
         public string UnitOfMeasure { get; set; }
         public string BinNumber { get; set; }
-        public Nullable<double> Price { get; set; }
+        //public Nullable<double> Price { get; set; }
+        public double Price { get; set; }
         public string SupplierCode1 { get; set; }
         public string SupplierCode2 { get; set; }
         public string SupplierCode3 { get; set; }
-        public Nullable<int> Balance { get; set; }
-    
+        //public Nullable<int> Balance { get; set; }
+        public int Balance { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DisbursementListDetail> DisbursementListDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
