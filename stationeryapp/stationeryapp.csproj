@@ -983,15 +983,10 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\RequisitionForms\Index.cshtml" />
     <Content Include="Views\ReportHome\Index.cshtml" />
-    <Content Include="Views\DisbursementListDetails\Create.cshtml" />
-    <Content Include="Views\DisbursementListDetails\Delete.cshtml" />
     <Content Include="Views\DisbursementListDetails\Details.cshtml" />
     <Content Include="Views\DisbursementListDetails\Edit.cshtml" />
     <Content Include="Views\DisbursementListDetails\Index.cshtml" />
     <Content Include="Views\DisbursementLists\Create.cshtml" />
-    <Content Include="Views\DisbursementLists\Delete.cshtml" />
-    <Content Include="Views\DisbursementLists\Details.cshtml" />
-    <Content Include="Views\DisbursementLists\Edit.cshtml" />
     <Content Include="Views\DisbursementLists\Index.cshtml" />
     <Content Include="Views\SupplierLists\Create.cshtml" />
     <Content Include="Views\SupplierLists\Delete.cshtml" />

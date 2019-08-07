@@ -213,12 +213,33 @@ namespace stationeryapp.Controllers
 
         public ActionResult Logout(string sessionId)
         {
-            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+
+            StoreClerk storeclerk = db1.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db1.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db1.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             string newsessionId = Guid.NewGuid().ToString();
-            storeclerk.SessionId = newsessionId;
-            db.Entry(storeclerk).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Login");
+
+            if (storeclerk != null && sessionId != null)
+            {
+                storeclerk.SessionId = newsessionId;
+                db1.Entry(storeclerk).State = EntityState.Modified;
+                db1.SaveChanges();
+                return RedirectToAction("Login");
+            }else if (storeManager!=null&& sessionId != null)
+            {
+                storeManager.SessionId = newsessionId;
+                db1.Entry(storeManager).State = EntityState.Modified;
+                db1.SaveChanges();
+                return RedirectToAction("LoginStoreManager","Login");
+            }
+            else
+            {
+                storeSupervisor.SessionId = newsessionId;
+                db1.Entry(storeSupervisor).State = EntityState.Modified;
+                db1.SaveChanges();
+                return RedirectToAction("LoginStoreSupervisor", "Login");
+            }
+
         }
 
         protected override void Dispose(bool disposing)
