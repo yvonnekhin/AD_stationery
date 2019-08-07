@@ -89,7 +89,7 @@ namespace stationery.Controllers
             employee_utility eu = new employee_utility();
             eu.submit_request(emp_id, form_number);
             
-            return RedirectToAction("EmployeeIndex");
+            return RedirectToAction("Index");
         }
 
         public ActionResult view_single_request(string form_id, string notify)

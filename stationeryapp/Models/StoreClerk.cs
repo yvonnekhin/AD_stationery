@@ -17,9 +17,9 @@ namespace stationeryapp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public StoreClerk()
         {
+            this.RequisitionForms = new HashSet<RequisitionForm>();
             this.PurchaseOrders = new HashSet<PurchaseOrder>();
             this.PurchaseOrders1 = new HashSet<PurchaseOrder>();
-            this.RequisitionForms = new HashSet<RequisitionForm>();
         }
     
         public string Id { get; set; }
@@ -32,10 +32,10 @@ namespace stationeryapp.Models
     
         public virtual CollectionPoint CollectionPoint { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisitionForm> RequisitionForms { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseOrder> PurchaseOrders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseOrder> PurchaseOrders1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequisitionForm> RequisitionForms { get; set; }
     }
 }

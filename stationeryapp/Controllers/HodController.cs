@@ -110,7 +110,7 @@ namespace stationeryapp.Controllers
             }
                 
 
-            return RedirectToAction("EmployeeIndex", "Hod");
+            return RedirectToAction("Index", "Hod");
         }
 
         public ActionResult newstationaryrequest()
