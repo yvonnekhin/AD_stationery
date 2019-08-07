@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
@@ -22,6 +23,37 @@ namespace stationeryapp.Controllers
         {
             return View();
         }
+
+  
+
+        [HttpPost]
+        public JsonResult SetPerson(StoreClerk storeClerk)
+        {
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.UserName == storeClerk.UserName).FirstOrDefault();
+            string hashedPassword = CalculateMD5Hash(storeClerk.Password);
+            if (ModelState.IsValid)
+            {
+                if (storeclerk.Password == hashedPassword)
+                {
+                    string sessionId = Guid.NewGuid().ToString();
+                    storeclerk.Password = hashedPassword;
+                    storeclerk.SessionId = sessionId;
+                    db.Entry(storeclerk).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return Json(new { sessionId=storeclerk.SessionId,username=storeclerk.UserName });
+                }
+                else
+                {
+                    return Json(new { status="fail"});
+                }
+            }
+            else
+            {
+                return Json(new { status = "fail" });
+            }
+        }
+
+
         //for storeMangerLogin
         public ActionResult LoginStoreManager ()
         {

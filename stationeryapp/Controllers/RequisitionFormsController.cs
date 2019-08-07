@@ -29,6 +29,8 @@ namespace stationeryapp.Controllers
             {
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
+                int num = db1.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num).ToString();
                 List<RequisitionForm> rev = db1.RequisitionForms.ToList();
                 return View(rev);
             }

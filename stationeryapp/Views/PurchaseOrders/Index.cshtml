@@ -1,0 +1,79 @@
+﻿@model IEnumerable<stationeryapp.Models.PurchaseOrder>
+
+@{
+    ViewBag.Title = "PO List";
+}
+
+<h2>Purchase Order List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PONumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierList.SupplierName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOrdered)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplyByDate)
+        </th>
+        <th>
+            Purchased Value
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceivedDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReceivedValue)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PONumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierList.SupplierName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateOrdered)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplyByDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PurchaseValue)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceivedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReceivedValue)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.PONumber }) |
+                @Html.ActionLink("Order", "Details", new { id = item.PONumber }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PONumber })|
+                @Html.ActionLink("Receive", "Receive", new { id = item.PONumber })
+            </td>
+        </tr>
+    }
+
+</table>

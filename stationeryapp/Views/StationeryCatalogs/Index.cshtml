@@ -1,0 +1,94 @@
+﻿@model IEnumerable<stationeryapp.Models.StationeryCatalog>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReorderLevel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReorderQuantity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UnitOfMeasure)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BinNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Balance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierList.SupplierName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierList1.SupplierName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SupplierList2.SupplierName)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReorderLevel)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ReorderQuantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UnitOfMeasure)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BinNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Balance)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierList.SupplierName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierList1.SupplierName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SupplierList2.SupplierName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ItemNumber }) |
+                @Html.ActionLink("Stock Card", "Details", new { id = item.ItemNumber }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ItemNumber })
+            </td>
+        </tr>
+    }
+
+</table>

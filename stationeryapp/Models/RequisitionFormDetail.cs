@@ -14,21 +14,13 @@ namespace stationeryapp.Models
     
     public partial class RequisitionFormDetail
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public RequisitionFormDetail()
-        {
-            this.OutstandingLists = new HashSet<OutstandingList>();
-        }
-    
         public string FormDetailsNumber { get; set; }
         public string FormNumber { get; set; }
         public string ItemNumber { get; set; }
         public Nullable<int> Quantity { get; set; }
         public string Status { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OutstandingList> OutstandingLists { get; set; }
-        public virtual RequisitionForm RequisitionForm { get; set; }
         public virtual StationeryCatalog StationeryCatalog { get; set; }
+        public virtual RequisitionForm RequisitionForm { get; set; }
     }
 }

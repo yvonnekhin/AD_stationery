@@ -147,19 +147,24 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OutstandingListsController.cs" />
+    <Compile Include="Controllers\PurchaseOrdersController.cs" />
     <Compile Include="Controllers\ReorderReportController.cs" />
     <Compile Include="Controllers\ReportHomeController.cs" />
     <Compile Include="Controllers\RequisitionFormDetailsController.cs" />
     <Compile Include="Controllers\RequisitionFormsController.cs" />
     <Compile Include="Controllers\RequisitionReportController.cs" />
     <Compile Include="Controllers\StationeryCatalogReportController.cs" />
+    <Compile Include="Controllers\StationeryCatalogsController.cs" />
     <Compile Include="Controllers\StationeryRetrievalFormsController.cs" />
+    <Compile Include="Controllers\StockAdjustmentVouchersController.cs" />
     <Compile Include="Controllers\StoreManagersController.cs" />
     <Compile Include="Controllers\StoreSupervisorsController.cs" />
     <Compile Include="Controllers\SupplierListsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\POForm.cs" />
+    <Compile Include="Models\RetrievalHistory.cs" />
     <Compile Include="Models\RetrievalRecord.cs" />
     <Compile Include="Models\CollectionPoint.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -1027,6 +1032,22 @@
     <Content Include="Views\Login\LoginStoreManager.cshtml" />
     <Content Include="Views\StoreSupervisors\Index.cshtml" />
     <Content Include="Views\Login\LoginStoreSupervisor.cshtml" />
+    <Content Include="Views\PurchaseOrders\Create.cshtml" />
+    <Content Include="Views\PurchaseOrders\Delete.cshtml" />
+    <Content Include="Views\PurchaseOrders\Details.cshtml" />
+    <Content Include="Views\PurchaseOrders\Edit.cshtml" />
+    <Content Include="Views\PurchaseOrders\Index.cshtml" />
+    <Content Include="Views\PurchaseOrders\Receive.cshtml" />
+    <Content Include="Views\StationeryCatalogs\Create.cshtml" />
+    <Content Include="Views\StationeryCatalogs\Delete.cshtml" />
+    <Content Include="Views\StationeryCatalogs\Details.cshtml" />
+    <Content Include="Views\StationeryCatalogs\Edit.cshtml" />
+    <Content Include="Views\StationeryCatalogs\Index.cshtml" />
+    <Content Include="Views\StockAdjustmentVouchers\Create.cshtml" />
+    <Content Include="Views\StockAdjustmentVouchers\Delete.cshtml" />
+    <Content Include="Views\StockAdjustmentVouchers\Details.cshtml" />
+    <Content Include="Views\StockAdjustmentVouchers\Edit.cshtml" />
+    <Content Include="Views\StockAdjustmentVouchers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

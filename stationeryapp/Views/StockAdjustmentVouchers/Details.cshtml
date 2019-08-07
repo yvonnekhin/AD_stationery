@@ -1,0 +1,80 @@
+﻿@model stationeryapp.Models.StockAdjustmentVoucher
+@using stationeryapp.Models
+
+@{
+    ViewBag.Title = "Supervisor/Manager";
+    List<StockAdjustmentVoucherDetail> savdList = ViewBag.savd;
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Stoc Adjustment Voucher (Supervisor/Manager) </h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.AdjustmentVoucherNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AdjustmentVoucherNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
+
+        <dt>
+            Date issued
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+    </dl>
+</div>
+
+<table>
+    <tr>
+        <th> Item Code </th>
+        <th></th>
+        <th> Quantity Adjusted </th>
+        <th></th>
+        <th> Reason </th>
+    </tr>
+    @foreach (StockAdjustmentVoucherDetail savd in savdList)
+    {
+        <tr>
+            <td>@savd.ItemNumber</td>
+            <td></td>
+            <td>@savd.QuantityAdjusted</td>
+            <td></td>
+            <td>@savd.Reason</td>
+        </tr>
+    }
+</table>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.AdjustmentVoucherNumber)
+
+    <table>
+        <tr>
+            <td> Remarks: </td>
+            <td> @Html.EditorFor(model => model.Remarks)</td>
+            <td></td>
+            <td> <input type="submit" value="Reject" name="Command" class="btn btn-default" /> </td>
+            <td> <input type="submit" value="Approve" name="Command" class="btn btn-default" /> </td>
+        </tr>
+    </table>
+}
+
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AdjustmentVoucherNumber }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

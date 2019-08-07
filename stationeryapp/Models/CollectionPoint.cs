@@ -25,8 +25,8 @@ namespace stationeryapp.Models
         public string CollectionTime { get; set; }
         public string StoreClerk { get; set; }
     
-        public virtual StoreClerk StoreClerk1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DepartmentList> DepartmentLists { get; set; }
+        public virtual StoreClerk StoreClerk1 { get; set; }
     }
 }
