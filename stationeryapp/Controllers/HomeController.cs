@@ -15,6 +15,8 @@ namespace stationeryapp.Controllers
         public ActionResult Index(string sessionId)
         { 
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = dbM.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = dbM.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             if (storeclerk != null && sessionId != null)
             {
                 int num= db1.RequisitionForms.Where(x => x.Status == "Pending").Count();
@@ -24,6 +26,28 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
+                return View();
+            }
+            else if (storeManager != null && sessionId != null)
+            {
+                int num = db1.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int numDisbuserment = dbM.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["num"] = num;
+                ViewData["numDisbuserment"] = numDisbuserment;
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View();
+
+            }else if (storeSupervisor != null && sessionId != null)
+            {
+                int num = db1.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int numDisbuserment = dbM.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["num"] = num;
+                ViewData["numDisbuserment"] = numDisbuserment;
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
                 return View();
             }
             else

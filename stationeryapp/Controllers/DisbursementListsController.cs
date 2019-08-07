@@ -19,8 +19,10 @@ namespace stationeryapp.Controllers
 
         {
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
 
-           List <DisbursementList> disbursementLists = db.DisbursementLists.ToList();
+            List <DisbursementList> disbursementLists = db.DisbursementLists.ToList();
             List<DepartmentList> departmentLists = db.DepartmentLists.ToList();
             List<CollectionPoint> collectionPoints = db.CollectionPoints.ToList();
 
@@ -46,30 +48,31 @@ namespace stationeryapp.Controllers
 
                 return View(disbursementRecord);
             }
+            else if (storeManager != null && sessionId != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(disbursementRecord);
+
+            }
+            else if (storeSupervisor != null && sessionId != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(disbursementRecord);
+
+            }
             else
             {
                 return RedirectToAction("Login", "Login");
             }
         }
-
-
-
-        // GET: DisbursementLists/Details/5
-        public ActionResult DisbursementForm(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            DisbursementList disbursementList = db.DisbursementLists.Find(id);
-            if (disbursementList == null)
-            {
-                return HttpNotFound();
-            }
-            return View(disbursementList);
-        }
-
 
 
         // GET: DisbursementLists/Create
@@ -79,9 +82,6 @@ namespace stationeryapp.Controllers
             return View();
         }
 
-        // POST: DisbursementLists/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ListNumber,DepartmentCode,Date,Status")] DisbursementList disbursementList)
@@ -96,66 +96,7 @@ namespace stationeryapp.Controllers
             ViewBag.DepartmentCode = new SelectList(db.DepartmentLists, "DepartmentCode", "DepartmentName", disbursementList.DepartmentCode);
             return View(disbursementList);
         }
-
-        // GET: DisbursementLists/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DisbursementList disbursementList = db.DisbursementLists.Find(id);
-            if (disbursementList == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.DepartmentCode = new SelectList(db.DepartmentLists, "DepartmentCode", "DepartmentName", disbursementList.DepartmentCode);
-            return View(disbursementList);
-        }
-
-        // POST: DisbursementLists/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ListNumber,DepartmentCode,Date,Status")] DisbursementList disbursementList)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(disbursementList).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.DepartmentCode = new SelectList(db.DepartmentLists, "DepartmentCode", "DepartmentName", disbursementList.DepartmentCode);
-            return View(disbursementList);
-        }
-
-        // GET: DisbursementLists/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DisbursementList disbursementList = db.DisbursementLists.Find(id);
-            if (disbursementList == null)
-            {
-                return HttpNotFound();
-            }
-            return View(disbursementList);
-        }
-
-        // POST: DisbursementLists/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            DisbursementList disbursementList = db.DisbursementLists.Find(id);
-            db.DisbursementLists.Remove(disbursementList);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+   
         protected override void Dispose(bool disposing)
         {
             if (disposing)

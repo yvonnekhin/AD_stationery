@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "StoreManager Home Page";
+}
+
+@{
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
+    int num = (int)ViewData["num"];
+    int numDisbuserment = (int)ViewData["numDisbuserment"];
+    int numOutS = 0;
+    int numRetrive = 0;
+    int numCatalog = 0;
+    int numPO = 8;
+    int numStock = 0;
+    
+}
+
+<h2 align="center"> Store Manager Home Page</h2>
+<br>
+<br>
+<table align="center">
+    <tr>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "RequisitionForms",new { sessionId = sessionId })"><img src="~/Images/Requests.jpg"></a>
+            @if (num > 0)
+            {
+                <div class="divright">
+                    <span>@num</span>
+                </div>
+            }
+        </td>
+        <td style="padding:50px"></td>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "OutStandingContoller")"><img src="~/Images/Outstanding.PNG"></a>
+            @if (numOutS > 0)
+            {
+                <div class="divright">
+                    <span>@numOutS</span>
+                </div>
+            }
+        </td>
+        <td style="padding:50px"></td>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "RetrivalController")"><img src="~/Images/RetrivalForm.PNG"></a>
+            @if (numRetrive > 0)
+            {
+                <div class="divright">
+                    <span>@numRetrive</span>
+                </div>
+            }
+        </td>
+        <td style="padding:50px"></td>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "DisbursementLists",new { sessionId = sessionId })"><img src="~/Images/DisbusementList.PNG"></a>
+            @if (numDisbuserment > 0)
+            {
+                <div class="divright">
+                    <span> @numDisbuserment</span>
+                </div>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td align="center">RequisitionForms</td>
+        <td style="padding:20px"></td>
+        <td align="center">Outstanding</td>
+        <td style="padding:20px"></td>
+        <td align="center">RetrievalForm</td>
+        <td style="padding:20px"></td>
+        <td align="center">DisbursementList</td>
+    </tr>
+    <tr>
+        <td style="padding:20px"></td>
+    </tr>
+    <tr>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "Catalog")"><img src="~/Images/Catalog.PNG"></a>
+            @if (numCatalog > 0)
+            {
+                <div class="divright">
+                    <span> @numCatalog</span>
+                </div>
+            }
+        </td>
+        <td style="padding:50px"></td>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "Purchase Order")"><img src="~/Images/PO.PNG"></a>
+            @if (numPO > 0)
+            {
+                <div class="divright">
+                    <span> @numPO</span>
+                </div>
+            }
+        </td>
+        <td style="padding:50px"></td>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "Stock Adjustment")"><img src="~/Images/StockAjustment.PNG"></a>
+            @if (numStock > 0)
+            {
+                <div class="divright">
+                    <span> @numStock</span>
+                </div>
+            }
+        </td>
+        <td style="padding:50px"></td>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "ReportHome",new { sessionId = sessionId })"><img src="~/Images/Reports.PNG"></a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">Catalog</td>
+        <td style="padding:20px"></td>
+        <td align="center">PurchaseOrder</td>
+        <td style="padding:20px"></td>
+        <td align="center">StockAdjustment</td>
+        <td style="padding:20px"></td>
+        <td align="center">Reports</td>
+    </tr>
+    <tr>
+        <td style="padding:20px"></td>
+    </tr>
+    <tr>
+        <td align="center" class="alarm">
+            <a href=" @Url.Action("Index", "SupplierLists",new { sessionId = sessionId })"><img src="~/Images/supplier1.png"></a>
+            @if (num > 0)
+            {
+                <div class="divright">
+                    <span>@num</span>
+                </div>
+            }
+        </td>
+    </tr>
+    <tr>
+        <td align="center">Manage Suppliers</td>
+    </tr>
+</table>
+
+<style>
+    .alarm {
+        position: relative;
+        width: 40px;
+        height: 40px;
+        /*margin: 40px;*/
+    }
+
+        .alarm img {
+            width: 90px;
+            height: 100px;
+        }
+
+    .divright {
+        position: absolute;
+        color: white;
+        font-size: 15px;
+        background-color: red;
+        width: 23px;
+        height: 23px;
+        line-height: -5px;
+        left: 65%;
+        bottom: 100px;
+        text-align: center;
+        -webkit-border-radius: 22px;
+        border-radius: 20px;
+    }
+</style>

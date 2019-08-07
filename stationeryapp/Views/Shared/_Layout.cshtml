@@ -10,6 +10,7 @@
         string sessionId = (string)ViewData["sessionId"];
         string username = (string)ViewData["username"];
         string count = (string)ViewData["sumTotal"];
+        string tag = (string)ViewData["tag"];
     }
 </head>
 <body>
@@ -19,7 +20,7 @@
         <div class="container-fluid;row">
             <div class="col-md-8">
                 <ul class="nav navbar-nav">
-                    <li><img style="height:50px; padding-top:4px; padding-left:10px;" alt="logo" src="~/Images/logo2.jpg"></li>
+
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href='@Url.Action("Index", "Home", new { sessionId = sessionId })'>MENU<span class="caret"></span></a>
                         <ul class="dropdown-menu">
@@ -30,10 +31,14 @@
                             <li style="margin-bottom:20px"><a href="#">Catalog</a></li>
                             <li style="margin-bottom:20px"><a href="#">Purchase Order</a></li>
                             <li style="margin-bottom:20px"><a href="#">Stock Adjustment</a></li>
-                            <li style="margin-bottom:20px"><a href='@Url.Action("Index", "ReportHome", new { sessionId = sessionId })'>ReorderReport</a></li>
-
+                            <li style="margin-bottom:20px"><a href='@Url.Action("Index", "ReportHome", new { sessionId = sessionId })'>Reports</a></li>
+                            @if (tag == "storeManager")
+                            {
+                                <li style="margin-bottom:20px"><a href="#">Manage Suppliers</a></li>
+                            }
                         </ul>
                     </li>
+                    <li><img style="height:50px; padding-top:4px; padding-left:10px;" alt="logo" src="~/Images/logo2.jpg"></li>
                     <li>@Html.ActionLink("STATIONERY MANAGEMENT SYSTEM", "Index", "Home", new { sessionId = sessionId }, new { @class = "navbar-brand" })</li>
                 </ul>
             </div>

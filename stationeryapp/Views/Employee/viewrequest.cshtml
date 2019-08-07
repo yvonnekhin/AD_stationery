@@ -10,7 +10,7 @@
 
 <div style="margin-left:15%">
     <h2>View Requests</h2>
-    <table class="table table-bordered">
+    <table id="requesttbl" class="table table-bordered">
         <thead>
             <tr>
                 <th>Form id</th>
@@ -28,4 +28,14 @@
         }
     </table>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script>
+    $(document).ready(function () {
+            $('#requesttbl').DataTable();
+        })</script>
+}
 

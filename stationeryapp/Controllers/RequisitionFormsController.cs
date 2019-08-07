@@ -15,6 +15,7 @@ namespace stationeryapp.Controllers
     {
 
         private StoreClerkDBContext db = new StoreClerkDBContext();
+        private ModelDBContext db2 = new ModelDBContext();
         private RequisitionFormsDBContext db1 = new RequisitionFormsDBContext();
 
 
@@ -22,10 +23,26 @@ namespace stationeryapp.Controllers
         public ActionResult Index(string sessionId)
         {
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db2.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db2.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             if (storeclerk != null && sessionId !=null)
             {
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
+                List<RequisitionForm> rev = db1.RequisitionForms.ToList();
+                return View(rev);
+            }
+            else if (storeManager != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                List<RequisitionForm> rev = db1.RequisitionForms.ToList();
+                return View(rev);
+            }
+            else if (storeSupervisor != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
                 List<RequisitionForm> rev = db1.RequisitionForms.ToList();
                 return View(rev);
             }

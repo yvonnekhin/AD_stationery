@@ -1,5 +1,10 @@
-﻿
-@using stationeryapp.Models;
+﻿@using stationeryapp.Models;
+
+@section Styles {
+    <link rel="stylesheet" href="https://max.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+}
+
 @{
     ViewBag.Title = "stationaryrequesthistory";
     List<RequisitionForm> requestlist = (List<RequisitionForm>)ViewData["requestlist"];
@@ -14,7 +19,7 @@
     <h2>
         @(status ? "Pending Requests" : "Sationery Request History" )
     </h2>
-    <table class="table table-bordered">
+    <table id="historytbl" class="table table-bordered">
         <thead>
             <tr>
                 <td>Form id</td>
@@ -34,3 +39,13 @@
         }
     </table>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable();
+        })</script>
+}

@@ -26,6 +26,8 @@ namespace stationeryapp.Controllers
         public ActionResult Details(string id, string sessionId)
         {
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
 
             var disbursementListDetail = db.DisbursementListDetails.Include(d => d.DisbursementList).Include(d => d.StationeryCatalog)
                                          .Where(DisbursementListDetails => DisbursementListDetails.ListNumber == id)
@@ -47,11 +49,41 @@ namespace stationeryapp.Controllers
                 ViewData["disbursementList"] = disbursementList.Date;
                 ViewData["deparment"] = departmentList.DepartmentName;
                 ViewData["employeeF"] = employee.FirstName;
-                ViewData["employeeL"] = employee.LastName;
-                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["employeeL"] = employee.LastName;               
                 ViewData["ListDetailsNumber"] = disbursementListDetail.FirstOrDefault().ListDetailsNumber;
+                ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
 
+                return View(disbursementListDetail);
+            }
+            else if(storeManager != null && sessionId != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["collection"] = collectionPoint.CollectionPointName;
+                ViewData["disbursementList"] = disbursementList.Date;
+                ViewData["deparment"] = departmentList.DepartmentName;
+                ViewData["employeeF"] = employee.FirstName;
+                ViewData["employeeL"] = employee.LastName;
+                ViewData["ListDetailsNumber"] = disbursementListDetail.FirstOrDefault().ListDetailsNumber;
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(disbursementListDetail);
+            }
+            else if (storeSupervisor != null && sessionId != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["collection"] = collectionPoint.CollectionPointName;
+                ViewData["disbursementList"] = disbursementList.Date;
+                ViewData["deparment"] = departmentList.DepartmentName;
+                ViewData["employeeF"] = employee.FirstName;
+                ViewData["employeeL"] = employee.LastName;
+                ViewData["ListDetailsNumber"] = disbursementListDetail.FirstOrDefault().ListDetailsNumber;
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
                 return View(disbursementListDetail);
             }
             else
@@ -63,6 +95,9 @@ namespace stationeryapp.Controllers
         [HttpPost]
         public ActionResult Update(List<DisbursementListDetail> Details,string sessionId,string listNumber)
         {
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
             int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
             ViewData["sumTotal"] = (num + numDisbuserment).ToString();
@@ -70,7 +105,7 @@ namespace stationeryapp.Controllers
             string id = db.DisbursementListDetails.Find(listNumber).ListNumber;
             DisbursementList disbursementList = db.DisbursementLists.Find(id);
             DisbursementListDetail existing = db.DisbursementListDetails.Find(listNumber);
-            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+
             int newNumer = db.StockAdjustmentVouchers.Count();
             int length = Details.Count() + newNumer+1;
             int newNumer2 = db.StockAdjustmentVoucherDetails.Count()+1;
@@ -115,7 +150,7 @@ namespace stationeryapp.Controllers
                 {                
                     StockAdjustmentVoucherDetail adjustmentVoucherDetail = new StockAdjustmentVoucherDetail();
                     adjustmentVoucherDetail.AdjustmentVoucherNumber = (newNumer + 1).ToString();
-                    adjustmentVoucherDetail.AdjustmentDetailsNumber= Convert.ToString(newNumer2);
+                    adjustmentVoucherDetail.AdjustmentDetailsNumber= newNumer2;
                     newNumer2++;
                     adjustmentVoucherDetail.QuantityAdjusted = recivedX;
                     adjustmentVoucherDetail.ItemNumber = existing.ItemNumber;
@@ -149,6 +184,14 @@ namespace stationeryapp.Controllers
             if (storeclerk != null && sessionId != null)
             {
                 return RedirectToAction("Index","Home", new {@sessionId= sessionId});
+            }
+            else if (storeManager != null && sessionId != null)
+            {
+                return RedirectToAction("Index", "Home", new { @sessionId = sessionId });
+            }
+            else if (storeSupervisor != null && sessionId != null)
+            {
+                return RedirectToAction("Index", "Home", new { @sessionId = sessionId });
             }
             else
             {

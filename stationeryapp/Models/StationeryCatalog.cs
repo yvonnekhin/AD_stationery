@@ -15,14 +15,14 @@ namespace stationeryapp.Models
     public partial class StationeryCatalog
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public StationeryCatalog()
-        {
-            this.DisbursementListDetails = new HashSet<DisbursementListDetail>();
-            this.PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
-            this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
-            this.StockAdjustmentVoucherDetails = new HashSet<StockAdjustmentVoucherDetail>();
-            this.RequisitionFormDetails = new HashSet<RequisitionFormDetail>();
-        }
+        //public StationeryCatalog()
+        //{
+        //    this.DisbursementListDetails = new HashSet<DisbursementListDetail>();
+        //    this.PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
+        //    this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
+        //    this.StockAdjustmentVoucherDetails = new HashSet<StockAdjustmentVoucherDetail>();
+        //    this.RequisitionFormDetails = new HashSet<RequisitionFormDetail>();
+        //}
     
         public string ItemNumber { get; set; }
         public string Category { get; set; }

@@ -22,6 +22,17 @@ namespace stationeryapp.Controllers
         {
             return View();
         }
+        //for storeMangerLogin
+        public ActionResult LoginStoreManager ()
+        {
+            return View();
+        }
+        //for storeSupervisor Login
+        public ActionResult LoginStoreSupervisor()
+        {
+            return View();
+        }
+
 
         public ActionResult EmployeeIndex(String msg)
         {
@@ -72,6 +83,7 @@ namespace stationeryapp.Controllers
                         storeclerk.SessionId = sessionId;
                         db.Entry(storeclerk).State = EntityState.Modified;
                         db.SaveChanges();
+                        ViewData["tag"] = "storeClerk";
                         return RedirectToAction("Index", "Home", new { storeclerk.SessionId });
                     }
                     else
@@ -84,9 +96,76 @@ namespace stationeryapp.Controllers
                     return View();
                 }
             }
-
             return View();
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult StoreManagerLogin([Bind(Include = "UserName,Password")] StoreManager storeManager)
+        {
+            if (storeManager.UserName != null && storeManager.Password != null)
+            {
+                StoreManager storeManager1 = db1.StoreManagers.Where(p => p.UserName == storeManager.UserName).FirstOrDefault();
+                string hashedPassword = CalculateMD5Hash(storeManager.Password);
+                if (ModelState.IsValid)
+                {
+                    if (storeManager1.Password == hashedPassword)
+                    {
+                        string sessionId = Guid.NewGuid().ToString();
+                        storeManager1.Password = hashedPassword;
+                        storeManager1.SessionId = sessionId;
+                        db1.Entry(storeManager1).State = EntityState.Modified;
+                        db1.SaveChanges();
+                        ViewData["tag"] = "storeManager";
+                        return RedirectToAction("Index", "StoreManagers", new { storeManager1.SessionId, tag= "storeManager" });
+                    }
+                    else
+                    {
+                        return RedirectToAction("LoginStoreManager", "Login");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("LoginStoreManager", "Login");
+                }
+            }
+            return RedirectToAction("LoginStoreManager", "Login");
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult StoreSupervisorLogin([Bind(Include = "UserName,Password")] StoreSupervisor storeSupervisor)
+        {
+            if (storeSupervisor.UserName != null && storeSupervisor.Password != null)
+            {
+                StoreSupervisor storeSupervisor1 = db1.StoreSupervisors.Where(p => p.UserName == storeSupervisor.UserName).FirstOrDefault();
+                string hashedPassword = CalculateMD5Hash(storeSupervisor.Password);
+                if (ModelState.IsValid)
+                {
+                    if (storeSupervisor1.Password == hashedPassword)
+                    {
+                        string sessionId = Guid.NewGuid().ToString();
+                        storeSupervisor1.Password = hashedPassword;
+                        storeSupervisor1.SessionId = sessionId;
+                        db1.Entry(storeSupervisor1).State = EntityState.Modified;
+                        db1.SaveChanges();
+                        return RedirectToAction("Index", "StoreSupervisors", new { storeSupervisor1.SessionId});
+                    }
+                    else
+                    {
+                        return RedirectToAction("LoginStoreSupervisor", "Login");
+                    }
+                }
+                else
+                {
+                    return RedirectToAction("LoginStoreSupervisor", "Login");
+                }
+            }
+            return RedirectToAction("LoginStoreSupervisor", "Login");
+        }
+
+
+
 
         [HttpPost]
         public ActionResult EmployeeLogin([Bind(Include = "UserName,Password")] Employee emp)
@@ -134,12 +213,33 @@ namespace stationeryapp.Controllers
 
         public ActionResult Logout(string sessionId)
         {
-            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+
+            StoreClerk storeclerk = db1.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db1.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db1.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             string newsessionId = Guid.NewGuid().ToString();
-            storeclerk.SessionId = newsessionId;
-            db.Entry(storeclerk).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Login");
+
+            if (storeclerk != null && sessionId != null)
+            {
+                storeclerk.SessionId = newsessionId;
+                db1.Entry(storeclerk).State = EntityState.Modified;
+                db1.SaveChanges();
+                return RedirectToAction("Login");
+            }else if (storeManager!=null&& sessionId != null)
+            {
+                storeManager.SessionId = newsessionId;
+                db1.Entry(storeManager).State = EntityState.Modified;
+                db1.SaveChanges();
+                return RedirectToAction("LoginStoreManager","Login");
+            }
+            else
+            {
+                storeSupervisor.SessionId = newsessionId;
+                db1.Entry(storeSupervisor).State = EntityState.Modified;
+                db1.SaveChanges();
+                return RedirectToAction("LoginStoreSupervisor", "Login");
+            }
+
         }
 
         protected override void Dispose(bool disposing)

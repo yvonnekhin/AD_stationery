@@ -46,16 +46,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine">
-      <HintPath>..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.ReportSource">
-      <HintPath>..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportSource.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportSource.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Shared">
-      <HintPath>..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Shared.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Shared.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Web">
-      <HintPath>..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Web.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Web.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -154,6 +154,8 @@
     <Compile Include="Controllers\RequisitionReportController.cs" />
     <Compile Include="Controllers\StationeryCatalogReportController.cs" />
     <Compile Include="Controllers\StationeryRetrievalFormsController.cs" />
+    <Compile Include="Controllers\StoreManagersController.cs" />
+    <Compile Include="Controllers\StoreSupervisorsController.cs" />
     <Compile Include="Controllers\SupplierListsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -586,6 +588,8 @@
     <Content Include="Images\StockAjustment.PNG" />
     <Content Include="Images\storeclarkprofile.png" />
     <Content Include="Images\storeclarkprofile2.png" />
+    <Content Include="Images\supplier1.png" />
+    <Content Include="Images\suppliers2.png" />
     <Content Include="Images\user.png" />
     <Content Include="Models\CollectionPoints.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -979,15 +983,10 @@
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\RequisitionForms\Index.cshtml" />
     <Content Include="Views\ReportHome\Index.cshtml" />
-    <Content Include="Views\DisbursementListDetails\Create.cshtml" />
-    <Content Include="Views\DisbursementListDetails\Delete.cshtml" />
     <Content Include="Views\DisbursementListDetails\Details.cshtml" />
     <Content Include="Views\DisbursementListDetails\Edit.cshtml" />
     <Content Include="Views\DisbursementListDetails\Index.cshtml" />
     <Content Include="Views\DisbursementLists\Create.cshtml" />
-    <Content Include="Views\DisbursementLists\Delete.cshtml" />
-    <Content Include="Views\DisbursementLists\Details.cshtml" />
-    <Content Include="Views\DisbursementLists\Edit.cshtml" />
     <Content Include="Views\DisbursementLists\Index.cshtml" />
     <Content Include="Views\SupplierLists\Create.cshtml" />
     <Content Include="Views\SupplierLists\Delete.cshtml" />
@@ -1022,7 +1021,12 @@
     <Content Include="Views\OutstandingLists\Details.cshtml" />
     <Content Include="Views\OutstandingLists\Edit.cshtml" />
     <Content Include="Views\OutstandingLists\Index.cshtml" />
+    <Content Include="Views\Shared\_store_header.cshtml" />
     <Content Include="Views\Shared\_StoreClerkFooter.cshtml" />
+    <Content Include="Views\StoreManagers\Index.cshtml" />
+    <Content Include="Views\Login\LoginStoreManager.cshtml" />
+    <Content Include="Views\StoreSupervisors\Index.cshtml" />
+    <Content Include="Views\Login\LoginStoreSupervisor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
