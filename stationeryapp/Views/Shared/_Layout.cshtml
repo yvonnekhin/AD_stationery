@@ -10,6 +10,7 @@
         string sessionId = (string)ViewData["sessionId"];
         string username = (string)ViewData["username"];
         string count = (string)ViewData["sumTotal"];
+        string tag = (string)ViewData["tag"];
     }
 </head>
 <body>
@@ -30,8 +31,11 @@
                             <li style="margin-bottom:20px"><a href="#">Catalog</a></li>
                             <li style="margin-bottom:20px"><a href="#">Purchase Order</a></li>
                             <li style="margin-bottom:20px"><a href="#">Stock Adjustment</a></li>
-                            <li style="margin-bottom:20px"><a href='@Url.Action("Index", "ReportHome", new { sessionId = sessionId })'>ReorderReport</a></li>
-
+                            <li style="margin-bottom:20px"><a href='@Url.Action("Index", "ReportHome", new { sessionId = sessionId })'>Reports</a></li>
+                            @if (tag == "storeManager")
+                            {
+                                <li style="margin-bottom:20px"><a href="#">Manage Suppliers</a></li>
+                            }
                         </ul>
                     </li>
                     <li>@Html.ActionLink("STATIONERY MANAGEMENT SYSTEM", "Index", "Home", new { sessionId = sessionId }, new { @class = "navbar-brand" })</li>
