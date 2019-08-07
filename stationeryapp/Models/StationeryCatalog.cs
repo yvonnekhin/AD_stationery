@@ -15,32 +15,28 @@ namespace stationeryapp.Models
     public partial class StationeryCatalog
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        //public StationeryCatalog()
-        //{
-        //    this.DisbursementListDetails = new HashSet<DisbursementListDetail>();
-        //    this.PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
-        //    this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
-        //    this.StockAdjustmentVoucherDetails = new HashSet<StockAdjustmentVoucherDetail>();
-        //    this.RequisitionFormDetails = new HashSet<RequisitionFormDetail>();
-        //}
+        public StationeryCatalog()
+        {
+            this.DisbursementListDetails = new HashSet<DisbursementListDetail>();
+            this.PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
+            this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
+            this.RequisitionFormDetails = new HashSet<RequisitionFormDetail>();
+            this.StockAdjustmentVoucherDetails = new HashSet<StockAdjustmentVoucherDetail>();
+        }
     
         public string ItemNumber { get; set; }
         public string Category { get; set; }
         public string Description { get; set; }
-        //public Nullable<int> ReorderLevel { get; set; }
-        public int ReorderLevel { get; set; }
-        //public Nullable<int> ReorderQuantity { get; set; }
-        public int ReorderQuantity { get; set; }
+        public Nullable<int> ReorderLevel { get; set; }
+        public Nullable<int> ReorderQuantity { get; set; }
         public string UnitOfMeasure { get; set; }
         public string BinNumber { get; set; }
-        //public Nullable<double> Price { get; set; }
-        public double Price { get; set; }
+        public Nullable<double> Price { get; set; }
         public string SupplierCode1 { get; set; }
         public string SupplierCode2 { get; set; }
         public string SupplierCode3 { get; set; }
-        //public Nullable<int> Balance { get; set; }
-        public int Balance { get; set; }
-
+        public Nullable<int> Balance { get; set; }
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<DisbursementListDetail> DisbursementListDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -51,8 +47,8 @@ namespace stationeryapp.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StationeryRetrievalFormDetail> StationeryRetrievalFormDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<StockAdjustmentVoucherDetail> StockAdjustmentVoucherDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequisitionFormDetail> RequisitionFormDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<StockAdjustmentVoucherDetail> StockAdjustmentVoucherDetails { get; set; }
     }
 }

@@ -32,8 +32,8 @@ namespace stationeryapp.Models
     
         public virtual Employee Employee { get; set; }
         public virtual Employee Employee1 { get; set; }
-        public virtual StoreClerk StoreClerk { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequisitionFormDetail> RequisitionFormDetails { get; set; }
+        public virtual StoreClerk StoreClerk { get; set; }
     }
 }

@@ -1,0 +1,46 @@
+﻿@model List<stationeryapp.Models.StockAdjustmentVoucher>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Voucher Number
+        </th>
+        <th>
+            Date Issued
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.AdjustmentVoucherNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.AdjustmentVoucherNumber }) |
+                @Html.ActionLink("Approve", "Details", new { id = item.AdjustmentVoucherNumber }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.AdjustmentVoucherNumber })
+            </td>
+        </tr>
+    }
+
+</table>

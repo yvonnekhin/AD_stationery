@@ -14,6 +14,12 @@ namespace stationeryapp.Models
     
     public partial class StationeryRetrievalFormDetail
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public StationeryRetrievalFormDetail()
+        {
+            this.OutstandingLists = new HashSet<OutstandingList>();
+        }
+    
         public string FormDetailsNumber { get; set; }
         public string FormNumber { get; set; }
         public string ItemNumber { get; set; }
@@ -23,6 +29,8 @@ namespace stationeryapp.Models
     
         public virtual DepartmentList DepartmentList { get; set; }
         public virtual StationeryCatalog StationeryCatalog { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<OutstandingList> OutstandingLists { get; set; }
         public virtual StationeryRetrievalForm StationeryRetrievalForm { get; set; }
     }
 }

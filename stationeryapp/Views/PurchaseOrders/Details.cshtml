@@ -1,0 +1,148 @@
+﻿@model List<stationeryapp.Models.POForm>
+@using stationeryapp.Models
+
+@{
+    ViewBag.Title = "PO";
+    int count = 1;
+    SelectList approvedSupplierList = ViewBag.SupplierCode1;
+}
+
+<h2>Purchase Order Form</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model[0].purchaseOrder.PONumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model[0].purchaseOrder.PONumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model[0].purchaseOrder.DeliverTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model[0].purchaseOrder.DeliverTo)
+        </dd>
+
+        <dt>
+            Attention
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model[0].purchaseOrder.StoreClerk.FirstName)
+        </dd>
+    </dl>
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model[0].supplierList.SupplierName, "Supplier", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model[0].purchaseOrder.SupplierCode, approvedSupplierList)
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model[0].purchaseOrder.SupplyByDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model[0].purchaseOrder.SupplyByDate, "{0:dd-MMM-yyyy}", new { @class = "form-control", @type = "date" })
+            </div>
+        </div>
+    </div>
+
+
+    <h4>Purchase Order Details</h4>
+    <table class="table" id="details">
+        <tr>
+            <th>Item No</th>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Purchase Reason</th>
+            <th>Price</th>
+            <th>Amount</th>
+        </tr>
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            @Html.HiddenFor(model => model[i].purchaseOrder.PONumber)
+            @Html.HiddenFor(model => model[i].purchaseOrderDetail.PODetailsNumber)
+
+            <tr>
+                <td>
+                    @count
+                </td>
+                <td>@Html.TextBoxFor(model => model[i].stationeryCatalog.Description, new { @class = "form-control", @readonly = "readonly" }) </td>
+                <td>@Html.TextBoxFor(model => model[i].purchaseOrderDetail.Quantity, new { @class = "form-control", @id = "quantity" + count, @onchange = "updateTotal(this); getOverallTotal();" })</td>
+                <td>@Html.TextBoxFor(model => model[i].purchaseOrderDetail.Remarks, new { @class = "form-control", @readonly = "readonly" })</td>
+                <td>@Html.TextBoxFor(model => model[i].stationeryCatalog.Price, new { @class = "form-control", @readonly = "readonly", @id = "price" + count })</td>
+                <td>
+                    @Html.TextBox("subTotal" + count, Model[i].purchaseOrderDetail.Quantity * Model[i].stationeryCatalog.Price, new { @class = "subtotal", @readonly = "readonly" })
+
+                    <div style="visibility:hidden">
+                        @(count++);
+                    </div>
+                </td>
+            </tr>
+        }
+
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total:</td>
+            <td>@Html.TextBoxFor(model => model[0].purchaseOrder.PurchaseValue, new { @id = "total", @class = "form-control", @readonly = "readonly" })</td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Order" class="btn btn-default" />
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+}
+
+<script>
+    function updateTotal(element) {
+        var quantityId = element.id;
+        var quantity = document.getElementById(quantityId).value;
+        var countId = quantityId.substring(8);
+        var price = document.getElementById("price" + countId).value;
+        var subtotal = document.getElementById("subTotal" + countId);
+        subtotal.value = parseInt(quantity) * parseFloat(price);
+
+    }
+
+    function getOverallTotal() {
+        var listSubTotal = document.getElementById("details").querySelectorAll(".subtotal");
+        var total = 0;
+        for (var i = 0; i < listSubTotal.length; i++) {
+            total += parseFloat(listSubTotal[i].value);
+        }
+        var totalElement = document.getElementById("total");
+        totalElement.value = total;
+    }
+
+    window.onload = getOverallTotal();
+</script>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model[0].purchaseOrder.PONumber }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
