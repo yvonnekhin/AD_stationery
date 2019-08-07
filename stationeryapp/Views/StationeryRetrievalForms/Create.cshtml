@@ -2,6 +2,9 @@
 
 @{
     ViewBag.Title = "Create";
+ }
+@{ 
+//string formDetailsNumber = (string)ViewData["FormDetailsNumber"];
 }
 
 <h2>Create Retrieval Form</h2>
@@ -10,7 +13,7 @@
 @using (Html.BeginForm("Update", "StationeryRetrievalForms", FormMethod.Post))
 {
     @Html.AntiForgeryToken()
-
+    @*@Html.Hidden("formDetailsNumber",formDetailsNumber)*@
     <table>
         <tr>
             <td>From:</td>
@@ -45,19 +48,20 @@
             HashSet<string> bin_number = new HashSet<string>();
             for (int i = 0; i < Model.Count; i++)
             {
-                
+
                 sum += Model[i].needed;
                 <tr>
                     @if (bin_number.Add(Model[i].binNumber))
                     {
                         // added, originally not in hashset
                         <td>
-                            @Html.TextBox("Record[" + @i + "].binNumber", Model[i].binNumber,
-                                new { @readonly = "readonly" })
+                            @*@Html.TextBox("Record[" + @i + "].binNumber", Model[i].binNumber, new { @readonly = "readonly" })*@
+                            <input type="text" name="binnumber" value="@Model[i].binNumber">
                         </td>
                         <td>
-                            @Html.TextBox("Record[" + @i + "].description", Model[i].description,
-                                new { @readonly = "readonly" })
+                            @*@Html.TextBox("Record[" + @i + "].description", Model[i].description, new { @readonly = "readonly" })*@
+                            <input type="text" name="description" value="@Model[i].description">
+
                         </td>
 
                         <td></td>
@@ -65,7 +69,7 @@
                     }
                     else
                     {
-                        // Not added, originally in hashset                        
+                        // Not added, originally in hashset
                         <td></td>
                         <td></td>
                         <td>
@@ -76,14 +80,18 @@
                         </td>
                     }
                     <td>
-                        @Html.TextBox("Record[" + @i + "].departmentCode", Model[i].departmentCode,
-                            new { @readonly = "readonly" })
+                        @*@Html.TextBox("Record[" + @i + "].departmentCode", Model[i].departmentCode, new { @readonly = "readonly" })*@
+                        <input type="text" name="departmentcode" value="@Model[i].departmentCode">
                     </td>
                     <td>
-                        @Html.TextBox("Record[" + @i + "].needed", Model[i].needed,
-                            new { @readonly = "readonly" })
+                        @*@Html.TextBox("Record[" + @i + "].needed", Model[i].needed,new { @readonly = "readonly" })*@
+                        <input type="number" name="needed" value="@Model[i].needed">
                     </td>
-                    <td>@Html.TextBox("Record[" + @i + "].actual", Model[i].actual)</td>
+                    
+                    <td>
+                        @*@Html.TextBox("Record[" + @i + "].actual", Model[i].actual)*@
+                        <input type="number" name="actual" value="@Model[i].actual">
+                    </td>
                 </tr>
             }
         }
@@ -97,8 +105,8 @@
     </div>
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
 }
 
 @*<div class="form-horizontal">

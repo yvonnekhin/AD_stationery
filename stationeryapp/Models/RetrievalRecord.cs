@@ -7,7 +7,6 @@ namespace stationeryapp.Models
 {
     public partial class RetrievalRecord
     {
-        public string FormDetailsNumber { get; set; }
         public string binNumber { get; set; }
         public string description { get; set; }
 
@@ -20,9 +19,8 @@ namespace stationeryapp.Models
 
         }
 
-        public RetrievalRecord(string FormDetailsNumber, string binNumber, string description, string departmentCode, int needed, int actual)
+        public RetrievalRecord(string binNumber, string description, string departmentCode, int needed, int actual)
         {
-            this.FormDetailsNumber = FormDetailsNumber;
             this.binNumber = binNumber;
             this.description = description;
             this.departmentCode = departmentCode;
