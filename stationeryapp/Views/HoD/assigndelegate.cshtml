@@ -6,6 +6,7 @@
     ViewBag.Title = "assigndelegate";
     Employee delegate_ = (Employee)ViewData["delegate_"];
     List<Employee> dept_emp_list = (List<Employee>)ViewData["dept_emp_list"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_hodheader")
 @Html.Partial("_hodMenuFragment")

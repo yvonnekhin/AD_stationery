@@ -3,6 +3,7 @@
     ViewBag.Title = "viewrequest";
     List<RequisitionForm> requestlist = (List<RequisitionForm>)ViewData["requestlist"];
     Employee emp = (Employee)ViewData["userobj"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_employeeheader")
 @Html.Partial("_employeeMenuFragment")

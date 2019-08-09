@@ -1026,8 +1026,6 @@
     <Content Include="Views\OutstandingLists\Details.cshtml" />
     <Content Include="Views\OutstandingLists\Edit.cshtml" />
     <Content Include="Views\OutstandingLists\Index.cshtml" />
-    <Content Include="Views\Shared\_store_header.cshtml" />
-    <Content Include="Views\Shared\_StoreClerkFooter.cshtml" />
     <Content Include="Views\StoreManagers\Index.cshtml" />
     <Content Include="Views\Login\LoginStoreManager.cshtml" />
     <Content Include="Views\StoreSupervisors\Index.cshtml" />
@@ -1048,6 +1046,7 @@
     <Content Include="Views\StockAdjustmentVouchers\Details.cshtml" />
     <Content Include="Views\StockAdjustmentVouchers\Edit.cshtml" />
     <Content Include="Views\StockAdjustmentVouchers\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout_Store.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
