@@ -7,8 +7,9 @@ namespace stationeryapp.Models
 {
     public class RForm
     {
-        public StationeryRetrievalFormDetail stationeryRetrievalFormDetail { get; set; }
-        public string Description { get; set; }
-        public string BinNumber { get; set; }
+            public StationeryRetrievalFormDetail stationeryRetrievalFormDetail { get; set; }
+            public string Description { get; set; }
+            public string BinNumber { get; set; }
+
     }
 }
