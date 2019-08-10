@@ -14,46 +14,16 @@ namespace stationeryapp.Controllers
     {
         private ModelDBContext db = new ModelDBContext();
 
-        private StationeryRetrievalFormDetailsDBContext adb = new StationeryRetrievalFormDetailsDBContext();
-
         // GET: StationeryRetrievalForms
         public ActionResult Index()
         {
+            GenerateRetrievalForm();
             return View(db.StationeryRetrievalForms.ToList());
         }
 
         // GET: StationeryRetrievalForms/Details/5
         public ActionResult Details(string id)
         {
-            List<StationeryRetrievalFormDetail> retrievalFormDetails = db.StationeryRetrievalFormDetails.ToList();
-            List<StationeryCatalog> catalogs = db.StationeryCatalogs.ToList();
-            List<DepartmentList> departmentLists = db.DepartmentLists.ToList();
-
-            var retrievalFormRecord = (from r in retrievalFormDetails
-                                       join c in catalogs on r.ItemNumber equals c.ItemNumber into table1
-                                       from c in table1.ToList()
-                                       join d in departmentLists on r.DepartmentCode equals d.DepartmentCode into table2
-                                       from d in table2.ToList()
-                                       select new ViewModelRetrieval
-                                       {
-                                           retrievalFormDetails = r,
-                                           catalogs = c,
-                                           departmentLists = d
-                                       }).Where(x => x.retrievalFormDetails.FormNumber == id);
-
-            //Display 'To Date'
-            StationeryRetrievalForm retrievalForm1 = db.StationeryRetrievalForms.Where(r => r.FormNumber == id).Single();
-            String ToDate = retrievalForm1.Date.Value.ToString("dd-MMM-yyyy");
-            ViewData["ToDate"] = ToDate;
-
-            //Display 'From Date'
-            StationeryRetrievalForm retrievalForm2 = db.StationeryRetrievalForms.OrderByDescending(x => x.Date)
-                                                       .Where(x => x.Status == "Submitted")
-                                                       .Where(x => x.Date < retrievalForm1.Date)
-                                                       .First();
-            String FromDate = retrievalForm2.Date.Value.AddDays(1).ToString("dd-MMM-yyyy");
-            ViewData["FromDate"] = FromDate;
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -63,131 +33,72 @@ namespace stationeryapp.Controllers
             {
                 return HttpNotFound();
             }
-
-            List<ConsolidatedRequest> clist = sortDetails(retrievalFormRecord);
-
-            return View(clist);
+            return View(stationeryRetrievalForm);
         }
 
         // GET: StationeryRetrievalForms/Create
         public ActionResult Create()
         {
-            //Display 'From Date'
-            StationeryRetrievalForm retrievalForm1 = db.StationeryRetrievalForms.OrderByDescending(x => x.Date)
-                                                       .Where(x => x.Status == "Submitted").First();
-            String FromDate = retrievalForm1.Date.Value.ToString("dd-MMM-yyyy");
-            ViewData["FromDate"] = FromDate;
-
-            List<RequisitionForm> requisitionForms = db.RequisitionForms.ToList();
-            List<StationeryCatalog> catalogs = db.StationeryCatalogs.ToList();
-            List<Employee> employees = db.Employees.ToList();
-            List<RequisitionFormDetail> requisitionFormDetails = db.RequisitionFormDetails.ToList();
-            List<OutstandingList> outstandingLists = db.OutstandingLists.ToList();
-            List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
-            List<StationeryRetrievalFormDetail> retrievalFormDetails = db.StationeryRetrievalFormDetails.ToList();
-
-            var requisitionReceived = (from r in requisitionForms
-                                       join e in employees on r.EmployeeId equals e.Id into table1
-                                       from e in table1
-                                       join d in requisitionFormDetails on r.FormNumber equals d.FormNumber into table2
-                                       from d in table2
-                                       join c in catalogs on d.ItemNumber equals c.ItemNumber into table3
-                                       from c in table3.ToList()
-                                       select new ViewModelRetrieval
-                                       {
-                                           requisitionForms = r,
-                                           employees = e,
-                                           requisitionFormDetails = d,
-                                           catalogs = c
-                                       }).Where(x => x.requisitionForms.Status == "Received");
-
-            List<RetrievalRecord> result = sortCreate(requisitionReceived);
-            return View(result);
+            return View();
         }
 
-        [HttpPost]
-        public ActionResult Update(FormCollection fc)
+        public void GenerateRetrievalForm()
         {
-            //Display 'From Date'
-            StationeryRetrievalForm retrievalForm1 = db.StationeryRetrievalForms.OrderByDescending(x => x.Date)
-                                                       .Where(x => x.Status == "Submitted").First();
-            String FromDate = retrievalForm1.Date.Value.ToString("dd-MMM-yyyy");
-            ViewData["FromDate"] = FromDate;
+            List<RequisitionForm> rf = db.RequisitionForms.ToList();
+            List<RequisitionFormDetail> rfd = db.RequisitionFormDetails.ToList();
+            List<Employee> emp = db.Employees.ToList();
 
-            //Using same query as for create, getting the first value in the list
-            List<RequisitionForm> requisitionForms = db.RequisitionForms.ToList();
-            List<StationeryCatalog> catalogs = db.StationeryCatalogs.ToList();
-            List<Employee> employees = db.Employees.ToList();
-            List<RequisitionFormDetail> requisitionFormDetails = db.RequisitionFormDetails.ToList();
-            List<OutstandingList> outstandingLists = db.OutstandingLists.ToList();
-            List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
-            List<StationeryRetrievalFormDetail> retrievalFormDetails = db.StationeryRetrievalFormDetails.ToList();
-
-            List<ViewModelRetrieval> requisitionReceived = (List<ViewModelRetrieval>)(from r in requisitionForms
-                                                                                      join e in employees on r.EmployeeId equals e.Id into table1
-                                                                                      from e in table1.ToList()
-                                                                                      join d in requisitionFormDetails on r.FormNumber equals d.FormNumber into table2
-                                                                                      from d in table2.ToList()
-                                                                                      join c in catalogs on d.ItemNumber equals c.ItemNumber into table3
-                                                                                      from c in table3.ToList()
-                                                                                      select new ViewModelRetrieval
-                                                                                      {
-                                                                                          requisitionForms = r,
-                                                                                          employees = e,
-                                                                                          requisitionFormDetails = d,
-                                                                                          catalogs = c
-                                                                                      }).Where(x => x.requisitionForms.Status == "Received").ToList();
-
-            //Generate new retrieval form number
-            string newFormNumber = generateFormNumber(db.StationeryRetrievalForms.ToList().Count);
-            //setting the date to FromDate and status to Submitted
-            DateTime date = DateTime.Parse(FromDate);
-            string status = "Submitted";
-            StationeryRetrievalForm retrievalFormFinal = new StationeryRetrievalForm(newFormNumber, date, status);
-            db.StationeryRetrievalForms.Add(retrievalFormFinal);
-            db.SaveChanges();
-
-            //getting the item numbers from the query           
-            string[] itemnumber = requisitionReceived.ConvertAll<String>(p => p.catalogs.ItemNumber.ToString()).ToArray<String>();
-            //getting the updated needed & actual values from the html view
-            string[] departmentcodes = fc.GetValues("departmentcode");
-            string[] neededvalues = fc.GetValues("needed");
-            string[] actualvalues = fc.GetValues("actual");
-
-            //creating the StationeryRetrievalFormDetails in db
-            for (int i = 0; i < neededvalues.Length; i++)
+            StationeryRetrievalForm newStationeryRetrievalForm = new StationeryRetrievalForm
             {
-                StationeryRetrievalFormDetail record = new StationeryRetrievalFormDetail();
-                //autogenerate random string for formdetailsnumber
-                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-                var stringChars = new char[8];
-                var random = new Random();
-                for (int j = 0; j < stringChars.Length; j++)
+                FormNumber = (db.StationeryRetrievalForms.Count() + 1).ToString(),
+                Date = DateTime.Today,
+                Status = "Pending"
+            };
+
+            var srfdList = (from requisitionForm in rf
+                                  join requisitionFormDetail in rfd on requisitionForm.FormNumber equals requisitionFormDetail.FormNumber into table1
+                                  from requisitionFormDetail in table1
+                                  join employees in emp on requisitionForm.EmployeeId equals employees.Id into table2
+                                  from employees in table2
+                                  where (requisitionForm.Status == "Read" && requisitionFormDetail.Status == "Pending") || (requisitionForm.Status == "Read" && requisitionFormDetail.Status == "Received")
+                                  group requisitionFormDetail by new { requisitionFormDetail.ItemNumber, employees.DepartmentCode } into group1
+                                  select new StationeryRetrievalFormDetail
+                                  {                                     
+                                      FormNumber = newStationeryRetrievalForm.FormNumber,
+                                      ItemNumber = group1.Key.ItemNumber,
+                                      DepartmentCode = group1.Key.DepartmentCode,
+                                      Needed = group1.Sum(x=>x.Quantity),
+                                      Actual = 0
+                                  }).ToList();
+
+            var requisitionFormDetailList = (from requisitionForm in rf
+                                            join requisitionFormDetail in rfd on requisitionForm.FormNumber equals requisitionFormDetail.FormNumber into table1
+                                            from requisitionFormDetail in table1
+                                            where (requisitionForm.Status == "Read" && requisitionFormDetail.Status == "Pending") || (requisitionForm.Status == "Read" && requisitionFormDetail.Status == "Received")
+                                            select requisitionFormDetail).ToList();
+
+            if (srfdList.Count>0)
+            {
+                db.StationeryRetrievalForms.Add(newStationeryRetrievalForm);
+                db.SaveChanges();
+
+                int count = (db.StationeryRetrievalFormDetails.Count() + 1);
+
+                foreach (StationeryRetrievalFormDetail srfd in srfdList)
                 {
-                    stringChars[j] = chars[random.Next(chars.Length)];
+                    srfd.FormDetailsNumber = count.ToString();
+                    db.StationeryRetrievalFormDetails.Add(srfd);
+                    count++;
                 }
-                var finalString = new String(stringChars);
-                record.FormDetailsNumber = finalString;
-                record.FormNumber = newFormNumber;
-                record.ItemNumber = (itemnumber[i]);
-                record.DepartmentCode = (departmentcodes[i]);
-                record.Needed = Convert.ToInt32(neededvalues[i]);
-                record.Actual = Convert.ToInt32(actualvalues[i]);
-                //updating the DB
-                db.StationeryRetrievalFormDetails.Add(record);
+
+                foreach(RequisitionFormDetail requisition in requisitionFormDetailList)
+                {
+                    RequisitionFormDetail existingRequisitionFormDetail = db.RequisitionFormDetails.Find(requisition.FormDetailsNumber);
+                    existingRequisitionFormDetail.Status = "Awaiting Retrieval";
+                }
+
                 db.SaveChanges();
             }
-
-            //Update status in RequisitionForms to "Outstanding" upon submission of retrieval form
-
-
-            //if item is in stock(needed == actual), update disbursement DB and balance in StationeryCatalog
-
-
-            //else if insufficent quantity, update outstanding list
-
-
-            return RedirectToAction("Index", "StationeryRetrievalForms");
         }
 
         // POST: StationeryRetrievalForms/Create
@@ -214,28 +125,116 @@ namespace stationeryapp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             StationeryRetrievalForm stationeryRetrievalForm = db.StationeryRetrievalForms.Find(id);
             if (stationeryRetrievalForm == null)
             {
                 return HttpNotFound();
             }
-            return View(stationeryRetrievalForm);
+
+            List<StationeryRetrievalFormDetail> srfd = db.StationeryRetrievalFormDetails.ToList();
+            List<StationeryCatalog> sc = db.StationeryCatalogs.ToList();
+
+            var retrievalFormDetailsSelected = (from stationeryRetrievalFormDetail in srfd
+                                               join stationeryCatalog in sc on stationeryRetrievalFormDetail.ItemNumber equals stationeryCatalog.ItemNumber into table1
+                                               from stationeryCatalog in table1
+                                               where stationeryRetrievalFormDetail.FormNumber == id
+                                               select new RForm
+                                               {
+                                                   stationeryRetrievalFormDetail = stationeryRetrievalFormDetail,
+                                                   Description = stationeryCatalog.Description,
+                                                   BinNumber = stationeryCatalog.BinNumber
+                                               }).OrderBy(x=>x.Description).ToList();
+
+            return View(retrievalFormDetailsSelected);
         }
 
         // POST: StationeryRetrievalForms/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FormNumber,Date,Status")] StationeryRetrievalForm stationeryRetrievalForm)
+        public ActionResult Edit(List<RForm> commitedRetrievalForm)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(stationeryRetrievalForm).State = EntityState.Modified;
+                List<string> departmentList = new List<string>();
+                int outstandingListCount = db.OutstandingLists.Count();
+
+                //update retrieval form status to "Submitted" 
+                StationeryRetrievalForm existingStationeryRetrievalForm = db.StationeryRetrievalForms.Find(commitedRetrievalForm[0].stationeryRetrievalFormDetail.FormNumber);
+                existingStationeryRetrievalForm.Status = "Submitted";
+
+                foreach (RForm commitedFormDetail in commitedRetrievalForm)
+                {
+                    //Update actual values into retrieval form details
+                    StationeryRetrievalFormDetail existingStationeryRetrievalFormDetail = db.StationeryRetrievalFormDetails.Find(commitedFormDetail.stationeryRetrievalFormDetail.FormDetailsNumber);
+                    existingStationeryRetrievalFormDetail.Actual = commitedFormDetail.stationeryRetrievalFormDetail.Actual;
+
+                    //update stationery catalog
+                    StationeryCatalog existingCatalog = db.StationeryCatalogs.Find(commitedFormDetail.stationeryRetrievalFormDetail.ItemNumber);
+                    existingCatalog.Balance -= commitedFormDetail.stationeryRetrievalFormDetail.Actual;
+
+                    //add the department code to our department list created above, to generate disbursement list by department below
+                    if(!departmentList.Contains(commitedFormDetail.stationeryRetrievalFormDetail.DepartmentCode))
+                    {
+                        departmentList.Add(commitedFormDetail.stationeryRetrievalFormDetail.DepartmentCode);
+                    }
+
+                    //If insufficient inventory, add the item code to our item code list created above, so that we can generate a Outstanding List by item code 
+                    if(commitedFormDetail.stationeryRetrievalFormDetail.Needed>commitedFormDetail.stationeryRetrievalFormDetail.Actual)
+                    { 
+                    outstandingListCount++;
+
+                    OutstandingList outstandingItem = new OutstandingList
+                    {
+                        OutstandingListNumber = outstandingListCount.ToString(),
+                        RetrievalFormDetailsNumber = commitedFormDetail.stationeryRetrievalFormDetail.FormDetailsNumber,
+                        Status = "Outstanding"
+                    };
+                        db.OutstandingLists.Add(outstandingItem);
+                    }
+                    //send disbursement notification (!OUTSTANDING!)
+
+                    db.SaveChanges();                    
+                }
+                
+                //create a single disbursement list for each department
+                foreach (string deptCode in departmentList)
+                { 
+
+                DisbursementList dl = new DisbursementList
+                {
+                    ListNumber = (db.DisbursementLists.Count() + 1).ToString(),
+                    DepartmentCode = deptCode,
+                    Date = DateTime.Today,
+                    Status = "Open"
+                };
+                db.DisbursementLists.Add(dl);
                 db.SaveChanges();
+
+                    int disbursementListDetailsCount = db.DisbursementListDetails.Count();
+
+                    foreach (RForm commitedFormDetail in commitedRetrievalForm)
+                    {
+                        if (commitedFormDetail.stationeryRetrievalFormDetail.DepartmentCode.Equals(deptCode))
+                        {
+                            disbursementListDetailsCount++;
+
+                            DisbursementListDetail dld = new DisbursementListDetail
+                            {
+                                ListDetailsNumber = disbursementListDetailsCount.ToString(),
+                                ListNumber = dl.ListNumber,
+                                ItemNumber = commitedFormDetail.stationeryRetrievalFormDetail.ItemNumber,
+                                Quantity = commitedFormDetail.stationeryRetrievalFormDetail.Actual
+                            };
+
+                            db.DisbursementListDetails.Add(dld);
+                            db.SaveChanges();
+                        }
+                    }
+                }
                 return RedirectToAction("Index");
             }
-            return View(stationeryRetrievalForm);
+            return View(commitedRetrievalForm);
         }
 
         // GET: StationeryRetrievalForms/Delete/5
@@ -262,52 +261,6 @@ namespace stationeryapp.Controllers
             db.StationeryRetrievalForms.Remove(stationeryRetrievalForm);
             db.SaveChanges();
             return RedirectToAction("Index");
-        }
-
-        public List<ConsolidatedRequest> sortDetails(IEnumerable<ViewModelRetrieval> retrievalFormRecord)
-        {
-            List<ConsolidatedRequest> clist = new List<ConsolidatedRequest>();
-            foreach (var record in retrievalFormRecord)
-            {
-                ConsolidatedRequest.DepartmentRequest t = new ConsolidatedRequest.DepartmentRequest(record.departmentLists.DepartmentCode,
-                    (int)record.retrievalFormDetails.Needed, (int)record.retrievalFormDetails.Actual);
-                ConsolidatedRequest req = clist.Find(n => n.binNumber == record.catalogs.BinNumber);
-                if (req != null)
-                {
-                    req.addNeeded((int)record.retrievalFormDetails.Needed);
-                    req.addRetrieved((int)record.retrievalFormDetails.Actual);
-                    req.requests.Add(t);
-                }
-                else
-                {
-                    ConsolidatedRequest cr = new ConsolidatedRequest(record.catalogs.BinNumber, record.catalogs.Description);
-                    cr.addNeeded((int)record.retrievalFormDetails.Needed);
-                    cr.addRetrieved((int)record.retrievalFormDetails.Actual);
-                    cr.requests.Add(t);
-                    clist.Add(cr);
-                }
-            }
-
-            return clist;
-        }
-
-        public List<RetrievalRecord> sortCreate(IEnumerable<ViewModelRetrieval> retrievalFormRecord)
-        {
-            List<RetrievalRecord> result = new List<RetrievalRecord>();
-            foreach (var record in retrievalFormRecord)
-            {
-                RetrievalRecord rr = new RetrievalRecord(record.catalogs.BinNumber, record.catalogs.Description, record.employees.DepartmentCode,
-                    (int)record.requisitionFormDetails.Quantity, (int)record.requisitionFormDetails.Quantity);
-                result.Add(rr);
-            }
-
-            return result;
-        }
-
-        public string generateFormNumber(int count)
-        {
-            count += 1;
-            return count.ToString();
         }
 
         protected override void Dispose(bool disposing)

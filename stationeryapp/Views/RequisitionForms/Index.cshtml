@@ -29,7 +29,13 @@
             @Html.DisplayFor(modelItem => item.FormNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Status)
+            @if(item.Status == "Approved")
+            {
+            <p>Unread</p>
+            }
+            else{
+            @Html.DisplayFor(model => item.Status)
+            }
         </td>
         <td>
             @Html.ActionLink("Details", "Details", "RequisitionFormDetails", new { id=item.FormNumber,sessionId = sessionId },new { @class = "hhhh" })        

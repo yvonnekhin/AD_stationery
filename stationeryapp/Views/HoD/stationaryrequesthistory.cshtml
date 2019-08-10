@@ -11,6 +11,7 @@
     Employee emp = (Employee)ViewData["userobj"];
     List<Employee> emp_list = (List<Employee>)ViewData["emp_list"];
     Boolean status = ViewData["from_pending_reqs"] != null ? (Boolean)ViewData["from_pending_reqs"] : false;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_hodheader")
 @Html.Partial("_hodMenuFragment")

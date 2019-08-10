@@ -21,7 +21,20 @@ namespace stationeryapp.Controllers
             var disbursementListDetails = db.DisbursementListDetails.Include(d => d.DisbursementList).Include(d => d.StationeryCatalog);
             return View(disbursementListDetails.ToList());
         }
+        public JsonResult GetDetails(String id)
+        {
+            var disbursementListDetail = db.DisbursementListDetails.Include(d => d.DisbursementList).Include(d => d.StationeryCatalog)
+                                        .Where(DisbursementListDetails => DisbursementListDetails.ListNumber == id)
+                                        .ToList();
+            DisbursementList disbursementList = db.DisbursementLists.Where(d => d.ListNumber == id).Single();
+            DepartmentList departmentList = db.DepartmentLists.Where(d => d.DepartmentCode == disbursementList.DepartmentCode).Single();
+            CollectionPoint collectionPoint = db.CollectionPoints.Where(c => c.CollectionPointCode == departmentList.CollectionPoint).Single();
+            Employee employee = db.Employees.Where(e => e.Id == departmentList.RepresentativeId).Single();
 
+            return Json(disbursementListDetail, JsonRequestBehavior.AllowGet);
+        }
+
+       
 
         public ActionResult Details(string id, string sessionId)
         {
@@ -91,6 +104,18 @@ namespace stationeryapp.Controllers
                 return RedirectToAction("Login", "Login");
             }
         }
+
+        //[HttpPost]
+        //public JsonResult SetDetails(List<DisbursementListDetail> Details)
+        //{
+        //    if (person != null)
+        //    {
+        //        Debug.WriteLine("name=" + person.name + ", age=" + person.age);
+        //        return Json(new { status = "ok" });
+        //    }
+
+        //    return Json(new { status = "fail" });
+        //}
 
         [HttpPost]
         public ActionResult Update(List<DisbursementListDetail> Details,string sessionId,string listNumber)

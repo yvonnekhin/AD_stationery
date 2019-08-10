@@ -8,6 +8,7 @@
     ViewBag.Title = "Index";
     Employee emp = (Employee)ViewData["userobj"];
     List<RequisitionForm> notify_form_list = (List<RequisitionForm>)Session["notify_form_list"]; ;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div id="main" style="margin-left:15%;">

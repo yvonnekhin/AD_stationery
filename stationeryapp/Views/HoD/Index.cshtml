@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Employee emp = (Employee)Session["user"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @Html.Partial("_hodheader")
