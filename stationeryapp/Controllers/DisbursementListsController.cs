@@ -63,7 +63,7 @@ namespace stationeryapp.Controllers
 
             if (storeclerk != null && sessionId != null)
             {
-                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
@@ -73,7 +73,7 @@ namespace stationeryapp.Controllers
             }
             else if (storeManager != null && sessionId != null)
             {
-                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
@@ -83,7 +83,7 @@ namespace stationeryapp.Controllers
             }
             else if (storeSupervisor != null && sessionId != null)
             {
-                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;

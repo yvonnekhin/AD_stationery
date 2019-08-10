@@ -14,19 +14,51 @@ namespace stationeryapp.Controllers
     {
         private ModelDBContext db = new ModelDBContext();
         // GET: StationeryCatalogs
-        public ActionResult Index()
+        public ActionResult Index(string sessionId)
         {
+            //lxl-20-22
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             var stationeryCatalogs = db.StationeryCatalogs.Include(s => s.SupplierList).Include(s => s.SupplierList1).Include(s => s.SupplierList2);
-            return View(stationeryCatalogs.ToList());
+            //lxl-25-48
+            if (storeclerk != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+                return View(stationeryCatalogs.ToList());
+            }
+            else if (storeManager != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(stationeryCatalogs.ToList());
+
+            }
+            else if (storeSupervisor != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(stationeryCatalogs.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+           
         }
 
         // GET: StationeryCatalogs/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string id, string sessionId)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            //lxl-57-60
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             List<StockAdjustmentVoucher> stockAdjustmentVouchers = db.StockAdjustmentVouchers.ToList();
             List<StockAdjustmentVoucherDetail> stockAdjustmentVoucherDetails = db.StockAdjustmentVoucherDetails.ToList();
 
@@ -87,11 +119,35 @@ namespace stationeryapp.Controllers
             ViewBag.history = sortedResult;
 
             StationeryCatalog stationeryCatalog = db.StationeryCatalogs.Find(id);
-            if (stationeryCatalog == null)
+            if (stationeryCatalog == null && sessionId != null)
             {
                 return HttpNotFound();
             }
-            return View(stationeryCatalog);
+            //lxl-126-149
+            if (storeclerk != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+                return View(stationeryCatalog);
+            }
+            else if (storeManager != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(stationeryCatalog);
+
+            }
+            else if (storeSupervisor != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(stationeryCatalog);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            
         }
 
         // GET: StationeryCatalogs/Create
@@ -124,7 +180,7 @@ namespace stationeryapp.Controllers
         }
 
         // GET: StationeryCatalogs/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string id, string sessionId)
         {
             if (id == null)
             {
@@ -138,7 +194,33 @@ namespace stationeryapp.Controllers
             ViewBag.SupplierCode1 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode1);
             ViewBag.SupplierCode2 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode2);
             ViewBag.SupplierCode3 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode3);
-            return View(stationeryCatalog);
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
+
+            if (storeclerk != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+                return View(stationeryCatalog);
+            }
+            else if (storeManager != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(stationeryCatalog);
+
+            }
+            else if (storeSupervisor != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(stationeryCatalog);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
         }
 
         // POST: StationeryCatalogs/Edit/5
@@ -146,22 +228,44 @@ namespace stationeryapp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ItemNumber,Category,Description,ReorderLevel,ReorderQuantity,UnitOfMeasure,BinNumber,Price,SupplierCode1,SupplierCode2,SupplierCode3,Balance")] StationeryCatalog stationeryCatalog)
+        public ActionResult Edit([Bind(Include = "ItemNumber,Category,Description,ReorderLevel,ReorderQuantity,UnitOfMeasure,BinNumber,Price,SupplierCode1,SupplierCode2,SupplierCode3,Balance")] StationeryCatalog stationeryCatalog, string sessionId)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(stationeryCatalog).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
             }
             ViewBag.SupplierCode1 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode1);
             ViewBag.SupplierCode2 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode2);
             ViewBag.SupplierCode3 = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", stationeryCatalog.SupplierCode3);
-            return View(stationeryCatalog);
+
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
+
+            if (storeclerk != null && sessionId != null)
+            {
+                return RedirectToAction("Index", "StationeryCatalogs",new { @sessionId = sessionId });
+            }
+            else if (storeManager != null && sessionId != null)
+            {
+                return RedirectToAction("Index", "StationeryCatalogs",new { @sessionId = sessionId });
+
+            }
+            else if (storeSupervisor != null && sessionId != null)
+            {
+                return RedirectToAction("Index", "StationeryCatalogs", new { @sessionId = sessionId });
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            
         }
 
         // GET: StationeryCatalogs/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string id, string sessionId)
         {
             if (id == null)
             {
@@ -172,7 +276,36 @@ namespace stationeryapp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(stationeryCatalog);
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
+
+            if (storeclerk != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+                return View(stationeryCatalog);
+            }
+            else if (storeManager != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(stationeryCatalog);
+
+            }
+            else if (storeSupervisor != null && sessionId != null)
+            {
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(stationeryCatalog);
+            }
+            else
+            {
+  
+                return RedirectToAction("Login", "Login");
+            }
+
+            
         }
 
         // POST: StationeryCatalogs/Delete/5

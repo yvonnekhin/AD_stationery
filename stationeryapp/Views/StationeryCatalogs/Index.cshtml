@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Index";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
 }
 
 <h2>Index</h2>
@@ -84,9 +86,9 @@
                 @Html.DisplayFor(modelItem => item.SupplierList2.SupplierName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ItemNumber }) |
-                @Html.ActionLink("Stock Card", "Details", new { id = item.ItemNumber }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ItemNumber })
+                @Html.ActionLink("Edit", "Edit", new { id = item.ItemNumber, sessionId = sessionId }) |
+                @Html.ActionLink("Stock Card", "Details", new { id = item.ItemNumber,sessionId=sessionId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ItemNumber, sessionId = sessionId })
             </td>
         </tr>
     }

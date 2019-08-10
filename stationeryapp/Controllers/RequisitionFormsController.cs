@@ -30,7 +30,8 @@ namespace stationeryapp.Controllers
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
                 int num = db1.RequisitionForms.Where(x => x.Status == "Approved").Count();
-                ViewData["sumTotal"] = (num).ToString();
+                int numDisbuserment = db2.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 List<RequisitionForm> rev = db1.RequisitionForms.Where(x =>x.Status!="Rejected").ToList();
                 return View(rev);
             }
@@ -38,6 +39,9 @@ namespace stationeryapp.Controllers
             {
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
+                int num = db1.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db2.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 List<RequisitionForm> rev = db1.RequisitionForms.ToList();
                 return View(rev);
             }
@@ -45,6 +49,9 @@ namespace stationeryapp.Controllers
             {
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                int num = db1.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db2.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 List<RequisitionForm> rev = db1.RequisitionForms.ToList();
                 return View(rev);
             }

@@ -12,6 +12,7 @@
         string username = (string)ViewData["username"];
         string count = (string)ViewData["sumTotal"];
         string tag = (string)ViewData["tag"];
+        int countnum = Convert.ToInt32(count);
     }
 </head>
 <body>
@@ -29,7 +30,7 @@
                                 <li style="margin-bottom:20px"><a href="#">Outstanding</a></li>
                                 <li style="margin-bottom:20px"><a href="#">RetrievalForm</a></li>
                                 <li style="margin-bottom:20px"><a href='@Url.Action("Index", "DisbursementLists", new { sessionId = sessionId })'>Disbursement List</a></li>
-                                <li style="margin-bottom:20px"><a href="#">Catalog</a></li>
+                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "StationeryCatalogs", new { sessionId = sessionId })'>Catalog</a></li>
                                 <li style="margin-bottom:20px"><a href="#">Purchase Order</a></li>
                                 <li style="margin-bottom:20px"><a href="#">Stock Adjustment</a></li>
                                 <li style="margin-bottom:20px"><a href='@Url.Action("Index", "ReportHome", new { sessionId = sessionId })'>Reports</a></li>
@@ -54,9 +55,13 @@
                 <div class="navbar-collapse collapse col-md-2">
                     <ul class="nav navbar-nav navbar-right" style="font-size:medium">
                         <a href="#"><img style="height:40px;padding-top:8px; padding-left:10px" src="~/Images/bellstore2.png"></a>
-                        <li class="divright">
-                            <span> @count</span>
-                        </li>
+                        @if (countnum > 0)
+                        {
+                            <li class="divrightb">
+                                <span> @count</span>
+                            </li>
+                        }
+
                     </ul>
                 </div>
             </div>
@@ -109,20 +114,20 @@
         height: 8%;
     }
 
-    .alarm {
+    .alarmb {
         position: relative;
         width: 20px;
         height: 20px;
         /*margin: 40px;*/
     }
 
-    .divright {
+    .divrightb {
         position: absolute;
         color: white;
         font-size: 12px;
         background-color: red;
-        width: 20px;
-        height: 20px;
+        width: 18px;
+        height: 18px;
         line-height: -5px;
         left: 67%;
         bottom: -3px;
@@ -130,5 +135,4 @@
         -webkit-border-radius: 22px;
         border-radius: 22px;
     }
-
 </style>
