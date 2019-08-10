@@ -1,7 +1,9 @@
 ﻿@model stationeryapp.Models.StationeryCatalog
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Stock Card Details";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
     int balance = 0;
 }
 
@@ -124,6 +126,6 @@
 </table>
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ItemNumber }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ItemNumber,sessionId=sessionId}) |
+    @Html.ActionLink("Back to List", "Index", new { sessionId = sessionId })
 </p>

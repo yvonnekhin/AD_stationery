@@ -11,6 +11,7 @@
     DepartmentList emp_dept = (DepartmentList)ViewData["emp_dept"];
     string form_number = (string)ViewData["form_number"];
     RequisitionForm form = (RequisitionForm)ViewData["req_form"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @Html.Partial("_employeeheader")

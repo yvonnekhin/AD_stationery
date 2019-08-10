@@ -10,10 +10,11 @@
     int numOutS = 0;
     int numRetrive = 0;
     int numCatalog = 0;
-    int numPO = 8;
+    int numPO = 0;
     int numStock = 0;
-    int numReport = 8;
 }
+
+
 
 <h2 align="center"> Store Clerk Home Page</h2>
 <br>
@@ -41,7 +42,7 @@
             </td>
         <td style="padding:50px"></td>
         <td align="center" class="alarm">
-            <a href=" @Url.Action("Index", "RetrivalController")"><img src="~/Images/RetrivalForm.PNG"></a>
+            <a href=" @Url.Action("Index", "RetrivalController",new { sessionId = sessionId })"><img src="~/Images/RetrivalForm.PNG"></a>
             @if (numRetrive> 0)
             {
                 <div class="divright">
@@ -74,7 +75,7 @@
     </tr>
     <tr>
         <td align="center" class="alarm">
-            <a href=" @Url.Action("Index", "Catalog")"><img src="~/Images/Catalog.PNG"></a>
+            <a href=" @Url.Action("Index", "StationeryCatalogs",new { sessionId = sessionId })"><img src="~/Images/Catalog.PNG"></a>
             @if (numCatalog > 0)
             {
                 <div class="divright">
@@ -105,12 +106,6 @@
         <td style="padding:50px"></td>
         <td align="center" class="alarm">
             <a href=" @Url.Action("Index", "ReportHome",new { sessionId = sessionId })"><img src="~/Images/Reports.PNG"></a>
-            @if (numReport> 0)
-            {
-                <div class="divright">
-                    <span> @numReport</span>
-                </div>
-            }
         </td>
     </tr>
     <tr>
@@ -123,6 +118,7 @@
         <td align="center">Reports</td>
     </tr>
 </table>
+
 
 <style>
     .alarm {
@@ -140,13 +136,14 @@
     .divright {
         position: absolute;
         color: white;
-        font-size: 15px;
+        font-size: 12px;
         background-color:red;
-        width: 23px;
-        height: 23px;
+        width: 18px;
+        height: 18px;
         line-height: -5px;
-        left: 65%;
-        bottom: -5px;
+        left: 67%;
+        bottom: -0px;
+        top:80px;
         text-align: center;
         -webkit-border-radius: 22px;
         border-radius: 22px;

@@ -13,12 +13,13 @@ namespace stationeryapp.Controllers
         public ActionResult Index()
         {
             Employee user = (Employee)Session["user"];
+         
             int count;
             List<RequisitionForm> notify_form_list;
             using (ModelDBContext db = new ModelDBContext())
             {
-                notify_form_list = db.RequisitionForms.Where(f=>f.Notification == "sent_to_hod" ).ToList();
-                count = db.RequisitionForms.Where(f => f.Notification == "sent_to_hod").Count();
+                notify_form_list = db.RequisitionForms.Where(row => (db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(f => f.Id).ToList().Contains(row.EmployeeId) && row.Notification == "sent_to_hod")).ToList();
+                count = db.RequisitionForms.Where(row => (db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(f => f.Id).ToList().Contains(row.EmployeeId) && row.Notification == "sent_to_hod")).Count();
             }
             Session["count"] = count;
             Session["notify_form_list"] = notify_form_list;
@@ -35,17 +36,18 @@ namespace stationeryapp.Controllers
                     db.SaveChanges();
                 }
             }
+            Employee user = (Employee)Session["user"];
             int count;
             List<RequisitionForm> notify_form_list;
+           
             using (ModelDBContext db = new ModelDBContext())
             {
-                notify_form_list = db.RequisitionForms.Where(f => f.Notification == "sent_to_hod").ToList();
-                count = db.RequisitionForms.Where(f => f.Notification == "sent_to_hod").Count();
+                notify_form_list = db.RequisitionForms.Where(row => (db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(f => f.Id).ToList().Contains(row.EmployeeId) && row.Notification == "sent_to_hod")).ToList();
+                count = db.RequisitionForms.Where(row => (db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(f => f.Id).ToList().Contains(row.EmployeeId) && row.Notification == "sent_to_hod")).Count();
             }
             Session["count"] = count;
             Session["notify_form_list"] = notify_form_list;
 
-            Employee user = (Employee)Session["user"];
             List<RequisitionFormDetail> form_cart;
             RequisitionForm form;
             List<StationeryCatalog> items;
@@ -265,5 +267,155 @@ namespace stationeryapp.Controllers
             }
             return View("index");
         }
+
+        public JsonResult GetPendingReq(string user_id)
+        {
+            List<RequisitionForm> requestlist;
+            List<Employee> emp_list;
+            Employee hod;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                hod = db.Employees.Find(user_id);
+                emp_list = db.Employees.ToList();
+                requestlist = db.RequisitionForms.Where(f => db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode).Select(e => e.Id).Contains(f.EmployeeId) && (f.Status == "pending")).OrderByDescending(f => f.DateReceived).ToList();
+            }
+            return Json(new { data = requestlist.Select(item => new { Status = item.Status, EmployeeId = item.EmployeeId, EmployeeName = emp_list.Where(e => e.Id == item.EmployeeId).Select(e => e.FirstName + " " + e.LastName).First().ToString(), FormNumber = item.FormNumber }) }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ReqformDetails(string form_id)
+        {
+            List<RequisitionFormDetail> form_list;
+            List<Employee> emp_list;
+            Employee emp;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                emp_list = db.Employees.ToList();
+                emp = emp_list.Where(e => e.Id == (db.RequisitionForms.Find(form_id).EmployeeId)).First();
+                form_list = db.RequisitionFormDetails.Where(f => f.FormNumber == form_id).ToList();
+            }
+            return Json(new { data = form_list.Select(item => new { FormDetailsNumber = item.FormDetailsNumber, FormNumber = item.FormNumber, ItemNumber = item.ItemNumber, Quantity = item.Quantity, EmployeeName = emp.FirstName + " " + emp.LastName }) }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetDeptEmployees(string user_id)
+        {
+            List<Employee> emp_list;
+            Employee hod;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                hod = db.Employees.Find(user_id);
+                emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode).ToList();
+            }
+            return Json(new { data = emp_list.Select(item => new { EmployeeId = item.Id, EmployeeName = item.FirstName + " " + item.LastName }) }, JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult GetDeptInfo(string user_id)
+        {
+            Employee hod;
+            List<Employee> emp_list;
+            DepartmentList dept;
+            Employee rep;
+            List<CollectionPoint> cp_list;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                cp_list = db.CollectionPoints.ToList();
+                hod = db.Employees.Find(user_id);
+                emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode).ToList();
+                dept = db.DepartmentLists.Where(d => d.DepartmentCode == hod.DepartmentCode).First();
+                rep = db.Employees.Where(e => e.Id == dept.RepresentativeId).First();
+            }
+            return Json(new { data = new { collectionptname = cp_list.Where(c => c.CollectionPointCode == dept.CollectionPoint).Select(c => c.CollectionPointName).First(), collectionpt = dept.CollectionPoint, collectionrep = dept.RepresentativeId, collectionrepname = rep.FirstName + " " + rep.LastName }, data1 = emp_list.Select(item => new { EmployeeId = item.Id, EmployeeName = item.FirstName + " " + item.LastName }) }, JsonRequestBehavior.AllowGet);
+        }
+
+        public void UpdateFormDetails(string form_id, string comments, string status, string approved_by)
+        {
+            Debug.WriteLine(form_id + comments + status + approved_by);
+            RequisitionForm form;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                form = db.RequisitionForms.Find(form_id);
+                form.Comments = comments;
+                form.Status = status;
+                form.ApprovedBy = approved_by;
+                form.DateApproved = DateTime.Now.Date;
+                db.SaveChanges();
+            }
+        }
+
+        public void DeptUpdate(string rep, string collectionpt, string hod_id)
+        {
+            Debug.WriteLine(rep + "   " + collectionpt + "   " + hod_id);
+            Employee hod;
+            DepartmentList dept;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                hod = db.Employees.Find(hod_id);
+                dept = db.DepartmentLists.Where(d => d.DepartmentCode == hod.DepartmentCode).First();
+                dept.CollectionPoint = collectionpt;
+                dept.RepresentativeId = rep;
+                db.SaveChanges();
+            }
+        }
+
+        public JsonResult GetDelegate(string user_id)
+        {
+            Employee delegate_;
+            Employee hod;
+            List<Employee> dept_emp_list;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                hod = db.Employees.Find(user_id);
+                delegate_ = db.Employees.Where(e => e.Designation == "Delegate" && e.DepartmentCode == hod.DepartmentCode).FirstOrDefault();
+                dept_emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode).ToList();
+            }
+
+            Employee emp = (delegate_ != null) ? delegate_ : hod;
+            return Json(new { data = new { current_delegateid = emp.Id, current_delegate = emp.FirstName + " " + emp.LastName, c_from = (emp.Designation == "Head") ? "" : Convert.ToDateTime(emp.DelegateFrom).Date.ToString("dd/MM/yyyy"), c_to = (emp.Designation == "Head") ? "" : Convert.ToDateTime(emp.DelegateTo).Date.ToString("dd/MM/yyyy") }, emp_list = dept_emp_list.Select(item => new { EmployeeId = item.Id, EmployeeName = item.FirstName + " " + item.LastName }) }, JsonRequestBehavior.AllowGet);
+        }
+
+        public void DelegateUpdate(string emp_id, string hod_id, string from = "0001-01-01", string to = "0001-01-01")
+        {
+            Employee hod;
+            Employee delegate_;
+            Employee previous_delegate;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                hod = db.Employees.Find(hod_id);
+                delegate_ = db.Employees.Where(e => e.Id == emp_id).FirstOrDefault();
+                previous_delegate = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode && e.Designation == "Delegate").FirstOrDefault();
+
+                if (previous_delegate != null)
+                {
+                    previous_delegate.Designation = "Employee";
+                    previous_delegate.DelegateFrom = null;
+                    previous_delegate.DelegateTo = null;
+                }
+                if (delegate_.Designation != "Head")
+                {
+                    delegate_.Designation = "Delegate";
+                    delegate_.DelegateFrom = Convert.ToDateTime(from);
+                    delegate_.DelegateTo = Convert.ToDateTime(to);
+                }
+                db.SaveChanges();
+            }
+        }
+
+        public void Resetdelegate(string hod_id)
+        {
+            Employee hod;
+            Employee previous_delegate;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                hod = db.Employees.Find(hod_id);
+                previous_delegate = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode && e.Designation == "Delegate").FirstOrDefault();
+
+                if (previous_delegate != null)
+                {
+                    previous_delegate.Designation = "Employee";
+                    previous_delegate.DelegateFrom = null;
+                    previous_delegate.DelegateTo = null;
+                }
+                db.SaveChanges();
+            }
+        }
+
     }
 }

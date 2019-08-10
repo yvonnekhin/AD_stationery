@@ -3,6 +3,7 @@
     ViewBag.Title = "viewrequest";
     List<RequisitionForm> requestlist = (List<RequisitionForm>)ViewData["requestlist"];
     Employee emp = (Employee)ViewData["userobj"];
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_employeeheader")
 @Html.Partial("_employeeMenuFragment")
@@ -15,7 +16,7 @@
             <tr>
                 <th>Form id</th>
                 <th>Status</th>
-                <th>Comments</th>
+                <th>Date Submitted</th>
             </tr>
         </thead>
         @foreach (var item in requestlist)
@@ -23,7 +24,7 @@
             <tr>
                 <td><a href="@Url.Action("view_single_request", "Employee", new { form_id = @item.FormNumber })">@(emp.DepartmentCode + "/" + (1000 + int.Parse(item.FormNumber)).ToString())</a> </td>
                 <td>@item.Status</td>
-                <td>@item.Comments</td>
+                <td>@Convert.ToDateTime(@item.DateReceived).Date.ToString("dd/MM/yyyy")</td>
             </tr>
         }
     </table>

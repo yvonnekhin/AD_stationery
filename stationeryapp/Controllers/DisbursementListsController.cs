@@ -14,6 +14,29 @@ namespace stationeryapp.Controllers
     {
         private ModelDBContext db = new ModelDBContext();
 
+
+        public JsonResult GetDisbursementList()
+        {
+          
+            List<DisbursementList> disbursementLists = db.DisbursementLists.ToList();
+            List<DepartmentList> departmentLists = db.DepartmentLists.ToList();
+            List<CollectionPoint> collectionPoints = db.CollectionPoints.ToList();
+
+            var disbursementRecord = from p in departmentLists
+                                     join d in disbursementLists on p.DepartmentCode equals d.DepartmentCode into table1
+                                     from d in table1.ToList()
+                                     join c in collectionPoints on p.CollectionPoint equals c.CollectionPointCode into table2
+                                     from c in table2.ToList()
+                                     select new ViewModelD
+                                     {
+                                         collectionPoint = c,
+                                         disbursementList = d,
+                                         departmentList = p
+                                     };         
+
+            return Json(disbursementRecord, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: DisbursementLists
         public ActionResult Index(string sessionId)
 
@@ -40,7 +63,7 @@ namespace stationeryapp.Controllers
 
             if (storeclerk != null && sessionId != null)
             {
-                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
@@ -50,7 +73,7 @@ namespace stationeryapp.Controllers
             }
             else if (storeManager != null && sessionId != null)
             {
-                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
@@ -60,7 +83,7 @@ namespace stationeryapp.Controllers
             }
             else if (storeSupervisor != null && sessionId != null)
             {
-                int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;

@@ -19,7 +19,7 @@ namespace stationeryapp.Controllers
             StoreSupervisor storeSupervisor = dbM.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             if (storeclerk != null && sessionId != null)
             {
-                int num= db1.RequisitionForms.Where(x => x.Status == "Pending").Count();
+                int num= db1.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment= dbM.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 ViewData["num"] = num;
                 ViewData["numDisbuserment"] = numDisbuserment;

@@ -23,7 +23,15 @@ namespace stationeryapp.Models
         public string FormNumber { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
         public string Status { get; set; }
-    
+
+        public StationeryRetrievalForm(string formnum, DateTime date, string stat)
+        {
+            this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
+            this.FormNumber = formnum;
+            this.Date = date;
+            this.Status = stat;
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StationeryRetrievalFormDetail> StationeryRetrievalFormDetails { get; set; }
     }
