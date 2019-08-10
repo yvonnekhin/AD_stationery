@@ -14,6 +14,29 @@ namespace stationeryapp.Controllers
     {
         private ModelDBContext db = new ModelDBContext();
 
+
+        public JsonResult GetDisbursementList()
+        {
+          
+            List<DisbursementList> disbursementLists = db.DisbursementLists.ToList();
+            List<DepartmentList> departmentLists = db.DepartmentLists.ToList();
+            List<CollectionPoint> collectionPoints = db.CollectionPoints.ToList();
+
+            var disbursementRecord = from p in departmentLists
+                                     join d in disbursementLists on p.DepartmentCode equals d.DepartmentCode into table1
+                                     from d in table1.ToList()
+                                     join c in collectionPoints on p.CollectionPoint equals c.CollectionPointCode into table2
+                                     from c in table2.ToList()
+                                     select new ViewModelD
+                                     {
+                                         collectionPoint = c,
+                                         disbursementList = d,
+                                         departmentList = p
+                                     };         
+
+            return Json(disbursementRecord, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: DisbursementLists
         public ActionResult Index(string sessionId)
 
