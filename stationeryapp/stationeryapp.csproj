@@ -188,6 +188,7 @@
     <Compile Include="Models\employee_utility.cs" />
     <Compile Include="Models\ReorderViewModel.cs" />
     <Compile Include="Models\RequisitionViewModel.cs" />
+    <Compile Include="Models\RForm.cs" />
     <Compile Include="Models\util.cs" />
     <Compile Include="Models\ViewModelD.cs" />
     <Compile Include="Models\ViewModelOutstanding.cs" />

@@ -1,43 +1,45 @@
 ﻿@model IEnumerable<stationeryapp.Models.StationeryRetrievalForm>
 
 @{
-    ViewBag.Title = "Retrieval List";
+    ViewBag.Title = "Retrieval Form List";
 }
 
-<h2>Retrieval List</h2>
+<h2>List of Retrieval Forms</h2>
 
 <p>
-    @Html.ActionLink("Create New Retrieval Form", "Create")
+    @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table" align="center">
+<table class="table">
     <tr>
-        <th>Form Number</th>
-        <th>Date Issued</th>
-        <th>Status</th>
+        <th>
+            @Html.DisplayNameFor(model=>model.FormNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
     </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FormNumber)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @{
-                    if (@item.Status == "Pending")
-                    {
-                        @Html.ActionLink(@item.Status, "Create")
-                    }
-                    else
-                    {
-                        @Html.ActionLink(@item.Status, "Details", new { id = @item.FormNumber })
-                    }
-                }
-            </td>
-        </tr>
-    }
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelitem => item.FormNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.FormNumber }) |
+            @Html.ActionLink("Details", "Details", new { id=item.FormNumber }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FormNumber })
+        </td>
+    </tr>
+}
 
 </table>

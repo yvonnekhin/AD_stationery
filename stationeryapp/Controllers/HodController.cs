@@ -13,12 +13,13 @@ namespace stationeryapp.Controllers
         public ActionResult Index()
         {
             Employee user = (Employee)Session["user"];
+         
             int count;
             List<RequisitionForm> notify_form_list;
             using (ModelDBContext db = new ModelDBContext())
             {
-                notify_form_list = db.RequisitionForms.Where(f=>f.Notification == "sent_to_hod" ).ToList();
-                count = db.RequisitionForms.Where(f => f.Notification == "sent_to_hod").Count();
+                notify_form_list = db.RequisitionForms.Where(row => (db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(f => f.Id).ToList().Contains(row.EmployeeId) && row.Notification == "sent_to_hod")).ToList();
+                count = db.RequisitionForms.Where(row => (db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(f => f.Id).ToList().Contains(row.EmployeeId) && row.Notification == "sent_to_hod")).Count();
             }
             Session["count"] = count;
             Session["notify_form_list"] = notify_form_list;
@@ -35,17 +36,18 @@ namespace stationeryapp.Controllers
                     db.SaveChanges();
                 }
             }
+            Employee user = (Employee)Session["user"];
             int count;
             List<RequisitionForm> notify_form_list;
+           
             using (ModelDBContext db = new ModelDBContext())
             {
-                notify_form_list = db.RequisitionForms.Where(f => f.Notification == "sent_to_hod").ToList();
-                count = db.RequisitionForms.Where(f => f.Notification == "sent_to_hod").Count();
+                notify_form_list = db.RequisitionForms.Where(row => (db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(f => f.Id).ToList().Contains(row.EmployeeId) && row.Notification == "sent_to_hod")).ToList();
+                count = db.RequisitionForms.Where(row => (db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(f => f.Id).ToList().Contains(row.EmployeeId) && row.Notification == "sent_to_hod")).Count();
             }
             Session["count"] = count;
             Session["notify_form_list"] = notify_form_list;
 
-            Employee user = (Employee)Session["user"];
             List<RequisitionFormDetail> form_cart;
             RequisitionForm form;
             List<StationeryCatalog> items;
