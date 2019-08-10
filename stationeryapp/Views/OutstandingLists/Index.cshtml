@@ -1,18 +1,18 @@
-﻿@model IEnumerable<stationeryapp.Models.ViewModelOutstanding>
+﻿@model List<stationeryapp.Models.ViewModelOutstanding>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Outstanding";
 }
 
 <h2>Outstanding List</h2>
 
 <table class="table" align="center">
     <tr>
-        <th>No</th>
+        <th>Item Code</th>
         <th>Description</th>
         <th>Shortage Quantity</th>
         <th>Inventory Quantity</th>
-        <th>PO Status</th>
+        <th>Status</th>
     </tr>
 
     @{
@@ -20,26 +20,21 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.retrievalFormDetails.ItemNumber)
+                    @Html.DisplayFor(modelItem => item.ItemCode)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.catalogs.Description)
+                    @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    @{ var result = @item.retrievalFormDetails.Needed - @item.retrievalFormDetails.Actual; }
-                    @result
+                    @Html.DisplayFor(modelItem=>item.ShortageQuantity)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.catalogs.Balance)
+                    @Html.DisplayFor(modelItem => item.InventoryBalance)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.purchaseOrders.Status)
+                    @Html.DisplayFor(modelItem => item.Status)
                 </td>
-                @*<td>
-                        @Html.ActionLink("Edit", "Edit", new { id = item.OutstandingListNumber }) |
-                        @Html.ActionLink("Details", "Details", new { id = item.OutstandingListNumber }) |
-                        @Html.ActionLink("Delete", "Delete", new { id = item.OutstandingListNumber })
-                    </td>*@
+               
             </tr>
         }
     }

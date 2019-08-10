@@ -20,31 +20,24 @@ namespace stationeryapp.Controllers
             List<OutstandingList> outstandingLists = db.OutstandingLists.ToList();
             List<StationeryCatalog> catalogs = db.StationeryCatalogs.ToList();
             List<StationeryRetrievalFormDetail> retrievalFormDetails = db.StationeryRetrievalFormDetails.ToList();
-            List<PurchaseOrderDetail> purchaseOrderDetails = db.PurchaseOrderDetails.ToList();
             List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
 
-            var outstandingListRecord = (from o in outstandingLists                                         
-                                         //join r in retrievalFormDetails on o.ItemNumber equals r.ItemNumber into table1
-                                         //from r in table1.ToList()
-                                         //join c in catalogs on o.ItemNumber equals c.ItemNumber into table2
-                                         //from c in table2.ToList()
-                                         //join pd in purchaseOrderDetails on o.ItemNumber equals pd.ItemNumber into table3
-                                         //from pd in table3.ToList()
-                                         //join p in purchaseOrders on pd.PONumber equals p.PONumber into table4
-                                         //from p in table4.ToList()
+            var outstandingListRecord = (from o in outstandingLists
+                                         join srfd in retrievalFormDetails on o.RetrievalFormDetailsNumber equals srfd.FormDetailsNumber into table1
+                                         from srfd in table1
+                                         join sc in catalogs on srfd.ItemNumber equals sc.ItemNumber into table2
+                                         from sc in table2                                         
                                          select new ViewModelOutstanding
                                          {
-                                             //outstandingLists = o,
-                                             //retrievalFormDetails = r,
-                                             //catalogs = c,
-                                             //purchaseOrderDetails = pd,
-                                             //purchaseOrders = p
-                                         });
+                                             ItemCode = srfd.ItemNumber,
+                                             Description = sc.Description,
+                                             ShortageQuantity = (int)(srfd.Needed - srfd.Actual),
+                                             InventoryBalance = (int)sc.Balance,
+                                             Status = o.Status
+                                         }).ToList();
 
-            return View(outstandingListRecord.ToList());
-            
-            //var outstandingLists = db.OutstandingLists.Include(o => o.DepartmentList).Include(o => o.RequisitionForm).Include(o => o.StationeryCatalog).Include(o => o.PurchaseOrder);
-            //return View(outstandingLists.ToList());
+            return View(outstandingListRecord);
+                        
         }
 
         // GET: OutstandingLists/Details/5
