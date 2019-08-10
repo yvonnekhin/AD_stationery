@@ -1,72 +1,34 @@
-﻿@model List<stationeryapp.Models.ConsolidatedRequest>
+﻿@model stationeryapp.Models.StationeryRetrievalForm
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Stationery Retrieval Form</h2>
+<h2>Details</h2>
 
-<table>
-    <tr>
-        <td>From:</td>
-        <td>@ViewData["FromDate"]</td>
-    </tr>
+<div>
+    <h4>StationeryRetrievalForm</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
 
-    <tr>
-        <td>To:</td>
-        <td>@ViewData["ToDate"]</td>
-    </tr>
-</table>
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
 
-<table class="table" align="center">
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
+        </dt>
 
-    <tr>
-        <th rowspan="2">Bin Number</th>
-        <th rowspan="2">Stationary Description</th>
-        <th colspan="2">Total Quantity</th>
-        <th colspan="3">Breakdown by Department</th>
-    </tr>
+        <dd>
+            @Html.DisplayFor(model => model.Status)
+        </dd>
 
-    <tr>
-        <th>Needed</th>
-        <th>Retrieved</th>
-        <th>Department Name</th>
-        <th>Needed</th>
-        <th>Actual</th>
-    </tr>
-
-    @for (int i = 0; i < Model.Count; i++)
-    {
-        <tr>
-            <td>@Model[i].binNumber</td>
-            <td>@Model[i].description</td>
-            <td>@Model[i].totalNeeded</td>
-            <td>@Model[i].totalRetrieved</td>
-            @{
-                for (int j = 0; j < Model[i].requests.Count; j++)
-                {
-                    if (j == 0)
-                    {
-                        <td>@Model[i].requests[j].departmentCode</td>
-                        <td>@Model[i].requests[j].needed</td>
-                        <td>@Model[i].requests[j].actual</td>
-                    }
-                    else
-                    {
-
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>@Model[i].requests[j].departmentCode</td>
-                        <td>@Model[i].requests[j].needed</td>
-                        <td>@Model[i].requests[j].actual</td>
-                    </tr>
-                    }
-                }
-            }
-        </tr>
-     }
-
-</table>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.FormNumber }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

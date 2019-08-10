@@ -196,14 +196,17 @@ namespace stationeryapp.Controllers
 
                     //update outstanding list status
 
-                    var findOutstandingList = (from o in db.OutstandingLists
-                                               join fd in db.StationeryRetrievalFormDetails on o.RetrievalFormDetailsNumber equals fd.FormDetailsNumber into table1
-                                               from fd in table1
-                                               where fd.ItemNumber == po.purchaseOrderDetail.ItemNumber
-                                               select o.OutstandingListNumber).ToList();
+                    if (po.purchaseOrder.Reason == "Outstanding")
+                    {
+                        var findOutstandingList = (from o in db.OutstandingLists
+                                                   join fd in db.StationeryRetrievalFormDetails on o.RetrievalFormDetailsNumber equals fd.FormDetailsNumber into table1
+                                                   from fd in table1
+                                                   where fd.ItemNumber == po.purchaseOrderDetail.ItemNumber
+                                                   select o.OutstandingListNumber).ToList();
 
-                    OutstandingList existingOutstandingList = db.OutstandingLists.Find(findOutstandingList[0]);
-                    existingOutstandingList.Status = "Completed";
+                        OutstandingList existingOutstandingList = db.OutstandingLists.Find(findOutstandingList[0]);
+                        existingOutstandingList.Status = "Completed";
+                    
 
                     //update requisition form details status for item received
 
@@ -216,6 +219,8 @@ namespace stationeryapp.Controllers
 
                     RequisitionFormDetail requisitionFormDetail = db.RequisitionFormDetails.Find(findRequisitionDetail[0]);
                     requisitionFormDetail.Status = "Received";
+
+                    }
 
                     //create stock adjustment voucher if quantity received!=quantity ordered
                     if (existingPod.Quantity != po.purchaseOrderDetail.ReceivedQuantity)
