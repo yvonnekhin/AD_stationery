@@ -78,7 +78,7 @@
         </td>
         <td style="padding:50px"></td>
         <td align="center" class="alarm">
-            <a href=" @Url.Action("Index", "Purchase Order")"><img src="~/Images/PO.PNG"></a>
+            <a href=" @Url.Action("Index", "PurchaseOrders",new { sessionId = sessionId })"><img src="~/Images/PO.PNG"></a>
             @if (numPO> 0)
             {
                 <div class="divright">
