@@ -27,7 +27,7 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href='@Url.Action("Index", "Home", new { sessionId = sessionId })'>MENU<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li style="margin-bottom:20px"><a href='@Url.Action("Index", "RequisitionForms", new { sessionId = sessionId })'>RequisitionForms</a></li>
-                                <li style="margin-bottom:20px"><a href="#">Outstanding</a></li>
+                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "OutstandingLists", new { sessionId = sessionId })'>Outstanding</a></li>
                                 <li style="margin-bottom:20px"><a href="#">RetrievalForm</a></li>
                                 <li style="margin-bottom:20px"><a href='@Url.Action("Index", "DisbursementLists", new { sessionId = sessionId })'>Disbursement List</a></li>
                                 <li style="margin-bottom:20px"><a href='@Url.Action("Index", "StationeryCatalogs", new { sessionId = sessionId })'>Catalog</a></li>

@@ -39,8 +39,11 @@ namespace stationeryapp.Controllers
 
         // GET: DisbursementLists
         public ActionResult Index(string sessionId)
-
         {
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
@@ -61,7 +64,7 @@ namespace stationeryapp.Controllers
                                          departmentList = p
                                      };
 
-            if (storeclerk != null && sessionId != null)
+            if (storeclerk != null)
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
@@ -71,7 +74,7 @@ namespace stationeryapp.Controllers
 
                 return View(disbursementRecord);
             }
-            else if (storeManager != null && sessionId != null)
+            else if (storeManager != null)
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
@@ -81,7 +84,7 @@ namespace stationeryapp.Controllers
                 return View(disbursementRecord);
 
             }
-            else if (storeSupervisor != null && sessionId != null)
+            else if (storeSupervisor != null)
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
