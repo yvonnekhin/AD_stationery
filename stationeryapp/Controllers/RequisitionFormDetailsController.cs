@@ -29,12 +29,13 @@ namespace stationeryapp.Controllers
             List<RequisitionFormDetail> detail = db.RequisitionFormDetails.Where(x => x.FormNumber == id).ToList();
             if (storeclerk != null && sessionId !=null)
             {
-                if (request.Status == "Approved")
+                if (request.Status == "Approved" && request.Status != "Completed")
                 {
                     request.DateReceived = DateTime.Now;
                     request.ReceivedBy = storeclerk.Id;
-                }        
-                request.Status = "Read";
+                    request.Status = "Read";
+                }
+              
                 int num = db1.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 db1.Entry(request).State = EntityState.Modified;
                 db1.SaveChanges();
