@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Retrieval Form List";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
 }
 
 <h2>List of Retrieval Forms</h2>
@@ -35,9 +37,9 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.FormNumber }) |
-            @Html.ActionLink("Details", "Details", new { id=item.FormNumber }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.FormNumber })
+            @Html.ActionLink("Edit", "Edit", new { id=item.FormNumber,sessionId=sessionId}) |
+            @Html.ActionLink("Details", "Details", new { id=item.FormNumber, sessionId = sessionId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.FormNumber, sessionId = sessionId })
         </td>
     </tr>
 }

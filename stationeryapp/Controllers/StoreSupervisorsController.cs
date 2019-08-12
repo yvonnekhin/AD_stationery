@@ -13,7 +13,7 @@ namespace stationeryapp.Controllers
     public class StoreSupervisorsController : Controller
     {
         private ModelDBContext db = new ModelDBContext();
-        public ActionResult Index(string sessionId)
+        public ActionResult Index(string sessionId,string tag)
         {         
             StoreSupervisor storeSupervisor=db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             if (storeSupervisor != null && sessionId != null)
@@ -25,6 +25,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = tag;
                 return View();
             }
             else

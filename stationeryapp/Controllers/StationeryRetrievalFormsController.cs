@@ -15,10 +15,49 @@ namespace stationeryapp.Controllers
         private ModelDBContext db = new ModelDBContext();
 
         // GET: StationeryRetrievalForms
-        public ActionResult Index()
+        public ActionResult Index(string sessionId)
         {
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             GenerateRetrievalForm();
-            return View(db.StationeryRetrievalForms.ToList());
+            if (storeclerk != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+
+                return View(db.StationeryRetrievalForms.ToList());
+            }
+            else if (storeManager != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(db.StationeryRetrievalForms.ToList());
+            }
+            else if (storeSupervisor != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(db.StationeryRetrievalForms.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            
         }
 
         // GET: StationeryRetrievalForms/Details/5
@@ -119,7 +158,7 @@ namespace stationeryapp.Controllers
         }
 
         // GET: StationeryRetrievalForms/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string id, string sessionId)
         {
             if (id == null)
             {
@@ -132,6 +171,13 @@ namespace stationeryapp.Controllers
                 return HttpNotFound();
             }
 
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             List<StationeryRetrievalFormDetail> srfd = db.StationeryRetrievalFormDetails.ToList();
             List<StationeryCatalog> sc = db.StationeryCatalogs.ToList();
 
@@ -146,14 +192,55 @@ namespace stationeryapp.Controllers
                                                    BinNumber = stationeryCatalog.BinNumber
                                                }).OrderBy(x=>x.Description).ToList();
 
-            return View(retrievalFormDetailsSelected);
+
+            if (storeclerk != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+
+                return View(retrievalFormDetailsSelected);
+            }
+            else if (storeManager != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(retrievalFormDetailsSelected);
+            }
+            else if (storeSupervisor != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(retrievalFormDetailsSelected);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+           
         }
 
         // POST: StationeryRetrievalForms/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(List<RForm> commitedRetrievalForm)
+        public ActionResult Edit(List<RForm> commitedRetrievalForm, string sessionId)
         {
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
+
             if (ModelState.IsValid)
             {
                 List<string> departmentList = new List<string>();
@@ -232,13 +319,46 @@ namespace stationeryapp.Controllers
                         }
                     }
                 }
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "StationeryRetrievalForms", new { sessionId=sessionId});
             }
-            return View(commitedRetrievalForm);
+
+            if (storeclerk != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+
+                return View(commitedRetrievalForm);
+            }
+            else if (storeManager != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(commitedRetrievalForm);
+            }
+            else if (storeSupervisor != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(commitedRetrievalForm);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+          
         }
 
         // GET: StationeryRetrievalForms/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete(string id,string sessionId)
         {
             if (id == null)
             {
@@ -249,18 +369,81 @@ namespace stationeryapp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(stationeryRetrievalForm);
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
+
+            if (storeclerk != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+
+                return View(stationeryRetrievalForm);
+            }
+            else if (storeManager != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(stationeryRetrievalForm);
+            }
+            else if (storeSupervisor != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(stationeryRetrievalForm);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
         }
 
         // POST: StationeryRetrievalForms/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed(string id, string sessionId)
         {
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StationeryRetrievalForm stationeryRetrievalForm = db.StationeryRetrievalForms.Find(id);
             db.StationeryRetrievalForms.Remove(stationeryRetrievalForm);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            if (storeclerk != null)
+            {
+                return RedirectToAction("Index", "StationeryRetrievalForms", new { sessionId = sessionId });
+            }
+            else if (storeManager != null)
+            {
+                return RedirectToAction("Index", "StationeryRetrievalForms", new { sessionId = sessionId });
+            }
+            else if (storeSupervisor != null)
+            {
+                return RedirectToAction("Index", "StationeryRetrievalForms",new { sessionId=sessionId});
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            
         }
 
         protected override void Dispose(bool disposing)
