@@ -27,15 +27,20 @@ namespace stationeryapp.Controllers
             StoreClerk storeclerk = db2.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             RequisitionForm request = db1.RequisitionForms.Where(p => p.FormNumber == id).FirstOrDefault();
             List<RequisitionFormDetail> detail = db.RequisitionFormDetails.Where(x => x.FormNumber == id).ToList();
+            string eId = request.EmployeeId;
+            Employee emp = db.Employees.Where(y => y.Id == eId).FirstOrDefault();
+            string emailAddress = emp.EmailAddress;
+            string subject = "Your requisition has been received";
+            string message = "<p>Dear "+emp.UserName +"."+"</p><br/><p>Your requisition has been received and be pending</p><br/><p>Management Team</p>";
             if (storeclerk != null && sessionId !=null)
             {
                 if (request.Status == "Approved" && request.Status != "Completed")
                 {
+                    util.SendEmail(emailAddress, subject, message);
                     request.DateReceived = DateTime.Now;
                     request.ReceivedBy = storeclerk.Id;
                     request.Status = "Read";
-                }
-              
+                }         
                 int num = db1.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 db1.Entry(request).State = EntityState.Modified;
                 db1.SaveChanges();

@@ -8,7 +8,7 @@ namespace stationeryapp.Models
 {
     public class util
     {
-        public static void SendEmail(string address, string subject = "", string message="")
+        public static void SendEmail(string address, string subject, string message)
         {
             string email = "sa48team2@gmail.com";
             string password = "oobzwwosiiwtslnh";
