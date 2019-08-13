@@ -293,7 +293,7 @@ namespace stationeryapp.Controllers
                     ListNumber = (db.DisbursementLists.Count() + 1).ToString(),
                     DepartmentCode = deptCode,
                     Date = DateTime.Today,
-                    Status = "Open"
+                    Status = "Pending"
                 };
                 db.DisbursementLists.Add(dl);
                 db.SaveChanges();
