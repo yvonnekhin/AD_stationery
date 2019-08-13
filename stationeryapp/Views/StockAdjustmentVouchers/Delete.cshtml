@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Delete";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
 }
 
 <h2>Delete</h2>
@@ -37,12 +39,13 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
+        @Html.Hidden("sessionId", sessionId)
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "Index",new { sessionId=sessionId})
         </div>
     }
 </div>

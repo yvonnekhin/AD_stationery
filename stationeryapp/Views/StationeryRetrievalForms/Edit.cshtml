@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Retrieve";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
 }
 
 <h2>Stationery Retrieval Form</h2>
@@ -9,9 +11,9 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    @Html.Hidden("sessionId", sessionId)
     <div class="form-horizontal">
-        
+
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -50,8 +52,8 @@
                     {
                         <td>@Html.DisplayTextFor(model => model[i].BinNumber)</td>
                         <td>@Html.DisplayTextFor(model => model[i].Description)</td>
-                        <td>@Html.TextBox(Model[i].Description+"TotalNeeded",0, new { @class = "TotalNeeded", @readonly = "readonly" }) </td>
-                        <td>@Html.TextBox(Model[i].Description+"TotalActual",0, new { @class = "TotalActual", @readonly = "readonly" })</td>
+                        <td>@Html.TextBox(Model[i].Description + "TotalNeeded", 0, new { @class = "TotalNeeded", @readonly = "readonly" }) </td>
+                        <td>@Html.TextBox(Model[i].Description + "TotalActual", 0, new { @class = "TotalActual", @readonly = "readonly" })</td>
                         ;
                     }
                     else
@@ -81,5 +83,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index",new { sessionId=sessionId})
 </div>

@@ -4,6 +4,8 @@
 @{
     ViewBag.Title = "Create";
     StockAdjustmentVoucher stockAdjustmentVoucher = ViewBag.voucher;
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
 }
 
 <h2>Create</h2>
@@ -26,6 +28,7 @@
 
 @using (Html.BeginForm())
 {
+    @Html.Hidden("sessionId", sessionId)
     @Html.AntiForgeryToken()
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -169,5 +172,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index",new { sessionId=sessionId})
 </div>

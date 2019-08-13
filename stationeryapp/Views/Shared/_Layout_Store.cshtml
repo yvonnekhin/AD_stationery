@@ -27,21 +27,34 @@
                             <a class="dropdown-toggle" data-toggle="dropdown" href='@Url.Action("Index", "Home", new { sessionId = sessionId })'>MENU<span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li style="margin-bottom:20px"><a href='@Url.Action("Index", "RequisitionForms", new { sessionId = sessionId })'>RequisitionForms</a></li>
-                                <li style="margin-bottom:20px"><a href="#">Outstanding</a></li>
-                                <li style="margin-bottom:20px"><a href="#">RetrievalForm</a></li>
+                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "OutstandingLists", new { sessionId = sessionId })'>Outstanding</a></li>
+                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "StationeryRetrievalForms", new { sessionId = sessionId })'>RetrievalForm</a></li>
                                 <li style="margin-bottom:20px"><a href='@Url.Action("Index", "DisbursementLists", new { sessionId = sessionId })'>Disbursement List</a></li>
                                 <li style="margin-bottom:20px"><a href='@Url.Action("Index", "StationeryCatalogs", new { sessionId = sessionId })'>Catalog</a></li>
-                                <li style="margin-bottom:20px"><a href="#">Purchase Order</a></li>
-                                <li style="margin-bottom:20px"><a href="#">Stock Adjustment</a></li>
+                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "PurchaseOrders", new { sessionId = sessionId })'>Purchase Order</a></li>
+                                <li style="margin-bottom:20px"><a href='@Url.Action("Index", "StockAdjustmentVouchers", new { sessionId = sessionId })'>Stock Adjustment</a></li>
                                 <li style="margin-bottom:20px"><a href='@Url.Action("Index", "ReportHome", new { sessionId = sessionId })'>Reports</a></li>
                                 @if (tag == "storeManager")
                                 {
-                                    <li style="margin-bottom:20px"><a href="#">Manage Suppliers</a></li>
+                                    <li style="margin-bottom:20px"><a href='@Url.Action("Index", "SupplierLists", new { sessionId = sessionId })'>Manage Suppliers</a></li>
                                 }
                             </ul>
                         </li>
                         <li><img style="height:50px; padding-top:4px; padding-left:10px;" alt="logo" src="~/Images/logo2.jpg"></li>
-                        <li>@Html.ActionLink("STATIONERY MANAGEMENT SYSTEM", "Index", "Home", new { sessionId = sessionId }, new { @class = "navbar-brand" })</li>
+                        @if (tag == "storeManager")
+                        {
+                            <li>@Html.ActionLink("STATIONERY MANAGEMENT SYSTEM", "Index", "StoreManagers", new { sessionId = sessionId }, new { @class = "navbar-brand" })</li>
+
+                        }
+                        else if (tag == "storeSupervisor")
+                        {
+                            <li>@Html.ActionLink("STATIONERY MANAGEMENT SYSTEM", "Index", "StoreSupervisors", new { sessionId = sessionId }, new { @class = "navbar-brand" })</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("STATIONERY MANAGEMENT SYSTEM", "Index", "home", new { sessionId = sessionId }, new { @class = "navbar-brand" })</li>
+                        }
+
                     </ul>
                 </div>
 

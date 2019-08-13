@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "PO List";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
 }
 
 <h2>Purchase Order List</h2>
@@ -68,10 +70,10 @@
             </td>
 
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.PONumber }) |
-                @Html.ActionLink("Order", "Details", new { id = item.PONumber }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.PONumber })|
-                @Html.ActionLink("Receive", "Receive", new { id = item.PONumber })
+                @Html.ActionLink("Edit", "Edit", new { id = item.PONumber,sessionId = sessionId }) |
+                @Html.ActionLink("Order", "Details", new { id = item.PONumber, sessionId = sessionId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.PONumber, sessionId = sessionId })|
+                @Html.ActionLink("Receive", "Receive", new { id = item.PONumber, sessionId = sessionId })
             </td>
         </tr>
     }

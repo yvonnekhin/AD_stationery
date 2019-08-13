@@ -3,6 +3,7 @@
 }
 
 @{
+    string tag = (string)ViewData["tag"];
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
     int num = (int)ViewData["num"];
@@ -12,7 +13,7 @@
     int numCatalog = 0;
     int numPO = 0;
     int numStock = 0;
-    
+
 }
 
 <h1 align="center"> Store Manager Home Page</h1>
@@ -30,7 +31,7 @@
         </td>
         <td style="padding-left:100px;padding-right:100px;padding-bottom:120px"></td>
         <td align="center" class="alarm">
-            <a href=" @Url.Action("Index", "OutStandingContoller")"><img src="~/Images/Outstanding.PNG"></a>
+            <a href=" @Url.Action("Index", "OutstandingLists",new { sessionId = sessionId })"><img src="~/Images/Outstanding.PNG"></a>
             @if (numOutS > 0)
             {
                 <div class="divright">
@@ -40,7 +41,7 @@
         </td>
         <td style="padding-left:100px;padding-right:100px;padding-bottom:120px"></td>
         <td align="center" class="alarm">
-            <a href=" @Url.Action("Index", "RetrivalController")"><img src="~/Images/RetrivalForm.PNG"></a>
+            <a href=" @Url.Action("Index", "StationeryRetrievalForms",new { sessionId = sessionId })"><img src="~/Images/RetrivalForm.PNG"></a>
             @if (numRetrive > 0)
             {
                 <div class="divright">
@@ -69,7 +70,7 @@
         </td>
         <td style="padding-left:100px;padding-right:100px;padding-bottom:120px"></td>
         <td align="center" class="alarm">
-            <a href=" @Url.Action("Index", "Catalog")"><img src="~/Images/Catalog.PNG"></a>
+            <a href=" @Url.Action("Index", "StationeryCatalogs",new { sessionId = sessionId })"><img src="~/Images/Catalog.PNG"></a>
             @if (numCatalog > 0)
             {
                 <div class="divright">
@@ -79,7 +80,7 @@
         </td>
         <td style="padding-left:100px;padding-right:100px;padding-bottom:120px"></td>
         <td align="center" class="alarm">
-            <a href=" @Url.Action("Index", "Purchase Order")"><img src="~/Images/PO.PNG"></a>
+            <a href=" @Url.Action("Index", "PurchaseOrders",new { sessionId = sessionId })"><img src="~/Images/PO.PNG"></a>
             @if (numPO > 0)
             {
                 <div class="divright">
@@ -99,7 +100,7 @@
  
     <tr>
         <td align="center" class="alarm">
-            <a href=" @Url.Action("Index", "Stock Adjustment")"><img src="~/Images/StockAjustment.PNG"></a>
+            <a href=" @Url.Action("Index", "StockAdjustmentVouchers",new { sessionId = sessionId })"><img src="~/Images/StockAjustment.PNG"></a>
             @if (numStock > 0)
             {
                 <div class="divright">

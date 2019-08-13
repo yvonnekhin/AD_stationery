@@ -30,7 +30,7 @@ namespace stationeryapp.Controllers
             }
             else
             {
-                return RedirectToAction("StoreManagerLogin", "Login");
+                return RedirectToAction("LoginStoreManager", "Login");
             }
         }
         public ActionResult NotFound(string aspxerrorpath)

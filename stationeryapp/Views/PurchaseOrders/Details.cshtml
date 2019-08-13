@@ -5,6 +5,8 @@
     ViewBag.Title = "PO";
     int count = 1;
     SelectList approvedSupplierList = ViewBag.SupplierCode1;
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
 }
 
 <h2>Purchase Order Form</h2>
@@ -39,6 +41,7 @@
 
 @using (Html.BeginForm())
 {
+    @Html.Hidden("sessionId", sessionId)
     @Html.AntiForgeryToken()
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -144,5 +147,5 @@
 
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model[0].purchaseOrder.PONumber }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index",new {sessionId=sessionId})
 </p>

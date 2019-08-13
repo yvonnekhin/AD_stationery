@@ -15,17 +15,56 @@ namespace stationeryapp.Controllers
         private ModelDBContext db = new ModelDBContext();
 
         // GET: PurchaseOrders
-        public ActionResult Index()
+        public ActionResult Index(string sessionId)
         {
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             var purchaseOrders = db.PurchaseOrders.Include(p => p.StoreClerk).Include(p => p.StoreClerk1).Include(p => p.StoreSupervisor).Include(p => p.SupplierList);
 
             SystemGeneratePO();
 
-            return View(purchaseOrders.ToList());
+            if (storeclerk != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+
+                return View(purchaseOrders.ToList());
+            }
+            else if (storeManager != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(purchaseOrders.ToList());
+            }
+            else if (storeSupervisor != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(purchaseOrders.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            
         }
 
         // GET: PurchaseOrders/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string id, string sessionId)
         {
             if (id == null)
             {
@@ -36,7 +75,13 @@ namespace stationeryapp.Controllers
             {
                 return HttpNotFound();
             }
-
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
             List<PurchaseOrderDetail> purchaseOrderDetails = db.PurchaseOrderDetails.ToList();
             List<SupplierList> suppliers = db.SupplierLists.ToList();
@@ -65,13 +110,52 @@ namespace stationeryapp.Controllers
 
             ViewBag.SupplierCode1 = new SelectList(approvedSupplierList, "SupplierCode", "SupplierName");
 
-            return View(purchaseJoinResult.ToList());
+            if (storeclerk != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+                return View(purchaseJoinResult.ToList());
+            }
+            else if (storeManager != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(purchaseJoinResult.ToList());
+
+            }
+            else if (storeSupervisor != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(purchaseJoinResult.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Details(List<POForm> poForms)
+        public ActionResult Details(List<POForm> poForms, string sessionId)
         {
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             if (ModelState.IsValid)
             {
                 PurchaseOrder existingPo = db.PurchaseOrders.Find(poForms[0].purchaseOrder.PONumber);
@@ -93,7 +177,7 @@ namespace stationeryapp.Controllers
                 }
 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","PurchaseOrders", new { sessionId = sessionId });
             }
             List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
             List<PurchaseOrderDetail> purchaseOrderDetails = db.PurchaseOrderDetails.ToList();
@@ -123,11 +207,42 @@ namespace stationeryapp.Controllers
 
             ViewBag.SupplierCode1 = new SelectList(approvedSupplierList, "SupplierCode", "SupplierName");
 
-            return View(purchaseJoinResult.ToList());
+            if (storeclerk != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+                return View(purchaseJoinResult.ToList());
+            }
+            else if (storeManager != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(purchaseJoinResult.ToList());
+
+            }
+            else if (storeSupervisor != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(purchaseJoinResult.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }      
         }
 
         // GET: PurchaseOrders/Details/5
-        public ActionResult Receive(string id)
+        public ActionResult Receive(string id, string sessionId)
         {
             if (id == null)
             {
@@ -138,7 +253,13 @@ namespace stationeryapp.Controllers
             {
                 return HttpNotFound();
             }
-
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
             List<PurchaseOrderDetail> purchaseOrderDetails = db.PurchaseOrderDetails.ToList();
             List<SupplierList> suppliers = db.SupplierLists.ToList();
@@ -167,13 +288,52 @@ namespace stationeryapp.Controllers
 
             ViewBag.SupplierCode1 = new SelectList(approvedSupplierList, "SupplierCode", "SupplierName");
 
-            return View(purchaseJoinResult.ToList());
+            if (storeclerk != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+                return View(purchaseJoinResult.ToList());
+            }
+            else if (storeManager != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(purchaseJoinResult.ToList());
+
+            }
+            else if (storeSupervisor != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(purchaseJoinResult.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Receive(List<POForm> poForms)
+        public ActionResult Receive(List<POForm> poForms, string sessionId)
         {
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             if (ModelState.IsValid)
             {
                 PurchaseOrder existingPo = db.PurchaseOrders.Find(poForms[0].purchaseOrder.PONumber);
@@ -249,7 +409,7 @@ namespace stationeryapp.Controllers
                 }
 
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "PurchaseOrders",new { sessionId=sessionId});
             }
             List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
             List<PurchaseOrderDetail> purchaseOrderDetails = db.PurchaseOrderDetails.ToList();
@@ -278,8 +438,40 @@ namespace stationeryapp.Controllers
             List<SupplierList> approvedSupplierList = new List<SupplierList> { approvedSupplier1, approvedSupplier2, approvedSupplier3 };
 
             ViewBag.SupplierCode1 = new SelectList(approvedSupplierList, "SupplierCode", "SupplierName");
+            if (storeclerk != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+                return View(purchaseJoinResult.ToList());
+            }
+            else if (storeManager != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(purchaseJoinResult.ToList());
 
-            return View(purchaseJoinResult.ToList());
+            }
+            else if (storeSupervisor != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(purchaseJoinResult.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
+            
         }
 
         public void SystemGeneratePO()

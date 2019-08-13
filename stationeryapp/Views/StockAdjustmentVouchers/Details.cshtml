@@ -4,6 +4,8 @@
 @{
     ViewBag.Title = "Supervisor/Manager";
     List<StockAdjustmentVoucherDetail> savdList = ViewBag.savd;
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
 }
 
 <h2>Details</h2>
@@ -61,7 +63,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.AdjustmentVoucherNumber)
-
+    @Html.Hidden("sessionId", sessionId)
     <table>
         <tr>
             <td> Remarks: </td>
@@ -75,6 +77,6 @@
 
 
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AdjustmentVoucherNumber }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AdjustmentVoucherNumber, sessionId = sessionId }) |
+    @Html.ActionLink("Back to List", "Index", new { sessionId = sessionId })
 </p>
