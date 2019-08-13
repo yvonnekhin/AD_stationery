@@ -1,4 +1,5 @@
 ﻿@model List<stationeryapp.Models.RForm>
+@using stationeryapp.Util
 
 @{
     ViewBag.Title = "Retrieve";
@@ -52,8 +53,8 @@
                     {
                         <td>@Html.DisplayTextFor(model => model[i].BinNumber)</td>
                         <td>@Html.DisplayTextFor(model => model[i].Description)</td>
-                        <td>@Html.TextBox(Model[i].Description + "TotalNeeded", 0, new { @class = "TotalNeeded", @readonly = "readonly" }) </td>
-                        <td>@Html.TextBox(Model[i].Description + "TotalActual", 0, new { @class = "TotalActual", @readonly = "readonly" })</td>
+                        <td>@Html.TextBox(StringExtension.clean(Model[i].Description) + "Needed", 0, new { @class = "TotalNeeded", @readonly = "readonly" }) </td>
+                        <td>@Html.TextBox(StringExtension.clean(Model[i].Description) + "Actual", 0, new { @class = "TotalActual", @readonly = "readonly" })</td>
                         ;
                     }
                     else
@@ -65,9 +66,9 @@
                         ;
                     }
                     <td>@Html.DisplayTextFor(model => model[i].stationeryRetrievalFormDetail.DepartmentCode)</td>
-                    <td>@Html.TextBoxFor(model => model[i].stationeryRetrievalFormDetail.Needed, new { @class = Model[i].Description + "_Needed", @readonly = "readonly" })</td>
-                    <td>@Html.EditorFor(model => model[i].stationeryRetrievalFormDetail.Actual, new { @class = Model[i].Description + "_Actual" })</td>
-
+                    <td>@Html.TextBoxFor(model => model[i].stationeryRetrievalFormDetail.Needed, new { @class = StringExtension.clean(Model[i].Description) + "Needed", @readonly = "readonly" })</td>
+                    <td>@Html.TextBoxFor(model => model[i].stationeryRetrievalFormDetail.Actual, new { @class = StringExtension.clean(Model[i].Description) + "Actual", @onkeyup= "updateRetrievedTotal(this);" })</td>
+                    
                 </tr>
             }
 
@@ -76,11 +77,64 @@
 
         <div class="form-group" align="right">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Commit Retrieval Form" class="btn btn-default" />
+                <input type="submit" value="Confirm Quantities Retrieved" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
+
+<script>
+
+    function updateRetrievedTotal(element) {
+        var classOfActualTextBox = element.className;
+        //console.log(classOfActualTextBox);
+        var listActualTotal = document.getElementById("details").querySelectorAll('.'+classOfActualTextBox);
+        //console.log(listActualTotal);
+        var retrievedTotal = 0;
+        for (var i = 0; i < listActualTotal.length; i++) {
+            retrievedTotal += parseInt(listActualTotal[i].value);
+        }
+        //console.log(classOfActualTextBox + "TotalActual");
+        //console.log(retrievedTotal);
+        var retrievedElement = document.getElementById(classOfActualTextBox);
+        //console.log(retrievedElement);
+        retrievedElement.value = retrievedTotal;
+    }
+
+    function updateNeededTotal() {
+
+        var listNeededTotal = document.getElementById("details").querySelectorAll(".TotalNeeded");
+
+        for (var i = 0; i < listNeededTotal.length; i++) {
+            var neededTotalQuantity = 0;
+            totalElementId = listNeededTotal[i].id;
+
+            var listDeptNeeded = document.getElementById("details").querySelectorAll('.' + totalElementId);
+            for (var j = 0; j < listDeptNeeded.length; j++) {
+                neededTotalQuantity += parseInt(listDeptNeeded[j].value);
+            }
+            listNeededTotal[i].value = neededTotalQuantity;
+        }
+    }
+
+    function updateActualTotal() {
+
+        var listActualTotal = document.getElementById("details").querySelectorAll(".TotalActual");
+
+        for (var i = 0; i < listActualTotal.length; i++) {
+            var actualTotalQuantity = 0;
+            totalElementId = listActualTotal[i].id;
+
+            var listDeptNeeded = document.getElementById("details").querySelectorAll('.' + totalElementId);
+            for (var j = 0; j < listDeptNeeded.length; j++) {
+                actualTotalQuantity += parseInt(listDeptNeeded[j].value);
+            }
+            listActualTotal[i].value = actualTotalQuantity;
+        }
+    }
+
+    window.onload = updateNeededTotal(); updateActualTotal();
+</script>
 
 <div>
     @Html.ActionLink("Back to List", "Index",new { sessionId=sessionId})
