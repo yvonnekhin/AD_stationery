@@ -596,35 +596,35 @@ namespace stationeryapp.Controllers
         }
 
         // GET: PurchaseOrders/Create
-        public ActionResult Create()
-        {
-            ViewBag.Attention = new SelectList(db.StoreClerks, "Id", "FirstName");
-            ViewBag.OrderedBy = new SelectList(db.StoreClerks, "Id", "FirstName");
-            ViewBag.ApprovedBy = new SelectList(db.StoreSupervisors, "Id", "FirstName");
-            ViewBag.SupplierCode = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName");
-            return View();
-        }
+        //public ActionResult Create()
+        //{
+        //    ViewBag.Attention = new SelectList(db.StoreClerks, "Id", "FirstName");
+        //    ViewBag.OrderedBy = new SelectList(db.StoreClerks, "Id", "FirstName");
+        //    ViewBag.ApprovedBy = new SelectList(db.StoreSupervisors, "Id", "FirstName");
+        //    ViewBag.SupplierCode = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName");
+        //    return View();
+        //}
 
-        // POST: PurchaseOrders/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "PONumber,SupplierCode,DeliverTo,Attention,SupplyByDate,OrderedBy,DateOrdered,ApprovedBy,DateApproved,ReceivedGoodsFormNo,ReceivedDate,ReceivedValue,Status")] PurchaseOrder purchaseOrder)
-        {
-            if (ModelState.IsValid)
-            {
-                db.PurchaseOrders.Add(purchaseOrder);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //// POST: PurchaseOrders/Create
+        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "PONumber,SupplierCode,DeliverTo,Attention,SupplyByDate,OrderedBy,DateOrdered,ApprovedBy,DateApproved,ReceivedGoodsFormNo,ReceivedDate,ReceivedValue,Status")] PurchaseOrder purchaseOrder)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.PurchaseOrders.Add(purchaseOrder);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            ViewBag.Attention = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.Attention);
-            ViewBag.OrderedBy = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.OrderedBy);
-            ViewBag.ApprovedBy = new SelectList(db.StoreSupervisors, "Id", "FirstName", purchaseOrder.ApprovedBy);
-            ViewBag.SupplierCode = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", purchaseOrder.SupplierCode);
-            return View(purchaseOrder);
-        }
+        //    ViewBag.Attention = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.Attention);
+        //    ViewBag.OrderedBy = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.OrderedBy);
+        //    ViewBag.ApprovedBy = new SelectList(db.StoreSupervisors, "Id", "FirstName", purchaseOrder.ApprovedBy);
+        //    ViewBag.SupplierCode = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", purchaseOrder.SupplierCode);
+        //    return View(purchaseOrder);
+        //}
 
         // GET: PurchaseOrders/Edit/5
         public ActionResult Edit(string id)

@@ -27,22 +27,22 @@ namespace stationeryapp.Controllers
             StoreClerk storeclerk = db2.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             RequisitionForm request = db1.RequisitionForms.Where(p => p.FormNumber == id).FirstOrDefault();
             List<RequisitionFormDetail> detail = db.RequisitionFormDetails.Where(x => x.FormNumber == id).ToList();
+            string eId = request.EmployeeId;
+            Employee emp = db.Employees.Where(y => y.Id == eId).FirstOrDefault();
+            string emailAddress = emp.EmailAddress;
+            string subject = "Your requisition has been received";
+            string message = "<p>Dear "+emp.UserName +"."+"</p><br/><p>Your requisition has been received and be pending</p><br/><p>Management Team</p>";
             if (storeclerk != null && sessionId !=null)
             {
                 if (request.Status == "Approved" && request.Status != "Completed")
                 {
+                    util.SendEmail(emailAddress, subject, message);
                     request.DateReceived = DateTime.Now;
                     request.ReceivedBy = storeclerk.Id;
                     request.Status = "Read";
                 }
-
-                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
-                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
-                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
-                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
-                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
+              
+                int num = db1.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 db1.Entry(request).State = EntityState.Modified;
                 db1.SaveChanges();
                 ViewData["sessionId"] = storeclerk.SessionId;

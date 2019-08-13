@@ -81,7 +81,7 @@
                     @count
                 </td>
                 <td>@Html.TextBoxFor(model => model[i].stationeryCatalog.Description, new { @class = "form-control", @readonly = "readonly" }) </td>
-                <td>@Html.TextBoxFor(model => model[i].purchaseOrderDetail.Quantity, new { @class = "form-control", @id = "quantity" + count, @onchange = "updateTotal(this); getOverallTotal();" })</td>
+                <td>@Html.TextBoxFor(model => model[i].purchaseOrderDetail.Quantity, new { @class = "form-control", @id = "quantity" + count, @onkeyup = "updateTotal(this); getOverallTotal();" })</td>
                 <td>@Html.TextBoxFor(model => model[i].purchaseOrderDetail.Remarks, new { @class = "form-control", @readonly = "readonly" })</td>
                 <td>@Html.TextBoxFor(model => model[i].stationeryCatalog.Price, new { @class = "form-control", @readonly = "readonly", @id = "price" + count })</td>
                 <td>
