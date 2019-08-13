@@ -35,13 +35,19 @@ namespace stationeryapp.Controllers
                     request.ReceivedBy = storeclerk.Id;
                     request.Status = "Read";
                 }
-              
-                int num = db1.RequisitionForms.Where(x => x.Status == "Approved").Count();
+
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 db1.Entry(request).State = EntityState.Modified;
                 db1.SaveChanges();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
-                ViewData["sumTotal"] = (num).ToString();
+              
                 return View(detail);
             }
             else
