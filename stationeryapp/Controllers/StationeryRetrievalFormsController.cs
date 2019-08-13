@@ -298,6 +298,16 @@ namespace stationeryapp.Controllers
                 db.DisbursementLists.Add(dl);
                 db.SaveChanges();
 
+                    DepartmentList dept = db.DepartmentLists.Where(x => x.DepartmentCode == deptCode).FirstOrDefault();
+                    string Eid = dept.RepresentativeId;
+                    Employee repo = db.Employees.Find(Eid);
+                    string emailAddress = repo.EmailAddress;
+                    string pointId = dept.CollectionPoint;
+                    CollectionPoint point = db.CollectionPoints.Find(pointId);
+                    string subject = "Your items are ready for collection";
+                    string message = "<p>Dear " + repo.UserName + "." + "</p><br/><p>Your items are ready for collection</p><br/><p>Collection point and time: "+point.CollectionPointName+"---"+point.CollectionTime +"</p><br/><p>Management Team</p>";
+                    util.SendEmail(emailAddress, subject, message);
+
                     int disbursementListDetailsCount = db.DisbursementListDetails.Count();
 
                     foreach (RForm commitedFormDetail in commitedRetrievalForm)
@@ -317,6 +327,7 @@ namespace stationeryapp.Controllers
                             db.DisbursementListDetails.Add(dld);
                             db.SaveChanges();
                         }
+
                     }
                 }
                 return RedirectToAction("Index", "StationeryRetrievalForms", new { sessionId=sessionId});
