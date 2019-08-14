@@ -30,20 +30,20 @@ namespace stationeryapp.Models
         public Nullable<System.DateTime> DateOrdered { get; set; }
         public string ApprovedBy { get; set; }
         public Nullable<System.DateTime> DateApproved { get; set; }
-        public Nullable<double> PurchaseValue { get; set; }
         public string ReceivedGoodsFormNo { get; set; }
         public Nullable<System.DateTime> ReceivedDate { get; set; }
         public Nullable<double> ReceivedValue { get; set; }
         public string Status { get; set; }
         public string Reason { get; set; }
+        public Nullable<double> PurchaseValue { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OutstandingList> OutstandingLists { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
-        public virtual SupplierList SupplierList { get; set; }
         public virtual StoreClerk StoreClerk { get; set; }
         public virtual StoreClerk StoreClerk1 { get; set; }
         public virtual StoreSupervisor StoreSupervisor { get; set; }
+        public virtual SupplierList SupplierList { get; set; }
     }
 }

@@ -14,15 +14,16 @@ namespace stationeryapp.Controllers
     public class RequisitionFormsController : Controller
     {
 
-        private StoreClerkDBContext db = new StoreClerkDBContext();
+        private ModelDBContext db = new ModelDBContext();
         private ModelDBContext db2 = new ModelDBContext();
-        private RequisitionFormsDBContext db1 = new RequisitionFormsDBContext();
+        private ModelDBContext db1 = new ModelDBContext();
+
 
 
         // GET: RequisitionForms
         public ActionResult Index(string sessionId)
         {
-            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreClerk storeclerk = db2.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreManager storeManager = db2.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreSupervisor storeSupervisor = db2.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             if (storeclerk != null && sessionId !=null)

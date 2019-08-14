@@ -163,12 +163,54 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\POForm.cs" />
-    <Compile Include="Models\RetrievalHistory.cs" />
-    <Compile Include="Models\RetrievalRecord.cs" />
     <Compile Include="Models\CollectionPoint.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DepartmentList.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DisbursementList.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DisbursementListDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Employee.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Model.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OutstandingList.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\POForm.cs" />
+    <Compile Include="Models\PurchaseOrder.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PurchaseOrderDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequisitionForm.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RequisitionFormDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\RetrievalHistory.cs" />
+    <Compile Include="Models\RetrievalRecord.cs" />
     <Compile Include="Models\CollectionPoints.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -189,6 +231,33 @@
     <Compile Include="Models\ReorderViewModel.cs" />
     <Compile Include="Models\RequisitionViewModel.cs" />
     <Compile Include="Models\RForm.cs" />
+    <Compile Include="Models\StationeryCatalog.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryRetrievalForm.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StationeryRetrievalFormDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockAdjustmentVoucher.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StockAdjustmentVoucherDetail.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreClerk.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreManager.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StoreSupervisor.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SupplierList.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\util.cs" />
     <Compile Include="Models\ViewModelD.cs" />
     <Compile Include="Models\ViewModelOutstanding.cs" />
@@ -204,9 +273,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DepartmentList.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DepartmentList.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\DepartmentList.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -216,12 +282,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DepartmentList.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DisbursementList.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DisbursementListDetail.cs">
-      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DisbursementListDetails.Context.cs">
       <AutoGen>True</AutoGen>
@@ -258,9 +318,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Employee.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Employee.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Employee.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -271,28 +328,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Employee.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Model.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Model.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Model.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\OutstandingList.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OutstandingList.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\OutstandingList.cs">
-      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\OutstandingList.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -303,12 +342,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>OutstandingList.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PurchaseOrder.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\PurchaseOrderDetail.cs">
-      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PurchaseOrderDetails.Context.cs">
       <AutoGen>True</AutoGen>
@@ -346,12 +379,6 @@
       <DependentUpon>ReorderReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Models\RequisitionForm.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\RequisitionFormDetail.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\RequisitionFormDetails.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -387,9 +414,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StationeryCatalog.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StationeryCatalog.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\StationeryCatalog.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -399,12 +423,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StationeryCatalog.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StationeryRetrievalForm.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StationeryRetrievalFormDetail.cs">
-      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StationeryRetrievalFormDetails.Context.cs">
       <AutoGen>True</AutoGen>
@@ -435,12 +453,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StationeryRetrievalForms.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StockAdjustmentVoucher.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StockAdjustmentVoucherDetail.cs">
-      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StockAdjustmentVoucherDetails.Context.cs">
       <AutoGen>True</AutoGen>
@@ -477,9 +489,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreClerk.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StoreClerk.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\StoreClerk.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -494,9 +503,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreManager.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\StoreManager.cs">
-      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\StoreManager.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -513,9 +519,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>StoreSupervisor.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\StoreSupervisor.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\StoreSupervisor.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -531,9 +534,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SupplierList.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\SupplierList.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\SupplierList.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -544,9 +544,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SupplierList.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\sysdiagram.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\RequisitionReport.cs">
       <AutoGen>True</AutoGen>
@@ -554,6 +551,7 @@
       <DependentUpon>RequisitionReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Util\StringExtension.cs" />
     <Compile Include="Views\StationeryCatalogReport\Report.aspx.cs">
       <DependentUpon>Report.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -932,6 +930,7 @@
     <Content Include="Models\StationeryRetrievalForms.edmx.diagram">
       <DependentUpon>StationeryRetrievalForms.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\StoreClerkImages" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -939,7 +938,6 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\StoreClerkImages" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1053,7 +1051,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="DB\" />
     <Folder Include="Filters\" />
-    <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

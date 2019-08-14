@@ -10,8 +10,8 @@ namespace stationeryapp.Controllers
     public class HomeController : Controller
     {
         private ModelDBContext dbM = new ModelDBContext();
-        private StoreClerkDBContext db = new StoreClerkDBContext();
-        private RequisitionFormsDBContext db1 = new RequisitionFormsDBContext();
+        private ModelDBContext db = new ModelDBContext();
+        private ModelDBContext db1 = new ModelDBContext();
         public ActionResult Index(string sessionId,string tag)
         { 
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();    

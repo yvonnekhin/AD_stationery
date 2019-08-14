@@ -22,7 +22,7 @@ namespace stationeryapp.Models
         public Nullable<double> ReceivedValue { get; set; }
         public string Remarks { get; set; }
     
-        public virtual StationeryCatalog StationeryCatalog { get; set; }
         public virtual PurchaseOrder PurchaseOrder { get; set; }
+        public virtual StationeryCatalog StationeryCatalog { get; set; }
     }
 }
