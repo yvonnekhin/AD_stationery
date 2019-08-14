@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using stationeryapp.Filters;
 using stationeryapp.Models;
 namespace stationeryapp.Controllers
 {
@@ -26,6 +27,7 @@ namespace stationeryapp.Controllers
             return View();
         }
 
+        [empfilter]
         public ActionResult req_forms(string form_id, string notify)
         {
             if (notify=="seen")
@@ -76,6 +78,7 @@ namespace stationeryapp.Controllers
             return View();
         }
 
+        [empfilter]
         public ActionResult approve_reject(string form_id, string form_status, string comment, string approved_by)
         {
             Debug.WriteLine(form_id+form_status+comment);
@@ -115,6 +118,7 @@ namespace stationeryapp.Controllers
             return RedirectToAction("Index", "Hod");
         }
 
+        [empfilter]
         public ActionResult newstationaryrequest()
         {
             Employee user = (Employee)Session["user"];
@@ -132,6 +136,8 @@ namespace stationeryapp.Controllers
 
             return View("stationaryrequesthistory");
         }
+
+        [empfilter]
         public ActionResult stationaryrequesthistory()
         {
             Employee user = (Employee)Session["user"];
@@ -148,7 +154,7 @@ namespace stationeryapp.Controllers
             return View();
         }
 
-
+        [empfilter]
         public ActionResult editdeptinfo(string id)
         {
             Employee user = (Employee)Session["user"];
@@ -182,6 +188,7 @@ namespace stationeryapp.Controllers
         }
 
         [HttpPost]
+        [empfilter]
         public ActionResult updatedeptinfo(string rep_id,string coll_point,string current_dept_code)
         {
             DepartmentList dept_to_update_coll_point;
@@ -214,6 +221,7 @@ namespace stationeryapp.Controllers
             return View("Index");
         }
 
+        [empfilter]
         public ActionResult assigndelegate(string id)
         {
             Employee user = (Employee)Session["user"];
@@ -231,6 +239,7 @@ namespace stationeryapp.Controllers
             return View();
         }
 
+        [empfilter]
         public ActionResult edit_delegate(string new_delegate_id, string from_date, string to_date)
         {
             Debug.WriteLine(new_delegate_id + from_date + to_date);
@@ -268,7 +277,60 @@ namespace stationeryapp.Controllers
             return View("index");
         }
 
-        public JsonResult GetPendingReq(string user_id)
+        [empfilter]
+        public ActionResult remove_delegate(string hod_id)
+        {
+            Employee hod;
+            Employee previous_delegate;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                hod = db.Employees.Find(hod_id);
+                previous_delegate = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode && e.Designation == "Delegate").FirstOrDefault();
+
+                Debug.WriteLine("prevoius delegate " + previous_delegate.ToString());
+
+                if (previous_delegate != null)
+                {
+                    previous_delegate.Designation = "Employee";
+                    previous_delegate.DelegateFrom = null;
+                    previous_delegate.DelegateTo = null;
+                }
+                db.SaveChanges();
+            }
+            return RedirectToAction("assigndelegate");
+        }
+
+        public ActionResult viewhistorybyitem()
+        {
+            Employee user = (Employee)Session["user"];
+
+            Dictionary<string, int> res_ = new Dictionary<string, int>();
+
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                //select ItemNumber, sum(Quantity) from RequisitionFormDetails where FormNumber in (select r.FormNumber from RequisitionForms r where r.EmployeeId in (select Id from Employee where DepartmentCode = 'CPSC') and r.Status = 'approved') group by  RequisitionFormDetails.ItemNumber
+
+                List<RequisitionFormDetail> lists = db.RequisitionFormDetails.Where(formd => (db.RequisitionForms.Where(rf => db.Employees.Where(emp => emp.DepartmentCode == user.DepartmentCode).Select(e => e.Id).ToList().Contains(rf.EmployeeId) && rf.Status == "approved").Select(fff => fff.FormNumber).ToList()).Contains(formd.FormNumber)).ToList();
+
+
+                foreach (var item in lists)
+                {
+                    if (res_.ContainsKey(item.ItemNumber))
+                    {
+                        res_[item.ItemNumber] = Convert.ToInt32(res_[item.ItemNumber]) + Convert.ToInt32(item.Quantity);
+                    }
+                    else
+                    {
+                        res_[db.StationeryCatalogs.Where(c => c.ItemNumber == item.ItemNumber).Select(e => e.Description).First()] = Convert.ToInt32(item.Quantity);
+                    }
+
+                }
+            };
+            ViewData["res_"] = res_;
+            return View();
+        }
+
+            public JsonResult GetPendingReq(string user_id)
         {
             List<RequisitionForm> requestlist;
             List<Employee> emp_list;

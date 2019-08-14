@@ -30,7 +30,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
 
@@ -40,7 +44,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
                 return View(db.StockAdjustmentVouchers.ToList());
@@ -49,7 +57,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
                 return View(db.StockAdjustmentVouchers.ToList());
@@ -94,7 +106,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
 
@@ -104,7 +120,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
                 return View(stockAdjustmentVoucher);
@@ -113,7 +133,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
                 return View(stockAdjustmentVoucher);
@@ -160,7 +184,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
 
@@ -170,7 +198,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
                 return View(sav);
@@ -179,7 +211,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
                 return View(sav);
@@ -224,7 +260,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
                 return View(savd);
@@ -233,7 +273,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
                 return View(savd);
@@ -242,7 +286,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
                 return View(savd);
@@ -309,7 +357,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
                 return View(stockAdjustmentVoucher);
@@ -318,7 +370,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
                 return View(stockAdjustmentVoucher);
@@ -327,7 +383,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
                 return View(stockAdjustmentVoucher);
@@ -404,7 +464,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
                 return View(stockAdjustmentVoucher);
@@ -413,7 +477,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
                 return View(stockAdjustmentVoucher);
@@ -422,7 +490,11 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                ViewData["sumTotal"] = (num + numDisbuserment).ToString();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
                 return View(stockAdjustmentVoucher);

@@ -40,13 +40,14 @@ namespace stationeryapp.Controllers
                     request.DateReceived = DateTime.Now;
                     request.ReceivedBy = storeclerk.Id;
                     request.Status = "Read";
-                }         
+                }
+              
                 int num = db1.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 db1.Entry(request).State = EntityState.Modified;
                 db1.SaveChanges();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
-                ViewData["sumTotal"] = (num).ToString();
+              
                 return View(detail);
             }
             else

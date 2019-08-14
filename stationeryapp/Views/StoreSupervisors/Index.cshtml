@@ -7,11 +7,10 @@
     string username = (string)ViewData["username"];
     int num = (int)ViewData["num"];
     int numDisbuserment = (int)ViewData["numDisbuserment"];
-    int numOutS = 0;
-    int numRetrive = 0;
-    int numCatalog = 0;
-    int numPO = 8;
-    int numStock = 0;
+    int numOutS = (int)ViewData["numOutSt"];
+    int numRetrive = (int)ViewData["numRetriF"];
+    int numPO = (int)ViewData["numPO"];
+    int numStock = (int)ViewData["numStockAj"];
 
 }
 
@@ -75,12 +74,6 @@
     <tr>
         <td align="center" class="alarm">
             <a href=" @Url.Action("Index", "StationeryCatalogs",new { sessionId = sessionId })"><img src="~/Images/Catalog.PNG"></a>
-            @if (numCatalog > 0)
-            {
-                <div class="divright">
-                    <span> @numCatalog</span>
-                </div>
-            }
         </td>
         <td style="padding:50px"></td>
         <td align="center" class="alarm">

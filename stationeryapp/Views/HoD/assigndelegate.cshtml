@@ -3,7 +3,7 @@
 @{
     String msg = "";
     msg = (String)ViewData["msg"];
-    ViewBag.Title = "assigndelegate";
+    ViewBag.Title = "Assign Delegate";
     Employee delegate_ = (Employee)ViewData["delegate_"];
     List<Employee> dept_emp_list = (List<Employee>)ViewData["dept_emp_list"];
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -22,7 +22,7 @@
         </tr>
         <tr>
             <td>From : @Convert.ToDateTime(@delegate_.DelegateFrom).Date.ToString("dd/MM/yyyy")</td>
-            
+
             <td>To: @Convert.ToDateTime(@delegate_.DelegateTo).Date.ToString("dd/MM/yyyy")</td>
         </tr>
         @using (Html.BeginForm("edit_delegate", "Hod", FormMethod.Post))
@@ -38,14 +38,12 @@
                 <td><input type="hidden" id="hidden_dept_head" value=@dept_emp_list.Where(e=>e.Designation=="Head").Select(e=>e.Id).FirstOrDefault().ToString() /></td>
             </tr>
             <tr id="show_hide">
-
                 <td>
-                    From : <input type="date" min=@DateTime.Now.Date name="from_date" value="" />
+                    From : <input id="from_d" type="date" min=@DateTime.Now.Date.ToString("yyyy-MM-dd") name="from_date" value="" onchange="changetodate()" />
                 </td>
-                <td>
-                    To : <input type="date" name="to_date" value="" required />
+                <td id="to_tr" style="display:none">
+                    To : <input id="to_d" type="date" min=@DateTime.Now.Date.ToString("yyyy-MM-dd") name="to_date" value="" onchange="maxfromdate()" />
                 </td>
-
             </tr>
             <tr>
                 @if (msg == "invalid date")
@@ -62,9 +60,14 @@
                         CANCEL
                     </button>
                 </td>
+                @*<td>
+                    <button onclick="location.href='@Url.Action("remove_delegate", "Hod",new { hod_id= @dept_emp_list.Where(e=>e.Designation=="Head").Select(e=>e.Id).FirstOrDefault().ToString()})'">Reset Delegate</button>
+                </td>*@
             </tr>
         }
+
     </table>
+    <button onclick="location.href='@Url.Action("remove_delegate", "Hod",new { hod_id= @dept_emp_list.Where(e=>e.Designation=="Head").Select(e=>e.Id).FirstOrDefault().ToString()})'">Reset Delegate</button>
 
 </div>
 

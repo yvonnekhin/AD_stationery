@@ -1,0 +1,162 @@
+﻿
+@{
+
+    ViewBag.Title = "TrendAnalysis";
+
+}
+
+@using (Html.BeginForm("TrendSubmit", "Trend", FormMethod.Post))
+{
+    @Html.DropDownList("Months", new List<SelectListItem>
+    {
+
+       new SelectListItem{ Text="March", Value = "3" },
+       new SelectListItem{ Text="April", Value = "4" },
+       new SelectListItem{ Text="May", Value = "5" },
+       new SelectListItem{ Text="June", Value = "6" },
+       new SelectListItem{ Text="July", Value = "7" },
+       new SelectListItem{ Text="August", Value = "8" },
+       new SelectListItem{ Text="September", Value = "9" },
+       new SelectListItem{ Text="October", Value = "10" },
+       new SelectListItem{ Text="November", Value = "11" },
+       new SelectListItem{ Text="December", Value = "12" },
+    })
+
+    @Html.DropDownList("Items", new List<SelectListItem>
+    {
+       new SelectListItem{ Text="Clips Double 1", Value = "1" },
+       new SelectListItem{ Text="Clips Double 2", Value = "2" },
+       new SelectListItem{ Text="Clips Double 3 / 4", Value = "3" },
+       new SelectListItem{ Text="Clips Paper Large", Value = "4" },
+       new SelectListItem{ Text="Clips Paper Medium", Value = "5" },
+       new SelectListItem{ Text="Clips Paper Small", Value = "6" },
+       new SelectListItem{ Text="Envelop Brown(3' x 6')", Value = "7" },
+       new SelectListItem{ Text="Envelop Brown(3' x 6') w / window", Value = "8" },
+       new SelectListItem{ Text="Envelop Brown(5' x 7')", Value = "9" },
+       new SelectListItem{ Text="Envelop Brown(5' x 7') w / window", Value = "10" },
+       new SelectListItem{ Text="Envelop White(3' x 6')", Value = "11" },
+       new SelectListItem{ Text="Envelop White(3' x 6') w / window", Value = "12" },
+       new SelectListItem{ Text="Envelop White (5' x 7')", Value = "13" },
+       new SelectListItem{ Text="Envelop White (5' x 7') w/window", Value = "14" },
+       new SelectListItem{ Text="Eraser (Hard)", Value = "15" },
+       new SelectListItem{ Text="Eraser (Soft)", Value = "16" },
+       new SelectListItem{ Text="Exercise Book (100 pg)", Value = "17" },
+       new SelectListItem{ Text="Exercise Book (120 pg)", Value = "18" },
+       new SelectListItem{ Text="Exercise Book A4 Hardcover (100 pg)", Value = "19" },
+       new SelectListItem{ Text="Exercise Book A4 Hardcover (120 pg)", Value = "20" },
+       new SelectListItem{ Text="Exercise Book A4 Hardcover (200 pg)", Value = "21" },
+       new SelectListItem{ Text="Exercise Book Hardcover (100 pg)", Value = "22" },
+       new SelectListItem{ Text="Exercise Book Hardcover (120 pg))", Value = "23" },
+       new SelectListItem{ Text="File Separator", Value = "24" },
+       new SelectListItem{ Text="File-Blue Plain", Value = "25" },
+       new SelectListItem{ Text="File-Blue with Logo", Value = "26" },
+       new SelectListItem{ Text="File-Brown w/o Logo", Value = "27" },
+       new SelectListItem{ Text="File-Brown with Logo", Value = "28" },
+       new SelectListItem{ Text="Folder Plastic Blue", Value = "29" },
+       new SelectListItem{ Text="Folder Plastic Green", Value = "30" },
+       new SelectListItem{ Text="Folder Plastic Pink", Value = "31" },
+       new SelectListItem{ Text="Folder Plastic Yellow", Value = "32" },
+       new SelectListItem{ Text="Highlighter Blue", Value = "33" },
+       new SelectListItem{ Text="Highlighter Green", Value = "34" },
+       new SelectListItem{ Text="Highlighter Pink", Value = "35" },
+       new SelectListItem{ Text="Highlighter Yellow", Value = "36" },
+       new SelectListItem{ Text="Hole Puncher - 2 Holes", Value = "37" },
+       new SelectListItem{ Text="Hole Puncher - 3 Holes", Value = "38" },
+       new SelectListItem{ Text="Hole Puncher - Adjustable", Value = "39" },
+       new SelectListItem{ Text="Pad PostIt Memo 1' x 2'" ,Value = "40" },
+       new SelectListItem{ Text="Pad PostIt Memo 1/2' x 1'" ,Value = "41" },
+       new SelectListItem{ Text="Pad PostIt Memo 1/2' x 2'" ,Value = "42" },
+       new SelectListItem{ Text="Pad PostIt Memo 2' x 3'" ,Value = "43" },
+       new SelectListItem{ Text="Pad PostIt Memo 2' x 4'" ,Value = "44" },
+       new SelectListItem{ Text="Paper Photostat A3" ,Value = "45" },
+       new SelectListItem{ Text="Paper Photostat A4" ,Value = "46" },
+       new SelectListItem{ Text="Pen Ballpoint Black" ,Value = "47" },
+       new SelectListItem{ Text="Pen Ballpoint Blue" ,Value = "48" },
+       new SelectListItem{ Text="Pen Ballpoint Red" ,Value = "49" },
+       new SelectListItem{ Text="Pen Felt Tip Black" ,Value = "50" },
+       new SelectListItem{ Text="Pen Felt Tip Blue" ,Value = "51" },
+       new SelectListItem{ Text="Pen Felt Tip Red" ,Value = "52" },
+       new SelectListItem{ Text="Pen Transparency Permanent" ,Value = "53" },
+       new SelectListItem{ Text="Pen Transparency Soluble" ,Value = "54" },
+       new SelectListItem{ Text="Pen Whiteboard Marker Black" ,Value = "55" },
+       new SelectListItem{ Text="Pen Whiteboard Marker Blue" ,Value = "56" },
+       new SelectListItem{ Text="Pen Whiteboard Marker Green" ,Value = "57" },
+       new SelectListItem{ Text="Pen Whiteboard Marker Red" ,Value = "58" },
+       new SelectListItem{ Text="Pencil 2B" ,Value = "59" },
+       new SelectListItem{ Text="Pencil 2B with eraser end" ,Value = "60" },
+       new SelectListItem{ Text="Pencil 4H" ,Value = "61" },
+       new SelectListItem{ Text="Pencil B" ,Value = "62" },
+       new SelectListItem{ Text="Pencil B with eraser end" ,Value = "63" },
+       new SelectListItem{ Text="Ruler 6'" ,Value = "64" },
+       new SelectListItem{ Text="Ruler 12'" ,Value = "65" },
+       new SelectListItem{ Text="Shorthand Book (100 pg)" ,Value = "66" },
+       new SelectListItem{ Text="Shorthand Book (120 pg)" ,Value = "67" },
+       new SelectListItem{ Text="Shorthand Book (80 pg)" ,Value = "68" },
+       new SelectListItem{ Text="Stapler No.28" ,Value = "69" },
+       new SelectListItem{ Text="Stapler No.36" ,Value = "70" },
+       new SelectListItem{ Text="Stapler No.28" ,Value = "71" },
+       new SelectListItem{ Text="Stapler No.36" ,Value = "72" },
+       new SelectListItem{ Text="Scotch Tape" ,Value = "73" },
+       new SelectListItem{ Text="Scotch Tape Dispenser" ,Value = "74" },
+       new SelectListItem{ Text="Scissors" ,Value = "75" },
+       new SelectListItem{ Text="Sharpener" ,Value = "76" },
+       new SelectListItem{ Text="Thumb Tacks Large" ,Value = "77" },
+       new SelectListItem{ Text="Thumb Tacks Medium" ,Value = "78" },
+       new SelectListItem{ Text="Thumb Tacks Small" ,Value = "79" },
+       new SelectListItem{ Text="Transparency Blue" ,Value = "80" },
+       new SelectListItem{ Text="Transparency Clear" ,Value = "81" },
+       new SelectListItem{ Text="Transparency Green" ,Value = "82" },
+       new SelectListItem{ Text="Transparency Red" ,Value = "83" },
+       new SelectListItem{ Text="Transparency Reverse Blue" ,Value = "84" },
+       new SelectListItem{ Text="Transparency Cover 3M" ,Value = "85" },
+       new SelectListItem{ Text="Tray In/Out" ,Value = "86" },
+
+
+
+    })
+
+    <input type="submit" value="Submit" />
+
+
+
+}
+@using (Html.BeginForm("DeptSubmit", "Trend", FormMethod.Post))
+{
+    @Html.DropDownList("Months", new List<SelectListItem>
+    {
+
+       new SelectListItem{ Text="March", Value = "3" },
+       new SelectListItem{ Text="April", Value = "4" },
+       new SelectListItem{ Text="May", Value = "5" },
+       new SelectListItem{ Text="June", Value = "6" },
+       new SelectListItem{ Text="July", Value = "7" },
+       new SelectListItem{ Text="August", Value = "8" },
+       new SelectListItem{ Text="September", Value = "9" },
+       new SelectListItem{ Text="October", Value = "10" },
+       new SelectListItem{ Text="November", Value = "11" },
+       new SelectListItem{ Text="December", Value = "12" },
+    })
+
+    @Html.DropDownList("Dept", new List<SelectListItem>
+    {
+       new SelectListItem{ Text="Commerce Department", Value = "1" },
+       new SelectListItem{ Text="Computer Science" ,Value = "2" },
+       new SelectListItem{ Text="English Dept" ,Value = "3" },
+       new SelectListItem{ Text="Registrar Department" ,Value = "4" },
+       new SelectListItem{ Text="Zoology Department" ,Value = "5" },
+
+
+
+    })
+
+    <input type="submit" value="Submit" />
+
+
+
+}
+
+
+@ViewBag.Messagae
+<h2>TrendAnalysis</h2>
+
+
