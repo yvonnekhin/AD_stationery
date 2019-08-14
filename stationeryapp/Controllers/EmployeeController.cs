@@ -64,6 +64,24 @@ namespace stationery.Controllers
             return RedirectToAction("addcart");
         }
 
+        public ActionResult removerequestitem(string form_no, string form_detail_no)
+        {
+
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                RequisitionFormDetail old_rec_to_update = (from f in db.RequisitionFormDetails
+                                                           where f.FormDetailsNumber == form_detail_no && f.FormNumber == form_no
+                                                           select f).FirstOrDefault();
+                Debug.WriteLine(old_rec_to_update.ToString());
+                if (old_rec_to_update != null)
+                {
+                    db.RequisitionFormDetails.Remove(old_rec_to_update);
+                }
+                db.SaveChanges();
+            }
+            return RedirectToAction("addcart");
+        }
+
         public ActionResult addcart()
         {
             employee_utility eu = new employee_utility();

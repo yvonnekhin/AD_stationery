@@ -1,6 +1,6 @@
 ﻿
 @using stationeryapp.Models
-@{ 
+@{
     Employee emp;
 }
 @if ((Session["user"]) != null)
@@ -14,7 +14,7 @@ else
 }
 <style>
     .sidenav {
-        height: 85%;
+        height: 100%;
         width: 15%;
         position: fixed;
         z-index: 1;
@@ -25,29 +25,44 @@ else
         padding: 8px 0;
     }
 
-    .sidenav a {
-        padding: 25px 8px 25px 15px;
-        /*padding: 6px 8px 6px 10px;*/
-        text-decoration: none;
-        font-size: 20px;
-        color: #2874a6;
-        display: block;
-    }
+        .sidenav a {
+            margin: 40px 15px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #2874a6;
+            display: block;
+        }
 
-    .sidenav a:hover {
-        color: black;
-    }
+            .sidenav a:hover {
+                color: black;
+            }
+
+        .sidenav .active {
+            background: #3498db;
+            color: white;
+        }
 </style>
 <div class="sidenav">
     <a href='@Url.Action("index", "Hod",new { id=emp.Id})'>Home</a>
-    <a href='@Url.Action("newstationaryrequest", "Hod",new { id=emp.Id})'>New Stationery Request</a>
-    <a href='@Url.Action("stationaryrequesthistory", "Hod",new { id=emp.Id})'>Stationery Request History</a>
+    <a href='@Url.Action("newstationaryrequest", "Hod",new { id=emp.Id})'>Pending Requests</a>
+    <a href='@Url.Action("stationaryrequesthistory", "Hod",new { id=emp.Id})'>History By Request Number</a>
     <a href='@Url.Action("editdeptinfo", "Hod",new { id=emp.Id})'>Edit Dept Info</a>
 
-    @if (emp.Designation=="Head")
+    @if (emp.Designation == "Head")
     {
-          <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id})'>Delegate</a>
+        <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id})'>Delegate</a>
+        <a href='@Url.Action("valueaddedfeature", "Hod",new { id=emp.Id})'>History By Item</a>
     }
-    
+
+
 </div>
+@section Scripts {
+    <script>
+        $('.sidenav a').click(function () {
+            $(this).addClass('active').siblings().removeClass('active');
+        }  </script>
+}
+
+
+
 

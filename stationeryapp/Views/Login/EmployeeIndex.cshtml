@@ -1,5 +1,4 @@
-﻿@{ Layout = null;}
-
+﻿
 @{
     String msg = "";
     ViewBag.Title = "Index";
@@ -7,110 +6,125 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-<style>
-    #Header {
-        background-color: #3498db;
-        border-color: #3498db;
-        position: fixed;
-        top: 0;
-        left:0;
-        width: 100%;
-    }
+    <style type="text/css">
+       
+        .login-form {
+            width: 340px;
+            margin: 95px auto;
+        }
 
-    #footer {
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        width: 100%;
-        height: 30px;
-        background-color: #3498db;
-        color: black;
-        text-align: right;
-        padding-top: 5px;
-        padding-right: 15px;
-    }
+        .login-form form {
+            margin-bottom: 15px;
+            background: #f7f7f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+        }
 
-    #login {
-        border-collapse: collapse;
-        text-align: center;
-        border: 1px solid black;
-        overflow: hidden;
-        margin-top: 150px;
-    }
+        .login-form h2 {
+            margin: 0 0 15px;
+        }
 
-    #login, th, td {
-        padding: 10px;
-    }
-</style>
+        .form-control, .btn {
+            min-height: 38px;
+            border-radius: 2px;
+        }
 
-@using (Html.BeginForm("EmployeeLogin", "Login", FormMethod.Post))
-{
-    <nav id="Header">
-            <div>
-                <table>
-                    <tr>
-                        <td>
-                            <img style="height:40px; padding-right:10px;" alt="logo" src="~/Images/stationery.png">
-                        </td>
-                        <td><label class="navbar-brand" style="color: white;">STATIONERY MANAGEMENT SYSTEM</label></td>
-                    </tr>
-                </table>
-                @*<ul>
-                    <li><img style="height:40px; padding-top:8px; padding-right:10px;" alt="logo" src="~/Images/stationery.png"></li>
-                    <li><a class="navbar-brand" href="#" style="color: white;">STATIONERY MANAGEMENT SYSTEM</a></li>
-                </ul>*@
+        .input-group-addon .fa {
+            font-size: 18px;
+        }
+
+        .btn {
+            font-size: 15px;
+            font-weight: bold;
+            background: #3498db;
+        }
+
+        #Header {
+            background-color: #3498db;
+            border-color: #3498db;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10%;
+        }
+
+        #footer {
+            left:0px;
+            position:absolute;
+            width: 1300px;
+            height: auto;
+            background-color: #3498db;
+            color: white;
+            text-align: center;
+            padding-top: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top" id="Header">
+        <div>
+            <div class="navbar-header">
+                <ul class="nav navbar-nav">
+                   <li><label class="navbar-brand" style="color: white;"> STATIONERY MANAGEMENT SYSTEM</label></li>
+                </ul>
             </div>
-    </nav>
-
-    @*<nav class="navbar navbar-default navbar-fixed-top" id="Header">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <ul class="nav navbar-nav">
-                        <li><img style="height:40px; padding-top:8px; padding-right:10px;" alt="logo" src="~/Images/stationery.png"></li>
-                        <li><a class="navbar-brand" href="#" style="color: white;">STATIONERY MANAGEMENT SYSTEM</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>*@
-
-    <div class="footer" id="footer">
-        <label>Contact us: 65-1234567</label>
+        </div>
     </div>
-
-    <body>
-        <table align="center" id="login">
-            <tr>
-                <th colspan="2" style="text-align: center">
-                    Employee Login
-                </th>
-            </tr>
-            <tr>
-                <td>UserName : </td>
-                <td>@Html.TextBox("Username", "", new { id = "Username" })</td>
-            </tr>
-
-            <tr>
-                <td>PassWord :</td>
-                <td>@Html.Password("Password", "", new { id = "Password" })</td>
-
-            </tr>
-
-            <tr>
-                @if (msg == "invalid password")
-                {
-                    <td style="color:red;" align="right" colspan="2">INVALID PASSWORD</td>
+    <div class="login-form">
+        @using (Html.BeginForm("EmployeeLogin", "Login", FormMethod.Post))
+        {
+            <form>
+                <img src="~/Images/logo.PNG" alt="Logo" style="height:100px; width: 100px; margin-left:90px;" />
+                <h3 class="text-center">Employee Login</h3>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                        @Html.TextBox("Username", "", new { id = "Username", @class = "form-control", placeholder = "Username" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                        @Html.Password("Password", "", new { id = "Password", @class = "form-control", placeholder = "Password" })
+                    </div>
+                    <div>
+                        @if (msg == "invalid password")
+                        {
+                            <div style="color:red;" align="right" colspan="2">INVALID PASSWORD</div>
+                        }
+                        @if (msg == "invalid user")
+                        {
+                            <div style="color:red" align="right" colspan="2">USER NOT FOUND</div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block">Log in</button>
+                </div>
+            </form>
                 }
-                @if (msg == "invalid user")
-                {
-                    <td style="color:red" align="right" colspan="2">USER NOT FOUND</td>
-                }
-            </tr>
+        </div>
 
-            <tr>
-                <td colspan="2" align="right"><input type="submit" style="background: #3498db; color: white;" value="Login"/></td>
-            </tr>
-        </table>
-    </body>
-
-}
+    <div id="footer">
+        <h4><span>Logic University</span></h4>
+        <i class="fa fa-location-arrow"></i>
+        21 Lower Kent Ridge Road<br>
+        Singapore 119077<br>
+        <i class="fa fa-phone"></i>
+        +65 6516 666<br>
+        support@logic.edu.com
+        <hr />
+        <h6><b>&copy; @DateTime.Now.Year Login University. All Copyright Reserved.</b></h6>
+    </div>
+</body>
+</html>

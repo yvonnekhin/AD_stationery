@@ -11,20 +11,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div id="main" style="margin-left:15%;">
+
+
+<div style="margin-left:15%; margin-top: 5%;">
     <h3>
         Welcome, @emp.FirstName @emp.LastName !
     </h3>
-    <table style="width: 60%; overflow:hidden; margin-top: 50px;" align="center">
-        <tr>
+    <table style="width: 60%; margin-top: 50px;" align="center">
+        <tr style="text-align:center">
             <td>
-                <a href=@Url.Action("viewrequest", "Employee",new { id=emp.Id})><img style="width: 70px; height: 70px;" src="~/Images/reqs.png" /></a>
+                <a href=@Url.Action("viewrequest", "Employee",new { id=emp.Id})><img style="width: 70px; height: 70px;" src="~/Images/requests.png" /></a>
             </td>
             <td>
-                <a href='@Url.Action("newrequest", "Employee",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/newreq.png" /></a>
+                <a href='@Url.Action("newrequest", "Employee",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/addreq.png" /></a>
             </td>
         </tr>
-        <tr>
+        <tr style="text-align:center">
             <td>View Requests</td>
             <td>New Requests</td>
         </tr>

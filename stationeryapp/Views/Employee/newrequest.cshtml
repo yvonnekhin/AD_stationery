@@ -18,6 +18,8 @@
 @Html.Partial("_employeeMenuFragment")
 @Html.Partial("_emp_notify")
 
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+
 <div style="margin-left:18%">
 
     <h3>Form number : @(emp_dept.DepartmentCode + "/" + (1000 + int.Parse(form_number)).ToString())</h3>
@@ -33,14 +35,17 @@
         {
             foreach (var item in form_cart)
             {
-                <tr>
-                    <td>
-                        @items.Find(x => x.ItemNumber == item.ItemNumber).Description
-                    </td>
-                    <td>
-                        @item.Quantity
-                    </td>
-                </tr>
+        <tr>
+            <td>
+                @items.Find(x => x.ItemNumber == item.ItemNumber).Description
+            </td>
+            <td>
+                @item.Quantity
+            </td>
+            <td>
+                <button onclick="location.href='@Url.Action("removerequestitem", "Employee", new { form_no=@item.FormNumber, form_detail_no=@item.FormDetailsNumber})'">Remove Item</button>
+            </td>
+        </tr>
             }
         }
         @if (form != null && form.Comments != "" && form.Comments != null)
@@ -52,14 +57,14 @@
             using (Html.BeginForm("addnew", "Employee", FormMethod.Post))
             {
                 
-                <tr>
-                    <td>
-                        @Html.DropDownList("Select Item", items.Select(item => new SelectListItem { Text = item.Description, Value = item.ItemNumber }), new { id = "itemId", onchange = "onChange()" })
-                    </td>
-                    <td>
-                        @Html.TextBoxFor(x => x.Quantity, new { placeholder = "Enter Quantity", required = "required" })
-                    </td>
-                </tr>
+            <tr>
+                <td>
+                    @Html.DropDownList("Select Item", items.Select(item => new SelectListItem { Text = item.Description, Value = item.ItemNumber }), new { id = "itemId", onchange = "onChange()" })
+                </td>
+                <td>
+                    @Html.TextBoxFor(x => x.Quantity, new { placeholder = "Enter Quantity", required = "required" })
+                </td>
+            </tr>
                 <tr>
                     <td style="display:none;">
                         @Html.HiddenFor(x => x.FormNumber, new { @Value = @form_number })

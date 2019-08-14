@@ -16,11 +16,20 @@ function onChange_delegate() {
     var e = document.getElementById("delegate_id");
     console.log(e.options[e.selectedIndex].value);
     document.getElementById("delegate_id_hidden").value = e.options[e.selectedIndex].value;
-    
-    //if (e.options[e.selectedIndex].value == document.getElementById("hidden_dept_head").value) {
-    //    document.getElementById("show_hide").style.display = "none";
-    //} else {
-    //    document.getElementById("show_hide").style.display = "block";
-    //}
+};
+
+function changetodate() {
+    var e = document.getElementById("from_d");
+    console.log(e.value);
+    var e_tochange = document.getElementById("to_d")
+    document.getElementById("to_tr").style.display = "block";
+    e_tochange.min = e.value;
+};
+
+function maxfromdate() {
+    var e = document.getElementById("to_d");
+    console.log(e.value);
+    var e_tochange = document.getElementById("from_d")
+    e_tochange.max = e.value;
 };
 
