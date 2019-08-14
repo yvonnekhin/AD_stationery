@@ -931,6 +931,7 @@
       <DependentUpon>StationeryRetrievalForms.edmx</DependentUpon>
     </Content>
     <Content Include="Content\StoreClerkImages" />
+    <Content Include="Content\StoreClerkImages" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -1046,6 +1047,7 @@
     <Content Include="Views\StockAdjustmentVouchers\Edit.cshtml" />
     <Content Include="Views\StockAdjustmentVouchers\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Store.cshtml" />
+    <Content Include="Views\HoD\viewhistorybyitem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

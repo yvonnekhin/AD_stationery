@@ -29,7 +29,7 @@ namespace stationeryapp.Controllers
         [HttpPost]
         public JsonResult SetPerson(StoreClerk storeClerk)
         {
-            StoreClerk storeclerk = db.StoreClerks.Where(p => p.UserName == storeClerk.UserName).FirstOrDefault();
+            StoreClerk storeclerk = db1.StoreClerks.Where(p => p.UserName == storeClerk.UserName).FirstOrDefault();
             string hashedPassword = CalculateMD5Hash(storeClerk.Password);
             if (ModelState.IsValid)
             {
@@ -38,8 +38,8 @@ namespace stationeryapp.Controllers
                     string sessionId = Guid.NewGuid().ToString();
                     storeclerk.Password = hashedPassword;
                     storeclerk.SessionId = sessionId;
-                    db.Entry(storeclerk).State = EntityState.Modified;
-                    db.SaveChanges();
+                    db1.Entry(storeclerk).State = EntityState.Modified;
+                    db1.SaveChanges();
                     return Json(new { sessionId=storeclerk.SessionId,username=storeclerk.UserName });
                 }
                 else
@@ -104,7 +104,7 @@ namespace stationeryapp.Controllers
         {
             if (storeClerk.UserName != null && storeClerk.Password!=null)
             {
-                StoreClerk storeclerk = db.StoreClerks.Where(p => p.UserName == storeClerk.UserName).FirstOrDefault();
+                StoreClerk storeclerk = db1.StoreClerks.Where(p => p.UserName == storeClerk.UserName).FirstOrDefault();
                 string hashedPassword = CalculateMD5Hash(storeClerk.Password);
                 if (ModelState.IsValid)
                 {
@@ -113,8 +113,8 @@ namespace stationeryapp.Controllers
                         string sessionId = Guid.NewGuid().ToString();
                         storeclerk.Password = hashedPassword;
                         storeclerk.SessionId = sessionId;
-                        db.Entry(storeclerk).State = EntityState.Modified;
-                        db.SaveChanges();
+                        db1.Entry(storeclerk).State = EntityState.Modified;
+                        db1.SaveChanges();
                         ViewData["tag"] = "storeClerk";
                         return RedirectToAction("Index", "Home", new { storeclerk.SessionId, tag = "storeClerk"});
                     }
@@ -277,7 +277,7 @@ namespace stationeryapp.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                db1.Dispose();
             }
             base.Dispose(disposing);
         }
