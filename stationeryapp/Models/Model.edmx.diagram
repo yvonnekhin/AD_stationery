@@ -4,18 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="208b262b1aaf4b9e8762642bf3de0699" Name="Diagram1">
-        <EntityTypeShape EntityType="stationeryModel19.CollectionPoint" Width="1.5" PointX="1.5" PointY="31.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="stationeryModel19.DepartmentList" Width="1.5" PointX="1.5" PointY="26.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="stationeryModel19.DisbursementListDetail" Width="1.5" PointX="5.25" PointY="16.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="stationeryModel19.DisbursementList" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="stationeryModel19.Employee" Width="1.5" PointX="0.75" PointY="21.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="stationeryModel19.PurchaseOrderDetail" Width="1.5" PointX="5.25" PointY="8.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="stationeryModel19.StationeryCatalog" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="stationeryModel19.StationeryRetrievalFormDetail" Width="2.5" PointX="5.25" PointY="20.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="stationeryModel19.StockAdjustmentVoucher" Width="1.5" PointX="6" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="stationeryModel19.SupplierList" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="stationeryModel19.sysdiagram" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="48a32c0eb41841b2933698b66ea05400" Name="Diagram1">
+        <EntityTypeShape EntityType="stationeryModel19.CollectionPoint" Width="1.5" PointX="1.5" PointY="28" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.DepartmentList" Width="1.5" PointX="1.5" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.DisbursementListDetail" Width="1.5" PointX="5.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.DisbursementList" Width="1.5" PointX="3" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.Employee" Width="1.5" PointX="3.75" PointY="23" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.OutstandingList" Width="1.5" PointX="10.5" PointY="12.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.PurchaseOrderDetail" Width="1.5" PointX="8.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.PurchaseOrder" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.RequisitionFormDetail" Width="1.5" PointX="8.25" PointY="15.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.RequisitionForm" Width="1.5" PointX="6" PointY="23.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StationeryCatalog" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StationeryRetrievalFormDetail" Width="1.5" PointX="5.25" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StationeryRetrievalForm" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StockAdjustmentVoucherDetail" Width="1.5" PointX="5.25" PointY="19.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StockAdjustmentVoucher" Width="1.5" PointX="3" PointY="31" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StoreClerk" Width="1.5" PointX="0.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StoreManager" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.StoreSupervisor" Width="1.5" PointX="0.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.SupplierList" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="stationeryModel19.sysdiagram" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="stationeryModel19.FK_CollectionPoints_StoreClerk" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel19.FK_DepartmentList_CollectionPoints" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel19.FK_DepartmentList_DepartmentHead" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel19.FK_DepartmentList_Employee" ManuallyRouted="false" />
@@ -24,36 +34,26 @@
         <AssociationConnector Association="stationeryModel19.FK_StationeryRetrievalFormDetails_DepartmentList" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel19.FK_DisbursementListDetails_DisbursementLists" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel19.FK_DisbursementListDetails_StationeryCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_RequisitionForms_DepartmentHead" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_RequisitionForms_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_OutstandingList_PurchaseOrders" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_OutstandingList_RequisitionFormDetails" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrderDetails_PurchaseOrders" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel19.FK_PurchaseOrderDetails_StationeryCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_StoreClerk" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_StoreClerk1" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_StoreSupervisor" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_SupplierList" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_RequisitionFormDetails_RequisitionForms" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_RequisitionFormDetails_StationeryCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_RequisitionForms_StoreClerk" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel19.FK_StationeryCatalog_SupplierList" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel19.FK_StationeryCatalog_SupplierList1" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel19.FK_StationeryCatalog_SupplierList2" ManuallyRouted="false" />
         <AssociationConnector Association="stationeryModel19.FK_StationeryRetrievalFormDetails_StationeryCatalog" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="stationeryModel19.RequisitionFormDetail" Width="2.875" PointX="8.25" PointY="19" />
-        <AssociationConnector Association="stationeryModel19.FK_RequisitionFormDetails_StationeryCatalog" />
-        <EntityTypeShape EntityType="stationeryModel19.StockAdjustmentVoucherDetail" Width="1.5" PointX="8.25" PointY="11.75" />
-        <AssociationConnector Association="stationeryModel19.FK_StockAdjustmentVoucherDetails_StationeryCatalog" />
-        <AssociationConnector Association="stationeryModel19.FK_StockAdjustmentVoucherDetails_StockAdjustmentVouchers" />
-        <EntityTypeShape EntityType="stationeryModel19.OutstandingList" Width="1.5" PointX="8.5" PointY="15.375" />
-        <AssociationConnector Association="stationeryModel19.FK_OutstandingList_RetrievalFormDetails" />
-        <EntityTypeShape EntityType="stationeryModel19.PurchaseOrder" Width="1.5" PointX="3" PointY="8.5" />
-        <AssociationConnector Association="stationeryModel19.FK_OutstandingList_PurchaseOrder" />
-        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrderDetails_PurchaseOrders" />
-        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_SupplierList" />
-        <EntityTypeShape EntityType="stationeryModel19.RequisitionForm" Width="1.5" PointX="6" PointY="12.25" />
-        <AssociationConnector Association="stationeryModel19.FK_RequisitionForms_DepartmentHead" />
-        <AssociationConnector Association="stationeryModel19.FK_RequisitionForms_Employee" />
-        <AssociationConnector Association="stationeryModel19.FK_RequisitionFormDetails_RequisitionForms" />
-        <EntityTypeShape EntityType="stationeryModel19.StationeryRetrievalForm" Width="1.5" PointX="5.375" PointY="0.875" />
-        <AssociationConnector Association="stationeryModel19.FK_StationeryRetrievalFormDetails_StationeryRetrievalForms" />
-        <EntityTypeShape EntityType="stationeryModel19.StoreClerk" Width="1.5" PointX="0.5" PointY="18.375" />
-        <AssociationConnector Association="stationeryModel19.FK_CollectionPoints_StoreClerk" />
-        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_StoreClerk" />
-        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_StoreClerk1" />
-        <AssociationConnector Association="stationeryModel19.FK_RequisitionForms_StoreClerk" />
-        <EntityTypeShape EntityType="stationeryModel19.StoreSupervisor" Width="1.5" PointX="7.375" PointY="1" />
-        <AssociationConnector Association="stationeryModel19.FK_PurchaseOrders_StoreSupervisor" />
-        <EntityTypeShape EntityType="stationeryModel19.StoreManager" Width="1.5" PointX="8.375" PointY="4.75" />
+        <AssociationConnector Association="stationeryModel19.FK_StockAdjustmentVoucherDetails_StationeryCatalog" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_StationeryRetrievalFormDetails_StationeryRetrievalForms" ManuallyRouted="false" />
+        <AssociationConnector Association="stationeryModel19.FK_StockAdjustmentVoucherDetails_StockAdjustmentVouchers" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

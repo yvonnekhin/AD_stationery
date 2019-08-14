@@ -51,7 +51,7 @@ else
     @if (emp.Designation == "Head")
     {
         <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id})'>Delegate</a>
-        <a href='@Url.Action("valueaddedfeature", "Hod",new { id=emp.Id})'>History By Item</a>
+        <a href='@Url.Action("viewhistorybyitem", "Hod",new { id=emp.Id})'>History By Item</a>
     }
 
 

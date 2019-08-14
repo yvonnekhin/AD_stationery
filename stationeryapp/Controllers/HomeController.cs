@@ -14,10 +14,10 @@ namespace stationeryapp.Controllers
         private RequisitionFormsDBContext db1 = new RequisitionFormsDBContext();
         public ActionResult Index(string sessionId,string tag)
         { 
-            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();    
+            StoreClerk storeclerk = dbM.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();    
             if (storeclerk != null && sessionId != null)
             {
-                int num= db1.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int num= dbM.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment= dbM.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 int numOutS = dbM.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
                 int numRetrive = dbM.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();

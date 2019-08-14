@@ -19,8 +19,8 @@ namespace stationeryapp.Models
         {
             this.DisbursementListDetails = new HashSet<DisbursementListDetail>();
             this.PurchaseOrderDetails = new HashSet<PurchaseOrderDetail>();
-            this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
             this.RequisitionFormDetails = new HashSet<RequisitionFormDetail>();
+            this.StationeryRetrievalFormDetails = new HashSet<StationeryRetrievalFormDetail>();
             this.StockAdjustmentVoucherDetails = new HashSet<StockAdjustmentVoucherDetail>();
         }
     
@@ -41,13 +41,13 @@ namespace stationeryapp.Models
         public virtual ICollection<DisbursementListDetail> DisbursementListDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetails { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequisitionFormDetail> RequisitionFormDetails { get; set; }
         public virtual SupplierList SupplierList { get; set; }
         public virtual SupplierList SupplierList1 { get; set; }
         public virtual SupplierList SupplierList2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StationeryRetrievalFormDetail> StationeryRetrievalFormDetails { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<RequisitionFormDetail> RequisitionFormDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StockAdjustmentVoucherDetail> StockAdjustmentVoucherDetails { get; set; }
     }
