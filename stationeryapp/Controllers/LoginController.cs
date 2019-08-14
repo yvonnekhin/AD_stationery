@@ -116,7 +116,7 @@ namespace stationeryapp.Controllers
                         db.Entry(storeclerk).State = EntityState.Modified;
                         db.SaveChanges();
                         ViewData["tag"] = "storeClerk";
-                        return RedirectToAction("Index", "Home", new { storeclerk.SessionId });
+                        return RedirectToAction("Index", "Home", new { storeclerk.SessionId, tag = "storeClerk"});
                     }
                     else
                     {
@@ -148,7 +148,6 @@ namespace stationeryapp.Controllers
                         storeManager1.SessionId = sessionId;
                         db1.Entry(storeManager1).State = EntityState.Modified;
                         db1.SaveChanges();
-                        ViewData["tag"] = "storeManager";
                         return RedirectToAction("Index", "StoreManagers", new { storeManager1.SessionId, tag= "storeManager" });
                     }
                     else
@@ -181,7 +180,7 @@ namespace stationeryapp.Controllers
                         storeSupervisor1.SessionId = sessionId;
                         db1.Entry(storeSupervisor1).State = EntityState.Modified;
                         db1.SaveChanges();
-                        return RedirectToAction("Index", "StoreSupervisors", new { storeSupervisor1.SessionId});
+                        return RedirectToAction("Index", "StoreSupervisors", new { storeSupervisor1.SessionId, tag = "storeSupervisor" });
                     }
                     else
                     {

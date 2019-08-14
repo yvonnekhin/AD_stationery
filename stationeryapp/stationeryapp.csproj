@@ -160,7 +160,6 @@
     <Compile Include="Controllers\StoreManagersController.cs" />
     <Compile Include="Controllers\StoreSupervisorsController.cs" />
     <Compile Include="Controllers\SupplierListsController.cs" />
-    <Compile Include="Filters\empfilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -555,6 +554,7 @@
       <DependentUpon>RequisitionReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Util\StringExtension.cs" />
     <Compile Include="Views\StationeryCatalogReport\Report.aspx.cs">
       <DependentUpon>Report.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -801,6 +801,7 @@
       <DependentUpon>SupplierList.edmx</DependentUpon>
       <LastGenOutput>SupplierList1.cs</LastGenOutput>
     </Content>
+    <Content Include="Python\check1.py" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\CollectionPoints.edmx">
@@ -944,6 +945,7 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\StoreClerkImages" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\dropdownOnchange.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -1053,11 +1055,11 @@
     <Content Include="Views\StockAdjustmentVouchers\Edit.cshtml" />
     <Content Include="Views\StockAdjustmentVouchers\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Store.cshtml" />
-    <Content Include="Views\HoD\historybyitem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DB\" />
+    <Folder Include="Filters\" />
     <Folder Include="Util\" />
   </ItemGroup>
   <ItemGroup>
