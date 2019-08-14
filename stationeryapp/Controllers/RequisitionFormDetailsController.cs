@@ -31,7 +31,7 @@ namespace stationeryapp.Controllers
             Employee emp = db.Employees.Where(y => y.Id == eId).FirstOrDefault();
             string emailAddress = emp.EmailAddress;
             string subject = "Your requisition has been received";
-            string message = "<p>Dear "+emp.UserName +"."+"</p><br/><p>Your requisition has been received and be pending</p><br/><p>Management Team</p>";
+            string message = "<p>Dear "+emp.UserName +"."+"</p><br/><p>Your requisition has been received and will be pending</p><br/><p>Stationery Management Team</p>";
             if (storeclerk != null && sessionId !=null)
             {
                 if (request.Status == "Approved" && request.Status != "Completed")

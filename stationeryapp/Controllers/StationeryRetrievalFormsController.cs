@@ -329,7 +329,7 @@ namespace stationeryapp.Controllers
                     string pointId = dept.CollectionPoint;
                     CollectionPoint point = db.CollectionPoints.Find(pointId);
                     string subject = "Your items are ready for collection";
-                    string message = "<p>Dear " + repo.UserName + "." + "</p><br/><p>Your items are ready for collection</p><br/><p>Collection point and time: "+point.CollectionPointName+"---"+point.CollectionTime +"</p><br/><p>Management Team</p>";
+                    string message = "<p>Dear " + repo.UserName + "." + "</p><br/><p>Your items are ready for collection</p><br/><p>Collection point and time: "+point.CollectionPointName+"---"+point.CollectionTime +"</p><br/><p>Stationery Management Team</p>";
                     util.SendEmail(emailAddress, subject, message);
 
                     int disbursementListDetailsCount = db.DisbursementListDetails.Count();
