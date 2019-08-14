@@ -160,6 +160,7 @@
     <Compile Include="Controllers\StoreManagersController.cs" />
     <Compile Include="Controllers\StoreSupervisorsController.cs" />
     <Compile Include="Controllers\SupplierListsController.cs" />
+    <Compile Include="Filters\empfilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -951,7 +952,9 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\StationeryCatalogReport\Report.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -1052,7 +1055,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DB\" />
-    <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
