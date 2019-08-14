@@ -160,6 +160,7 @@
     <Compile Include="Controllers\StoreManagersController.cs" />
     <Compile Include="Controllers\StoreSupervisorsController.cs" />
     <Compile Include="Controllers\SupplierListsController.cs" />
+    <Compile Include="Controllers\TrendController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -798,6 +799,7 @@
       <DependentUpon>SupplierList.edmx</DependentUpon>
       <LastGenOutput>SupplierList1.cs</LastGenOutput>
     </Content>
+    <Content Include="Python\check1.py" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\CollectionPoints.edmx">
@@ -941,6 +943,8 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <Content Include="Content\StoreClerkImages" />
+    <Content Include="Python\Dept_List.csv" />
+    <Content Include="Python\employee_.csv" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -1049,11 +1053,12 @@
     <Content Include="Views\StockAdjustmentVouchers\Edit.cshtml" />
     <Content Include="Views\StockAdjustmentVouchers\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Store.cshtml" />
+    <Content Include="Views\Trend\DeptSubmit.cshtml" />
+    <Content Include="Views\Trend\TrendAnalysis.cshtml" />
+    <Content Include="Views\Trend\TrendSubmit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="DB\" />
-    <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
