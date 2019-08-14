@@ -37,7 +37,7 @@ namespace stationeryapp.Controllers
                 int numPO = db2.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
                 int numStock = db2.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
-                List<RequisitionForm> rev = db1.RequisitionForms.Where(x =>x.Status!="Rejected").ToList();
+                List<RequisitionForm> rev = db1.RequisitionForms.Where(x =>x.Status!="Rejected").Where(y=>y.Status!="Pending").ToList();
                 return View(rev);
             }
             else if (storeManager != null && sessionId != null)
