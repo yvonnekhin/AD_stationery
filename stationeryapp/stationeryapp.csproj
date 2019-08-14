@@ -160,7 +160,6 @@
     <Compile Include="Controllers\StoreManagersController.cs" />
     <Compile Include="Controllers\StoreSupervisorsController.cs" />
     <Compile Include="Controllers\SupplierListsController.cs" />
-    <Compile Include="Filters\empfilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -257,9 +256,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SupplierList.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\sysdiagram.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\util.cs" />
@@ -575,23 +571,19 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Images\addreq.png" />
-    <Content Include="Images\assign.png" />
     <Content Include="Images\bellstore2.png" />
     <Content Include="Images\Catalog.PNG" />
+    <Content Include="Images\delegate.png" />
     <Content Include="Images\DisbusementList.PNG" />
-    <Content Include="Images\editinfo.png" />
-    <Content Include="Images\itemreqs.png" />
-    <Content Include="Images\logo.PNG" />
+    <Content Include="Images\edit.png" />
     <Content Include="Images\logo2.jpg" />
-    <Content Include="Images\oldreqs.png" />
+    <Content Include="Images\newreq.png" />
     <Content Include="Images\Outstanding.PNG" />
-    <Content Include="Images\pendingreqs.png" />
     <Content Include="Images\PO.PNG" />
     <Content Include="Images\profile.png" />
     <Content Include="Images\Reports.PNG" />
+    <Content Include="Images\reqs.png" />
     <Content Include="Images\Requests.JPG" />
-    <Content Include="Images\requests.png" />
     <Content Include="Images\RetrivalForm.PNG" />
     <Content Include="Images\stationery-management3.jpg" />
     <Content Include="Images\stationery.png" />
@@ -602,6 +594,7 @@
     <Content Include="Images\storeclarkprofile2.png" />
     <Content Include="Images\supplier1.png" />
     <Content Include="Images\suppliers2.png" />
+    <Content Include="Images\user.png" />
     <Content Include="Models\CollectionPoints.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
@@ -802,7 +795,6 @@
       <DependentUpon>SupplierList.edmx</DependentUpon>
       <LastGenOutput>SupplierList1.cs</LastGenOutput>
     </Content>
-    <Content Include="Python\check1.py" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <EntityDeploy Include="Models\CollectionPoints.edmx">
@@ -948,7 +940,6 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
-    <Content Include="Scripts\dropdownOnchange.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -1061,6 +1052,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="DB\" />
+    <Folder Include="Filters\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

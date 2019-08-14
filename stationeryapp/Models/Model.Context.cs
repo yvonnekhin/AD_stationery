@@ -44,6 +44,5 @@ namespace stationeryapp.Models
         public virtual DbSet<StoreManager> StoreManagers { get; set; }
         public virtual DbSet<StoreSupervisor> StoreSupervisors { get; set; }
         public virtual DbSet<SupplierList> SupplierLists { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

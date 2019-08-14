@@ -316,7 +316,7 @@ namespace stationeryapp.Controllers
                 {
                     ListNumber = (db.DisbursementLists.Count() + 1).ToString(),
                     DepartmentCode = deptCode,
-                    Date = DateTime.Today,
+                    Date = DateTime.Today, //Lee Siong to remove once lxl creates date input field in disbursement list
                     Status = "Pending"
                 };
                 db.DisbursementLists.Add(dl);

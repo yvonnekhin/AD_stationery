@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="stationeryModel19.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="stationeryModel19.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CollectionPoints">
           <Key>
             <PropertyRef Name="CollectionPointCode" />
@@ -229,16 +229,6 @@
           <Property Name="PhoneNo" Type="int" />
           <Property Name="FaxNo" Type="int" />
           <Property Name="Address" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="sysdiagrams">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
-          <Property Name="principal_id" Type="int" Nullable="false" />
-          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="version" Type="int" />
-          <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_CollectionPoints_StoreClerk">
           <End Role="StoreClerk" Type="Self.StoreClerk" Multiplicity="1" />
@@ -610,7 +600,6 @@
           <EntitySet Name="StoreManager" EntityType="Self.StoreManager" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="StoreSupervisor" EntityType="Self.StoreSupervisor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SupplierList" EntityType="Self.SupplierList" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_CollectionPoints_StoreClerk" Association="Self.FK_CollectionPoints_StoreClerk">
             <End Role="StoreClerk" EntitySet="StoreClerk" />
             <End Role="CollectionPoints" EntitySet="CollectionPoints" />
@@ -1016,16 +1005,6 @@
           <NavigationProperty Name="StationeryCatalogs1" Relationship="Self.FK_StationeryCatalog_SupplierList1" FromRole="SupplierList" ToRole="StationeryCatalog" />
           <NavigationProperty Name="StationeryCatalogs2" Relationship="Self.FK_StationeryCatalog_SupplierList2" FromRole="SupplierList" ToRole="StationeryCatalog" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <Association Name="FK_CollectionPoints_StoreClerk">
           <End Role="StoreClerk" Type="Self.StoreClerk" Multiplicity="1" />
           <End Role="CollectionPoints" Type="Self.CollectionPoint" Multiplicity="0..1" />
@@ -1396,7 +1375,6 @@
           <EntitySet Name="StoreManagers" EntityType="Self.StoreManager" />
           <EntitySet Name="StoreSupervisors" EntityType="Self.StoreSupervisor" />
           <EntitySet Name="SupplierLists" EntityType="Self.SupplierList" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <AssociationSet Name="FK_CollectionPoints_StoreClerk" Association="Self.FK_CollectionPoints_StoreClerk">
             <End Role="StoreClerk" EntitySet="StoreClerks" />
             <End Role="CollectionPoints" EntitySet="CollectionPoints" />
@@ -1761,17 +1739,6 @@
                 <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
                 <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="stationeryModel19.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

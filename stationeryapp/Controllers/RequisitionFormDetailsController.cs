@@ -13,8 +13,8 @@ namespace stationeryapp.Controllers
     public class RequisitionFormDetailsController : Controller
     {
         private ModelDBContext db = new ModelDBContext();
-        private RequisitionFormsDBContext db1 = new RequisitionFormsDBContext();
-        private StoreClerkDBContext db2 = new StoreClerkDBContext();
+        private ModelDBContext db1 = new ModelDBContext();
+        private ModelDBContext db2 = new ModelDBContext();
         // GET: RequisitionFormDetails
         public ActionResult Index()
         {

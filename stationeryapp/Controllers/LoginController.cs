@@ -15,7 +15,7 @@ namespace stationeryapp.Controllers
 {
     public class LoginController : Controller
     {
-        private StoreClerkDBContext db = new StoreClerkDBContext();
+        private ModelDBContext db = new ModelDBContext();
         ModelDBContext db1 = new ModelDBContext();
 
         // GET: Login/Edit/5

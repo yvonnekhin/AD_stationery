@@ -15,7 +15,7 @@ namespace stationeryapp.Controllers
     public class DisbursementListDetailsController : Controller
     {
         private ModelDBContext db = new ModelDBContext();
-        private StockAdjustmentVouchersDBContext adb = new StockAdjustmentVouchersDBContext();
+        private ModelDBContext adb = new ModelDBContext();
         public ActionResult Index(string sessionId)
         {
             var disbursementListDetails = db.DisbursementListDetails.Include(d => d.DisbursementList).Include(d => d.StationeryCatalog);
