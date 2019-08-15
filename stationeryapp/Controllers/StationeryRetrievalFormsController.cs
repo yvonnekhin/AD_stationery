@@ -186,6 +186,7 @@ namespace stationeryapp.Controllers
             if (sessionId == null)
             {
                 return RedirectToAction("Login", "Login");
+
             }
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();

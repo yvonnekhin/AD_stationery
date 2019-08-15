@@ -4,7 +4,7 @@
     ViewBag.Title = "Disbursemnet Lists";
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
-
+    string tag = (string)ViewData["tag"];
 }
 
 
@@ -24,8 +24,7 @@
     {
         <tr>
 
-            <td>
-                @*@Html.ActionLink(item.disbursementList.ListNumber, "DisbursementListDetails", "Details")*@
+            <td>            
                 <a href='@Url.Action("Details","DisbursementListDetails",new { id= item.disbursementList.ListNumber,sessionId = sessionId})'>@item.disbursementList.ListNumber</a>
             </td>
             <td >
