@@ -15,12 +15,7 @@ namespace stationeryapp.Controllers
     public class DisbursementListDetailsController : Controller
     {
         private ModelDBContext db = new ModelDBContext();
-        private ModelDBContext adb = new ModelDBContext();
-        public ActionResult Index(string sessionId)
-        {
-            var disbursementListDetails = db.DisbursementListDetails.Include(d => d.DisbursementList).Include(d => d.StationeryCatalog);
-            return View(disbursementListDetails.ToList());
-        }
+        private ModelDBContext adb = new ModelDBContext();   
         public JsonResult GetDetails(String id)
         {
             var disbursementListDetail = db.DisbursementListDetails.Include(d => d.DisbursementList).Include(d => d.StationeryCatalog)
@@ -35,7 +30,6 @@ namespace stationeryapp.Controllers
         }
 
        
-
         public ActionResult Details(string id, string sessionId)
         {
             if (sessionId == null)
@@ -46,11 +40,23 @@ namespace stationeryapp.Controllers
             StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
 
-            var disbursementListDetail = db.DisbursementListDetails.Include(d => d.DisbursementList).Include(d => d.StationeryCatalog)
-                                         .Where(DisbursementListDetails => DisbursementListDetails.ListNumber == id)
-                                         .ToList();
-            
-            if (disbursementListDetail.Count()==0)
+            List<DisbursementList> disbursementLists = db.DisbursementLists.ToList();
+            List<DisbursementListDetail> disbursementListDetails = db.DisbursementListDetails.ToList();
+            List<StationeryCatalog> stationeryCatalogs = db.StationeryCatalogs.ToList();
+            var disbursementDetailRecord = (from d in disbursementListDetails
+                                            join l in disbursementLists on d.ListNumber equals l.ListNumber into table1
+                                            from l in table1.ToList()
+                                            join s in stationeryCatalogs on d.ItemNumber equals s.ItemNumber into table2
+                                            from s in table2.ToList()
+                                            select new ViewModelDDetails
+                                            {
+                                                disbursementList = l,
+                                                disbursementListDetail = d,
+                                                stationeryCatalog = s,
+                                            }).Where(x => x.disbursementList.ListNumber == id).ToList();
+
+
+            if (disbursementDetailRecord.Count() == 0)
             {
                 return RedirectToAction("Index", "DisbursementLists", new { @sessionId = sessionId });
             }
@@ -74,14 +80,13 @@ namespace stationeryapp.Controllers
                 ViewData["disbursementList"] = disbursementList.Date;
                 ViewData["deparment"] = departmentList.DepartmentName;
                 ViewData["employeeF"] = employee.FirstName;
-                ViewData["employeeL"] = employee.LastName;               
-                ViewData["ListDetailsNumber"] = disbursementListDetail.FirstOrDefault().ListDetailsNumber;
+                ViewData["employeeL"] = employee.LastName;
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
-
-                return View(disbursementListDetail);
+                ViewData["tag"] = "storeclerk";
+                return View(disbursementDetailRecord);
             }
-            else if(storeManager != null)
+            else if (storeManager != null)
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
@@ -95,10 +100,10 @@ namespace stationeryapp.Controllers
                 ViewData["deparment"] = departmentList.DepartmentName;
                 ViewData["employeeF"] = employee.FirstName;
                 ViewData["employeeL"] = employee.LastName;
-                ViewData["ListDetailsNumber"] = disbursementListDetail.FirstOrDefault().ListDetailsNumber;
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
-                return View(disbursementListDetail);
+                ViewData["tag"] = "storeManager";
+                return View(disbursementDetailRecord);
             }
             else if (storeSupervisor != null)
             {
@@ -114,10 +119,10 @@ namespace stationeryapp.Controllers
                 ViewData["deparment"] = departmentList.DepartmentName;
                 ViewData["employeeF"] = employee.FirstName;
                 ViewData["employeeL"] = employee.LastName;
-                ViewData["ListDetailsNumber"] = disbursementListDetail.FirstOrDefault().ListDetailsNumber;
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
-                return View(disbursementListDetail);
+                ViewData["tag"] = "storeSupervisor";
+                return View(disbursementDetailRecord);
             }
             else
             {
@@ -138,7 +143,7 @@ namespace stationeryapp.Controllers
         //}
 
         [HttpPost]
-        public ActionResult Update(List<DisbursementListDetail> Details,string sessionId,string listNumber)
+        public ActionResult Update(List<ViewModelDDetails> Details,string sessionId)
         {
             if (sessionId == null)
             {
@@ -147,71 +152,67 @@ namespace stationeryapp.Controllers
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
-            int num = db.RequisitionForms.Where(x => x.Status == "Pending").Count();
-            int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-            ViewData["sumTotal"] = (num + numDisbuserment).ToString();
-
-            string id = db.DisbursementListDetails.Find(listNumber).ListNumber;
-            DisbursementList disbursementList = db.DisbursementLists.Find(id);
-            DisbursementListDetail existing = db.DisbursementListDetails.Find(listNumber);
-
+            DisbursementList disbursementList = db.DisbursementLists.Find(Details[0].disbursementList.ListNumber);
             int newNumer = db.StockAdjustmentVouchers.Count();
-            int length = Details.Count() + newNumer+1;
-            int newNumer2 = db.StockAdjustmentVoucherDetails.Count()+1;
+            int length = Details.Count() + newNumer + 1;
+            int newNumer2 = db.StockAdjustmentVoucherDetails.Count() + 1;
             bool flag = false;
             int countnotshow = 0;
             int recivedX;
 
-            for (int i=newNumer+1; i< length; i++ )
+            foreach (ViewModelDDetails item in Details)
             {
-                existing.QuantityReceived = Details[i - newNumer-1].QuantityReceived;
-                existing.Remarks = Details[i - newNumer-1].Remarks;
-                recivedX = Convert.ToInt32(existing.Quantity)- Convert.ToInt32(Details[i - newNumer - 1].QuantityReceived);
+                DisbursementListDetail existing = db.DisbursementListDetails.Find(item.disbursementListDetail.ListDetailsNumber);
+                existing.QuantityReceived = item.disbursementListDetail.QuantityReceived;
+                existing.Remarks = item.disbursementListDetail.Remarks;
+                recivedX = Convert.ToInt32(existing.Quantity) - Convert.ToInt32(item.disbursementListDetail.QuantityReceived);
                 if (recivedX > 0)
                 {
                     flag = true;
 
                 }
-                if (Convert.ToInt32(Details[i - newNumer - 1].QuantityReceived)==0)
+                if (Convert.ToInt32(item.disbursementListDetail.QuantityReceived) == 0)
                 {
                     countnotshow++;
                 }
                 db.Entry(existing).State = EntityState.Modified;
                 db.SaveChanges();
-
             }
+
             if (flag)
             {
                 StockAdjustmentVoucher stockAdjustment = new StockAdjustmentVoucher();
-                stockAdjustment.AdjustmentVoucherNumber = Convert.ToString(newNumer+1);
-               // stockAdjustment.Remarks ="should not be mine";
-                stockAdjustment.Status = "Pending";            
+                stockAdjustment.AdjustmentVoucherNumber = Convert.ToString(newNumer + 1);
+                stockAdjustment.Status = "Pending";
+                stockAdjustment.Date = DateTime.Now;
+                stockAdjustment.Remarks = "System Genarate";
                 adb.StockAdjustmentVouchers.Add(stockAdjustment);
                 adb.SaveChanges();
-
             }
-            for (int i = newNumer + 1; i < length; i++)
+
+
+            foreach (ViewModelDDetails item in Details)
             {
-                existing.QuantityReceived = Details[i - newNumer - 1].QuantityReceived;
-                existing.Remarks = Details[i - newNumer - 1].Remarks;
-                recivedX = Convert.ToInt32(existing.Quantity) - Convert.ToInt32(Details[i - newNumer - 1].QuantityReceived);
+                DisbursementListDetail existing = db.DisbursementListDetails.Find(item.disbursementListDetail.ListDetailsNumber);
+                existing.QuantityReceived = item.disbursementListDetail.QuantityReceived;
+                existing.Remarks = item.disbursementListDetail.Remarks;
+                recivedX = Convert.ToInt32(existing.Quantity) - Convert.ToInt32(item.disbursementListDetail.QuantityReceived);
                 if (recivedX > 0)
-                {                
+                {
                     StockAdjustmentVoucherDetail adjustmentVoucherDetail = new StockAdjustmentVoucherDetail();
                     adjustmentVoucherDetail.AdjustmentVoucherNumber = (newNumer + 1).ToString();
-                    adjustmentVoucherDetail.AdjustmentDetailsNumber= newNumer2;
+                    adjustmentVoucherDetail.AdjustmentDetailsNumber = newNumer2;
                     newNumer2++;
                     adjustmentVoucherDetail.QuantityAdjusted = recivedX;
                     adjustmentVoucherDetail.ItemNumber = existing.ItemNumber;
                     // remarks from where?
-                    adjustmentVoucherDetail.Reason = Details[i - newNumer - 1].Remarks;
-
+                    adjustmentVoucherDetail.Reason = existing.Remarks;
                     db.StockAdjustmentVoucherDetails.Add(adjustmentVoucherDetail);
                     db.SaveChanges();
                 }
             }
 
-            if (countnotshow== Details.Count())
+            if (countnotshow == Details.Count())
             {
                 disbursementList.Status = "Cancelled";
                 db.Entry(disbursementList).State = EntityState.Modified;
@@ -224,23 +225,17 @@ namespace stationeryapp.Controllers
                 db.SaveChanges();
             }
 
-            //form_ = db.RequisitionForms.Find(form_id);
-            //util.SendEmail(form_.Employee.EmailAddress, "From Head Of Dept", form_.Employee.DepartmentCode + "/" + (1000 + int.Parse(form_.FormNumber)).ToString() + " " + email_status);
-            //util.SendEmail(email, "From Store Department", collection + "/" + "Ready For Collection");
-
-    
-
-            if (storeclerk != null && sessionId != null)
+            if (storeclerk != null)
             {
-                return RedirectToAction("Index","Home", new {@sessionId= sessionId});
+                return RedirectToAction("Index", "Home", new { @sessionId = sessionId, @tag = "storeclerk" });
             }
-            else if (storeManager != null && sessionId != null)
+            else if (storeManager != null)
             {
-                return RedirectToAction("Index", "Home", new { @sessionId = sessionId });
+                return RedirectToAction("Index", "StoreManagers", new { @sessionId = sessionId, @tag = "storeManager" });
             }
-            else if (storeSupervisor != null && sessionId != null)
+            else if (storeSupervisor != null)
             {
-                return RedirectToAction("Index", "Home", new { @sessionId = sessionId });
+                return RedirectToAction("Index", "StoreSupervisors", new { @sessionId = sessionId, @tag = "storeSupervisor" });
             }
             else
             {
@@ -248,106 +243,13 @@ namespace stationeryapp.Controllers
             }
         }
 
-
-
-
-
-
-        // GET: DisbursementListDetails/Create
-        public ActionResult Create()
+        protected override void Dispose(bool disposing)
         {
-            ViewBag.ListNumber = new SelectList(db.DisbursementLists, "ListNumber", "DepartmentCode");
-            ViewBag.ItemNumber = new SelectList(db.StationeryCatalogs, "ItemNumber", "Category");
-            return View();
-        }
-
-        // POST: DisbursementListDetails/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ListDetailsNumber,ListNumber,ItemNumber,Quantity,QuantityReceived,Remarks")] DisbursementListDetail disbursementListDetail)
-        {
-            if (ModelState.IsValid)
+            if (disposing)
             {
-                db.DisbursementListDetails.Add(disbursementListDetail);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.Dispose();
             }
-
-            ViewBag.ListNumber = new SelectList(db.DisbursementLists, "ListNumber", "DepartmentCode", disbursementListDetail.ListNumber);
-            ViewBag.ItemNumber = new SelectList(db.StationeryCatalogs, "ItemNumber", "Category", disbursementListDetail.ItemNumber);
-            return View(disbursementListDetail);
+            base.Dispose(disposing);
         }
-
-        // GET: DisbursementListDetails/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DisbursementListDetail disbursementListDetail = db.DisbursementListDetails.Find(id);
-            if (disbursementListDetail == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.ListNumber = new SelectList(db.DisbursementLists, "ListNumber", "DepartmentCode", disbursementListDetail.ListNumber);
-            ViewBag.ItemNumber = new SelectList(db.StationeryCatalogs, "ItemNumber", "Category", disbursementListDetail.ItemNumber);
-            return View(disbursementListDetail);
-        }
-
-        // POST: DisbursementListDetails/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ListDetailsNumber,ListNumber,ItemNumber,Quantity,QuantityReceived,Remarks")] DisbursementListDetail disbursementListDetail)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(disbursementListDetail).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.ListNumber = new SelectList(db.DisbursementLists, "ListNumber", "DepartmentCode", disbursementListDetail.ListNumber);
-            ViewBag.ItemNumber = new SelectList(db.StationeryCatalogs, "ItemNumber", "Category", disbursementListDetail.ItemNumber);
-            return View(disbursementListDetail);
-        }
-
-        // GET: DisbursementListDetails/Delete/5
-        public ActionResult Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            DisbursementListDetail disbursementListDetail = db.DisbursementListDetails.Find(id);
-            if (disbursementListDetail == null)
-            {
-                return HttpNotFound();
-            }
-            return View(disbursementListDetail);
-        }
-
-        // POST: DisbursementListDetails/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
-        {
-            DisbursementListDetail disbursementListDetail = db.DisbursementListDetails.Find(id);
-            db.DisbursementListDetails.Remove(disbursementListDetail);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }
