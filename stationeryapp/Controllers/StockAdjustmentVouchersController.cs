@@ -247,14 +247,14 @@ namespace stationeryapp.Controllers
             stockAdjustmentVoucher.Date = DateTime.Today;
             stockAdjustmentVoucher.Remarks = "Store clerk";
 
-            //db.StockAdjustmentVouchers.Add(stockAdjustmentVoucher);
-            //db.SaveChanges();
-
             ViewBag.voucher = stockAdjustmentVoucher;
 
             StockAdjustmentVoucherDetail savd = new StockAdjustmentVoucherDetail();
             savd.AdjustmentVoucherNumber = stockAdjustmentVoucher.AdjustmentVoucherNumber;
             savd.AdjustmentDetailsNumber = (db.StockAdjustmentVoucherDetails.Count() + 1);
+
+            List<StockAdjustmentVoucherDetail> savdList = new List<StockAdjustmentVoucherDetail>();
+            savdList.Add(savd);
 
             if (storeclerk != null)
             {
@@ -267,7 +267,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
-                return View(savd);
+                return View(savdList);
             }
             else if (storeManager != null)
             {
@@ -280,7 +280,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
-                return View(savd);
+                return View(savdList);
             }
             else if (storeSupervisor != null)
             {
@@ -293,7 +293,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
-                return View(savd);
+                return View(savdList);
             }
             else
             {
@@ -304,32 +304,41 @@ namespace stationeryapp.Controllers
         }
 
 
-        public JsonResult SaveData(string passdata, string vdata)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(List<StockAdjustmentVoucherDetail> savdlist,string sessionId)
         {
-            try
+            if (sessionId == null)
             {
-                var serializeData = JsonConvert.DeserializeObject<List<StockAdjustmentVoucherDetail>>(passdata);
-                var serializeVoucherData = JsonConvert.DeserializeObject<List<StockAdjustmentVoucher>>(vdata);
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
 
-                foreach (var data in serializeVoucherData)
+            StockAdjustmentVoucher stockAdjustmentVoucher = new StockAdjustmentVoucher();
+            stockAdjustmentVoucher.AdjustmentVoucherNumber = (db.StockAdjustmentVouchers.Count() + 1).ToString();
+            stockAdjustmentVoucher.Status = "Pending";
+            stockAdjustmentVoucher.Date = DateTime.Today;
+            stockAdjustmentVoucher.Remarks = "Store clerk";
+
+            db.StockAdjustmentVouchers.Add(stockAdjustmentVoucher);
+            db.SaveChanges();
+
+            for (int i = 0; i < savdlist.Count; i++)
+            {
+                StockAdjustmentVoucherDetail savd = new StockAdjustmentVoucherDetail
                 {
-                    db.StockAdjustmentVouchers.Add(data);
-                }
-
-                foreach (var data in serializeData)
-                {
-                    db.StockAdjustmentVoucherDetails.Add(data);
-                }
-
+                    AdjustmentDetailsNumber = savdlist[i].AdjustmentDetailsNumber,
+                    AdjustmentVoucherNumber = stockAdjustmentVoucher.AdjustmentVoucherNumber,
+                    ItemNumber = savdlist[i].ItemNumber,
+                    QuantityAdjusted = savdlist[i].QuantityAdjusted,
+                    Reason = savdlist[i].Reason
+                };
+                db.StockAdjustmentVoucherDetails.Add(savd);
                 db.SaveChanges();
             }
-
-            catch (Exception)
-            {
-                return Json("fail");
-            }
-
-            return Json("success");
+            return RedirectToAction("Index", "StockAdjustmentVouchers", new { sessionId = sessionId });
         }
 
         // GET: StockAdjustmentVouchers/Edit/5
