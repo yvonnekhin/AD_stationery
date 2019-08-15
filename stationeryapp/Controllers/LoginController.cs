@@ -33,7 +33,7 @@ namespace stationeryapp.Controllers
             string hashedPassword = CalculateMD5Hash(storeClerk.Password);
             if (ModelState.IsValid)
             {
-                if (storeclerk.Password == hashedPassword)
+                if (storeclerk!=null &&  storeclerk.Password == hashedPassword)
                 {
                     string sessionId = Guid.NewGuid().ToString();
                     storeclerk.Password = hashedPassword;
