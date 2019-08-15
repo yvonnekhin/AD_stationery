@@ -40,7 +40,7 @@ namespace stationeryapp.Controllers
                     storeclerk.SessionId = sessionId;
                     db1.Entry(storeclerk).State = EntityState.Modified;
                     db1.SaveChanges();
-                    return Json(new { sessionId=storeclerk.SessionId,username=storeclerk.UserName });
+                    return Json(new { sessionId=storeclerk.SessionId,username=storeclerk.UserName,status="success" });
                 }
                 else
                 {
