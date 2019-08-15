@@ -1,5 +1,5 @@
 ﻿
-@model List<stationeryapp.Models.DisbursementListDetail>
+@model List<stationeryapp.Models.ViewModelDDetails>
 
 @{
     ViewBag.Title = "DesebusermentDetails";
@@ -11,16 +11,15 @@
     string name = firstName + "" + lastName;
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
-    string listNumber = (string)ViewData["ListDetailsNumber"];
-
+    string tag = (string)ViewData["tag"];
 }
 
-<h2>DisbursementListDetails</h2>
+<h2>DisbursementList Details</h2>
 <br>
 @using (Html.BeginForm("Update", "DisbursementListDetails", FormMethod.Post))
 {
     @Html.Hidden("sessionId", sessionId)
-    @Html.Hidden("listNumber", listNumber)
+    @Html.Hidden("tag", tag)
     <table class="table table-bordered table-striped table-hover">
         <tr>
             <th>ItemNumber</th>
@@ -32,28 +31,28 @@
         </tr>
         @for (int i = 0; i < Model.Count; i++)
         {
+            @Html.HiddenFor(model => model[i].disbursementListDetail.ListDetailsNumber)
+            @Html.HiddenFor(model => model[i].disbursementList.ListNumber)
             <tr>
                 <td>
-                    @Model[i].StationeryCatalog.ItemNumber
+                    @Model[i].stationeryCatalog.ItemNumber
                 </td>
                 <td>
-
-                    @Model[i].StationeryCatalog.Category
+                    @Model[i].stationeryCatalog.Category
                 </td>
                 <td>
-                    @Model[i].StationeryCatalog.Description
+                    @Model[i].stationeryCatalog.Description
                 </td>
-
                 <td>
-                    @Model[i].Quantity
+                    @Model[i].disbursementListDetail.Quantity
                 </td>
                 <td style="background-color:aliceblue">
-                    @Html.TextBox("Details[" + @i + "].QuantityReceived", Model[i].Quantity, new { @maxlength = "4" })
-
+                    @*"if(value>30)value=30;if(value.length>2)value=value.slice(0,2);if(value<0)value=0"*@
+                    @Html.TextBoxFor(model => model[i].disbursementListDetail.QuantityReceived, new { id = "txtPlace", Value = Model[i].disbursementListDetail.Quantity })
                 </td>
-                <td style="background-color:aliceblue">
-                    @Html.TextBox("Details[" + @i + "].Remarks", Model[i].Remarks)
 
+                <td style="background-color:aliceblue">
+                    @Html.TextBoxFor(model => model[i].disbursementListDetail.Remarks)
                 </td>
             </tr>
         }
@@ -74,3 +73,4 @@
 <p><b>Collection Point:</b> @collection</p>
 <p><b>Representative Name:</b> @name</p>
 <p><b>Department: </b>@deptName</p>
+

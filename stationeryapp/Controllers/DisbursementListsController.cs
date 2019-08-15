@@ -48,7 +48,7 @@ namespace stationeryapp.Controllers
             StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
 
-            List <DisbursementList> disbursementLists = db.DisbursementLists.ToList();
+            List<DisbursementList> disbursementLists = db.DisbursementLists.ToList();
             List<DepartmentList> departmentLists = db.DepartmentLists.ToList();
             List<CollectionPoint> collectionPoints = db.CollectionPoints.ToList();
 
@@ -57,6 +57,7 @@ namespace stationeryapp.Controllers
                                      from d in table1.ToList()
                                      join c in collectionPoints on p.CollectionPoint equals c.CollectionPointCode into table2
                                      from c in table2.ToList()
+                                     orderby d.Status descending
                                      select new ViewModelD
                                      {
                                          collectionPoint = c,
@@ -75,7 +76,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
-
+                ViewData["tag"] = "storeclerk";
                 return View(disbursementRecord);
             }
             else if (storeManager != null)
@@ -89,8 +90,8 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
                 return View(disbursementRecord);
-
             }
             else if (storeSupervisor != null)
             {
@@ -103,8 +104,8 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
                 return View(disbursementRecord);
-
             }
             else
             {
