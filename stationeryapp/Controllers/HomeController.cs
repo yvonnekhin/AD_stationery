@@ -12,7 +12,7 @@ namespace stationeryapp.Controllers
         private ModelDBContext dbM = new ModelDBContext();
         private ModelDBContext db = new ModelDBContext();
         private ModelDBContext db1 = new ModelDBContext();
-        public ActionResult Index(string sessionId,string tag)
+        public ActionResult Index(string sessionId)
         { 
             StoreClerk storeclerk = dbM.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();    
             if (storeclerk != null && sessionId != null)
@@ -32,7 +32,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment+ numOutS + numRetrive + numPO+ numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
-                ViewData["tag"] = tag;
+                ViewData["tag"] = "storeclerk";
                 return View();
             }     
             else
