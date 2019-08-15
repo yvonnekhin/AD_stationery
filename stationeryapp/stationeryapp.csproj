@@ -261,6 +261,7 @@
     </Compile>
     <Compile Include="Models\util.cs" />
     <Compile Include="Models\ViewModelD.cs" />
+    <Compile Include="Models\ViewModelDDetails.cs" />
     <Compile Include="Models\ViewModelOutstanding.cs" />
     <Compile Include="Models\ViewModelRetrieval.cs" />
     <Compile Include="Reports\InventoryStatusReport.cs">
@@ -992,9 +993,7 @@
     <Content Include="Views\RequisitionForms\Index.cshtml" />
     <Content Include="Views\ReportHome\Index.cshtml" />
     <Content Include="Views\DisbursementListDetails\Details.cshtml" />
-    <Content Include="Views\DisbursementListDetails\Edit.cshtml" />
     <Content Include="Views\DisbursementListDetails\Index.cshtml" />
-    <Content Include="Views\DisbursementLists\Create.cshtml" />
     <Content Include="Views\DisbursementLists\Index.cshtml" />
     <Content Include="Views\SupplierLists\Create.cshtml" />
     <Content Include="Views\SupplierLists\Delete.cshtml" />
