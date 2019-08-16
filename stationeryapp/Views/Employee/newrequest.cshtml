@@ -11,6 +11,7 @@
     DepartmentList emp_dept = (DepartmentList)ViewData["emp_dept"];
     string form_number = (string)ViewData["form_number"];
     RequisitionForm form = (RequisitionForm)ViewData["req_form"];
+    string sid = (string)ViewData["sid"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -20,11 +21,11 @@
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 
-<div style="margin-left:18%">
+<div style="margin-left:15%;margin-top:5%">
 
-    <h3>Form number : @(emp_dept.DepartmentCode + "/" + (1000 + int.Parse(form_number)).ToString())</h3>
-    <h3>Employee name : @emp.FirstName @emp.LastName</h3>
-    <h3>Department name : @emp_dept.DepartmentName</h3>
+    <h4>Form number : @(form_number)</h4>
+    <h4>Employee name : @emp.FirstName @emp.LastName</h4>
+    <h4>Department name : @emp_dept.DepartmentName</h4>
 
     <table id="myTable" class="table table-bordered">
         <tr>
@@ -35,36 +36,37 @@
         {
             foreach (var item in form_cart)
             {
-        <tr>
-            <td>
-                @items.Find(x => x.ItemNumber == item.ItemNumber).Description
-            </td>
-            <td>
-                @item.Quantity
-            </td>
-            <td>
-                <button onclick="location.href='@Url.Action("removerequestitem", "Employee", new { form_no=@item.FormNumber, form_detail_no=@item.FormDetailsNumber})'">Remove Item</button>
-            </td>
-        </tr>
+                <tr>
+                    <td>
+                        @items.Find(x => x.ItemNumber == item.ItemNumber).Description
+                    </td>
+                    <td>
+                        @item.Quantity
+                    </td>
+                    @if (!single_form_view)
+                    {
+                        <td>
+                            <button onclick="location.href='@Url.Action("removerequestitem", "Employee", new { form_no=@item.FormNumber, form_detail_no=@item.FormDetailsNumber, sid = sid})'">Remove Item</button>
+                        </td>
+                    }
+
+                </tr>
             }
         }
-        @if (form != null && form.Comments != "" && form.Comments != null)
-        {
-            <tr><td>COMMENTS :  @form.Comments</td></tr>
-        }
+
         @if (!single_form_view)
         {
-            using (Html.BeginForm("addnew", "Employee", FormMethod.Post))
+            using (Html.BeginForm("addnew", "Employee", new { sid = sid }, FormMethod.Post))
             {
-                
-            <tr>
-                <td>
-                    @Html.DropDownList("Select Item", items.Select(item => new SelectListItem { Text = item.Description, Value = item.ItemNumber }), new { id = "itemId", onchange = "onChange()" })
-                </td>
-                <td>
-                    @Html.TextBoxFor(x => x.Quantity, new { placeholder = "Enter Quantity", required = "required" })
-                </td>
-            </tr>
+
+                <tr>
+                    <td>
+                        @Html.DropDownList("Select Item", items.Select(item => new SelectListItem { Text = item.Description, Value = item.ItemNumber }), new { id = "itemId", onchange = "onChange()" })
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(x => x.Quantity, new {type="number", min = "1", placeholder = "Enter Quantity", required = "required" })
+                    </td>
+                </tr>
                 <tr>
                     <td style="display:none;">
                         @Html.HiddenFor(x => x.FormNumber, new { @Value = @form_number })
@@ -75,15 +77,24 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <input type="submit" value="Add New" >
+                        <input type="submit" value="Add New">
                     </td>
                 </tr>
             }
         }
     </table>
+    @if (form != null && form.Comments != "" && form.Comments != null)
+    {
+      
+            <div>
+                STATUS : @form.Status<br />
+                COMMENTS :  @form.Comments
+            </div>
+        
+    }
     @if (form_cart != null && !single_form_view)
     {
-        using (Html.BeginForm("submitrequest", "Employee", FormMethod.Post))
+        using (Html.BeginForm("submitrequest", "Employee", new { sid = sid }, FormMethod.Post))
         {
             <input type="hidden" value="@form_number" name="form_number" />
             <input id="itemCode" type="hidden" value="@emp.Id" name="emp_id" />

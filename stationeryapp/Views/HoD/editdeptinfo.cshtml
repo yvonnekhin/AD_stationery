@@ -7,16 +7,17 @@
     DepartmentList dept = (DepartmentList)ViewData["dept"];
     List<Employee> emp_list = (List<Employee>)ViewData["emp_list"];
     List<CollectionPoint> coll_list = (List<CollectionPoint>)ViewData["coll_list"];
+    string sid = (string)ViewData["sid"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_hodheader")
 @Html.Partial("_hodMenuFragment")
 @Html.Partial("_hod_notify")
 
-<div style="margin-left:15%; padding-top: 10px;">
-    <h3>Edit Department Information</h3>
+<div style="margin-left:15%;margin-top:5%">
+    <h2>Edit Department Information</h2>
     <table class="table" style="width: 80%;">
-        @using (Html.BeginForm("updatedeptinfo", "Hod", FormMethod.Post))
+        @using (Html.BeginForm("updatedeptinfo", "Hod", new { sid=sid}, FormMethod.Post))
         {
             <tr>
                 <td> Head's Name : </td>
@@ -51,10 +52,10 @@
 
             <tr>
                 <td colspan="2">
-                    <input type="hidden" id="rep_id" value="1" name="rep_id" />
+                    <input type="hidden" id="rep_id" value=@current_rep.Id name="rep_id" />
                     <input type="hidden" id="current_dept_code" value=@dept.DepartmentCode name="current_dept_code" />
                     <input type="submit" value="Update">
-                    <button onclick="location.href='@Url.Action("Index", "Hod")'">Cancel</button>
+                    <button onclick="location.href='@Url.Action("Index", "Hod", new { sid=sid})'">Cancel</button>
                 </td>
             </tr>
         }

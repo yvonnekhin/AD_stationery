@@ -83,7 +83,7 @@ namespace stationeryapp.Models
             List<RequisitionForm> reqfrorms;
             using (ModelDBContext db = new ModelDBContext())
             {
-                reqfrorms = db.RequisitionForms.Where(x => x.EmployeeId == user.Id && x.Status != "temp_pending"+user.Id).ToList();
+                reqfrorms = db.RequisitionForms.Where(x => x.EmployeeId == user.Id && x.Status != "temp_pending"+user.Id).OrderByDescending(f=>f.DateReceived).ToList();
             }
             return reqfrorms;
         }
@@ -136,7 +136,7 @@ namespace stationeryapp.Models
                 {
                     old_rec_to_update.Notification = "sent_to_hod";
                     old_rec_to_update.DateReceived = DateTime.Now.Date;
-                    old_rec_to_update.Status = "pending";
+                    old_rec_to_update.Status = "Pending";
                 }
                 db.SaveChanges();
             }
@@ -148,7 +148,7 @@ namespace stationeryapp.Models
             }
             //Debug.WriteLine("*************************" + form_.EmployeeId+ emp_list.Where(e => e.Id == form_.EmployeeId).Select(e => e.DepartmentCode).FirstOrDefault());
             hod = emp_list.Where(e => e.Designation == "Head" && e.DepartmentCode == emp_list.Where(emp => emp.Id == form_.EmployeeId).Select(emp => emp.DepartmentCode).FirstOrDefault()).FirstOrDefault();
-            util.SendEmail(hod.EmailAddress, "From employee", "Request FORM : "+hod.DepartmentCode + "/" + (1000 + int.Parse(form_number)).ToString()+ " has been requested");
+            util.SendEmail(hod.EmailAddress, "New request has been received", "Request FORM : "+form_number+ " has been requested");
         }
 
         public RequisitionForm get_single_form_details(string form_id)

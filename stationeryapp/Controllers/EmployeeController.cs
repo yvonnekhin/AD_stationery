@@ -12,7 +12,7 @@ namespace stationery.Controllers
     public class EmployeeController : Controller
     {
         // GET: Employee
-        public ActionResult Index(string id)
+        public ActionResult Index(string id, string sid)
         {
             Employee user = (Employee)Session["user"];
             Session["count"] = 0; 
@@ -26,10 +26,11 @@ namespace stationery.Controllers
             Session["count"] = count;
             Session["notify_form_list"] = notify_form_list;
             ViewData["userobj"] = user;
+            ViewData["sid"] = sid;
             return View();
         }
 
-        public ActionResult newrequest()
+        public ActionResult newrequest(string sid)
         {
             employee_utility eu = new employee_utility();
             Employee user = (Employee)Session["user"];
@@ -43,28 +44,30 @@ namespace stationery.Controllers
             ViewData["emp"] = emp;
             ViewData["emp_dept"] = eu.get_department(user);
             ViewData["form_number"] = form_number;
+            ViewData["sid"] = sid;
             return View();
         }
 
-        public ActionResult viewrequest(string id)
+        public ActionResult viewrequest(string id, string sid)
         {
             employee_utility eu = new employee_utility();
             Employee user = (Employee)Session["user"];
             
             ViewData["userobj"] = user;
             ViewData["requestlist"] = eu.get_req_forms(user);
+            ViewData["sid"] = sid;
             return View();
         }
 
-        public ActionResult addnew(RequisitionFormDetail form_detail_obj)
+        public ActionResult addnew(RequisitionFormDetail form_detail_obj, string sid)
         {
             employee_utility eu = new employee_utility();
             eu.add_new_form_detail_row(form_detail_obj);
             
-            return RedirectToAction("addcart");
+            return RedirectToAction("addcart", new { sid=sid});
         }
 
-        public ActionResult removerequestitem(string form_no, string form_detail_no)
+        public ActionResult removerequestitem(string form_no, string form_detail_no, string sid)
         {
 
             using (ModelDBContext db = new ModelDBContext())
@@ -79,10 +82,10 @@ namespace stationery.Controllers
                 }
                 db.SaveChanges();
             }
-            return RedirectToAction("addcart");
+            return RedirectToAction("addcart", new { sid=sid});
         }
 
-        public ActionResult addcart()
+        public ActionResult addcart(string sid)
         {
             employee_utility eu = new employee_utility();
             Employee user = (Employee)Session["user"];
@@ -95,11 +98,12 @@ namespace stationery.Controllers
             ViewData["emp_dept"] = eu.get_department(user);
             ViewData["form_cart"] = form_cart_list;
             ViewData["form_number"] = form_number;
+            ViewData["sid"] = sid;
 
             return View("newrequest");
         }
 
-        public ActionResult submitrequest()
+        public ActionResult submitrequest(string sid)
         {
             var emp_id = Request.Form["emp_id"];      
             var form_number = Request.Form["form_number"];
@@ -107,10 +111,10 @@ namespace stationery.Controllers
             employee_utility eu = new employee_utility();
             eu.submit_request(emp_id, form_number);
             
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", new { sid=sid});
         }
 
-        public ActionResult view_single_request(string form_id, string notify)
+        public ActionResult view_single_request(string form_id, string notify, string sid)
         {
             employee_utility eu = new employee_utility();
             Employee user = (Employee)Session["user"];
@@ -145,11 +149,12 @@ namespace stationery.Controllers
             ViewData["catalog_list"] = eu.get_catalog_items();
             ViewData["single_form_view"] = true;
             ViewData["req_form"] = eu.get_single_form_details(form_id);
+            ViewData["sid"] = sid;
 
             return View("newrequest");
         }
 
-        public ActionResult notify()
+        public ActionResult notify(string sid)
         {
             Employee user = (Employee)Session["user"];
             List<RequisitionForm> notify_form_list;
