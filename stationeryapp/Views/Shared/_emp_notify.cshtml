@@ -3,6 +3,7 @@
     ViewBag.Title = "_emp_notify";
     Employee emp = (Employee)Session["user"];
     List<RequisitionForm> notify_form_list = (List<RequisitionForm>)Session["notify_form_list"]; ;
+    string sid = (string)Session["sid"];
 }
 
 <!-- Modal -->
@@ -18,7 +19,7 @@
 
                 @foreach (var item in notify_form_list)
                 {
-                    <p><a href="@Url.Action("view_single_request", "Employee", new { form_id = @item.FormNumber, notify="seen" })"> @(@emp.DepartmentCode + "/" + (1000 + int.Parse(@item.FormNumber)).ToString()) </a> @(item.Notification == "approved_by_hod"? "Has been Approved" : "Has been Rejected")</p>
+                    <p><a href="@Url.Action("view_single_request", "Employee", new { form_id = @item.FormNumber, notify="seen" , sid=sid})"> FORM NUMBER : @(item.FormNumber)  @(item.Notification == "approved_by_hod" ? "Has been Approved" : "Has been Rejected")</a></p>
                 }
                 
             </div>

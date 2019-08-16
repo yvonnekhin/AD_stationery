@@ -160,7 +160,6 @@
     <Compile Include="Controllers\StoreManagersController.cs" />
     <Compile Include="Controllers\StoreSupervisorsController.cs" />
     <Compile Include="Controllers\SupplierListsController.cs" />
-    <Compile Include="Controllers\TrendController.cs" />
     <Compile Include="Filters\empfilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -262,7 +261,6 @@
     </Compile>
     <Compile Include="Models\util.cs" />
     <Compile Include="Models\ViewModelD.cs" />
-    <Compile Include="Models\ViewModelDDetails.cs" />
     <Compile Include="Models\ViewModelOutstanding.cs" />
     <Compile Include="Models\ViewModelRetrieval.cs" />
     <Compile Include="Reports\InventoryStatusReport.cs">
@@ -574,19 +572,24 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\addreq.png" />
+    <Content Include="Images\assign.png" />
     <Content Include="Images\bellstore2.png" />
+    <Content Include="Images\bellstore3.jpg" />
     <Content Include="Images\Catalog.PNG" />
-    <Content Include="Images\delegate.png" />
     <Content Include="Images\DisbusementList.PNG" />
-    <Content Include="Images\edit.png" />
+    <Content Include="Images\editinfo.png" />
+    <Content Include="Images\itemreqs.png" />
+    <Content Include="Images\logo.PNG" />
     <Content Include="Images\logo2.jpg" />
-    <Content Include="Images\newreq.png" />
+    <Content Include="Images\oldreqs.png" />
     <Content Include="Images\Outstanding.PNG" />
+    <Content Include="Images\pendingreqs.png" />
     <Content Include="Images\PO.PNG" />
     <Content Include="Images\profile.png" />
     <Content Include="Images\Reports.PNG" />
-    <Content Include="Images\reqs.png" />
     <Content Include="Images\Requests.JPG" />
+    <Content Include="Images\requests.png" />
     <Content Include="Images\RetrivalForm.PNG" />
     <Content Include="Images\stationery-management3.jpg" />
     <Content Include="Images\stationery.png" />
@@ -597,7 +600,6 @@
     <Content Include="Images\storeclarkprofile2.png" />
     <Content Include="Images\supplier1.png" />
     <Content Include="Images\suppliers2.png" />
-    <Content Include="Images\user.png" />
     <Content Include="Models\CollectionPoints.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
@@ -933,8 +935,6 @@
     <Content Include="Models\StationeryRetrievalForms.edmx.diagram">
       <DependentUpon>StationeryRetrievalForms.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\StoreClerkImages" />
-    <Content Include="Content\StoreClerkImages" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -942,7 +942,9 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\adstationery - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\dropdownOnchange.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -954,9 +956,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\StationeryCatalogReport\Report.aspx" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -994,7 +994,9 @@
     <Content Include="Views\RequisitionForms\Index.cshtml" />
     <Content Include="Views\ReportHome\Index.cshtml" />
     <Content Include="Views\DisbursementListDetails\Details.cshtml" />
+    <Content Include="Views\DisbursementListDetails\Edit.cshtml" />
     <Content Include="Views\DisbursementListDetails\Index.cshtml" />
+    <Content Include="Views\DisbursementLists\Create.cshtml" />
     <Content Include="Views\DisbursementLists\Index.cshtml" />
     <Content Include="Views\SupplierLists\Create.cshtml" />
     <Content Include="Views\SupplierLists\Delete.cshtml" />
@@ -1051,9 +1053,6 @@
     <Content Include="Views\StockAdjustmentVouchers\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Store.cshtml" />
     <Content Include="Views\HoD\viewhistorybyitem.cshtml" />
-    <Content Include="Views\Trend\DeptSubmit.cshtml" />
-    <Content Include="Views\Trend\TrendAnalysis.cshtml" />
-    <Content Include="Views\Trend\TrendSubmit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
