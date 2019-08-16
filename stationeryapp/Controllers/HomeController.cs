@@ -13,7 +13,13 @@ namespace stationeryapp.Controllers
         private ModelDBContext db = new ModelDBContext();
         private ModelDBContext db1 = new ModelDBContext();
         public ActionResult Index(string sessionId)
-        { 
+        {
+            PurchaseOrdersController purchaseOrdersController = new PurchaseOrdersController();
+            purchaseOrdersController.SystemGeneratePO();
+
+            StationeryRetrievalFormsController stationeryRetrievalFormsController = new StationeryRetrievalFormsController();
+            stationeryRetrievalFormsController.GenerateRetrievalForm();
+
             StoreClerk storeclerk = dbM.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();    
             if (storeclerk != null && sessionId != null)
             {

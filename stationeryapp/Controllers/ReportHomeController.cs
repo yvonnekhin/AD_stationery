@@ -32,7 +32,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
-
+                ViewData["tag"] = "storeclerk";
                 return View();
             }
             else if (storeManager != null)
@@ -46,6 +46,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
                 return View();
             }
             else if (storeSupervisor != null)
@@ -59,6 +60,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
                 return View();
             }
             else

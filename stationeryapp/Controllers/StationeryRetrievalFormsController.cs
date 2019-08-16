@@ -24,7 +24,14 @@ namespace stationeryapp.Controllers
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
-            GenerateRetrievalForm();
+            //GenerateRetrievalForm();
+
+            List<StationeryRetrievalForm> stationeryRetrievalForms = db.StationeryRetrievalForms.ToList();
+
+            var srfList = (from srf in stationeryRetrievalForms
+                          orderby srf.Date descending
+                           select srf).ToList();
+
             if (storeclerk != null)
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
@@ -37,7 +44,7 @@ namespace stationeryapp.Controllers
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
 
-                return View(db.StationeryRetrievalForms.ToList());
+                return View(srfList);
             }
             else if (storeManager != null)
             {

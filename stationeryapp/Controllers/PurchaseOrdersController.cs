@@ -26,7 +26,7 @@ namespace stationeryapp.Controllers
             StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
             var purchaseOrders = db.PurchaseOrders.Include(p => p.StoreClerk).Include(p => p.StoreClerk1).Include(p => p.StoreSupervisor).Include(p => p.SupplierList);
 
-            SystemGeneratePO();
+            //SystemGeneratePO();
 
             if (storeclerk != null)
             {
