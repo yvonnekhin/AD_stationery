@@ -148,7 +148,7 @@ namespace stationeryapp.Models
             }
             //Debug.WriteLine("*************************" + form_.EmployeeId+ emp_list.Where(e => e.Id == form_.EmployeeId).Select(e => e.DepartmentCode).FirstOrDefault());
             hod = emp_list.Where(e => e.Designation == "Head" && e.DepartmentCode == emp_list.Where(emp => emp.Id == form_.EmployeeId).Select(emp => emp.DepartmentCode).FirstOrDefault()).FirstOrDefault();
-            util.SendEmail(hod.EmailAddress, "From employee", "Request FORM : "+hod.DepartmentCode + "/" + (1000 + int.Parse(form_number)).ToString()+ " has been requested");
+            util.SendEmail(hod.EmailAddress, "New request from Employee has been received", "REQUEST FORM : "+hod.DepartmentCode + "/" + (1000 + int.Parse(form_number)).ToString()+ " has been requested");
         }
 
         public RequisitionForm get_single_form_details(string form_id)

@@ -86,13 +86,13 @@ namespace stationeryapp.Controllers
             string email_status = "";
             if (form_status.Equals("APPROVE"))
             {
-                form_status = "approved";
+                form_status = "Approved";
                 notify_status = "approved_by_hod";
                 email_status = "Approved By HOD";
             }
             else
             {
-                form_status = "rejected";
+                form_status = "Rejected";
                 notify_status = "rejected_by_hod";
                 email_status = "Rejected By HOD";
             }
@@ -111,7 +111,7 @@ namespace stationeryapp.Controllers
             using (ModelDBContext db = new ModelDBContext())
             {
                 form_ = db.RequisitionForms.Find(form_id);
-                util.SendEmail(form_.Employee.EmailAddress, "From Head Of Dept", form_.Employee.DepartmentCode + "/" + (1000 + int.Parse(form_.FormNumber)).ToString() + " " + email_status);
+                util.SendEmail(form_.Employee.EmailAddress, "Your request has been " + form_.Status, form_.Employee.DepartmentCode + "/" + (1000 + int.Parse(form_.FormNumber)).ToString() + " " + email_status);
             }
                 
 
