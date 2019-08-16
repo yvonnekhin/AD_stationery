@@ -160,6 +160,7 @@
     <Compile Include="Controllers\StoreManagersController.cs" />
     <Compile Include="Controllers\StoreSupervisorsController.cs" />
     <Compile Include="Controllers\SupplierListsController.cs" />
+    <Compile Include="Controllers\TrendController.cs" />
     <Compile Include="Filters\empfilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -1050,6 +1051,9 @@
     <Content Include="Views\StockAdjustmentVouchers\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Store.cshtml" />
     <Content Include="Views\HoD\viewhistorybyitem.cshtml" />
+    <Content Include="Views\Trend\DeptSubmit.cshtml" />
+    <Content Include="Views\Trend\TrendAnalysis.cshtml" />
+    <Content Include="Views\Trend\TrendSubmit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

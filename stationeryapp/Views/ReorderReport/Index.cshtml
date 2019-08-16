@@ -7,12 +7,14 @@
     ViewBag.Title = "Index";
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Reorder Report By Category</h2>
 
 <p align="right">
-    <a class="btn btn=success" href="@Url.Action("exportReorderReport")">Download Report</a>
+    @*<a class="btn btn=success" href="@Url.Action("exportReorderReport")">Download Report</a>*@
+    <a href="javascript:window.print()">Download Report</a>
 </p>
 
 @using (Html.BeginForm())
