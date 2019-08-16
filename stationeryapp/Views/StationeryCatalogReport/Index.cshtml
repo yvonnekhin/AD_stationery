@@ -4,13 +4,15 @@
     ViewBag.Title = "Inventory Status Report";
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Inventory Status Report</h2>
 
 <p align="right">
     @*@Html.ActionLink("Create New", "Create")*@
-    <a class="btn btn=success" href="@Url.Action("exportReport")">Download Report</a>
+    @*<a class="btn btn=success" href="@Url.Action("exportReport")">Download Report</a>*@
+    <a href="javascript:window.print()">Download Report</a>
 </p>
 
 @using (Html.BeginForm())

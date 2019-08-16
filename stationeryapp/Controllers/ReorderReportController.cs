@@ -42,6 +42,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
+                ViewData["tag"] = "storeclerk";
             }
             else if (storeManager != null)
             {
@@ -53,7 +54,8 @@ namespace stationeryapp.Controllers
                 int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
-                ViewData["username"] = storeManager.UserName;        
+                ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
             }
             else if (storeSupervisor != null)
             {
@@ -66,6 +68,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
             }
 
             var item = from i in db.StationeryCatalogs                      

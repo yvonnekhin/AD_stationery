@@ -1,4 +1,4 @@
-﻿@model stationeryapp.Models.StockAdjustmentVoucherDetail
+﻿@model List<stationeryapp.Models.StockAdjustmentVoucherDetail>
 @using stationeryapp.Models
 
 @{
@@ -38,28 +38,29 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th>@Html.DisplayNameFor(model => model.ItemNumber)</th>
-                    <th>@Html.DisplayNameFor(model => model.QuantityAdjusted)</th>
-                    <th>@Html.DisplayNameFor(model => model.Reason)</th>
                     <th></th>
+                    <th>Index</th>
+                    <th>@Html.DisplayNameFor(model => model[0].ItemNumber)</th>
+                    <th>@Html.DisplayNameFor(model => model[0].QuantityAdjusted)</th>
+                    <th>@Html.DisplayNameFor(model => model[0].Reason)</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>@Html.HiddenFor(model => model.AdjustmentDetailsNumber, new { htmlAttributes = new { @class = "form-control" } }) </td>
+                    <td>@Html.HiddenFor(model => model[0].AdjustmentDetailsNumber, new { @class = "detailnumber" }) </td>
+                    <td>@Html.HiddenFor(model => model[0].AdjustmentVoucherNumber, new { @class = "AVN" })</td>
+                    <td><div class="detailIndex"></div></td>
                     <td>
-                        @Html.EditorFor(model => model.ItemNumber, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextBoxFor(model => model[0].ItemNumber, new { @class = "IN" })
                     </td>
                     <td>
-                        @Html.EditorFor(model => model.QuantityAdjusted, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextBoxFor(model => model[0].QuantityAdjusted, new { @class = "quantity" })
                     </td>
                     <td>
-                        @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.TextBoxFor(model => model[0].Reason, new { @class = "reason" })
                     </td>
-                    <td>
-                        @Html.HiddenFor(model => model.AdjustmentVoucherNumber)
-                    </td>
+
                     <td><input type="button" value="Remove" onclick="Remove(this)" /></td>
                 </tr>
 
@@ -68,20 +69,22 @@
                 <tr></tr>
                 <tr>
                     <td></td>
+                    <td></td>
+                    <td></td>
                     <td>
                         <input class="btnAdd btn btn-default" type="button" name="name" value="Add" />
                     </td>
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
                 </tr>
                 <tr>
                     <td></td>
-                    <td>
-                        <input id="btnSubmit" type="button" value="Submit" class="btn btn-default" />
-                    </td>
                     <td></td>
+                    <td></td>
+                    <td>
+                        <input id="btnSubmit" type="submit" value="Submit" class="btn btn-default" />
+                    </td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -99,60 +102,16 @@
         var adjVoucher = {}
 
         $(".btnAdd").click(function () {
-            @{Model.AdjustmentDetailsNumber = Model.AdjustmentDetailsNumber + 1;};
-            var td1 =  '<td>@Html.HiddenFor(model => model.AdjustmentDetailsNumber, new { htmlAttributes = new { @class = "form-control" } })</td>';
-            var td2 =  '<td>@Html.HiddenFor(model => model.AdjustmentVoucherNumber)</td>';
-            var td3 = '<td>@Html.EditorFor(model => model.ItemNumber, new { htmlAttributes = new { @class = "form-control" } })</td>';
-            var td4 = '<td>@Html.EditorFor(model => model.QuantityAdjusted, new { htmlAttributes = new { @class = "form-control" } })</td>';
-            var td5 = '<td>@Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" } })</td>';
-            var td6 = '<td><input type="button" value="Remove" onclick="Remove(this)" /></td>';
-            $("tbody").append('<tr>' + td1 + td3 + td4 + td5 + td2 + td6 + '</tr>');
-        });
-
-        function getAllData() {
-            var data = [];
-            $('tbody tr').each(function () {
-                var AdjustmentDetailsNumber = $(this).find('#AdjustmentDetailsNumber').val();
-                var AdjustmentVoucherNumber = $(this).find('#AdjustmentVoucherNumber').val();
-                var ItemNumber = $(this).find('#ItemNumber').val();
-                var QuantityAdjusted = $(this).find('#QuantityAdjusted').val();
-                var Reason = $(this).find('#Reason').val();
-                var allData = {
-                    'AdjustmentDetailsNumber': AdjustmentDetailsNumber,
-                    'AdjustmentVoucherNumber': AdjustmentVoucherNumber,
-                    'ItemNumber': ItemNumber,
-                    'QuantityAdjusted': QuantityAdjusted,
-                    'Reason': Reason
-                }
-                data.push(allData);
-            });
-            console.log(data);
-            return data;
-        }
-
-
-
-        $('#btnSubmit').click(function () {
-            var data = JSON.stringify(getAllData());
-            console.log(data);
-            var data1 = [];
-            var voucherInfo = { 'AdjustmentVoucherNumber': "@stockAdjustmentVoucher.AdjustmentVoucherNumber", 'Status': "@stockAdjustmentVoucher.Status", 'Remarks': "@stockAdjustmentVoucher.Remarks", 'Date':"@stockAdjustmentVoucher.Date" };
-            data1.push(voucherInfo);
-            var data2 = JSON.stringify(data1);
-            console.log(data1);
-            $.ajax({
-                url: '/StockAdjustmentVouchers/SaveData',
-                type: 'POST',
-                dataType: 'json',
-                contentType: 'application/json;charset=utf-8',
-                data: JSON.stringify({ 'passdata': data, 'vdata': data2 }),
-                success: function () {
-                    alert("Data added successfully");
-                },
-                error: function () {
-                    alert("Error while inserting data");
-                }
-            });
+            console.log(@Model.Count);
+            var td1 =  '<td>@Html.HiddenFor(model => model[0].AdjustmentDetailsNumber, new { @class = "detailnumber" } )</td>';
+            var td2 = '<td>@Html.HiddenFor(model => model[0].AdjustmentVoucherNumber, new { @class="AVN"})</td>';
+            var td3 = '<td><div class="detailIndex">0</div></td>';
+            var td4 = '<td>@Html.TextBoxFor(model => model[0].ItemNumber, new { @class = "IN" } )</td>';
+            var td5 = '<td>@Html.TextBoxFor(model => model[0].QuantityAdjusted, new { @class = "quantity" } )</td>';
+            var td6 = '<td>@Html.TextBoxFor(model => model[0].Reason, new { @class = "reason" } )</td>';
+            var td7 = '<td><input type="button" value="Remove" onclick="Remove(this)" /></td>';
+            $("tbody").append('<tr>' + td1 + td2 + td3 + td4 + td5 + td6 + td7 + '</tr>');
+            setIndex();
         });
 
         function Remove(button) {
@@ -166,11 +125,47 @@
                 //Delete the Table row using it's Index.
                 table.deleteRow(row[0].rowIndex);
             }
+            setIndex();
         };
+
+        function setIndex() {
+            var indexList = document.getElementById("details").querySelectorAll(".detailIndex");
+            var detailNumberList = document.getElementById("details").querySelectorAll(".detailnumber");
+            var avnList = document.getElementById("details").querySelectorAll(".AVN");
+            var inList = document.getElementById("details").querySelectorAll(".IN");
+            var quantityList = document.getElementById("details").querySelectorAll(".quantity");
+            var reasonList = document.getElementById("details").querySelectorAll(".reason");
+
+            for (var i = 0; i < indexList.length; i++) {
+
+                indexList[i].id = "Index" + i;
+                indexList[i].innerHTML = i;
+
+                detailNumberList[i].id = "AVD" + i;
+                detailNumberList[i].setAttribute("name", ("[" + i + "]" + ".AdjustmentDetailsNumber"));
+                detailNumberList[i].value = @Model[0].AdjustmentDetailsNumber + i;
+
+                avnList[i].id = "AVN" + i;
+                avnList[i].setAttribute("name", ("[" +i + "]"+".AdjustmentVoucherNumber"));
+
+                inList[i].id = "IN" + i;
+                inList[i].setAttribute("name", ("[" + i + "]" + ".ItemNumber"));
+
+                quantityList[i].id = "Quantity" + i;
+                quantityList[i].setAttribute("name", ("[" + i + "]" + ".QuantityAdjusted"));
+
+                reasonList[i].id = "Reason" + i;
+                reasonList[i].setAttribute("name", ("[" + i + "]" + ".Reason"));
+            }
+
+
+        }
+
+        window.onload = setIndex();
     </script>
 
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index",new { sessionId=sessionId})
+    @Html.ActionLink("Back to List", "Index", new { sessionId = sessionId })
 </div>

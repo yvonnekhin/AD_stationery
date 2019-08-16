@@ -8,9 +8,8 @@
 
 <h2>List of Retrieval Forms</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<hr />
+
 <table class="table">
     <tr>
         <th>
@@ -37,11 +36,17 @@
             @Html.DisplayFor(modelItem => item.Status)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.FormNumber,sessionId=sessionId}) |
-            @Html.ActionLink("Details", "Details", new { id=item.FormNumber, sessionId = sessionId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.FormNumber, sessionId = sessionId })
+            @if (item.Status == "Pending")
+            {
+            @Html.ActionLink("Retrieve", "Edit", new { id = item.FormNumber, sessionId = sessionId }) 
+            }
         </td>
     </tr>
 }
-
 </table>
+
+@*<script>
+    function remove() {
+
+    }
+</script>*@

@@ -30,6 +30,7 @@ namespace stationeryapp.Controllers
             {
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
+                ViewData["tag"] = "storeclerk";
                 int num = db2.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db2.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 int numOutS = db2.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
@@ -37,13 +38,14 @@ namespace stationeryapp.Controllers
                 int numPO = db2.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
                 int numStock = db2.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
-                List<RequisitionForm> rev = db1.RequisitionForms.Where(x =>x.Status!="Rejected").ToList();
+                List<RequisitionForm> rev = db1.RequisitionForms.Where(x =>x.Status!="Rejected").Where(y=>y.Status!="Pending").ToList();
                 return View(rev);
             }
             else if (storeManager != null && sessionId != null)
             {
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
                 int num = db2.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db2.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 int numOutS = db2.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
@@ -58,6 +60,7 @@ namespace stationeryapp.Controllers
             {
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
                 int num = db2.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db2.DisbursementLists.Where(x => x.Status == "Pending").Count();
                 int numOutS = db2.OutstandingLists.Where(x => x.Status == "Outstanding").Count();

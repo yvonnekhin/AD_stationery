@@ -2,11 +2,23 @@
 @{
 
     ViewBag.Title = "TrendAnalysis";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 
 }
 
+@ViewBag.Messagae
+<h2>TrendAnalysis</h2>
+<br>
+<br>
+<br>
+<br>
+
 @using (Html.BeginForm("TrendSubmit", "Trend", FormMethod.Post))
 {
+    @Html.Hidden("sessionId", sessionId)
+    @Html.Hidden("tag", tag)
     @Html.DropDownList("Months", new List<SelectListItem>
     {
 
@@ -120,8 +132,13 @@
 
 
 }
+
+<br>
+<br>
 @using (Html.BeginForm("DeptSubmit", "Trend", FormMethod.Post))
 {
+    @Html.Hidden("sessionId", sessionId)
+    @Html.Hidden("tag", tag)
     @Html.DropDownList("Months", new List<SelectListItem>
     {
 
@@ -156,7 +173,6 @@
 }
 
 
-@ViewBag.Messagae
-<h2>TrendAnalysis</h2>
+
 
 

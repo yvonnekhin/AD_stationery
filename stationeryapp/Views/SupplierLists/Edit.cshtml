@@ -2,14 +2,19 @@
 
 @{
     ViewBag.Title = "Edit";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
+    @Html.Hidden("sessionId", sessionId)
+    @Html.Hidden("tag", tag)
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>SupplierList</h4>
         <hr />
@@ -73,5 +78,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "Index",new { sessionId=sessionId})
 </div>
