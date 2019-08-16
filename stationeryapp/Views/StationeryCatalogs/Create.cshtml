@@ -2,14 +2,18 @@
 
 @{
     ViewBag.Title = "Create";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
+    @Html.Hidden("sessionId", sessionId)
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>StationeryCatalog</h4>
         <hr />
@@ -118,6 +122,6 @@
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
+<div style="font-size:medium">
+    @Html.ActionLink("Back to List", "Index",new { sessionId=sessionId})
 </div>
