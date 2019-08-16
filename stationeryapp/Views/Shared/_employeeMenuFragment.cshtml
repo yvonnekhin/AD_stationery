@@ -25,7 +25,6 @@ else
         background: #eee;
         overflow-x: hidden;
         padding: 8px 0;
-        text-align: center;
     }
 
     .sidenav a {
@@ -44,7 +43,7 @@ else
 
 <div class="sidenav">
     <a href='@Url.Action("index", "Employee",new { id=emp.Id})'>Employee Home</a>
-    <a href='@Url.Action("newrequest", "Employee",new { id=emp.Id})'>New Request</a>
+    <a href='@Url.Action("newrequest", "Employee",new { id=emp.Id})'>Create New Request</a>
     <a href='@Url.Action("viewrequest", "Employee",new { id=emp.Id})'>View Request(s)</a>
 
 </div>
