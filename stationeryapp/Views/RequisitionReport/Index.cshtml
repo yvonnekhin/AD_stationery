@@ -9,7 +9,8 @@
 <h2>Requisition Report By Department</h2>
 
 <p align="right">
-    <a class="btn btn=success" href="@Url.Action("exportRequisitionReport")">Download Report</a>
+    @*<a class="btn btn=success" href="@Url.Action("exportRequisitionReport")">Download Report</a>*@
+    <a href="javascript:window.print()">Download Report</a>
 </p>
 
 @using (Html.BeginForm())
