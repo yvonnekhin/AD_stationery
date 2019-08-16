@@ -2,12 +2,15 @@
 
 @{
     ViewBag.Title = "Index";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "Create",new { sessionId=sessionId})
 </p>
 <table class="table">
     <tr>
@@ -53,9 +56,9 @@
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SupplierCode }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SupplierCode }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SupplierCode })
+            @Html.ActionLink("Edit", "Edit", new { id=item.SupplierCode,sessionId=sessionId}) |
+            @Html.ActionLink("Details", "Details", new { id=item.SupplierCode, sessionId = sessionId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.SupplierCode, sessionId = sessionId })
         </td>
     </tr>
 }
