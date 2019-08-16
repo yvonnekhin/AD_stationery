@@ -3,26 +3,26 @@
     ViewBag.Title = "viewrequest";
     List<RequisitionForm> requestlist = (List<RequisitionForm>)ViewData["requestlist"];
     Employee emp = (Employee)ViewData["userobj"];
+    string sid = (string)ViewData["sid"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_employeeheader")
 @Html.Partial("_employeeMenuFragment")
 @Html.Partial("_emp_notify")
 
-<div style="margin-left:15%">
+<div style="margin-left:15%;margin-top:5%">
     <h2>View Requests</h2>
-    <table id="requesttbl" class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Form id</th>
-                <th>Status</th>
-                <th>Date Submitted</th>
+    <table id="requesttbl" class="table table-bordered" style="text-align:center">
+            <tr >
+                <th style="text-align:center">Form id</th>
+                <th style="text-align:center">Status</th>
+                <th style="text-align:center">Date Submitted</th>
             </tr>
-        </thead>
+       
         @foreach (var item in requestlist)
         {
             <tr>
-                <td><a href="@Url.Action("view_single_request", "Employee", new { form_id = @item.FormNumber })">@(emp.DepartmentCode + "/" + (1000 + int.Parse(item.FormNumber)).ToString())</a> </td>
+                <td><a href="@Url.Action("view_single_request", "Employee", new { form_id = @item.FormNumber , sid=sid})">@(item.FormNumber)</a> </td>
                 <td>@item.Status</td>
                 <td>@Convert.ToDateTime(@item.DateReceived).Date.ToString("dd/MM/yyyy")</td>
             </tr>

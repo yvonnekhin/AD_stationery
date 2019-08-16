@@ -3,6 +3,7 @@
     ViewBag.Title = "_hodheader";
     Employee emp = (Employee)Session["user"];
     int count = (int)Session["count"];
+    string sid = (string)Session["sid"];
 }
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
@@ -60,7 +61,7 @@
                     </a>
                 </li>
                 <li><a href="#"><img style="height:30px" alt="profile" src="~/Images/profile.png">@emp.FirstName</a></li>
-                <li><a href='@Url.Action("EmployeeIndex", "login")'>Logout</a></li>
+                <li><a href='@Url.Action("EmployeeIndex", "login", new {sid = sid})'>Logout</a></li>
             </ul>
         </div>
     </div>

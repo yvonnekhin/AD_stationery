@@ -19,6 +19,7 @@ namespace stationeryapp.Controllers
 
             StationeryRetrievalFormsController stationeryRetrievalFormsController = new StationeryRetrievalFormsController();
             stationeryRetrievalFormsController.GenerateRetrievalForm();
+            stationeryRetrievalFormsController.MergeRetrievalForms();
 
             StoreClerk storeclerk = dbM.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();    
             if (storeclerk != null && sessionId != null)

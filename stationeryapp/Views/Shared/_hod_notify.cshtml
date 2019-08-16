@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "_hod_notify";
     Employee emp = (Employee)Session["user"];
+    string sid = (string)Session["sid"];
     List<RequisitionForm> notify_form_list = (List<RequisitionForm>)Session["notify_form_list"];
 }
 
@@ -20,7 +21,7 @@
                 {
                 <p>
                     @*<a href="@Url.Action("view_single_request", "Employee", new { form_id = @item.FormNumber, notify="seen" })">@item.FormNumber @item.Notification</a>*@
-                    New incoming request:<a href="@Url.Action("req_forms", "Hod", new { form_id = @item.FormNumber, notify="seen" })"> @(emp.DepartmentCode + "/" + (1000 + int.Parse(item.FormNumber)).ToString())</a>
+                    <a href="@Url.Action("req_forms", "Hod", new {sid=sid,  form_id = @item.FormNumber, notify="seen" })"> New incoming request : @(item.FormNumber)</a>
                 </p>
                 }
                 

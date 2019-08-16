@@ -11,12 +11,13 @@
     Employee emp = (Employee)ViewData["userobj"];
     List<Employee> emp_list = (List<Employee>)ViewData["emp_list"];
     Boolean status = ViewData["from_pending_reqs"] != null ? (Boolean)ViewData["from_pending_reqs"] : false;
+    string sid = (string)ViewData["sid"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_hodheader")
 @Html.Partial("_hodMenuFragment")
 @Html.Partial("_hod_notify")
-<div style="margin-left:15%">
+<div style="margin-left:15%;margin-top:5%">
     <h2>
         @(status ? "Pending Requests" : "Stationery Request History" )
     </h2>
@@ -32,7 +33,7 @@
         @foreach (var item in requestlist)
         {
             <tr>
-                <td><a href="@Url.Action("req_forms", "Hod", new { form_id = @item.FormNumber })">@(emp.DepartmentCode + "/" + (1000 + int.Parse(item.FormNumber)).ToString())</a> </td>
+                <td><a href="@Url.Action("req_forms", "Hod", new { sid= sid, form_id = @item.FormNumber })">@(item.FormNumber)</a> </td>
                 <td>@emp_list.Where(e => e.Id == item.EmployeeId).FirstOrDefault().FirstName @emp_list.Where(e => e.Id == item.EmployeeId).FirstOrDefault().LastName</td>
                 <td>@item.Status</td>
                 <td>@Convert.ToDateTime(@item.DateReceived).Date.ToString("dd/MM/yyyy")</td>

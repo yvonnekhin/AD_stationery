@@ -2,6 +2,7 @@
 @using stationeryapp.Models
 @{
     Employee emp;
+    string sid = (string)Session["sid"];
 }
 @if ((Session["user"]) != null)
 {
@@ -43,16 +44,16 @@ else
         }
 </style>
 <div class="sidenav">
-    <a href='@Url.Action("index", "Hod",new { id=emp.Id})'>Home</a>
-    <a href='@Url.Action("newstationaryrequest", "Hod",new { id=emp.Id})'>Pending Requests</a>
-    <a href='@Url.Action("stationaryrequesthistory", "Hod",new { id=emp.Id})'>History By Request Number</a>
-    <a href='@Url.Action("editdeptinfo", "Hod",new { id=emp.Id})'>Edit Dept Info</a>
+    <a href='@Url.Action("index", "Hod",new { id=emp.Id, sid= sid})'>Home</a>
+    <a href='@Url.Action("newstationaryrequest", "Hod",new { id=emp.Id, sid= sid})'>Pending Requests</a>
+    <a href='@Url.Action("stationaryrequesthistory", "Hod",new { id=emp.Id, sid= sid})'>History By Request Number</a>
+    <a href='@Url.Action("editdeptinfo", "Hod",new { id=emp.Id, sid= sid})'>Edit Dept Info</a>
 
     @if (emp.Designation == "Head")
     {
-        <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id})'>Delegate</a>
-        <a href='@Url.Action("viewhistorybyitem", "Hod",new { id=emp.Id})'>History By Item</a>
+        <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id, sid= sid})'>Delegate</a>
     }
+    <a href='@Url.Action("viewhistorybyitem", "Hod",new { id=emp.Id, sid= sid})'>History By Item</a>
 
 
 </div>
