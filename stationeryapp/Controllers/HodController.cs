@@ -11,7 +11,8 @@ namespace stationeryapp.Controllers
     public class HodController : Controller
     {
         // GET: Hod
-        public ActionResult Index()
+        [empfilter]
+        public ActionResult Index(string sid)
         {
             Employee user = (Employee)Session["user"];
          
@@ -24,11 +25,12 @@ namespace stationeryapp.Controllers
             }
             Session["count"] = count;
             Session["notify_form_list"] = notify_form_list;
+            ViewData["sid"] = sid;
             return View();
         }
 
         [empfilter]
-        public ActionResult req_forms(string form_id, string notify)
+        public ActionResult req_forms(string form_id, string notify, string sid)
         {
             if (notify=="seen")
             {
@@ -69,7 +71,8 @@ namespace stationeryapp.Controllers
             ViewData["emp"] = emp;
             ViewData["emp_dept"] = dept;
             ViewData["catalog_list"] = items;
-            if (form.Status=="pending")
+            ViewData["sid"] = sid;
+            if (form.Status=="Pending")
             {
                 ViewData["req_pending_forms"] = true;
             }
@@ -79,20 +82,20 @@ namespace stationeryapp.Controllers
         }
 
         [empfilter]
-        public ActionResult approve_reject(string form_id, string form_status, string comment, string approved_by)
+        public ActionResult approve_reject(string form_id, string form_status, string comment, string approved_by, string sid)
         {
             Debug.WriteLine(form_id+form_status+comment);
             string notify_status="";
             string email_status = "";
             if (form_status.Equals("APPROVE"))
             {
-                form_status = "approved";
+                form_status = "Approved";
                 notify_status = "approved_by_hod";
                 email_status = "Approved By HOD";
             }
             else
             {
-                form_status = "rejected";
+                form_status = "Rejected";
                 notify_status = "rejected_by_hod";
                 email_status = "Rejected By HOD";
             }
@@ -111,15 +114,15 @@ namespace stationeryapp.Controllers
             using (ModelDBContext db = new ModelDBContext())
             {
                 form_ = db.RequisitionForms.Find(form_id);
-                util.SendEmail(form_.Employee.EmailAddress, "From Head Of Dept", form_.Employee.DepartmentCode + "/" + (1000 + int.Parse(form_.FormNumber)).ToString() + " " + email_status);
+                util.SendEmail(form_.Employee.EmailAddress, "Your request status has been updated", form_.FormNumber + " " + email_status);
             }
                 
 
-            return RedirectToAction("Index", "Hod");
+            return RedirectToAction("Index", "Hod", new { sid = sid});
         }
 
         [empfilter]
-        public ActionResult newstationaryrequest()
+        public ActionResult newstationaryrequest(string sid)
         {
             Employee user = (Employee)Session["user"];
             List<RequisitionForm> requestlist;
@@ -127,18 +130,19 @@ namespace stationeryapp.Controllers
             using (ModelDBContext db = new ModelDBContext())
             {
                 emp_list = db.Employees.ToList();
-                requestlist = db.RequisitionForms.Where(f => db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(e => e.Id).Contains(f.EmployeeId) && (f.Status == "pending")).OrderByDescending(f=>f.DateReceived).ToList();
+                requestlist = db.RequisitionForms.Where(f => db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(e => e.Id).Contains(f.EmployeeId) && (f.Status == "Pending")).OrderByDescending(f=>f.DateReceived).ToList();
             }
             ViewData["emp_list"] = emp_list;
             ViewData["userobj"] = user;
             ViewData["requestlist"] = requestlist;
             ViewData["from_pending_reqs"] = true;
+            ViewData["sid"] = sid;
 
             return View("stationaryrequesthistory");
         }
 
         [empfilter]
-        public ActionResult stationaryrequesthistory()
+        public ActionResult stationaryrequesthistory(string sid)
         {
             Employee user = (Employee)Session["user"];
             List<RequisitionForm> requestlist;
@@ -146,16 +150,17 @@ namespace stationeryapp.Controllers
             using (ModelDBContext db = new ModelDBContext())
             {
                 emp_list = db.Employees.ToList();
-                requestlist = db.RequisitionForms.Where( f => db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(e=>e.Id).Contains(f.EmployeeId) && (f.Status=="approved" || f.Status=="rejected")).OrderByDescending(f => f.DateReceived).ToList();
+                requestlist = db.RequisitionForms.Where( f => db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(e=>e.Id).Contains(f.EmployeeId) && (f.Status=="Approved" || f.Status=="Rejected")).OrderByDescending(f => f.DateReceived).ToList();
             }
             ViewData["emp_list"] = emp_list;
             ViewData["userobj"] = user;
             ViewData["requestlist"] = requestlist;
+            ViewData["sid"] = sid;
             return View();
         }
 
         [empfilter]
-        public ActionResult editdeptinfo(string id)
+        public ActionResult editdeptinfo(string id, string sid)
         {
             Employee user = (Employee)Session["user"];
             Employee hod;
@@ -183,13 +188,14 @@ namespace stationeryapp.Controllers
             ViewData["hod"] = hod;
             ViewData["dept"] = dept;
             ViewData["emp_list"] = emp_list;
+            ViewData["sid"] = sid;
 
             return View();
         }
 
         [HttpPost]
         [empfilter]
-        public ActionResult updatedeptinfo(string rep_id,string coll_point,string current_dept_code)
+        public ActionResult updatedeptinfo(string rep_id,string coll_point,string current_dept_code, string sid)
         {
             DepartmentList dept_to_update_coll_point;
             Employee rep;
@@ -218,11 +224,12 @@ namespace stationeryapp.Controllers
             }
 
             Debug.WriteLine(dept_to_update_coll_point.DepartmentName+ rep.FirstName+current_dept_code);
-            return View("Index");
+            //return View("Index", new { sid = sid});
+            return RedirectToAction("editdeptinfo", new { sid = sid });
         }
 
         [empfilter]
-        public ActionResult assigndelegate(string id)
+        public ActionResult assigndelegate(string id, string sid)
         {
             Employee user = (Employee)Session["user"];
             Employee delegate_;
@@ -235,12 +242,14 @@ namespace stationeryapp.Controllers
 
             ViewData["delegate_"] = (delegate_ != null ) ? delegate_ : user;
             ViewData["dept_emp_list"] = dept_emp_list;
+            ViewData["sid"] = sid;
 
             return View();
         }
 
         [empfilter]
-        public ActionResult edit_delegate(string new_delegate_id, string from_date, string to_date)
+        [HttpPost]
+        public ActionResult edit_delegate(string new_delegate_id, string from_date, string to_date, string sid)
         {
             Debug.WriteLine(new_delegate_id + from_date + to_date);
             Employee delegate_;
@@ -274,11 +283,11 @@ namespace stationeryapp.Controllers
                 }
                 db.SaveChanges();
             }
-            return View("index");
+            return View("index", new { sid=sid});
         }
 
         [empfilter]
-        public ActionResult remove_delegate(string hod_id)
+        public ActionResult remove_delegate(string hod_id, string sid)
         {
             Employee hod;
             Employee previous_delegate;
@@ -297,10 +306,10 @@ namespace stationeryapp.Controllers
                 }
                 db.SaveChanges();
             }
-            return RedirectToAction("assigndelegate");
+            return RedirectToAction("assigndelegate", new { sid=sid});
         }
 
-        public ActionResult viewhistorybyitem()
+        public ActionResult viewhistorybyitem( string sid)
         {
             Employee user = (Employee)Session["user"];
 
@@ -310,7 +319,7 @@ namespace stationeryapp.Controllers
             {
                 //select ItemNumber, sum(Quantity) from RequisitionFormDetails where FormNumber in (select r.FormNumber from RequisitionForms r where r.EmployeeId in (select Id from Employee where DepartmentCode = 'CPSC') and r.Status = 'approved') group by  RequisitionFormDetails.ItemNumber
 
-                List<RequisitionFormDetail> lists = db.RequisitionFormDetails.Where(formd => (db.RequisitionForms.Where(rf => db.Employees.Where(emp => emp.DepartmentCode == user.DepartmentCode).Select(e => e.Id).ToList().Contains(rf.EmployeeId) && rf.Status == "approved").Select(fff => fff.FormNumber).ToList()).Contains(formd.FormNumber)).ToList();
+                List<RequisitionFormDetail> lists = db.RequisitionFormDetails.Where(formd => (db.RequisitionForms.Where(rf => db.Employees.Where(emp => emp.DepartmentCode == user.DepartmentCode).Select(e => e.Id).ToList().Contains(rf.EmployeeId) && rf.Status == "Approved").Select(fff => fff.FormNumber).ToList()).Contains(formd.FormNumber)).ToList();
 
 
                 foreach (var item in lists)
@@ -327,10 +336,11 @@ namespace stationeryapp.Controllers
                 }
             };
             ViewData["res_"] = res_;
+            ViewData["sid"] = sid;
             return View();
         }
 
-            public JsonResult GetPendingReq(string user_id)
+        public JsonResult GetPendingReq(string user_id)
         {
             List<RequisitionForm> requestlist;
             List<Employee> emp_list;
@@ -339,7 +349,7 @@ namespace stationeryapp.Controllers
             {
                 hod = db.Employees.Find(user_id);
                 emp_list = db.Employees.ToList();
-                requestlist = db.RequisitionForms.Where(f => db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode).Select(e => e.Id).Contains(f.EmployeeId) && (f.Status == "pending")).OrderByDescending(f => f.DateReceived).ToList();
+                requestlist = db.RequisitionForms.Where(f => db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode).Select(e => e.Id).Contains(f.EmployeeId) && (f.Status == "Pending")).OrderByDescending(f => f.DateReceived).ToList();
             }
             return Json(new { data = requestlist.Select(item => new { Status = item.Status, EmployeeId = item.EmployeeId, EmployeeName = emp_list.Where(e => e.Id == item.EmployeeId).Select(e => e.FirstName + " " + e.LastName).First().ToString(), FormNumber = item.FormNumber }) }, JsonRequestBehavior.AllowGet);
         }

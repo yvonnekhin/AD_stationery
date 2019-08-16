@@ -1,10 +1,12 @@
-﻿@using stationeryapp.Models;
+﻿
+@using stationeryapp.Models;
 @{
     ViewBag.Title = "_employeeMenuFragment";
+    string sid = (string)Session["sid"];
     Employee emp;
 }
 
-@if ((Session["user"])!=null)
+@if ((Session["user"]) != null)
 {
 
     emp = (Employee)HttpContext.Current.Session["user"];
@@ -15,10 +17,11 @@ else
 }
 
 <style>
+
     .sidenav {
         height: 100%;
         width: 15%;
-        position: fixed;
+        position: absolute;
         z-index: 1;
         top: 50px;
         left: 0px;
@@ -28,24 +31,40 @@ else
         text-align: center;
     }
 
-    .sidenav a {
-        margin: 50px 20px;
-        /*padding: 20px 8px 20px 15px;*/
-        /*padding: 6px 8px 6px 10px;*/
-        font-size: 20px;
-        color: #2874a6;
-        display: block;
-    }
-
-        .sidenav a:hover {
-            color: black;
+        .sidenav a {
+            margin: 50px 20px;
+            /*padding: 20px 8px 20px 15px;*/
+            /*padding: 6px 8px 6px 10px;*/
+            font-size: 20px;
+            color: #2874a6;
+            display: block;
         }
+
+            .sidenav a:hover {
+                color: black;
+            }
 </style>
 
 <div class="sidenav">
-    <a href='@Url.Action("index", "Employee",new { id=emp.Id})'>Employee Home</a>
-    <a href='@Url.Action("newrequest", "Employee",new { id=emp.Id})'>New Request</a>
-    <a href='@Url.Action("viewrequest", "Employee",new { id=emp.Id})'>View Request(s)</a>
+        <a href='@Url.Action("index", "Employee",new { id=emp.Id, sid= sid})'>Employee Home</a>
+        <a href='@Url.Action("newrequest", "Employee",new { id=emp.Id, sid= sid})'>New Request</a>
+        <a href='@Url.Action("viewrequest", "Employee",new { id=emp.Id, sid= sid})'>View Request(s)</a>
 
-</div>
+    </div>
+@*<div class="sidenav">
+
+    <ul class="nav">
+        <li>
+            <a href='@Url.Action("index", "Employee",new { id=emp.Id, sid= sid})'>Employee Home</a>
+        </li>
+        <li>
+            <a href='@Url.Action("newrequest", "Employee",new { id=emp.Id, sid= sid})'>New Request</a>
+        </li>
+        <li>
+            <a href='@Url.Action("viewrequest", "Employee",new { id=emp.Id, sid= sid})'>View Request(s)</a>
+        </li>
+    </ul>
+
+</div>*@
+
 <!-- ***************************** -->

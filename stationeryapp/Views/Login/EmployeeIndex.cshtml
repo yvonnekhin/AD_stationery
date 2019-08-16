@@ -50,12 +50,12 @@
         #Header {
             background-color: #3498db;
             border-color: #3498db;
-            position: fixed;
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 10%;
-        }
+ }
 
         #footer {
             left:0px;
@@ -71,14 +71,16 @@
     </style>
 </head>
 <body>
-    <div class="navbar navbar-default navbar-fixed-top" id="Header">
-        <div>
-            <div class="navbar-header">
-                <ul class="nav navbar-nav">
+    <div class="navbar-fixed-top" id="Header">
+        
+            <div class="navbar-brand-center" style="color: white; text-align:center ; padding-top:1.5%" >
+                @*<ul class="nav navbar-nav">
                    <li><label class="navbar-brand" style="color: white;"> STATIONERY MANAGEMENT SYSTEM</label></li>
-                </ul>
+                </ul>*@
+                <div>  <h4> <b> STATIONERY MANAGEMENT SYSTEM </b> </h4> </div>
+               
             </div>
-        </div>
+        
     </div>
     <div class="login-form">
         @using (Html.BeginForm("EmployeeLogin", "Login", FormMethod.Post))
@@ -118,11 +120,8 @@
     <div id="footer">
         <h4><span>Logic University</span></h4>
         <i class="fa fa-location-arrow"></i>
-        21 Lower Kent Ridge Road<br>
-        Singapore 119077<br>
-        <i class="fa fa-phone"></i>
-        +65 6516 666<br>
-        support@logic.edu.com
+        21 Lower Kent Ridge Road, Singapore 119077<br>
+        <i class="fa fa-phone"></i> +65 6516 666 <i class="fa glyphicon-envelope"></i>support@logic.edu.com
         <hr />
         <h6><b>&copy; @DateTime.Now.Year Login University. All Copyright Reserved.</b></h6>
     </div>

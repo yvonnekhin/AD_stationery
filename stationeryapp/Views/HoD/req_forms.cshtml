@@ -9,6 +9,7 @@
     string form_number = (string)ViewData["form_number"];
     RequisitionForm form = (RequisitionForm)ViewData["req_form"];
     List<StationeryCatalog> items = (List<StationeryCatalog>)ViewData["catalog_list"];
+    string sid = (string)ViewData["sid"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_hodheader")
@@ -16,7 +17,7 @@
 @Html.Partial("_hod_notify")
 
 <div style="margin-left:15%; margin-top: 5%;">
-    <h4>Form number : @(emp_dept.DepartmentCode + "/" + (1000 + int.Parse(form_number)).ToString())</h4>
+    <h4>Form number : @(form_number)</h4>
     <h4>Employee name : @emp.FirstName @emp.LastName</h4>
     <h4>Department name : @emp_dept.DepartmentName</h4>
     <table id="myTable" class="table">
@@ -41,7 +42,7 @@
                 <tr>
                     @if (req_pending_forms)
                     {
-                        using (Html.BeginForm("approve_reject", "Hod", FormMethod.Post))
+                        using (Html.BeginForm("approve_reject", "Hod", new { sid=sid},FormMethod.Post))
                         {
                             <td>
                                 Comments:

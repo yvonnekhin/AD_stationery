@@ -77,6 +77,7 @@ namespace stationeryapp.Controllers
                 db1.Entry(logged_user).State = EntityState.Modified;
                 db1.SaveChanges();
                 Session.Remove("user");
+                Session.Remove("sid");
             }
             ViewData["msg"] = msg;
             return View();
@@ -217,21 +218,23 @@ namespace stationeryapp.Controllers
                         Session.Add("user", user);
                         Session.Add("count", 0);
                         string sessionId = Guid.NewGuid().ToString();
+                        Session.Add("sid", sessionId);
                         user.SessionId = sessionId;
                         db1.Entry(user).State = EntityState.Modified;
                         db1.SaveChanges();
 
-                        return RedirectToAction("Index", "Hod");
+                        return RedirectToAction("Index", "Hod", new { sid  = sessionId});
                     }
                     else if (user.Designation == "Employee" || user.Designation == "Rep")
                     {
                         Session.Add("user", user);
                         Session.Add("count", 0);
                         string sessionId = Guid.NewGuid().ToString();
+                        Session.Add("sid", sessionId);
                         user.SessionId = sessionId;
                         db1.Entry(user).State = EntityState.Modified;
                         db1.SaveChanges();
-                        return RedirectToAction("Index", "Employee");
+                        return RedirectToAction("Index", "Employee", new { sid = sessionId });
                     }
                 }
                 else

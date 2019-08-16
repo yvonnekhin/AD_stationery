@@ -2,6 +2,9 @@
 
 @{
     ViewBag.Title = "Details";
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Details</h2>
@@ -61,6 +64,6 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.SupplierCode }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.SupplierCode ,sessionId=sessionId}) |
+    @Html.ActionLink("Back to List", "Index",new { sessionId=sessionId})
 </p>

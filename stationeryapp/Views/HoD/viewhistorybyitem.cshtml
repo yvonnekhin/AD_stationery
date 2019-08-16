@@ -3,6 +3,7 @@
     ViewBag.Title = "valueaddedfeature";
     Dictionary<Employee, int> res = (Dictionary<Employee, int>)ViewData["res"];
     Dictionary<string, int> res_ = (Dictionary<string, int>)ViewData["res_"];
+    string sid = (string)ViewData["sid"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,7 +12,7 @@
 @Html.Partial("_hod_notify")
 
 
-<div style="margin-left:15%">
+<div style="margin-left:15%;margin-top:5%">
     <h2>History By Item</h2>
     <table class="table" style="width:80%">
         <tr>
