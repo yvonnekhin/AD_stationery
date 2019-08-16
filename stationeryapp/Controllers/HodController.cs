@@ -69,7 +69,7 @@ namespace stationeryapp.Controllers
             ViewData["emp"] = emp;
             ViewData["emp_dept"] = dept;
             ViewData["catalog_list"] = items;
-            if (form.Status=="pending")
+            if (form.Status=="Pending")
             {
                 ViewData["req_pending_forms"] = true;
             }
