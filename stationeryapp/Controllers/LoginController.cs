@@ -284,5 +284,40 @@ namespace stationeryapp.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        public JsonResult login_android(string Username, string Password)
+        {
+            Employee user;
+            string hashedPassword = CalculateMD5Hash(Password).ToUpper();
+
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                user = (from e in db.Employees
+                        where (e.UserName == Username && e.Designation == "Head") || (e.UserName == Username && e.Designation == "Delegate")
+                        select e).FirstOrDefault();
+            }
+            if (user != null)
+            {
+                Debug.WriteLine("User is found..........");
+                Debug.WriteLine(user.FirstName + user.Designation);
+
+                if (hashedPassword.Equals(user.Password))
+                {
+                    Debug.WriteLine(Password);
+
+                    //return Json(Newtonsoft.Json.JsonConvert.SerializeObject(emp), JsonRequestBehavior.AllowGet);
+                    //return Json(user, JsonRequestBehavior.AllowGet);
+                    //return Json(new { data= "ok"+"/"+user.Id+"/"+user.FirstName+"/"+user.LastName+"/"+user.DepartmentCode+"/"+user.Designation+"/"+user.EmailAddress }, JsonRequestBehavior.AllowGet);
+                    return Json(new { data = new { status = "ok", user_id = user.Id, user_name = user.FirstName + " " + user.LastName } }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json(new { data = new { status = "Invalid Password" } }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            return Json(new { data = new { status = "Invalid User" } }, JsonRequestBehavior.AllowGet);
+
+        }
     }
 }
