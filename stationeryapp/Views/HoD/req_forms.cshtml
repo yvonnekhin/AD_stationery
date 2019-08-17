@@ -3,12 +3,14 @@
 @{
     Boolean req_pending_forms = ViewData["req_pending_forms"] != null ? (Boolean)ViewData["req_pending_forms"] : false;
     ViewBag.Title = "req_forms";
+    Employee user = (Employee)Session["user"];
     List<RequisitionFormDetail> form_cart = (List<RequisitionFormDetail>)ViewData["form_cart"];
     Employee emp = (Employee)ViewData["emp"];
     DepartmentList emp_dept = (DepartmentList)ViewData["emp_dept"];
     string form_number = (string)ViewData["form_number"];
     RequisitionForm form = (RequisitionForm)ViewData["req_form"];
     List<StationeryCatalog> items = (List<StationeryCatalog>)ViewData["catalog_list"];
+    string sid = (string)ViewData["sid"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 @Html.Partial("_hodheader")
@@ -16,7 +18,7 @@
 @Html.Partial("_hod_notify")
 
 <div style="margin-left:15%; margin-top: 5%;">
-    <h4>Form number : @(emp_dept.DepartmentCode + "/" + (1000 + int.Parse(form_number)).ToString())</h4>
+    <h4>Form number : @(form_number)</h4>
     <h4>Employee name : @emp.FirstName @emp.LastName</h4>
     <h4>Department name : @emp_dept.DepartmentName</h4>
     <table id="myTable" class="table">
@@ -41,13 +43,13 @@
                 <tr>
                     @if (req_pending_forms)
                     {
-                        using (Html.BeginForm("approve_reject", "Hod", FormMethod.Post))
+                        using (Html.BeginForm("approve_reject", "Hod", new { sid=sid},FormMethod.Post))
                         {
                             <td>
                                 Comments:
                                 <input type="text" value="" name="comment" />
                                 <input type="hidden" value=@form.FormNumber name="form_id" />
-                                <input type="hidden" value=@emp.Id name="approved_by" />
+                                <input type="hidden" value=@user.Id name="approved_by" />
                                 @*<input type="hidden" id="hidden_status" value="" name="form_status" />*@
                             </td>
                             <td>

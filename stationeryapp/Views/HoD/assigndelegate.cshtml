@@ -7,11 +7,12 @@
     Employee delegate_ = (Employee)ViewData["delegate_"];
     List<Employee> dept_emp_list = (List<Employee>)ViewData["dept_emp_list"];
     Layout = "~/Views/Shared/_Layout.cshtml";
+    string sid = (string)ViewData["sid"];
 }
 @Html.Partial("_hodheader")
 @Html.Partial("_hodMenuFragment")
 @Html.Partial("_hod_notify")
-<div style="margin-left:15%">
+<div style="margin-left:15%;margin-top:5%">
     <h2>Assign Delegate</h2>
 
     <table class="table" style="width:80%">
@@ -20,12 +21,16 @@
             <td>@delegate_.FirstName @delegate_.LastName</td>
 
         </tr>
-        <tr>
-            <td>From : @Convert.ToDateTime(@delegate_.DelegateFrom).Date.ToString("dd/MM/yyyy")</td>
+        @if (! delegate_.Designation.Equals("Head"))
+        {
+            <tr>
+                <td>From : @Convert.ToDateTime(@delegate_.DelegateFrom).Date.ToString("dd/MM/yyyy")</td>
 
-            <td>To: @Convert.ToDateTime(@delegate_.DelegateTo).Date.ToString("dd/MM/yyyy")</td>
-        </tr>
-        @using (Html.BeginForm("edit_delegate", "Hod", FormMethod.Post))
+                <td>To: @Convert.ToDateTime(@delegate_.DelegateTo).Date.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+
+        @using (Html.BeginForm("edit_delegate", "Hod", new { sid = sid }, FormMethod.Post))
         {
             <tr>
                 <td> New Delegate Selection : </td>
@@ -39,35 +44,32 @@
             </tr>
             <tr id="show_hide">
                 <td>
-                    From : <input id="from_d" type="date" min=@DateTime.Now.Date.ToString("yyyy-MM-dd") name="from_date" value="" onchange="changetodate()" />
+                    From : <input id="from_d" type="date" min=@DateTime.Now.Date.ToString("yyyy-MM-dd") name="from_date" value="" onchange="changetodate()" required />
                 </td>
                 <td id="to_tr" style="display:none">
-                    To : <input id="to_d" type="date" min=@DateTime.Now.Date.ToString("yyyy-MM-dd") name="to_date" value="" onchange="maxfromdate()" />
+                    To : <input id="to_d" type="date" min=@DateTime.Now.Date.ToString("yyyy-MM-dd") name="to_date" value="" onchange="maxfromdate()" required/>
                 </td>
             </tr>
             <tr>
-                @if (msg == "invalid date")
-                {
-                    <td style="color:red;">To Date cannot be earlier than From Date.</td>
-                }
-                else
-                {
-                    <td></td>
-                }
-                <td colspan="2" align="right">
-                    <input type="submit" value="ASSIGN" />
-                    <button>
-                        CANCEL
-                    </button>
-                </td>
-                @*<td>
-                    <button onclick="location.href='@Url.Action("remove_delegate", "Hod",new { hod_id= @dept_emp_list.Where(e=>e.Designation=="Head").Select(e=>e.Id).FirstOrDefault().ToString()})'">Reset Delegate</button>
-                </td>*@
+                
+                    <td colspan="2" align="right">
+                        <input type="submit" value="ASSIGN" />
+                        <input type="button" onclick="location.href='@Url.Action("index","Hod", new { sid=sid} )'" value="cancel" />
+                        
+                    </td>
+                    @if (! delegate_.Designation.Equals("Head"))
+                    {
+                    <td>
+                        <input type="button" onclick="location.href='@Url.Action("remove_delegate", "Hod",new { sid=sid,hod_id= @dept_emp_list.Where(e=>e.Designation=="Head").Select(e=>e.Id).FirstOrDefault().ToString()})'" value="Reset Delegate" />
+                    </td>
+
+                    }
+
             </tr>
         }
 
     </table>
-    <button onclick="location.href='@Url.Action("remove_delegate", "Hod",new { hod_id= @dept_emp_list.Where(e=>e.Designation=="Head").Select(e=>e.Id).FirstOrDefault().ToString()})'">Reset Delegate</button>
+    
 
 </div>
 

@@ -4,12 +4,14 @@
     ViewBag.Title = "Delete";
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
 <div>
+    <br>
     <h4>StationeryCatalog</h4>
     <hr />
     <dl class="dl-horizontal">
@@ -103,12 +105,12 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index",new { sessionId=sessionId})
+        <div class="form-actions" style="font-size:medium">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "Index", new { sessionId = sessionId })
         </div>
     }
 </div>

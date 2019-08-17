@@ -7,12 +7,13 @@
     string tag = (string)ViewData["tag"];
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create",new { sessionId=sessionId})
+<h2>Suppliers</h2>
+<br>
+<p style="font-size:medium">
+    @Html.ActionLink("Create New +", "Create",new { sessionId=sessionId})
 </p>
-<table class="table">
+
+<table class="table table-bordered table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.SupplierName)

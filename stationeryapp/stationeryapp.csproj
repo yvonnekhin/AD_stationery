@@ -46,16 +46,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine">
-      <HintPath>..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.ReportSource">
-      <HintPath>..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportSource.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.ReportSource.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Shared">
-      <HintPath>..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Shared.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Shared.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Web">
-      <HintPath>..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Web.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\program files (x86)\sap businessobjects\crystal reports for .net framework 4.0\common\sap businessobjects enterprise xi 4.0\win32_x86\dotnet\CrystalDecisions.Web.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
@@ -554,6 +554,7 @@
       <DependentUpon>RequisitionReport.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Util\GenerateID.cs" />
     <Compile Include="Util\StringExtension.cs" />
     <Compile Include="Views\StationeryCatalogReport\Report.aspx.cs">
       <DependentUpon>Report.aspx</DependentUpon>
@@ -574,19 +575,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Images\addreq.png" />
+    <Content Include="Images\assign.png" />
     <Content Include="Images\bellstore2.png" />
+    <Content Include="Images\bellstore3.jpg" />
     <Content Include="Images\Catalog.PNG" />
-    <Content Include="Images\delegate.png" />
     <Content Include="Images\DisbusementList.PNG" />
-    <Content Include="Images\edit.png" />
+    <Content Include="Images\editinfo.png" />
+    <Content Include="Images\facebook.png" />
+    <Content Include="Images\instagram.png" />
+    <Content Include="Images\itemreqs.png" />
+    <Content Include="Images\linkedin.png" />
+    <Content Include="Images\logo.PNG" />
     <Content Include="Images\logo2.jpg" />
-    <Content Include="Images\newreq.png" />
+    <Content Include="Images\oldreqs.png" />
     <Content Include="Images\Outstanding.PNG" />
+    <Content Include="Images\pendingreqs.png" />
     <Content Include="Images\PO.PNG" />
     <Content Include="Images\profile.png" />
     <Content Include="Images\Reports.PNG" />
-    <Content Include="Images\reqs.png" />
     <Content Include="Images\Requests.JPG" />
+    <Content Include="Images\requests.png" />
     <Content Include="Images\RetrivalForm.PNG" />
     <Content Include="Images\stationery-management3.jpg" />
     <Content Include="Images\stationery.png" />
@@ -597,7 +606,8 @@
     <Content Include="Images\storeclarkprofile2.png" />
     <Content Include="Images\supplier1.png" />
     <Content Include="Images\suppliers2.png" />
-    <Content Include="Images\user.png" />
+    <Content Include="Images\twitter.png" />
+    <Content Include="Images\youtube.png" />
     <Content Include="Models\CollectionPoints.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
@@ -933,8 +943,6 @@
     <Content Include="Models\StationeryRetrievalForms.edmx.diagram">
       <DependentUpon>StationeryRetrievalForms.edmx</DependentUpon>
     </Content>
-    <Content Include="Content\StoreClerkImages" />
-    <Content Include="Content\StoreClerkImages" />
     <EntityDeploy Include="Models\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Model.Designer.cs</LastGenOutput>
@@ -942,7 +950,10 @@
     <Content Include="Models\Model.edmx.diagram">
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\adstationery - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\dropdownOnchange.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.3.1.slim.js" />
@@ -954,9 +965,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Views\StationeryCatalogReport\Report.aspx" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
+    <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

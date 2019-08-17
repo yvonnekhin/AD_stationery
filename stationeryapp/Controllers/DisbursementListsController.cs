@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -17,7 +18,7 @@ namespace stationeryapp.Controllers
 
         public JsonResult GetDisbursementList()
         {
-          
+
             List<DisbursementList> disbursementLists = db.DisbursementLists.ToList();
             List<DepartmentList> departmentLists = db.DepartmentLists.ToList();
             List<CollectionPoint> collectionPoints = db.CollectionPoints.ToList();
@@ -32,9 +33,9 @@ namespace stationeryapp.Controllers
                                          collectionPoint = c,
                                          disbursementList = d,
                                          departmentList = p
-                                     };         
+                                     };
 
-            return Json(disbursementRecord, JsonRequestBehavior.AllowGet);
+            return Json(new { data= new{ id = disbursementRecord.Select(x=>x.disbursementList.ListNumber), DepartmentCode=disbursementRecord.Select(x=>x.departmentList.DepartmentCode),CollectionPointname=disbursementRecord.Select(x=>x.collectionPoint.CollectionPointName),Date=disbursementRecord.Select(x=>x.disbursementList.Date),Status=disbursementRecord.Select(x=>x.disbursementList.Status) } }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: DisbursementLists

@@ -5,6 +5,7 @@
     ViewBag.Title = "Retrieve";
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Stationery Retrieval Form</h2>
@@ -15,7 +16,7 @@
     @Html.Hidden("sessionId", sessionId)
     <div class="form-horizontal">
 
-        <hr />
+
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <table id="details" class="table" align="center">
@@ -67,28 +68,29 @@
                     }
                     <td>@Html.DisplayTextFor(model => model[i].stationeryRetrievalFormDetail.DepartmentCode)</td>
                     <td>@Html.TextBoxFor(model => model[i].stationeryRetrievalFormDetail.Needed, new { @class = StringExtension.clean(Model[i].Description) + "Needed", @readonly = "readonly" })</td>
-                    <td>@Html.TextBoxFor(model => model[i].stationeryRetrievalFormDetail.Actual, new { @class = StringExtension.clean(Model[i].Description) + "Actual", @onkeyup= "updateRetrievedTotal(this);" })</td>
-                    
+                    <td>@Html.TextBoxFor(model => model[i].stationeryRetrievalFormDetail.Actual, new { @class = StringExtension.clean(Model[i].Description) + "Actual", @onkeyup = "updateRetrievedTotal(this);" })</td>
+
                 </tr>
             }
 
         </table>
 
-
+        <br>
         <div class="form-group" align="right">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Confirm Quantities Retrieved" class="btn btn-default" />
+                <input type="submit" value="Confirm Quantities Retrieved" class="btn btn-default" style="background-color:gainsboro" />
             </div>
         </div>
     </div>
 }
+
 
 <script>
 
     function updateRetrievedTotal(element) {
         var classOfActualTextBox = element.className;
         //console.log(classOfActualTextBox);
-        var listActualTotal = document.getElementById("details").querySelectorAll('.'+classOfActualTextBox);
+        var listActualTotal = document.getElementById("details").querySelectorAll('.' + classOfActualTextBox);
         //console.log(listActualTotal);
         var retrievedTotal = 0;
         for (var i = 0; i < listActualTotal.length; i++) {
@@ -136,6 +138,6 @@
     window.onload = updateNeededTotal(); updateActualTotal();
 </script>
 
-<div>
-    @Html.ActionLink("Back to List", "Index",new { sessionId=sessionId})
+<div style="font-size:medium">
+    @Html.ActionLink("Back to List", "Index", new { sessionId = sessionId })
 </div>

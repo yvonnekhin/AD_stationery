@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Index";
     Employee emp = (Employee)Session["user"];
+    string sid = (string)ViewData["sid"];
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -25,33 +26,37 @@
 </style>
 
 <div id="main" style="margin-left:15%; margin-top: 5%;">
-    <h3>
+    <h3 style="text-align:center">
         Welcome, @emp.FirstName @emp.LastName !
     </h3>
     <table class="tbl" align="center">
         <tr>
             <td>
-                <a href='@Url.Action("newstationaryrequest", "Hod",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/pendingreqs.png" /></a>
+                <a href='@Url.Action("newstationaryrequest", "Hod",new { id=emp.Id, sid= sid})'><img style="width: 70px; height: 70px;" src="~/Images/pendingreqs.png" /></a>
                 <br />Pending Requests
             </td>
             <td>
-                <a href='@Url.Action("stationaryrequesthistory", "Hod",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/oldreqs.png" /></a>
+                <a href='@Url.Action("stationaryrequesthistory", "Hod",new { id=emp.Id, sid= sid})'><img style="width: 70px; height: 70px;" src="~/Images/oldreqs.png" /></a>
                 <br />History By Request Number
             </td>
             <td>
-                <a href='@Url.Action("viewhistorybyitem", "Hod",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/itemreqs.png" /></a>
+                <a href='@Url.Action("viewhistorybyitem", "Hod",new { id=emp.Id, sid= sid})'><img style="width: 70px; height: 70px;" src="~/Images/itemreqs.png" /></a>
                 <br />History By Item
             </td>
         </tr>
         <tr>
             <td>
-                <a href='@Url.Action("editdeptinfo", "Hod",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/editinfo.png" /></a>
+                <a href='@Url.Action("editdeptinfo", "Hod",new { id=emp.Id, sid=sid})'><img style="width: 70px; height: 70px;" src="~/Images/editinfo.png" /></a>
                 <br />Edit Department Information
             </td>
-            <td>
-                <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id})'><img style="width: 70px; height: 70px;" src="~/Images/assign.png" /></a>
-                <br />Delegate
-            </td>
+            @if (emp.Designation =="Head")
+            {
+                <td>
+                    <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id, sid=sid})'><img style="width: 70px; height: 70px;" src="~/Images/assign.png" /></a>
+                    <br />Delegate
+                </td>
+            }
+
         </tr>
     </table>
 </div>
