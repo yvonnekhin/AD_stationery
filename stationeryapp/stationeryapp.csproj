@@ -261,6 +261,7 @@
     </Compile>
     <Compile Include="Models\util.cs" />
     <Compile Include="Models\ViewModelD.cs" />
+    <Compile Include="Models\ViewModelDDetails.cs" />
     <Compile Include="Models\ViewModelOutstanding.cs" />
     <Compile Include="Models\ViewModelRetrieval.cs" />
     <Compile Include="Reports\InventoryStatusReport.cs">
@@ -943,6 +944,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\adstationery - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\dropdownOnchange.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -994,7 +996,6 @@
     <Content Include="Views\RequisitionForms\Index.cshtml" />
     <Content Include="Views\ReportHome\Index.cshtml" />
     <Content Include="Views\DisbursementListDetails\Details.cshtml" />
-    <Content Include="Views\DisbursementListDetails\Edit.cshtml" />
     <Content Include="Views\DisbursementListDetails\Index.cshtml" />
     <Content Include="Views\DisbursementLists\Create.cshtml" />
     <Content Include="Views\DisbursementLists\Index.cshtml" />
