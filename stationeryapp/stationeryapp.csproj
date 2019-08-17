@@ -582,7 +582,10 @@
     <Content Include="Images\Catalog.PNG" />
     <Content Include="Images\DisbusementList.PNG" />
     <Content Include="Images\editinfo.png" />
+    <Content Include="Images\facebook.png" />
+    <Content Include="Images\instagram.png" />
     <Content Include="Images\itemreqs.png" />
+    <Content Include="Images\linkedin.png" />
     <Content Include="Images\logo.PNG" />
     <Content Include="Images\logo2.jpg" />
     <Content Include="Images\oldreqs.png" />
@@ -603,6 +606,8 @@
     <Content Include="Images\storeclarkprofile2.png" />
     <Content Include="Images\supplier1.png" />
     <Content Include="Images\suppliers2.png" />
+    <Content Include="Images\twitter.png" />
+    <Content Include="Images\youtube.png" />
     <Content Include="Models\CollectionPoints.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>CollectionPoints.edmx</DependentUpon>
