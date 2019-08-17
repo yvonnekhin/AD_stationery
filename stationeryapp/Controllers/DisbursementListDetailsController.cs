@@ -173,7 +173,7 @@ namespace stationeryapp.Controllers
                 stockAdjustment.AdjustmentVoucherNumber = Convert.ToString(newNumer + 1);
                 stockAdjustment.Status = "Pending";
                 stockAdjustment.Date = DateTime.Now;
-                stockAdjustment.Remarks = "System Genarate";
+                stockAdjustment.Remarks = "System Generate";
                 adb.StockAdjustmentVouchers.Add(stockAdjustment);
                 adb.SaveChanges();
             }
