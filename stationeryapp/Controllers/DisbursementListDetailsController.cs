@@ -130,18 +130,6 @@ namespace stationeryapp.Controllers
             }
         }
 
-        //[HttpPost]
-        //public JsonResult SetDetails(List<DisbursementListDetail> Details)
-        //{
-        //    if (person != null)
-        //    {
-        //        Debug.WriteLine("name=" + person.name + ", age=" + person.age);
-        //        return Json(new { status = "ok" });
-        //    }
-
-        //    return Json(new { status = "fail" });
-        //}
-
         [HttpPost]
         public ActionResult Update(List<ViewModelDDetails> Details,string sessionId)
         {

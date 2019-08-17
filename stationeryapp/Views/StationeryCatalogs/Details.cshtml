@@ -5,6 +5,7 @@
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
     int balance = 0;
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Stock Card</h2>
@@ -13,7 +14,7 @@
     <h4>Details</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
+        <dt id="tr1">
             @Html.DisplayNameFor(model => model.Category)
         </dt>
 
@@ -21,7 +22,7 @@
             @Html.DisplayFor(model => model.Category)
         </dd>
 
-        <dt>
+        <dt id="tr1">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
 
@@ -29,7 +30,7 @@
             @Html.DisplayFor(model => model.Description)
         </dd>
 
-        <dt>
+        <dt id="tr1">
             @Html.DisplayNameFor(model => model.ReorderLevel)
         </dt>
 
@@ -37,7 +38,7 @@
             @Html.DisplayFor(model => model.ReorderLevel)
         </dd>
 
-        <dt>
+        <dt id="tr1">
             @Html.DisplayNameFor(model => model.ReorderQuantity)
         </dt>
 
@@ -45,7 +46,7 @@
             @Html.DisplayFor(model => model.ReorderQuantity)
         </dd>
 
-        <dt>
+        <dt id="tr1">
             @Html.DisplayNameFor(model => model.UnitOfMeasure)
         </dt>
 
@@ -53,7 +54,7 @@
             @Html.DisplayFor(model => model.UnitOfMeasure)
         </dd>
 
-        <dt>
+        <dt id="tr1">
             @Html.DisplayNameFor(model => model.BinNumber)
         </dt>
 
@@ -61,7 +62,7 @@
             @Html.DisplayFor(model => model.BinNumber)
         </dd>
 
-        <dt>
+        <dt id="tr1">
             @Html.DisplayNameFor(model => model.Price)
         </dt>
 
@@ -69,7 +70,7 @@
             @Html.DisplayFor(model => model.Price)
         </dd>
 
-        <dt>
+        <dt id="tr1">
             @Html.DisplayNameFor(model => model.Balance)
         </dt>
 
@@ -77,7 +78,7 @@
             @Html.DisplayFor(model => model.Balance)
         </dd>
 
-        <dt>
+        <dt id="tr1">
             @Html.DisplayNameFor(model => model.SupplierList.SupplierName)
         </dt>
 
@@ -85,7 +86,7 @@
             @Html.DisplayFor(model => model.SupplierList.SupplierName)
         </dd>
 
-        <dt>
+        <dt id="tr1">
             @Html.DisplayNameFor(model => model.SupplierList1.SupplierName)
         </dt>
 
@@ -93,7 +94,7 @@
             @Html.DisplayFor(model => model.SupplierList1.SupplierName)
         </dd>
 
-        <dt>
+        <dt id="tr1">
             @Html.DisplayNameFor(model => model.SupplierList2.SupplierName)
         </dt>
 
@@ -125,7 +126,18 @@
 
 </table>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ItemNumber,sessionId=sessionId}) |
-    @Html.ActionLink("Back to List", "Index", new { sessionId = sessionId })
-</p>
+<div style="font-size:medium" class="row">
+    @if (tag == "storeSupervisor" || tag == "storeManager")
+    {
+        <div class="col-md-1">@Html.ActionLink("Edit", "Edit", new { id = Model.ItemNumber, sessionId = sessionId })</div>
+    }  
+    <div class="col-md-2">@Html.ActionLink("Back To List", "Index", new { sessionId = sessionId })</div>
+</div>
+
+<style>
+
+    .tr1 {        
+       text-align:left
+
+    }
+</style>
