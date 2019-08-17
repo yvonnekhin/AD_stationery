@@ -7,6 +7,7 @@
     SelectList approvedSupplierList = ViewBag.SupplierCode1;
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Purchase Order Form</h2>
@@ -145,7 +146,8 @@
     window.onload = getOverallTotal();
 </script>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model[0].purchaseOrder.PONumber }) |
+<p style="font-size:medium">
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model[0].purchaseOrder.PONumber }) |*@
+
     @Html.ActionLink("Back to List", "Index",new {sessionId=sessionId})
 </p>

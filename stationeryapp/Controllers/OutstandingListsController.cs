@@ -54,7 +54,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
-
+                ViewData["tag"] = "storeclerk";
                 return View(outstandingListRecord);
             }
             else if (storeManager != null)
@@ -68,6 +68,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
                 return View(outstandingListRecord);
 
             }
@@ -82,16 +83,17 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
                 return View(outstandingListRecord);
-
             }
             else
             {
                 return RedirectToAction("Login", "Login");
-            }
-          
-                        
+            }                         
         }
+
+
+
 
         // GET: OutstandingLists/Details/5
         public ActionResult Details(string id)
