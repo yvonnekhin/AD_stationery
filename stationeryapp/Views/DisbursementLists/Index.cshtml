@@ -24,8 +24,9 @@
     {
         <tr>
 
-            <td>            
-                <a href='@Url.Action("Details","DisbursementListDetails",new { id= item.disbursementList.ListNumber,sessionId = sessionId})'>@item.disbursementList.ListNumber</a>
+            <td>
+                @*<a href='@Url.Action("Details","DisbursementListDetails",new { id= item.disbursementList.ListNumber,sessionId = sessionId})'>@item.disbursementList.ListNumber</a>*@
+                @item.disbursementList.ListNumber
             </td>
             <td >
                 @item.departmentList.DepartmentCode
@@ -36,8 +37,8 @@
             <td>
                 @item.disbursementList.Date
             </td>
-            <td class="success" >
-                @item.disbursementList.Status
+            <td class="success">
+                <a href='@Url.Action("Details","DisbursementListDetails",new { id= item.disbursementList.ListNumber,sessionId = sessionId})'> @item.disbursementList.Status</a>            
             </td>
         </tr>
     }

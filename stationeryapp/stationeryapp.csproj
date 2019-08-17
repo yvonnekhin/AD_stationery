@@ -160,6 +160,7 @@
     <Compile Include="Controllers\StoreManagersController.cs" />
     <Compile Include="Controllers\StoreSupervisorsController.cs" />
     <Compile Include="Controllers\SupplierListsController.cs" />
+    <Compile Include="Controllers\TrendController.cs" />
     <Compile Include="Filters\empfilter.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -261,6 +262,7 @@
     </Compile>
     <Compile Include="Models\util.cs" />
     <Compile Include="Models\ViewModelD.cs" />
+    <Compile Include="Models\ViewModelDDetails.cs" />
     <Compile Include="Models\ViewModelOutstanding.cs" />
     <Compile Include="Models\ViewModelRetrieval.cs" />
     <Compile Include="Reports\InventoryStatusReport.cs">
@@ -945,6 +947,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\adstationery - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\dropdownOnchange.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -996,9 +999,7 @@
     <Content Include="Views\RequisitionForms\Index.cshtml" />
     <Content Include="Views\ReportHome\Index.cshtml" />
     <Content Include="Views\DisbursementListDetails\Details.cshtml" />
-    <Content Include="Views\DisbursementListDetails\Edit.cshtml" />
     <Content Include="Views\DisbursementListDetails\Index.cshtml" />
-    <Content Include="Views\DisbursementLists\Create.cshtml" />
     <Content Include="Views\DisbursementLists\Index.cshtml" />
     <Content Include="Views\SupplierLists\Create.cshtml" />
     <Content Include="Views\SupplierLists\Delete.cshtml" />
@@ -1055,6 +1056,9 @@
     <Content Include="Views\StockAdjustmentVouchers\Index.cshtml" />
     <Content Include="Views\Shared\_Layout_Store.cshtml" />
     <Content Include="Views\HoD\viewhistorybyitem.cshtml" />
+    <Content Include="Views\Trend\DeptSubmit.cshtml" />
+    <Content Include="Views\Trend\TrendAnalysis.cshtml" />
+    <Content Include="Views\Trend\TrendSubmit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

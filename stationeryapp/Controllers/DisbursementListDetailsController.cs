@@ -130,18 +130,6 @@ namespace stationeryapp.Controllers
             }
         }
 
-        //[HttpPost]
-        //public JsonResult SetDetails(List<DisbursementListDetail> Details)
-        //{
-        //    if (person != null)
-        //    {
-        //        Debug.WriteLine("name=" + person.name + ", age=" + person.age);
-        //        return Json(new { status = "ok" });
-        //    }
-
-        //    return Json(new { status = "fail" });
-        //}
-
         [HttpPost]
         public ActionResult Update(List<ViewModelDDetails> Details,string sessionId)
         {
@@ -185,7 +173,7 @@ namespace stationeryapp.Controllers
                 stockAdjustment.AdjustmentVoucherNumber = Convert.ToString(newNumer + 1);
                 stockAdjustment.Status = "Pending";
                 stockAdjustment.Date = DateTime.Now;
-                stockAdjustment.Remarks = "System Genarate";
+                stockAdjustment.Remarks = "System Generate";
                 adb.StockAdjustmentVouchers.Add(stockAdjustment);
                 adb.SaveChanges();
             }

@@ -4,11 +4,12 @@
     ViewBag.Title = "Outstanding";
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Outstanding List</h2>
 
-<table class="table" align="center">
+<table class="table table-bordered table-striped" align="center">
     <tr>
         <th>Item Code</th>
         <th>Description</th>
@@ -33,7 +34,7 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.InventoryBalance)
                 </td>
-                <td>
+                <td class="success">
                     @Html.DisplayFor(modelItem => item.Status)
                 </td>
                
