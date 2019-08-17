@@ -4,14 +4,16 @@
     ViewBag.Title = "Index";
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
-<h2>Index</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create",new { sessionId=sessionId})
+<h2>Stock Adjustment Voucher</h2>
+<br>
+<p style="font-size:medium">
+    @Html.ActionLink("Create New +", "Create",new { sessionId=sessionId})
 </p>
-<table class="table">
+<br>
+<table class="table table-bordered table-striped">
     <tr>
         <th>
             Voucher Number
@@ -38,9 +40,13 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.AdjustmentVoucherNumber ,sessionId=sessionId}) |
-                @Html.ActionLink("Approve", "Details", new { id = item.AdjustmentVoucherNumber, sessionId = sessionId }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.AdjustmentVoucherNumber, sessionId = sessionId })
+                @if (tag == "storeSupervisor" || tag == "storeManager")
+                {
+                    <div>@Html.ActionLink("Edit", "Edit", new { id = item.AdjustmentVoucherNumber, sessionId = sessionId }) </div>
+                    <div>@Html.ActionLink("Approve", "Details", new { id = item.AdjustmentVoucherNumber, sessionId = sessionId })</div>
+                }
+
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.AdjustmentVoucherNumber, sessionId = sessionId })*@
             </td>
         </tr>
     }

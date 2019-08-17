@@ -6,12 +6,13 @@
     StockAdjustmentVoucher stockAdjustmentVoucher = ViewBag.voucher;
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
-<h2>Create</h2>
 
-<h4>StockAdjustmentVoucher</h4>
-
+<br>
+<h2>Create StockAdjustmentVoucher</h2>
+<br>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -30,11 +31,11 @@
 {
     @Html.Hidden("sessionId", sessionId)
     @Html.AntiForgeryToken()
-    <hr />
+    <hr/>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-horizontal">
-        <table id="details">
+        <table id="details" class="table">
             <thead>
                 <tr>
                     <th></th>
@@ -72,18 +73,18 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <input class="btnAdd btn btn-default" type="button" name="name" value="Add" />
+                        <input class="btnAdd btn " type="button" name="name" value="Add" style="background-color:lightblue" />
                     </td>
                     <td></td>
                     <td></td>
                     <td></td>
                 </tr>
-                <tr>
+                <tr style="border:hidden">
                     <td></td>
                     <td></td>
                     <td></td>
                     <td>
-                        <input id="btnSubmit" type="submit" value="Submit" class="btn btn-default" />
+                        <input id="btnSubmit" type="submit" value="Submit" class="btn" style="background-color:darkseagreen" />
                     </td>
                     <td></td>
                     <td></td>
@@ -166,6 +167,6 @@
 
 }
 
-<div>
+<div style="font-size:medium">
     @Html.ActionLink("Back to List", "Index", new { sessionId = sessionId })
 </div>
