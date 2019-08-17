@@ -213,7 +213,7 @@ namespace stationeryapp.Controllers
             {
                 if (hashedPassword.Equals(user.Password))
                 {
-                    if (user.Designation == "Head" || user.Designation == "Delegate")
+                    if (user.Designation == "Head")
                     {
                         Session.Add("user", user);
                         Session.Add("count", 0);
@@ -224,6 +224,29 @@ namespace stationeryapp.Controllers
                         db1.SaveChanges();
 
                         return RedirectToAction("Index", "Hod", new { sid  = sessionId});
+                    }
+                    else if (user.Designation == "Delegate")
+                    {
+                        int result = DateTime.Compare( Convert.ToDateTime(user.DelegateFrom).Date, DateTime.Now.Date);
+                        Debug.WriteLine(DateTime.Now.Date+"todays date"+ Convert.ToDateTime(user.DelegateFrom).Date + " vs delegate from :" + result);                        
+                        int result_ = DateTime.Compare(Convert.ToDateTime(user.DelegateTo).Date, DateTime.Now.Date);
+                        Debug.WriteLine(DateTime.Now.Date + "todays date"+ Convert.ToDateTime(user.DelegateTo).Date + " vs delegate to :" + result_);
+                        if ( ( result<0 || result == 0)  && (result_==0 || result_>0) )
+                        {
+                            Session.Add("user", user);
+                            Session.Add("count", 0);
+                            string sessionId = Guid.NewGuid().ToString();
+                            Session.Add("sid", sessionId);
+                            user.SessionId = sessionId;
+                            db1.Entry(user).State = EntityState.Modified;
+                            db1.SaveChanges();
+
+                            return RedirectToAction("Index", "Hod", new { sid = sessionId });
+                        }
+                        else
+                        {
+                            return RedirectToAction("EmployeeIndex", new { msg = "delegate expired" });
+                        }
                     }
                     else if (user.Designation == "Employee" || user.Designation == "Rep")
                     {
@@ -302,19 +325,49 @@ namespace stationeryapp.Controllers
                 Debug.WriteLine("User is found..........");
                 Debug.WriteLine(user.FirstName + user.Designation);
 
-                if (hashedPassword.Equals(user.Password))
+                if (user.Designation == "Delegate")
                 {
-                    Debug.WriteLine(Password);
+                    int result = DateTime.Compare(Convert.ToDateTime(user.DelegateFrom).Date, DateTime.Now.Date);
+                    Debug.WriteLine(DateTime.Now.Date + "todays date" + Convert.ToDateTime(user.DelegateFrom).Date + " vs delegate from :" + result);
+                    int result_ = DateTime.Compare(Convert.ToDateTime(user.DelegateTo).Date, DateTime.Now.Date);
+                    Debug.WriteLine(DateTime.Now.Date + "todays date" + Convert.ToDateTime(user.DelegateTo).Date + " vs delegate to :" + result_);
+                    if ((result < 0 || result == 0) && (result_ == 0 || result_ > 0))
+                    {
+                        if (hashedPassword.Equals(user.Password))
+                        {
+                            Debug.WriteLine(Password);
 
-                    //return Json(Newtonsoft.Json.JsonConvert.SerializeObject(emp), JsonRequestBehavior.AllowGet);
-                    //return Json(user, JsonRequestBehavior.AllowGet);
-                    //return Json(new { data= "ok"+"/"+user.Id+"/"+user.FirstName+"/"+user.LastName+"/"+user.DepartmentCode+"/"+user.Designation+"/"+user.EmailAddress }, JsonRequestBehavior.AllowGet);
-                    return Json(new { data = new { status = "ok", user_id = user.Id, user_name = user.FirstName + " " + user.LastName } }, JsonRequestBehavior.AllowGet);
+                            //return Json(Newtonsoft.Json.JsonConvert.SerializeObject(emp), JsonRequestBehavior.AllowGet);
+                            //return Json(user, JsonRequestBehavior.AllowGet);
+                            //return Json(new { data= "ok"+"/"+user.Id+"/"+user.FirstName+"/"+user.LastName+"/"+user.DepartmentCode+"/"+user.Designation+"/"+user.EmailAddress }, JsonRequestBehavior.AllowGet);
+                            return Json(new { data = new { status = "ok", user_id = user.Id, user_name = user.FirstName + " " + user.LastName } }, JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                            return Json(new { data = new { status = "Invalid Password" } }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                    else
+                    {
+                        return Json(new { data = new { status = "Invalid delegate" } }, JsonRequestBehavior.AllowGet);
+                    }
                 }
                 else
                 {
-                    return Json(new { data = new { status = "Invalid Password" } }, JsonRequestBehavior.AllowGet);
-                }
+                    if (hashedPassword.Equals(user.Password))
+                    {
+                        Debug.WriteLine(Password);
+
+                        //return Json(Newtonsoft.Json.JsonConvert.SerializeObject(emp), JsonRequestBehavior.AllowGet);
+                        //return Json(user, JsonRequestBehavior.AllowGet);
+                        //return Json(new { data= "ok"+"/"+user.Id+"/"+user.FirstName+"/"+user.LastName+"/"+user.DepartmentCode+"/"+user.Designation+"/"+user.EmailAddress }, JsonRequestBehavior.AllowGet);
+                        return Json(new { data = new { status = "ok", user_id = user.Id, user_name = user.FirstName + " " + user.LastName } }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        return Json(new { data = new { status = "Invalid Password" } }, JsonRequestBehavior.AllowGet);
+                    }
+                }      
             }
             return Json(new { data = new { status = "Invalid User" } }, JsonRequestBehavior.AllowGet);
 
