@@ -49,10 +49,14 @@
                 <a href='@Url.Action("editdeptinfo", "Hod",new { id=emp.Id, sid=sid})'><img style="width: 70px; height: 70px;" src="~/Images/editinfo.png" /></a>
                 <br />Edit Department Information
             </td>
-            <td>
-                <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id, sid=sid})'><img style="width: 70px; height: 70px;" src="~/Images/assign.png" /></a>
-                <br />Delegate
-            </td>
+            @if (emp.Designation =="Head")
+            {
+                <td>
+                    <a href='@Url.Action("assigndelegate", "Hod",new { id=emp.Id, sid=sid})'><img style="width: 70px; height: 70px;" src="~/Images/assign.png" /></a>
+                    <br />Delegate
+                </td>
+            }
+
         </tr>
     </table>
 </div>

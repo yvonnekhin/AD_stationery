@@ -556,6 +556,7 @@
     </Compile>
     <Compile Include="Util\GenerateID.cs" />
     <Compile Include="Util\StringExtension.cs" />
+    <Compile Include="ViewModelDDetails.cs" />
     <Compile Include="Views\StationeryCatalogReport\Report.aspx.cs">
       <DependentUpon>Report.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -951,6 +952,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\adstationery - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\dropdownOnchange.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />

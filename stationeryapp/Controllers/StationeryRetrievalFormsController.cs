@@ -31,6 +31,7 @@ namespace stationeryapp.Controllers
 
             var srfList = (from srf in stationeryRetrievalForms
                           orderby srf.Date descending
+                          where srf.Status!="Merged"
                            select srf).ToList();
 
             if (storeclerk != null)
@@ -83,18 +84,75 @@ namespace stationeryapp.Controllers
         }
 
         // GET: StationeryRetrievalForms/Details/5
-        public ActionResult Details(string id)
+        public ActionResult Details(string id, string sessionId)
         {
-            if (id == null)
+            if (sessionId == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Login", "Login");
+
             }
-            StationeryRetrievalForm stationeryRetrievalForm = db.StationeryRetrievalForms.Find(id);
-            if (stationeryRetrievalForm == null)
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            List<StationeryRetrievalFormDetail> srfd = db.StationeryRetrievalFormDetails.ToList();
+            List<StationeryCatalog> sc = db.StationeryCatalogs.ToList();
+
+            var retrievalFormDetailsSelected = (from stationeryRetrievalFormDetail in srfd
+                                                join stationeryCatalog in sc on stationeryRetrievalFormDetail.ItemNumber equals stationeryCatalog.ItemNumber into table1
+                                                from stationeryCatalog in table1
+                                                where stationeryRetrievalFormDetail.FormNumber == id
+                                                select new RForm
+                                                {
+                                                    stationeryRetrievalFormDetail = stationeryRetrievalFormDetail,
+                                                    Description = stationeryCatalog.Description,
+                                                    BinNumber = stationeryCatalog.BinNumber
+                                                }).OrderBy(x => x.Description).ToList();
+
+
+            if (storeclerk != null)
             {
-                return HttpNotFound();
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+
+                return View(retrievalFormDetailsSelected);
             }
-            return View(stationeryRetrievalForm);
+            else if (storeManager != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                return View(retrievalFormDetailsSelected);
+            }
+            else if (storeSupervisor != null)
+            {
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                return View(retrievalFormDetailsSelected);
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
         }
 
         // GET: StationeryRetrievalForms/Create
@@ -112,7 +170,7 @@ namespace stationeryapp.Controllers
                           where srf.Status == "Pending"
                           select srf).ToList();
 
-            if (srfList.Count > 0)
+            if (srfList.Count > 1)
             {
                 StationeryRetrievalForm createdStationeryRetrievalForm = new StationeryRetrievalForm
                 {
@@ -406,7 +464,7 @@ namespace stationeryapp.Controllers
                 {
                     ListNumber = (db.DisbursementLists.Count() + 1).ToString(),
                     DepartmentCode = deptCode,
-                    Date = DateTime.Today, //Lee Siong to remove once lxl creates date input field in disbursement list
+                    Date = DateTime.Today, 
                     Status = "Pending"
                 };
                 db.DisbursementLists.Add(dl);
