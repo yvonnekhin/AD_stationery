@@ -12,8 +12,13 @@
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
     string tag = (string)ViewData["tag"];
+    string errorMeg = (string)ViewData["errorMeg"];
 }
 
+@if (errorMeg != null)
+{
+    <script>alert("@errorMeg");</script>
+}
 <h2>DisbursementList Details</h2>
 <br>
 @using (Html.BeginForm("Update", "DisbursementListDetails", FormMethod.Post))
