@@ -17,25 +17,26 @@
         <th>ListNumber</th>
         <th>Department</th>
         <th>CollectionPoint</th>
-        <th>CollectionTime</th>
+        <th>CollectionDate</th>
         <th>Status</th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
 
-            <td>
-                @*<a href='@Url.Action("Details","DisbursementListDetails",new { id= item.disbursementList.ListNumber,sessionId = sessionId})'>@item.disbursementList.ListNumber</a>*@
-                @item.disbursementList.ListNumber
-            </td>
-            <td >
-                @item.departmentList.DepartmentCode
+            <td>                
+                @*@item.disbursementList.ListNumber*@
+                @Html.DisplayFor(modelItem => item.disbursementList.ListNumber)
             </td>
             <td>
-                @item.collectionPoint.CollectionPointName
+                @Html.DisplayFor(modelItem => item.departmentList.DepartmentCode)
+                @*@item.departmentList.DepartmentCode*@
             </td>
             <td>
-                @item.disbursementList.Date
+                @Html.DisplayFor(modelItem => item.collectionPoint.CollectionPointName)           
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.disbursementList.Date)         
             </td>
             <td class="success">
                 <a href='@Url.Action("Details","DisbursementListDetails",new { id= item.disbursementList.ListNumber,sessionId = sessionId})'> @item.disbursementList.Status</a>            
