@@ -51,20 +51,16 @@
                 </td>
             </tr>
             <tr>
-                
-                    <td colspan="2" align="right">
-                        <input type="submit" value="ASSIGN" />
-                        <input type="button" onclick="location.href='@Url.Action("index","Hod", new { sid=sid} )'" value="cancel" />
-                        
-                    </td>
-                    @if (! delegate_.Designation.Equals("Head"))
-                    {
+                @if (!delegate_.Designation.Equals("Head"))
+                {
                     <td>
-                        <input type="button" onclick="location.href='@Url.Action("remove_delegate", "Hod",new { sid=sid,hod_id= @dept_emp_list.Where(e=>e.Designation=="Head").Select(e=>e.Id).FirstOrDefault().ToString()})'" value="Reset Delegate" />
+                        <input class="btn btn-danger" type="button" onclick="location.href='@Url.Action("remove_delegate", "Hod",new { sid=sid,hod_id= @dept_emp_list.Where(e=>e.Designation=="Head").Select(e=>e.Id).FirstOrDefault().ToString()})'" value="Reset Delegate" />
                     </td>
-
-                    }
-
+                }
+                <td colspan="2" align="right">
+                    <input class="btn btn-primary" type="submit" value="ASSIGN" />
+                    <input class="btn btn-default" type="button" onclick="location.href='@Url.Action("index","Hod", new { sid=sid} )'" value="Cancel" />
+                </td>
             </tr>
         }
 
