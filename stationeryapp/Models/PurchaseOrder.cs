@@ -11,7 +11,8 @@ namespace stationeryapp.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class PurchaseOrder
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -25,12 +26,18 @@ namespace stationeryapp.Models
         public string SupplierCode { get; set; }
         public string DeliverTo { get; set; }
         public string Attention { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
         public Nullable<System.DateTime> SupplyByDate { get; set; }
         public string OrderedBy { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
         public Nullable<System.DateTime> DateOrdered { get; set; }
         public string ApprovedBy { get; set; }
         public Nullable<System.DateTime> DateApproved { get; set; }
         public string ReceivedGoodsFormNo { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}")]
         public Nullable<System.DateTime> ReceivedDate { get; set; }
         public Nullable<double> ReceivedValue { get; set; }
         public string Status { get; set; }

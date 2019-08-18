@@ -54,8 +54,8 @@
                 <td colspan="2">
                     <input type="hidden" id="rep_id" value=@current_rep.Id name="rep_id" />
                     <input type="hidden" id="current_dept_code" value=@dept.DepartmentCode name="current_dept_code" />
-                    <input type="submit" value="Update">
-                    <button onclick="location.href='@Url.Action("Index", "Hod", new { sid=sid})'">Cancel</button>
+                    <input class="btn btn-primary" type="submit" value="Update">
+                    <button class="btn btn-default" onclick="location.href='@Url.Action("Index", "Hod", new { sid=sid})'">Cancel</button>
                 </td>
             </tr>
         }
