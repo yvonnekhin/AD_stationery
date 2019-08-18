@@ -211,13 +211,36 @@ namespace stationeryapp.Controllers
 
             if (user != null)
             {
+                Debug.WriteLine(user.SessionId == null);
+
+                if (user.SessionId != null)
+                {
+                    Debug.WriteLine(user.SessionId.Split('@')[1]);
+                    DateTime date1 = Convert.ToDateTime(user.SessionId.Split('@')[1]);
+                    DateTime date2 = DateTime.Now;
+                    TimeSpan ts = date2 - date1;
+                    Debug.WriteLine("No. of Minutes (Difference) = {0}", ts.TotalMinutes);
+
+                    if(ts.TotalMinutes > 2)
+                    {
+                        using (ModelDBContext db1 = new ModelDBContext())
+                        {
+                            Employee e = db1.Employees.Where(ee => ee.UserName == emp.UserName).First();
+                            e.SessionId = null;
+                            db1.Entry(e).State = EntityState.Modified;
+                            db1.SaveChanges();
+                        }
+                    }
+
+                    return RedirectToAction("EmployeeIndex", new { msg = "Another session in progress. Try to logout First." });
+                }
                 if (hashedPassword.Equals(user.Password))
                 {
                     if (user.Designation == "Head")
                     {
                         Session.Add("user", user);
                         Session.Add("count", 0);
-                        string sessionId = Guid.NewGuid().ToString();
+                        string sessionId = Guid.NewGuid().ToString()+"@"+DateTime.Now;
                         Session.Add("sid", sessionId);
                         user.SessionId = sessionId;
                         db1.Entry(user).State = EntityState.Modified;
@@ -235,7 +258,7 @@ namespace stationeryapp.Controllers
                         {
                             Session.Add("user", user);
                             Session.Add("count", 0);
-                            string sessionId = Guid.NewGuid().ToString();
+                            string sessionId = Guid.NewGuid().ToString() + "@" + DateTime.Now;
                             Session.Add("sid", sessionId);
                             user.SessionId = sessionId;
                             db1.Entry(user).State = EntityState.Modified;
@@ -245,14 +268,14 @@ namespace stationeryapp.Controllers
                         }
                         else
                         {
-                            return RedirectToAction("EmployeeIndex", new { msg = "delegate expired" });
+                            return RedirectToAction("EmployeeIndex", new { msg = "Delegate period over. Contact Head to Reset" });
                         }
                     }
                     else if (user.Designation == "Employee" || user.Designation == "Rep")
                     {
                         Session.Add("user", user);
                         Session.Add("count", 0);
-                        string sessionId = Guid.NewGuid().ToString();
+                        string sessionId = Guid.NewGuid().ToString() + "@" + DateTime.Now;
                         Session.Add("sid", sessionId);
                         user.SessionId = sessionId;
                         db1.Entry(user).State = EntityState.Modified;
@@ -262,10 +285,10 @@ namespace stationeryapp.Controllers
                 }
                 else
                 {
-                    return RedirectToAction("EmployeeIndex", new { msg = "invalid password" });
+                    return RedirectToAction("EmployeeIndex", new { msg = "Invalid Password" });
                 }
             }
-            return RedirectToAction("EmployeeIndex", new { msg = "invalid user" });
+            return RedirectToAction("EmployeeIndex", new { msg = "UserName not found. Try again" });
         }
 
         public ActionResult Logout(string sessionId)

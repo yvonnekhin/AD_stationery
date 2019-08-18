@@ -267,20 +267,20 @@ namespace stationeryapp.Controllers
                 }
                 if (delegate_.Designation != "Head")
                 {
-                    if (Convert.ToDateTime(from_date) > Convert.ToDateTime(to_date))
-                    {
-                        return RedirectToAction("assigndelegate", new { msg = "invalid date" });
-                    }
+                    //if (Convert.ToDateTime(from_date) > Convert.ToDateTime(to_date))
+                    //{
+                    //    return RedirectToAction("assigndelegate", new { msg = "invalid date" });
+                    //}
 
                     delegate_.Designation = "Delegate";
                     delegate_.DelegateFrom = Convert.ToDateTime(from_date);
                     delegate_.DelegateTo = Convert.ToDateTime(to_date);
                 }
-                else
-                {
-                    delegate_.DelegateFrom = DateTime.Now;
-                    delegate_.DelegateTo = DateTime.Now;
-                }
+                //else
+                //{
+                //    delegate_.DelegateFrom = DateTime.Now;
+                //    delegate_.DelegateTo = DateTime.Now;
+                //}
                 db.SaveChanges();
             }
             return View("index", new { sid=sid});
