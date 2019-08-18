@@ -172,13 +172,15 @@ namespace stationeryapp.Controllers
             using (ModelDBContext db = new ModelDBContext())
             {
                 hod = db.Employees.Find(user.Id);
-                current_rep = db.Employees.Where(e => e.Designation == "Rep" && e.DepartmentCode==user.DepartmentCode).FirstOrDefault();
+                //current_rep = db.Employees.Where(e => e.Designation == "Rep" && e.DepartmentCode==user.DepartmentCode).FirstOrDefault();
+
+                //if (current_rep == null)
+                //{
+                //    current_rep = hod;
+                //}
                 
-                if (current_rep == null)
-                {
-                    current_rep = hod;
-                }
                 dept = (DepartmentList)db.DepartmentLists.Where(d => d.DepartmentCode == hod.DepartmentCode).FirstOrDefault();
+                current_rep = db.Employees.Where(e => e.Id == db.DepartmentLists.Where(d => d.DepartmentCode == hod.DepartmentCode).FirstOrDefault().RepresentativeId).First();
                 emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode && e.Designation!="Delegate").ToList();
                 coll_list = db.CollectionPoints.ToList();
             }
@@ -203,22 +205,24 @@ namespace stationeryapp.Controllers
             using (ModelDBContext db = new ModelDBContext())
             {
                 rep = db.Employees.Find(rep_id);
-                
 
-                current_rep = db.Employees.Where(e => e.Designation == "Rep" && e.DepartmentCode == rep.DepartmentCode).FirstOrDefault();
-                if (current_rep!=null)
-                {
-                    current_rep.Designation = "Employee";
-                }
+
+                //current_rep = db.Employees.Where(e => e.Designation == "Rep" && e.DepartmentCode == rep.DepartmentCode).FirstOrDefault();
+                //current_rep = db.Employees.Where(e => e.Id == db.DepartmentLists.Where(d => d.DepartmentCode == current_dept_code).FirstOrDefault().RepresentativeId).First();
+                //if (current_rep!=null)
+                //{
+                //    current_rep.Designation = "Employee";
+                //}
 
                 dept_to_update_coll_point = db.DepartmentLists.Find(current_dept_code);
 
-                if (rep.Designation != "Head")
-                {
-                    rep.Designation = "Rep";
-                }
+                //if (rep.Designation != "Head")
+                //{
+                //    rep.Designation = "Rep";
+                //}
          
                 dept_to_update_coll_point.CollectionPoint = coll_point;
+                dept_to_update_coll_point.RepresentativeId = rep_id;
 
                 db.SaveChanges();
             }
@@ -237,7 +241,7 @@ namespace stationeryapp.Controllers
             using (ModelDBContext db = new ModelDBContext())
             {
                 delegate_ = db.Employees.Where(e => e.Designation == "Delegate" && e.DepartmentCode == user.DepartmentCode).FirstOrDefault();
-                dept_emp_list = db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode  && e.Designation!="Rep").ToList();
+                dept_emp_list = db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode  && e.Id != db.DepartmentLists.Where(d=>d.DepartmentCode==user.DepartmentCode).FirstOrDefault().RepresentativeId).ToList();
             }
 
             ViewData["delegate_"] = (delegate_ != null ) ? delegate_ : user;
@@ -457,7 +461,8 @@ namespace stationeryapp.Controllers
             {
                 hod = db.Employees.Find(user_id);
                 delegate_ = db.Employees.Where(e => e.Designation == "Delegate" && e.DepartmentCode == hod.DepartmentCode).FirstOrDefault();
-                dept_emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode && e.Designation!="Rep").ToList();
+                //dept_emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode && e.Designation!="Rep").ToList();
+                dept_emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode && e.Id != db.DepartmentLists.Where(d => d.DepartmentCode == hod.DepartmentCode).FirstOrDefault().RepresentativeId).ToList();
             }
 
             Employee emp = (delegate_ != null) ? delegate_ : hod;
