@@ -14,7 +14,42 @@ namespace stationeryapp.Controllers
     public class StockAdjustmentVouchersController : Controller
     {
         private ModelDBContext db = new ModelDBContext();
-        
+
+
+        [HttpPost]
+        public JsonResult PostAdjustment(AdjList savdlist)
+        {
+            List<Info> aa = JsonConvert.DeserializeObject<List<Info>>(savdlist.Infos[0]);
+
+            StockAdjustmentVoucher stockAdjustmentVoucher = new StockAdjustmentVoucher();
+            stockAdjustmentVoucher.AdjustmentVoucherNumber = (db.StockAdjustmentVouchers.Count() + 1).ToString();
+            stockAdjustmentVoucher.Status = "Pending";
+            stockAdjustmentVoucher.Date = DateTime.Today;
+            stockAdjustmentVoucher.Remarks = "Store clerk";
+            int num = db.StockAdjustmentVoucherDetails.Count();
+
+            db.StockAdjustmentVouchers.Add(stockAdjustmentVoucher);
+            db.SaveChanges();
+
+            for (int i = 0; i < aa.Count; i++)
+            {
+                int hh = num + 1 + i;
+                StockAdjustmentVoucherDetail savd = new StockAdjustmentVoucherDetail
+                {
+
+                    AdjustmentDetailsNumber = hh,
+                    AdjustmentVoucherNumber = stockAdjustmentVoucher.AdjustmentVoucherNumber,
+                    ItemNumber = aa[i].ItemNumber,
+                    QuantityAdjusted = Convert.ToInt32(aa[i].QuantityAdjusted),
+                    Reason = aa[i].Reason
+                };
+                db.StockAdjustmentVoucherDetails.Add(savd);
+                db.SaveChanges();
+            }
+
+            return Json(new { status = "Submited Successfully" });
+        }
+
         // GET: StockAdjustmentVouchers
         public ActionResult Index(string sessionId)
         {
