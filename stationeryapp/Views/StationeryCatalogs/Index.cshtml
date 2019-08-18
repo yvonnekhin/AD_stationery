@@ -7,17 +7,16 @@
     string tag = (string)ViewData["tag"];
 }
 
-<h2>Index</h2>
+<h2>Stationery Catalog</h2>
 @if(tag == "storeSupervisor" || tag == "storeManager")
 {
 <biv style="font-size:large">
-   <b> @Html.ActionLink("Create New ", "Create", new { sessionId = sessionId })</b>
+   <b> @Html.ActionLink("Create New +", "Create", new { sessionId = sessionId })</b>
 </biv>
-<br>
 }
-
+<br>
 <table class="table table-bordered table-striped" align="center">
-    <tr style="font-size:medium">
+    <tr>
         <th>
             @Html.DisplayNameFor(model => model.Category)
         </th>
@@ -90,7 +89,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.SupplierList2.SupplierName)
             </td>
-            <td style="font-size:medium">
+            <td>
                 <biv>@Html.ActionLink("StockCard", "Details", new { id = item.ItemNumber, sessionId = sessionId })</biv>
                 @if (tag == "storeSupervisor" || tag == "storeManager")
                 {  

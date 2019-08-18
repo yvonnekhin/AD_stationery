@@ -18,6 +18,7 @@ namespace stationeryapp.Models
         public string ListNumber { get; set; }
         public string ItemNumber { get; set; }
         public Nullable<int> Quantity { get; set; }
+
         public Nullable<int> QuantityReceived { get; set; }
         public string Remarks { get; set; }
     
