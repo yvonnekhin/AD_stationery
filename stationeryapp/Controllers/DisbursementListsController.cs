@@ -35,7 +35,7 @@ namespace stationeryapp.Controllers
                                          departmentList = p
                                      };
 
-            return Json(new { data= new{ id = disbursementRecord.Select(x=>x.disbursementList.ListNumber), DepartmentCode=disbursementRecord.Select(x=>x.departmentList.DepartmentCode),CollectionPointname=disbursementRecord.Select(x=>x.collectionPoint.CollectionPointName),Date=disbursementRecord.Select(x=>x.disbursementList.Date),Status=disbursementRecord.Select(x=>x.disbursementList.Status) } }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = new { id = disbursementRecord.Select(x => x.disbursementList.ListNumber), DepartmentCode = disbursementRecord.Select(x => x.departmentList.DepartmentCode), CollectionPointname = disbursementRecord.Select(x => x.collectionPoint.CollectionPointName), Date = disbursementRecord.Select(x => x.disbursementList.Date), Status = disbursementRecord.Select(x => x.disbursementList.Status) } }, JsonRequestBehavior.AllowGet);
         }
 
         // GET: DisbursementLists

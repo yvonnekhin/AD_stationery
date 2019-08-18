@@ -50,7 +50,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model[0].supplierList.SupplierName, "Supplier", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model[0].purchaseOrder.SupplierCode, approvedSupplierList)
+                @Html.TextBoxFor(model => model[0].purchaseOrder.SupplierCode, new { @class = "form-control", @readonly = "readonly" })
             </div>
         </div>
         <div class="form-group">
@@ -86,8 +86,8 @@
                     </div>
                 </td>
                 <td>@Html.TextBoxFor(model => model[i].stationeryCatalog.Description, new { @class = "form-control", @readonly = "readonly" }) </td>
-                <td>@Html.TextBoxFor(model => model[i].purchaseOrderDetail.ReceivedQuantity, new { @class = "form-control", @id = "quantity" + count, @onchange = "updateTotal(this); getOverallTotal();" })</td>
-                <td>@Html.TextBoxFor(model => model[i].purchaseOrder.Reason, new { @class = "form-control", @readonly = "readonly" }) </td>
+                <td>@Html.TextBoxFor(model => model[i].purchaseOrderDetail.ReceivedQuantity, new { @class = "form-control", @id = "quantity" + count, @onkeyup = "updateTotal(this); getOverallTotal();" })</td>
+                <td>@Html.TextBoxFor(model => model[i].purchaseOrderDetail.Remarks, new { @class = "form-control", @readonly = "readonly" }) </td>
                 <td>@Html.TextBoxFor(model => model[i].stationeryCatalog.Price, new { @class = "form-control", @readonly = "readonly", @id = "price" + count })</td>
                 <td>
                     @Html.TextBox("subTotal" + count, Model[i].purchaseOrderDetail.Quantity * Model[i].stationeryCatalog.Price, new { @class = "subtotal", @readonly = "readonly" })
