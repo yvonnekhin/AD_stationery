@@ -222,7 +222,7 @@ namespace stationeryapp.Controllers
                 if (user.SessionId != null)
                 {
                     Debug.WriteLine(user.SessionId.Split('@')[1]);
-                    DateTime date1 = Convert.ToDateTime(user.SessionId.Split('@')[1]);
+                    DateTime date1 = Convert.ToDateTime(Convert.ToString(user.SessionId.Split('@')[1]));
                     DateTime date2 = DateTime.Now;
                     TimeSpan ts = date2 - date1;
                     Debug.WriteLine("No. of Minutes (Difference) = {0}", ts.TotalMinutes);
@@ -246,7 +246,7 @@ namespace stationeryapp.Controllers
                     {
                         Session.Add("user", user);
                         Session.Add("count", 0);
-                        string sessionId = Guid.NewGuid().ToString()+"@"+DateTime.Now;
+                        string sessionId = Guid.NewGuid().ToString()+"@"+ DateTime.Now.ToString();
                         Session.Add("sid", sessionId);
                         user.SessionId = sessionId;
                         db1.Entry(user).State = EntityState.Modified;
@@ -264,7 +264,7 @@ namespace stationeryapp.Controllers
                         {
                             Session.Add("user", user);
                             Session.Add("count", 0);
-                            string sessionId = Guid.NewGuid().ToString() + "@" + DateTime.Now;
+                            string sessionId = Guid.NewGuid().ToString() + "@" + DateTime.Now.ToString();
                             Session.Add("sid", sessionId);
                             user.SessionId = sessionId;
                             db1.Entry(user).State = EntityState.Modified;
@@ -281,7 +281,7 @@ namespace stationeryapp.Controllers
                     {
                         Session.Add("user", user);
                         Session.Add("count", 0);
-                        string sessionId = Guid.NewGuid().ToString() + "@" + DateTime.Now;
+                        string sessionId = Guid.NewGuid().ToString() + "@" + DateTime.Now.ToString();
                         Session.Add("sid", sessionId);
                         user.SessionId = sessionId;
                         db1.Entry(user).State = EntityState.Modified;
