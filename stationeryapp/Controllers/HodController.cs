@@ -150,7 +150,7 @@ namespace stationeryapp.Controllers
             using (ModelDBContext db = new ModelDBContext())
             {
                 emp_list = db.Employees.ToList();
-                requestlist = db.RequisitionForms.Where( f => db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(e=>e.Id).Contains(f.EmployeeId) && (f.Status=="Approved" || f.Status=="Rejected")).OrderByDescending(f => f.DateReceived).ToList();
+                requestlist = db.RequisitionForms.Where( f => db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(e=>e.Id).Contains(f.EmployeeId) && (f.Status=="Approved" || f.Status=="Rejected" || f.Status == "Read")).OrderByDescending(f => f.DateReceived).ToList();
             }
             ViewData["emp_list"] = emp_list;
             ViewData["userobj"] = user;
@@ -237,7 +237,7 @@ namespace stationeryapp.Controllers
             using (ModelDBContext db = new ModelDBContext())
             {
                 delegate_ = db.Employees.Where(e => e.Designation == "Delegate" && e.DepartmentCode == user.DepartmentCode).FirstOrDefault();
-                dept_emp_list = db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).ToList();
+                dept_emp_list = db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode  && e.Designation!="Rep").ToList();
             }
 
             ViewData["delegate_"] = (delegate_ != null ) ? delegate_ : user;
@@ -319,7 +319,7 @@ namespace stationeryapp.Controllers
             {
                 //select ItemNumber, sum(Quantity) from RequisitionFormDetails where FormNumber in (select r.FormNumber from RequisitionForms r where r.EmployeeId in (select Id from Employee where DepartmentCode = 'CPSC') and r.Status = 'approved') group by  RequisitionFormDetails.ItemNumber
 
-                List<RequisitionFormDetail> lists = db.RequisitionFormDetails.Where(formd => (db.RequisitionForms.Where(rf => db.Employees.Where(emp => emp.DepartmentCode == user.DepartmentCode).Select(e => e.Id).ToList().Contains(rf.EmployeeId) && rf.Status == "Approved").Select(fff => fff.FormNumber).ToList()).Contains(formd.FormNumber)).ToList();
+                List<RequisitionFormDetail> lists = db.RequisitionFormDetails.Where(formd => (db.RequisitionForms.Where(rf => db.Employees.Where(emp => emp.DepartmentCode == user.DepartmentCode).Select(e => e.Id).ToList().Contains(rf.EmployeeId) && (rf.Status == "Approved" || rf.Status=="Read")).Select(fff => fff.FormNumber).ToList()).Contains(formd.FormNumber)).ToList();
 
 
                 foreach (var item in lists)
@@ -457,7 +457,7 @@ namespace stationeryapp.Controllers
             {
                 hod = db.Employees.Find(user_id);
                 delegate_ = db.Employees.Where(e => e.Designation == "Delegate" && e.DepartmentCode == hod.DepartmentCode).FirstOrDefault();
-                dept_emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode).ToList();
+                dept_emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode && e.Designation!="Rep").ToList();
             }
 
             Employee emp = (delegate_ != null) ? delegate_ : hod;
@@ -473,7 +473,7 @@ namespace stationeryapp.Controllers
             {
                 user = db.Employees.Find(hod_id);
                 emp_list = db.Employees.ToList();
-                requestlist = db.RequisitionForms.Where(f => db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(e => e.Id).Contains(f.EmployeeId) && (f.Status == "Approved" || f.Status == "Rejected")).OrderByDescending(f => f.DateReceived).ToList();
+                requestlist = db.RequisitionForms.Where(f => db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(e => e.Id).Contains(f.EmployeeId) && (f.Status == "Approved" || f.Status == "Rejected" || f.Status=="Read")).OrderByDescending(f => f.DateReceived).ToList();
             }
             return Json(new { data = requestlist.Select(l => new { formid = l.FormNumber, status = l.Status, employee = new ModelDBContext().Employees.Where(e => e.Id == l.EmployeeId).Select(e => e.FirstName + " " + e.LastName).First(), date = Convert.ToDateTime(l.DateReceived).Date.ToString("dd/MM/yyyy") }) }, JsonRequestBehavior.AllowGet);
         }

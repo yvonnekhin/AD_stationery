@@ -91,13 +91,13 @@
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                        @Html.TextBox("Username", "", new { id = "Username", @class = "form-control", placeholder = "Username" })
+                        @Html.TextBox("Username", "", new { id = "Username", @class = "form-control", placeholder = "Username", required = true })
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="input-group">
                         <span class="input-group-addon"><i class="fa fa-lock"></i></span>
-                        @Html.Password("Password", "", new { id = "Password", @class = "form-control", placeholder = "Password" })
+                        @Html.Password("Password", "", new { id = "Password", @class = "form-control", placeholder = "Password", required = true })
                     </div>
                     @*<div>
                         @if (@msg.Equals("invalid password"))
