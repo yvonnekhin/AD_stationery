@@ -179,7 +179,7 @@ namespace stationeryapp.Controllers
                     current_rep = hod;
                 }
                 dept = (DepartmentList)db.DepartmentLists.Where(d => d.DepartmentCode == hod.DepartmentCode).FirstOrDefault();
-                emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode).ToList();
+                emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode && e.Designation!="Delegate").ToList();
                 coll_list = db.CollectionPoints.ToList();
             }
 
@@ -390,7 +390,7 @@ namespace stationeryapp.Controllers
             {
                 cp_list = db.CollectionPoints.ToList();
                 hod = db.Employees.Find(user_id);
-                emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode).ToList();
+                emp_list = db.Employees.Where(e => e.DepartmentCode == hod.DepartmentCode && e.Designation!="Delegate").ToList();
                 dept = db.DepartmentLists.Where(d => d.DepartmentCode == hod.DepartmentCode).First();
                 rep = db.Employees.Where(e => e.Id == dept.RepresentativeId).First();
             }
