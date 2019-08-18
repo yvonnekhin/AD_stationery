@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="stationeryModel19.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CollectionPoints">
           <Key>
             <PropertyRef Name="CollectionPointCode" />
@@ -580,7 +580,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="stationeryModel19StoreContainer">
+        <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="CollectionPoints" EntityType="Self.CollectionPoints" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DepartmentList" EntityType="Self.DepartmentList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DisbursementListDetails" EntityType="Self.DisbursementListDetails" Schema="dbo" store:Type="Tables" />
@@ -721,7 +721,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="stationeryModel19" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="CollectionPoint">
           <Key>
             <PropertyRef Name="CollectionPointCode" />
@@ -1497,9 +1497,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="stationeryModel19StoreContainer" CdmEntityContainer="ModelDBContext">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="ModelDBContext">
           <EntitySetMapping Name="CollectionPoints">
-            <EntityTypeMapping TypeName="stationeryModel19.CollectionPoint">
+            <EntityTypeMapping TypeName="Model.CollectionPoint">
               <MappingFragment StoreEntitySet="CollectionPoints">
                 <ScalarProperty Name="CollectionPointCode" ColumnName="CollectionPointCode" />
                 <ScalarProperty Name="CollectionPointName" ColumnName="CollectionPointName" />
@@ -1509,7 +1509,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DepartmentLists">
-            <EntityTypeMapping TypeName="stationeryModel19.DepartmentList">
+            <EntityTypeMapping TypeName="Model.DepartmentList">
               <MappingFragment StoreEntitySet="DepartmentList">
                 <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
                 <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
@@ -1522,7 +1522,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DisbursementListDetails">
-            <EntityTypeMapping TypeName="stationeryModel19.DisbursementListDetail">
+            <EntityTypeMapping TypeName="Model.DisbursementListDetail">
               <MappingFragment StoreEntitySet="DisbursementListDetails">
                 <ScalarProperty Name="ListDetailsNumber" ColumnName="ListDetailsNumber" />
                 <ScalarProperty Name="ListNumber" ColumnName="ListNumber" />
@@ -1534,7 +1534,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DisbursementLists">
-            <EntityTypeMapping TypeName="stationeryModel19.DisbursementList">
+            <EntityTypeMapping TypeName="Model.DisbursementList">
               <MappingFragment StoreEntitySet="DisbursementLists">
                 <ScalarProperty Name="ListNumber" ColumnName="ListNumber" />
                 <ScalarProperty Name="DepartmentCode" ColumnName="DepartmentCode" />
@@ -1544,7 +1544,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employees">
-            <EntityTypeMapping TypeName="stationeryModel19.Employee">
+            <EntityTypeMapping TypeName="Model.Employee">
               <MappingFragment StoreEntitySet="Employee">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -1561,7 +1561,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OutstandingLists">
-            <EntityTypeMapping TypeName="stationeryModel19.OutstandingList">
+            <EntityTypeMapping TypeName="Model.OutstandingList">
               <MappingFragment StoreEntitySet="OutstandingList">
                 <ScalarProperty Name="OutstandingListNumber" ColumnName="OutstandingListNumber" />
                 <ScalarProperty Name="PONumber" ColumnName="PONumber" />
@@ -1571,7 +1571,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PurchaseOrderDetails">
-            <EntityTypeMapping TypeName="stationeryModel19.PurchaseOrderDetail">
+            <EntityTypeMapping TypeName="Model.PurchaseOrderDetail">
               <MappingFragment StoreEntitySet="PurchaseOrderDetails">
                 <ScalarProperty Name="PODetailsNumber" ColumnName="PODetailsNumber" />
                 <ScalarProperty Name="PONumber" ColumnName="PONumber" />
@@ -1584,7 +1584,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PurchaseOrders">
-            <EntityTypeMapping TypeName="stationeryModel19.PurchaseOrder">
+            <EntityTypeMapping TypeName="Model.PurchaseOrder">
               <MappingFragment StoreEntitySet="PurchaseOrders">
                 <ScalarProperty Name="PONumber" ColumnName="PONumber" />
                 <ScalarProperty Name="SupplierCode" ColumnName="SupplierCode" />
@@ -1605,7 +1605,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RequisitionFormDetails">
-            <EntityTypeMapping TypeName="stationeryModel19.RequisitionFormDetail">
+            <EntityTypeMapping TypeName="Model.RequisitionFormDetail">
               <MappingFragment StoreEntitySet="RequisitionFormDetails">
                 <ScalarProperty Name="FormDetailsNumber" ColumnName="FormDetailsNumber" />
                 <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
@@ -1616,7 +1616,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RequisitionForms">
-            <EntityTypeMapping TypeName="stationeryModel19.RequisitionForm">
+            <EntityTypeMapping TypeName="Model.RequisitionForm">
               <MappingFragment StoreEntitySet="RequisitionForms">
                 <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
@@ -1631,7 +1631,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StationeryCatalogs">
-            <EntityTypeMapping TypeName="stationeryModel19.StationeryCatalog">
+            <EntityTypeMapping TypeName="Model.StationeryCatalog">
               <MappingFragment StoreEntitySet="StationeryCatalog">
                 <ScalarProperty Name="ItemNumber" ColumnName="ItemNumber" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
@@ -1649,7 +1649,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StationeryRetrievalFormDetails">
-            <EntityTypeMapping TypeName="stationeryModel19.StationeryRetrievalFormDetail">
+            <EntityTypeMapping TypeName="Model.StationeryRetrievalFormDetail">
               <MappingFragment StoreEntitySet="StationeryRetrievalFormDetails">
                 <ScalarProperty Name="FormDetailsNumber" ColumnName="FormDetailsNumber" />
                 <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
@@ -1661,7 +1661,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StationeryRetrievalForms">
-            <EntityTypeMapping TypeName="stationeryModel19.StationeryRetrievalForm">
+            <EntityTypeMapping TypeName="Model.StationeryRetrievalForm">
               <MappingFragment StoreEntitySet="StationeryRetrievalForms">
                 <ScalarProperty Name="FormNumber" ColumnName="FormNumber" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -1670,7 +1670,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StockAdjustmentVoucherDetails">
-            <EntityTypeMapping TypeName="stationeryModel19.StockAdjustmentVoucherDetail">
+            <EntityTypeMapping TypeName="Model.StockAdjustmentVoucherDetail">
               <MappingFragment StoreEntitySet="StockAdjustmentVoucherDetails">
                 <ScalarProperty Name="AdjustmentDetailsNumber" ColumnName="AdjustmentDetailsNumber" />
                 <ScalarProperty Name="AdjustmentVoucherNumber" ColumnName="AdjustmentVoucherNumber" />
@@ -1681,7 +1681,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StockAdjustmentVouchers">
-            <EntityTypeMapping TypeName="stationeryModel19.StockAdjustmentVoucher">
+            <EntityTypeMapping TypeName="Model.StockAdjustmentVoucher">
               <MappingFragment StoreEntitySet="StockAdjustmentVouchers">
                 <ScalarProperty Name="AdjustmentVoucherNumber" ColumnName="AdjustmentVoucherNumber" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
@@ -1691,7 +1691,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StoreClerks">
-            <EntityTypeMapping TypeName="stationeryModel19.StoreClerk">
+            <EntityTypeMapping TypeName="Model.StoreClerk">
               <MappingFragment StoreEntitySet="StoreClerk">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -1704,7 +1704,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StoreManagers">
-            <EntityTypeMapping TypeName="stationeryModel19.StoreManager">
+            <EntityTypeMapping TypeName="Model.StoreManager">
               <MappingFragment StoreEntitySet="StoreManager">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -1717,7 +1717,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="StoreSupervisors">
-            <EntityTypeMapping TypeName="stationeryModel19.StoreSupervisor">
+            <EntityTypeMapping TypeName="Model.StoreSupervisor">
               <MappingFragment StoreEntitySet="StoreSupervisor">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -1730,7 +1730,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="SupplierLists">
-            <EntityTypeMapping TypeName="stationeryModel19.SupplierList">
+            <EntityTypeMapping TypeName="Model.SupplierList">
               <MappingFragment StoreEntitySet="SupplierList">
                 <ScalarProperty Name="SupplierCode" ColumnName="SupplierCode" />
                 <ScalarProperty Name="SupplierName" ColumnName="SupplierName" />

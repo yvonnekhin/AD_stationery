@@ -16,6 +16,7 @@ namespace stationeryapp.Controllers
         {
             PurchaseOrdersController purchaseOrdersController = new PurchaseOrdersController();
             purchaseOrdersController.SystemGeneratePO();
+            purchaseOrdersController.MergePurchaseOrders();
 
             StationeryRetrievalFormsController stationeryRetrievalFormsController = new StationeryRetrievalFormsController();
             stationeryRetrievalFormsController.GenerateRetrievalForm();

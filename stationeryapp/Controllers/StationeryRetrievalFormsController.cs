@@ -31,6 +31,7 @@ namespace stationeryapp.Controllers
 
             var srfList = (from srf in stationeryRetrievalForms
                           orderby srf.Date descending
+                          where srf.Status!="Merged"
                            select srf).ToList();
 
             if (storeclerk != null)
@@ -110,7 +111,7 @@ namespace stationeryapp.Controllers
                           where srf.Status == "Pending"
                           select srf).ToList();
 
-            if (srfList.Count > 0)
+            if (srfList.Count > 1)
             {
                 StationeryRetrievalForm createdStationeryRetrievalForm = new StationeryRetrievalForm
                 {
@@ -377,7 +378,7 @@ namespace stationeryapp.Controllers
                         departmentList.Add(commitedFormDetail.stationeryRetrievalFormDetail.DepartmentCode);
                     }
 
-                    //If insufficient inventory, add the item code to our item code list created above, so that we can generate a Outstanding List by item code 
+                    //If insufficient inventory, generate a outstanding list object for each retrieval form detail 
                     if(commitedFormDetail.stationeryRetrievalFormDetail.Needed>commitedFormDetail.stationeryRetrievalFormDetail.Actual)
                     { 
                     outstandingListCount++;
@@ -402,7 +403,7 @@ namespace stationeryapp.Controllers
                 {
                     ListNumber = (db.DisbursementLists.Count() + 1).ToString(),
                     DepartmentCode = deptCode,
-                    Date = DateTime.Today, //Lee Siong to remove once lxl creates date input field in disbursement list
+                    Date = DateTime.Today, 
                     Status = "Pending"
                 };
                 db.DisbursementLists.Add(dl);
