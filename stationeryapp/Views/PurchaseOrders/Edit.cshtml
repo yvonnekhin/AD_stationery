@@ -1,146 +1,153 @@
-﻿@model stationeryapp.Models.PurchaseOrder
+﻿@model List<stationeryapp.Models.POForm>
+@using stationeryapp.Models
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "View Order";
+    int count = 1;
+    //double total = 0.00;
+    SelectList approvedSupplierList = ViewBag.SupplierCode1;
+    string sessionId = (string)ViewData["sessionId"];
+    string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
-<h2>Edit</h2>
+<h2>View Completed Form</h2>
+<br>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model[0].purchaseOrder.PONumber)
+        </dt>
 
+        <dd>
+            @Html.DisplayFor(model => model[0].purchaseOrder.PONumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model[0].purchaseOrder.DeliverTo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model[0].purchaseOrder.DeliverTo)
+        </dd>
+
+        <dt>
+            Attention
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model[0].purchaseOrder.StoreClerk.FirstName)
+        </dd>
+    </dl>
+</div>
 
 @using (Html.BeginForm())
 {
+    @Html.Hidden("sessionId", sessionId)
     @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
-        <h4>PurchaseOrder</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.PONumber)
-
         <div class="form-group">
-            @Html.LabelFor(model => model.SupplierCode, "SupplierCode", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model[0].supplierList.SupplierName, "Supplier", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("SupplierCode", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.SupplierCode, "", new { @class = "text-danger" })
+                @Html.TextBoxFor(model => model[0].purchaseOrder.SupplierCode, new { @class = "form-control", @readonly = "readonly" })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.DeliverTo, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model[0].purchaseOrder.ReceivedDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.DeliverTo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DeliverTo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Attention, "Attention", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("Attention", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Attention, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SupplyByDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SupplyByDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SupplyByDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrderedBy, "OrderedBy", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("OrderedBy", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.OrderedBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateOrdered, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateOrdered, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateOrdered, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ApprovedBy, "ApprovedBy", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ApprovedBy", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ApprovedBy, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.DateApproved, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DateApproved, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DateApproved, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PurchaseValue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PurchaseValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PurchaseValue, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceivedGoodsFormNo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReceivedGoodsFormNo, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReceivedGoodsFormNo, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceivedDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReceivedDate, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReceivedDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReceivedValue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ReceivedValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ReceivedValue, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                @Html.TextBoxFor(model => model[0].purchaseOrder.ReceivedDate, "{0:dd-MMM-yyyy}", new { @class = "form-control", @readonly = "readonly" })
             </div>
         </div>
     </div>
+
+    <h4>Details of Received Goods</h4>
+    <table class="table" id="details">
+        <tr>
+            <th>Item No</th>
+            <th>Description</th>
+            <th>Quantity Received</th>
+            <th>Purchase Reason</th>
+            <th>Price</th>
+            <th>Amount</th>
+        </tr>
+
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            @Html.HiddenFor(model => model[i].purchaseOrder.PONumber)
+            @Html.HiddenFor(model => model[i].purchaseOrderDetail.PODetailsNumber)
+            @Html.HiddenFor(model => model[i].purchaseOrderDetail.ItemNumber)
+
+            <tr>
+                <td>
+                    @count
+                    <div style="visibility:hidden">
+                        @(count++);
+                    </div>
+                </td>
+                <td>@Html.TextBoxFor(model => model[i].stationeryCatalog.Description, new { @class = "form-control", @readonly = "readonly" }) </td>
+                <td>@Html.TextBoxFor(model => model[i].purchaseOrderDetail.ReceivedQuantity, new { @class = "form-control", @id = "quantity" + count, @readonly = "readonly" })</td>
+                <td>@Html.TextBoxFor(model => model[i].purchaseOrderDetail.Remarks, new { @class = "form-control", @readonly = "readonly" }) </td>
+                <td>@Html.TextBoxFor(model => model[i].stationeryCatalog.Price, new { @class = "form-control", @readonly = "readonly", @id = "price" + count })</td>
+                <td>
+                    @Html.TextBox("subTotal" + count, Model[i].purchaseOrderDetail.Quantity * Model[i].stationeryCatalog.Price, new { @class = "subtotal", @readonly = "readonly" })
+                </td>
+            </tr>
+        }
+
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>Total:</td>
+            <td>
+                @Html.TextBoxFor(model => model[0].purchaseOrder.ReceivedValue, new { @id = "total", @class = "form-control", @readonly = "readonly" })
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                @*<div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Receive" class="btn btn-default" />
+                    </div>
+                </div>*@
+            </td>
+        </tr>
+    </table>
+
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<script>
+    function updateTotal(element) {
+        var quantityId = element.id;
+        var quantity = document.getElementById(quantityId).value;
+        var countId = quantityId.substring(8);
+        var price = document.getElementById("price" + countId).value;
+        var subtotal = document.getElementById("subTotal" + countId);
+        subtotal.value = parseInt(quantity) * parseFloat(price);
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+    }
+
+    function getOverallTotal() {
+        var listSubTotal = document.getElementById("details").querySelectorAll(".subtotal");
+        var total = 0;
+        for (var i = 0; i < listSubTotal.length; i++) {
+            total += parseFloat(listSubTotal[i].value);
+        }
+        var totalElement = document.getElementById("total");
+        totalElement.value = total;
+    }
+
+    window.onload = getOverallTotal();
+</script>
+
+<p style="font-size:medium">
+    @Html.ActionLink("Back to List", "Index", new { sessionId = sessionId })
+</p>
