@@ -114,7 +114,7 @@ namespace stationeryapp.Controllers
             using (ModelDBContext db = new ModelDBContext())
             {
                 form_ = db.RequisitionForms.Find(form_id);
-                util.SendEmail(form_.Employee.EmailAddress, "Your request status has been updated", form_.FormNumber + " " + email_status);
+                util.SendEmail(db.Employees.Find(form_.EmployeeId).EmailAddress, "Your request status has been updated", form_.FormNumber + " " + email_status);
             }
                 
 
@@ -267,20 +267,20 @@ namespace stationeryapp.Controllers
                 }
                 if (delegate_.Designation != "Head")
                 {
-                    if (Convert.ToDateTime(from_date) > Convert.ToDateTime(to_date))
-                    {
-                        return RedirectToAction("assigndelegate", new { msg = "invalid date" });
-                    }
+                    //if (Convert.ToDateTime(from_date) > Convert.ToDateTime(to_date))
+                    //{
+                    //    return RedirectToAction("assigndelegate", new { msg = "invalid date" });
+                    //}
 
                     delegate_.Designation = "Delegate";
                     delegate_.DelegateFrom = Convert.ToDateTime(from_date);
                     delegate_.DelegateTo = Convert.ToDateTime(to_date);
                 }
-                else
-                {
-                    delegate_.DelegateFrom = DateTime.Now;
-                    delegate_.DelegateTo = DateTime.Now;
-                }
+                //else
+                //{
+                //    delegate_.DelegateFrom = DateTime.Now;
+                //    delegate_.DelegateTo = DateTime.Now;
+                //}
                 db.SaveChanges();
             }
             return View("index", new { sid=sid});
@@ -365,7 +365,7 @@ namespace stationeryapp.Controllers
                 emp = emp_list.Where(e => e.Id == (db.RequisitionForms.Find(form_id).EmployeeId)).First();
                 form_list = db.RequisitionFormDetails.Where(f => f.FormNumber == form_id).ToList();
             }
-            return Json(new { data = form_list.Select(item => new { FormDetailsNumber = item.FormDetailsNumber, FormNumber = item.FormNumber, ItemNumber = item.ItemNumber, Quantity = item.Quantity, EmployeeName = emp.FirstName + " " + emp.LastName }) }, JsonRequestBehavior.AllowGet);
+            return Json(new { data = form_list.Select(item => new { FormDetailsNumber = item.FormDetailsNumber, FormNumber = item.FormNumber, ItemNumber = item.ItemNumber, ItemDesc = new ModelDBContext().StationeryCatalogs.Where(s => s.ItemNumber == item.ItemNumber).Select(ss => ss.Description).First(), Quantity = item.Quantity, EmployeeName = emp.FirstName + " " + emp.LastName }) }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetDeptEmployees(string user_id)
@@ -399,16 +399,37 @@ namespace stationeryapp.Controllers
 
         public void UpdateFormDetails(string form_id, string comments, string status, string approved_by)
         {
+            string notify_status;
+            string email_status;
             Debug.WriteLine(form_id + comments + status + approved_by);
             RequisitionForm form;
+            if (status.Equals("approved"))
+            {
+                status = "Approved";
+                notify_status = "approved_by_hod";
+                email_status = "Approved By HOD";
+            }
+            else
+            {
+                status = "Rejected";
+                notify_status = "rejected_by_hod";
+                email_status = "Rejected By HOD";
+            }
             using (ModelDBContext db = new ModelDBContext())
             {
                 form = db.RequisitionForms.Find(form_id);
                 form.Comments = comments;
                 form.Status = status;
+                form.Notification = notify_status;
                 form.ApprovedBy = approved_by;
                 form.DateApproved = DateTime.Now.Date;
                 db.SaveChanges();
+            }
+            RequisitionForm form_;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                form_ = db.RequisitionForms.Find(form_id);
+                util.SendEmail(db.Employees.Find(form_.EmployeeId).EmailAddress, "From Head Of Dept", form_.FormNumber + " " + email_status);
             }
         }
 
@@ -441,6 +462,20 @@ namespace stationeryapp.Controllers
 
             Employee emp = (delegate_ != null) ? delegate_ : hod;
             return Json(new { data = new { current_delegateid = emp.Id, current_delegate = emp.FirstName + " " + emp.LastName, c_from = (emp.Designation == "Head") ? "" : Convert.ToDateTime(emp.DelegateFrom).Date.ToString("dd/MM/yyyy"), c_to = (emp.Designation == "Head") ? "" : Convert.ToDateTime(emp.DelegateTo).Date.ToString("dd/MM/yyyy") }, emp_list = dept_emp_list.Select(item => new { EmployeeId = item.Id, EmployeeName = item.FirstName + " " + item.LastName }) }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult stationaryrequesthistory_android(string hod_id)
+        {
+            Employee user;
+            List<RequisitionForm> requestlist;
+            List<Employee> emp_list;
+            using (ModelDBContext db = new ModelDBContext())
+            {
+                user = db.Employees.Find(hod_id);
+                emp_list = db.Employees.ToList();
+                requestlist = db.RequisitionForms.Where(f => db.Employees.Where(e => e.DepartmentCode == user.DepartmentCode).Select(e => e.Id).Contains(f.EmployeeId) && (f.Status == "Approved" || f.Status == "Rejected")).OrderByDescending(f => f.DateReceived).ToList();
+            }
+            return Json(new { data = requestlist.Select(l => new { formid = l.FormNumber, status = l.Status, employee = new ModelDBContext().Employees.Where(e => e.Id == l.EmployeeId).Select(e => e.FirstName + " " + e.LastName).First(), date = Convert.ToDateTime(l.DateReceived).Date.ToString("dd/MM/yyyy") }) }, JsonRequestBehavior.AllowGet);
         }
 
         public void DelegateUpdate(string emp_id, string hod_id, string from = "0001-01-01", string to = "0001-01-01")
@@ -488,6 +523,8 @@ namespace stationeryapp.Controllers
                 db.SaveChanges();
             }
         }
+
+        
 
     }
 }

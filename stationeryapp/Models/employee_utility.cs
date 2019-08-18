@@ -115,7 +115,7 @@ namespace stationeryapp.Models
                 else
                 {
                     
-                    db.RequisitionFormDetails.Add(new RequisitionFormDetail { FormDetailsNumber = form_details_num, FormNumber = form_detail_obj.FormNumber, ItemNumber = form_detail_obj.ItemNumber, Quantity = Convert.ToInt32(form_detail_obj.Quantity) });
+                    db.RequisitionFormDetails.Add(new RequisitionFormDetail { FormDetailsNumber = form_details_num, FormNumber = form_detail_obj.FormNumber, ItemNumber = form_detail_obj.ItemNumber, Quantity = Convert.ToInt32(form_detail_obj.Quantity), Status="Pending" });
                 }
 
                 db.SaveChanges();

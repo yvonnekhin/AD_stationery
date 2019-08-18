@@ -4,6 +4,7 @@
     ViewBag.Title = "PO List";
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Purchase Order List</h2>
@@ -11,7 +12,7 @@
 @*<p>
     @Html.ActionLink("Create New", "Create")
 </p>*@
-<table class="table">
+<table class="table table-bordered table-striped">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.PONumber)
@@ -70,14 +71,18 @@
             </td>
 
             <td>
-                @if (item.Status == "Not Submitted")
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.PONumber,sessionId = sessionId }) |*@
+
+                @if (tag=="storeclerk")
                 {
-                    @Html.ActionLink("Order", "Details", new { id = item.PONumber, sessionId = sessionId })
+                    @Html.ActionLink("Order  ", "Details", new { id = item.PONumber, sessionId = sessionId })
                 }
-                @if (item.Status == "Submitted")
-                {
-                    @Html.ActionLink("Receive", "Receive", new { id = item.PONumber, sessionId = sessionId })
-                }
+
+
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.PONumber, sessionId = sessionId })|*@
+
+
+                @Html.ActionLink("Receive", "Receive", new { id = item.PONumber, sessionId = sessionId })
             </td>
         </tr>
     }

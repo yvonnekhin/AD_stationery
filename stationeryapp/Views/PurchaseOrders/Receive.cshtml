@@ -8,10 +8,11 @@
     SelectList approvedSupplierList = ViewBag.SupplierCode1;
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
 
 <h2>Receive Goods Form</h2>
-
+<br>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -147,8 +148,9 @@
     window.onload = getOverallTotal();
 </script>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model[0].purchaseOrder.PONumber }) |
+<p style="font-size:medium">
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model[0].purchaseOrder.PONumber }) |*@
+
     @Html.ActionLink("Back to List", "Index",new { sessionId=sessionId})
 </p>
 

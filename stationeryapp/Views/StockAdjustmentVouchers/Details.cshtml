@@ -6,12 +6,13 @@
     List<StockAdjustmentVoucherDetail> savdList = ViewBag.savd;
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
+    string tag = (string)ViewData["tag"];
 }
-
-<h2>Details</h2>
+<br>
+<h3>Stock Adjustment Voucher (Supervisor/Manager) </h3>
 
 <div>
-    <h4>Stoc Adjustment Voucher (Supervisor/Manager) </h4>
+
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -39,7 +40,9 @@
     </dl>
 </div>
 
-<table>
+<br>
+<br>
+<table class="table">
     <tr>
         <th> Item Code </th>
         <th></th>
@@ -64,19 +67,24 @@
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.AdjustmentVoucherNumber)
     @Html.Hidden("sessionId", sessionId)
-    <table>
+    <table class="table">
         <tr>
-            <td> Remarks: </td>
-            <td> @Html.EditorFor(model => model.Remarks)</td>
+            <td> Remarks:</td>
+            <td align="left"> @Html.EditorFor(model => model.Remarks)</td>
             <td></td>
-            <td> <input type="submit" value="Reject" name="Command" class="btn btn-default" /> </td>
-            <td> <input type="submit" value="Approve" name="Command" class="btn btn-default" /> </td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align="right"> <input type="submit" value="Reject" name="Command" class="btn btn-danger" /> </td>
+            <td align="right"> <input type="submit" value="Approve" name="Command" class="btn btn-success" /> </td>
         </tr>
     </table>
 }
 
 
-<p>
+<p style="font-size:medium">
     @Html.ActionLink("Edit", "Edit", new { id = Model.AdjustmentVoucherNumber, sessionId = sessionId }) |
     @Html.ActionLink("Back to List", "Index", new { sessionId = sessionId })
 </p>

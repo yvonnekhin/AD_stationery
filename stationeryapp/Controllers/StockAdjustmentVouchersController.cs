@@ -37,7 +37,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
-
+                ViewData["tag"] = "storeclerk";
                 return View(db.StockAdjustmentVouchers.ToList());
             }
             else if (storeManager != null)
@@ -51,6 +51,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
                 return View(db.StockAdjustmentVouchers.ToList());
             }
             else if (storeSupervisor != null)
@@ -64,14 +65,13 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
                 return View(db.StockAdjustmentVouchers.ToList());
             }
             else
             {
                 return RedirectToAction("Login", "Login");
-            }
-
-           
+            }        
         }
 
         // GET: StockAdjustmentVouchers/Details/5
@@ -101,7 +101,6 @@ namespace stationeryapp.Controllers
             {
                 return HttpNotFound();
             }
-
             if (storeclerk != null)
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
@@ -113,7 +112,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
-
+                ViewData["tag"] = "storeclerk";
                 return View(stockAdjustmentVoucher);
             }
             else if (storeManager != null)
@@ -127,6 +126,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
                 return View(stockAdjustmentVoucher);
             }
             else if (storeSupervisor != null)
@@ -140,14 +140,13 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
                 return View(stockAdjustmentVoucher);
             }
             else
             {
                 return RedirectToAction("Login", "Login");
-            }
-
-           
+            }          
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -173,12 +172,10 @@ namespace stationeryapp.Controllers
                 }
                 StockAdjustmentVoucher stockAdjustmentVoucher = db.StockAdjustmentVouchers.Find(sav.AdjustmentVoucherNumber);
                 stockAdjustmentVoucher.Status = sav.Status;
-
                 db.SaveChanges();
                 return RedirectToAction("Index", "StockAdjustmentVouchers", new { sessionId = sessionId });
 
             }
-
 
             if (storeclerk != null)
             {
@@ -191,7 +188,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
-
+                ViewData["tag"] = "storeclerk";
                 return View(sav);
             }
             else if (storeManager != null)
@@ -205,6 +202,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
                 return View(sav);
             }
             else if (storeSupervisor != null)
@@ -218,15 +216,13 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
                 return View(sav);
             }
             else
             {
                 return RedirectToAction("Login", "Login");
-            }
-
-
-            
+            }          
         }
 
 
@@ -267,6 +263,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
+                ViewData["tag"] = "storeclerk";
                 return View(savdList);
             }
             else if (storeManager != null)
@@ -280,6 +277,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
                 return View(savdList);
             }
             else if (storeSupervisor != null)
@@ -293,14 +291,13 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
                 return View(savdList);
             }
             else
             {
                 return RedirectToAction("Login", "Login");
-            }
-
-          
+            }        
         }
 
 
@@ -373,6 +370,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
+                ViewData["tag"] = "storeclerk";
                 return View(stockAdjustmentVoucher);
             }
             else if (storeManager != null)
@@ -386,6 +384,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
                 return View(stockAdjustmentVoucher);
             }
             else if (storeSupervisor != null)
@@ -399,13 +398,13 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
                 return View(stockAdjustmentVoucher);
             }
             else
             {
                 return RedirectToAction("Login", "Login");
-            }
-            
+            }          
         }
 
         // POST: StockAdjustmentVouchers/Edit/5
@@ -422,24 +421,24 @@ namespace stationeryapp.Controllers
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
-            if (ModelState.IsValid)
-            {
-                db.Entry(stockAdjustmentVoucher).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index","StockAdjustmentVouchers", new { sessionId = sessionId });
+    
+            if (storeclerk != null && ModelState.IsValid)
+            {              
+                    db.Entry(stockAdjustmentVoucher).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "StockAdjustmentVouchers", new { sessionId = sessionId });                
             }
-
-            if (storeclerk != null)
-            {
-                return RedirectToAction("Index", "StockAdjustmentVouchers", new { sessionId = sessionId });
+            else if (storeManager != null && ModelState.IsValid)
+            {              
+                    db.Entry(stockAdjustmentVoucher).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "StockAdjustmentVouchers", new { sessionId = sessionId });              
             }
-            else if (storeManager != null)
+            else if (storeSupervisor != null&& ModelState.IsValid)
             {
-                return RedirectToAction("Index", "StockAdjustmentVouchers", new { sessionId = sessionId });
-            }
-            else if (storeSupervisor != null)
-            {
-                return RedirectToAction("Index", "StockAdjustmentVouchers", new { sessionId = sessionId });
+                    db.Entry(stockAdjustmentVoucher).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index", "StockAdjustmentVouchers", new { sessionId = sessionId });
             }
             else
             {
@@ -448,7 +447,7 @@ namespace stationeryapp.Controllers
             
         }
 
-        // GET: StockAdjustmentVouchers/Delete/5
+        // no need,can remove
         public ActionResult Delete(string id,string sessionId)
         {
             if (sessionId == null)
@@ -480,6 +479,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
+                ViewData["tag"] = "storeclerk";
                 return View(stockAdjustmentVoucher);
             }
             else if (storeManager != null)
@@ -493,6 +493,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
                 return View(stockAdjustmentVoucher);
             }
             else if (storeSupervisor != null)
@@ -506,6 +507,7 @@ namespace stationeryapp.Controllers
                 ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
                 return View(stockAdjustmentVoucher);
             }
             else
@@ -515,7 +517,7 @@ namespace stationeryapp.Controllers
             
         }
 
-        // POST: StockAdjustmentVouchers/Delete/5
+        // no need,can remove
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id,string sessionId)
@@ -558,10 +560,7 @@ namespace stationeryapp.Controllers
             else
             {
                 return RedirectToAction("Login", "Login");
-            }
-
-
-            
+            }          
         }
 
         protected override void Dispose(bool disposing)
