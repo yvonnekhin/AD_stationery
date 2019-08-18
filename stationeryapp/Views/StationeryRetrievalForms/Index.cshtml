@@ -43,10 +43,7 @@
             {
                 @Html.ActionLink("View", "Details", new { id = item.FormNumber, sessionId = sessionId })
             }
-            @if (item.Status == "Submitted")
-            {
-                @Html.ActionLink("View", "Details", new { id = item.FormNumber, sessionId = sessionId })
-            }
+            
         </td>
     </tr>
 }

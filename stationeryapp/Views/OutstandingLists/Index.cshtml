@@ -16,6 +16,7 @@
         <th>Shortage Quantity</th>
         <th>Inventory Quantity</th>
         <th>Status</th>
+        <th></th>
     </tr>
 
     @{
@@ -36,6 +37,12 @@
                 </td>
                 <td class="success">
                     @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    @if (item.ShortageQuantity < item.InventoryBalance)
+                    {
+                        @Html.ActionLink("Adjust", "Create", "StockAdjustmentVouchers", new { sessionId = sessionId }, null)
+                    }
                 </td>
                
             </tr>
