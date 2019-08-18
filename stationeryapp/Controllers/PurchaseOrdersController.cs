@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using stationeryapp.Models;
+using stationeryapp.Util;
 
 namespace stationeryapp.Controllers
 {
@@ -24,9 +25,8 @@ namespace stationeryapp.Controllers
             StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
             StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
-            var purchaseOrders = db.PurchaseOrders.Include(p => p.StoreClerk).Include(p => p.StoreClerk1).Include(p => p.StoreSupervisor).Include(p => p.SupplierList);
+            var purchaseOrders = db.PurchaseOrders.Include(p => p.StoreClerk).Include(p => p.StoreClerk1).Include(p => p.StoreSupervisor).Include(p => p.SupplierList).OrderBy(p=>p.DateOrdered).Where(p=>p.Status!="Merged");
 
-            //SystemGeneratePO();
 
             if (storeclerk != null)
             {
@@ -422,21 +422,26 @@ namespace stationeryapp.Controllers
 
                     //update outstanding list status
 
-                    if (po.purchaseOrder.Reason == "Outstanding")
+                    if (po.purchaseOrderDetail.Remarks == "Outstanding")
                     {
                         var findOutstandingList = (from o in db.OutstandingLists
                                                    join fd in db.StationeryRetrievalFormDetails on o.RetrievalFormDetailsNumber equals fd.FormDetailsNumber into table1
                                                    from fd in table1
-                                                   where fd.ItemNumber == po.purchaseOrderDetail.ItemNumber
-                                                   select o.OutstandingListNumber).ToList();
+                                                   join rf in db.StationeryRetrievalForms on fd.FormNumber equals rf.FormNumber into table2
+                                                   from rf in table2
+                                                   orderby rf.Date
+                                                   where fd.ItemNumber == po.purchaseOrderDetail.ItemNumber && o.Status=="Awaiting Goods"
+                                                   select o).ToList();
 
-                        OutstandingList existingOutstandingList = db.OutstandingLists.Find(findOutstandingList[0]);
+                        foreach(OutstandingList ol in findOutstandingList) { 
+                        OutstandingList existingOutstandingList = db.OutstandingLists.Find(ol.OutstandingListNumber);
                         existingOutstandingList.Status = "Completed";
-                    
+                        }
 
-                    //update requisition form details status for item received
 
-                    var findRequisitionDetail = (from rf in db.RequisitionForms
+                        //update requisition form details status for item received
+
+                        var findRequisitionDetail = (from rf in db.RequisitionForms
                                                  join rfd in db.RequisitionFormDetails on rf.FormNumber equals rfd.FormNumber into table1
                                                  from rfd in table1
                                                  orderby rf.DateApproved descending
@@ -568,70 +573,21 @@ namespace stationeryapp.Controllers
             List<StationeryRetrievalFormDetail> stationeryRetrievalFormDetails = db.StationeryRetrievalFormDetails.ToList();
 
             //1. Order due to outstanding requests (backward looking)
-            var outstandingToOrder = (from o in outstandingLists
+            List<PurchaseOrderDetail> orderForOutstandingList = (from o in outstandingLists
                                       join fd in stationeryRetrievalFormDetails on o.RetrievalFormDetailsNumber equals fd.FormDetailsNumber into table1
                                       from fd in table1
                                       where o.Status == "Outstanding"
-                                      select fd.ItemNumber).ToList();
+                                      group fd by new {fd.ItemNumber} into group1
+                                      select new PurchaseOrderDetail //we will only use itemcode, quantity to order here -> not saving to db, so IDs not required
+                                      {
+                                          ItemNumber = group1.Key.ItemNumber,
+                                          Quantity = group1.Sum(x => x.Needed)-group1.Sum(x => x.Actual),
+                                          Remarks = "Outstanding"
 
-            var alreadyOrderedForOutstanding = (from po in purchaseOrders1
-                                                join pod in purchaseOrderDetails1 on po.PONumber equals pod.PONumber into table1
-                                                from pod in table1
-                                                where po.Status != "Received" && po.Reason == "Outstanding"
-                                                select pod.ItemNumber).ToList();
-
-            var toOrderForOutstanding = outstandingToOrder.Except(alreadyOrderedForOutstanding);
-
-            foreach (string itemNumber in toOrderForOutstanding)
-            {
-                List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
-                List<PurchaseOrderDetail> purchaseOrderDetails = db.PurchaseOrderDetails.ToList();
-                int poCount = purchaseOrders.Count() + 1;
-                int podCount = purchaseOrderDetails.Count() + 1;
-
-                var retrievalFormsShortage = (from o in outstandingLists
-                                              join fd in stationeryRetrievalFormDetails on o.RetrievalFormDetailsNumber equals fd.FormDetailsNumber into table1
-                                              from fd in table1
-                                              where o.Status == "Outstanding" && fd.ItemNumber == itemNumber
-                                              select fd.FormDetailsNumber).ToList();
-
-                PurchaseOrder newPO = new PurchaseOrder
-                {
-                    PONumber = poCount.ToString(),
-                    SupplierCode = db.StationeryCatalogs.Find(itemNumber).SupplierCode1,
-                    DeliverTo = "Logic University",
-                    Attention = "1",
-                    OrderedBy = "1",
-                    Status = "Not Submitted",
-                    Reason = "Outstanding"
-                };
-
-                PurchaseOrderDetail newPOD = new PurchaseOrderDetail
-                {
-                    PODetailsNumber = podCount.ToString(),
-                    PONumber = newPO.PONumber,
-                    ItemNumber = itemNumber,
-                    Quantity = (int)db.StationeryRetrievalFormDetails.Find(retrievalFormsShortage[0]).Needed - (int)db.StationeryRetrievalFormDetails.Find(retrievalFormsShortage[0]).Actual,
-                    Remarks = "Oustanding List"
-
-                };
-
-                //update outstanding list PO Number
-                var findOutstandingList = (from o in outstandingLists
-                                           join fd in stationeryRetrievalFormDetails on o.RetrievalFormDetailsNumber equals fd.FormDetailsNumber into table1
-                                           from fd in table1
-                                           where fd.ItemNumber == itemNumber
-                                           select o.OutstandingListNumber).ToList();
-
-                OutstandingList existingOutstandingList = db.OutstandingLists.Find(findOutstandingList[0]);
-                existingOutstandingList.PONumber = newPO.PONumber;
-
-                db.PurchaseOrders.Add(newPO);
-                db.PurchaseOrderDetails.Add(newPOD);
-                db.SaveChanges();
-            }
+                                      }).ToList();
 
             //2.Order to stock up to predicted level (forward looking)
+
             var lowStockToOrder = (from sc in stationeryCatalogs
                                    where sc.Balance < sc.ReorderLevel
                                    select sc.ItemNumber).ToList();
@@ -639,76 +595,174 @@ namespace stationeryapp.Controllers
             var alreadyOrdered = (from po in purchaseOrders1
                                   join pod in purchaseOrderDetails1 on po.PONumber equals pod.PONumber into table1
                                   from pod in table1
-                                  where po.Status != "Received" && po.Reason == "Restock"
+                                  where po.Status == "Not Submitted" ||po.Status=="Submitted" && pod.Remarks == "Re-order level"
                                   select pod.ItemNumber).ToList();
 
             var toOrderForLowStock = lowStockToOrder.Except(alreadyOrdered);
 
+            List<PurchaseOrderDetail> lowStockPODList = new List<PurchaseOrderDetail>();
+
             foreach (string itemNumber in toOrderForLowStock)
             {
-                List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
-                List<PurchaseOrderDetail> purchaseOrderDetails = db.PurchaseOrderDetails.ToList();
-                int poCount = purchaseOrders.Count() + 1;
-                int podCount = purchaseOrderDetails.Count() + 1;
-
-                PurchaseOrder newPO = new PurchaseOrder
-                {
-                    PONumber = poCount.ToString(),
-                    SupplierCode = db.StationeryCatalogs.Find(itemNumber).SupplierCode1,
-                    DeliverTo = "Logic University",
-                    Attention = "1",
-                    OrderedBy = "1",
-                    Status = "Not Submitted",
-                    Reason = "Restock"
-                };
-
                 PurchaseOrderDetail newPOD = new PurchaseOrderDetail
                 {
-                    PODetailsNumber = podCount.ToString(),
-                    PONumber = newPO.PONumber,
                     ItemNumber = itemNumber,
                     Quantity = (int)db.StationeryCatalogs.Find(itemNumber).ReorderQuantity,
                     Remarks = "Re-order level"
-
                 };
 
-                db.PurchaseOrders.Add(newPO);
-                db.PurchaseOrderDetails.Add(newPOD);
-                db.SaveChanges();
+                lowStockPODList.Add(newPOD);
             }
 
+            var everythingToOrder = orderForOutstandingList.Concat(lowStockPODList);
+
+            //generate a list of suppliers from whom we can order the items in the combined list
+
+            List<string> supplierCodeList = new List<string>();
+
+            if (everythingToOrder.Count() > 0)
+            {
+                foreach (PurchaseOrderDetail pod in everythingToOrder)
+                {
+                    string supplier = db.StationeryCatalogs.Find(pod.ItemNumber).SupplierCode1;
+
+                    if (supplierCodeList.Count() == 0)
+                    {
+                        supplierCodeList.Add(supplier);
+                    }
+
+                    else if (!supplierCodeList.Contains(supplier))
+                    {
+                        supplierCodeList.Add(supplier);
+                    }
+                }
+
+                //then for each supplier, generate a PO
+
+                foreach (string supplier in supplierCodeList)
+                {
+                    var poIdList = (from po in db.PurchaseOrders.ToList()
+                                    select po.PONumber).ToList();
+
+                    PurchaseOrder newPO = new PurchaseOrder
+                    {
+                        PONumber = GenerateID.CreateNewId(poIdList),
+                        SupplierCode = supplier,
+                        DeliverTo = "Logic University",
+                        Attention = "1",
+                        OrderedBy = "1",
+                        Status = "Not Submitted",
+                        Reason = "System Generated"
+                    };
+
+                    db.PurchaseOrders.Add(newPO);
+                    db.SaveChanges();
+
+                    //insert PO Detail if the item's supplier is the current loop supplier
+                    foreach (PurchaseOrderDetail pod in everythingToOrder)
+                    {
+                        var podIdList = (from purchaseOrderDetail in db.PurchaseOrderDetails
+                                         select purchaseOrderDetail.PODetailsNumber).ToList();
+
+                        if (db.StationeryCatalogs.Find(pod.ItemNumber).SupplierCode1 == supplier)
+                        {
+                            PurchaseOrderDetail newPOD = new PurchaseOrderDetail
+                            {
+                                PODetailsNumber = GenerateID.CreateNewId(podIdList),
+                                PONumber = newPO.PONumber,
+                                ItemNumber = pod.ItemNumber,
+                                Quantity = pod.Quantity,
+                                Remarks = pod.Remarks
+                            };
+
+                            db.PurchaseOrderDetails.Add(newPOD);
+                            db.SaveChanges();
+                        }
+
+                        var findOutstandingList = (from o in outstandingLists
+                                                   join fd in stationeryRetrievalFormDetails on o.RetrievalFormDetailsNumber equals fd.FormDetailsNumber into table1
+                                                   from fd in table1
+                                                   where fd.ItemNumber == pod.ItemNumber && o.Status == "Outstanding"
+                                                   select o).ToList();
+
+                        //Update the status of the outstanding list to "Awaiting goods" -> then no need to check for alreadyOrdered
+
+                        foreach (OutstandingList ol in findOutstandingList)
+                        {
+                            OutstandingList existingOL = db.OutstandingLists.Find(ol.OutstandingListNumber);
+                            existingOL.PONumber = newPO.PONumber;
+                            existingOL.Status = "Awaiting Goods";
+
+                            db.SaveChanges();
+                        }
+                       
+                    }
+                }
+            }
         }
 
-        // GET: PurchaseOrders/Create
-        //public ActionResult Create()
-        //{
-        //    ViewBag.Attention = new SelectList(db.StoreClerks, "Id", "FirstName");
-        //    ViewBag.OrderedBy = new SelectList(db.StoreClerks, "Id", "FirstName");
-        //    ViewBag.ApprovedBy = new SelectList(db.StoreSupervisors, "Id", "FirstName");
-        //    ViewBag.SupplierCode = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName");
-        //    return View();
-        //}
+        public void MergePurchaseOrders()
+        {
+            List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
+            List<PurchaseOrderDetail> purchaseOrderDetails = db.PurchaseOrderDetails.ToList();
 
-        //// POST: PurchaseOrders/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Create([Bind(Include = "PONumber,SupplierCode,DeliverTo,Attention,SupplyByDate,OrderedBy,DateOrdered,ApprovedBy,DateApproved,ReceivedGoodsFormNo,ReceivedDate,ReceivedValue,Status")] PurchaseOrder purchaseOrder)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.PurchaseOrders.Add(purchaseOrder);
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
+            //check if the existing unsubmitted POs have same suppliers
+            var supplierList = (from po in purchaseOrders
+                               where po.Status == "Not Submitted"
+                               select po.SupplierCode).ToList();
 
-        //    ViewBag.Attention = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.Attention);
-        //    ViewBag.OrderedBy = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.OrderedBy);
-        //    ViewBag.ApprovedBy = new SelectList(db.StoreSupervisors, "Id", "FirstName", purchaseOrder.ApprovedBy);
-        //    ViewBag.SupplierCode = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", purchaseOrder.SupplierCode);
-        //    return View(purchaseOrder);
-        //}
+            if (supplierList.GroupBy(x => x).Any(c => c.Count() > 1))
+            {
+                var distinctSuppliers = supplierList.GroupBy(x => x)
+                    .Select(grp => grp.First())
+                    .ToList();
+
+                //create a new PO for each distinct supplier
+                foreach(string supplierCode in distinctSuppliers)
+                {
+                    PurchaseOrder createdPurchaseOrder = new PurchaseOrder
+                    {
+                        PONumber = (db.PurchaseOrders.Count() + 1).ToString(),
+                        SupplierCode = supplierCode,
+                        DeliverTo = "Logic University",
+                        Attention = "1",
+                        OrderedBy = "1",
+                        ApprovedBy = "1",
+                        DateApproved = DateTime.Now,
+                        Status = "Not Submitted"
+
+                    };
+                    db.PurchaseOrders.Add(createdPurchaseOrder);
+                    db.SaveChanges();
+
+                    //go thru list of existing unsubmitted PO and if supplier match with current loop supplier, change PO status to merged, and shift underlying PO details to the new PO
+                    var poList = (from po in purchaseOrders
+                                  where po.Status == "Not Submitted"
+                                  select po).ToList();
+
+                    foreach(PurchaseOrder po in poList)
+                    {
+                        if (po.SupplierCode.Equals(supplierCode))
+                        {
+                            PurchaseOrder existingPO = db.PurchaseOrders.Find(po.PONumber);
+                            existingPO.Status = "Merged";
+
+                            var podList = (from pod in purchaseOrderDetails
+                                           where pod.PONumber == po.PONumber
+                                           select pod).ToList();
+
+                            foreach (PurchaseOrderDetail pod in podList)
+                            {
+                                PurchaseOrderDetail existingPurchaseOrderDetail = db.PurchaseOrderDetails.Find(pod.PODetailsNumber);
+                                existingPurchaseOrderDetail.PONumber = createdPurchaseOrder.PONumber;
+                                db.SaveChanges();
+                            }
+
+                        }
+                    }
+                }
+            }  
+        }
 
         // GET: PurchaseOrders/Edit/5
         public ActionResult Edit(string id)
@@ -730,8 +784,6 @@ namespace stationeryapp.Controllers
         }
 
         // POST: PurchaseOrders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "PONumber,SupplierCode,DeliverTo,Attention,SupplyByDate,OrderedBy,DateOrdered,ApprovedBy,DateApproved,ReceivedGoodsFormNo,ReceivedDate,ReceivedValue,Status")] PurchaseOrder purchaseOrder)

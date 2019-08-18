@@ -37,7 +37,11 @@
         <td>
             @if (item.Status == "Pending")
             {
-            @Html.ActionLink("Retrieve", "Edit", new { id = item.FormNumber, sessionId = sessionId }) 
+                @Html.ActionLink("Retrieve", "Edit", new { id = item.FormNumber, sessionId = sessionId })
+            }
+            @if (item.Status == "Submitted")
+            {
+                @Html.ActionLink("View", "Details", new { id = item.FormNumber, sessionId = sessionId })
             }
             @if (item.Status == "Submitted")
             {

@@ -565,7 +565,7 @@ namespace stationeryapp.Controllers
                         departmentList.Add(commitedFormDetail.stationeryRetrievalFormDetail.DepartmentCode);
                     }
 
-                    //If insufficient inventory, add the item code to our item code list created above, so that we can generate a Outstanding List by item code 
+                    //If insufficient inventory, generate a outstanding list object for each retrieval form detail 
                     if(commitedFormDetail.stationeryRetrievalFormDetail.Needed>commitedFormDetail.stationeryRetrievalFormDetail.Actual)
                     { 
                     outstandingListCount++;
