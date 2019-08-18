@@ -111,17 +111,18 @@
         <th>Date</th>
         <th>Department/Supplier</th>
         <th>Qty</th>
-        <th>Balance</th>
+        @*<th>Balance</th>*@
     </tr>
 
     @foreach (var item in ViewBag.history)
     {
-        <tr>
-            <td>@item.date</td>
-            <td>@item.name</td>
-            <td>@item.quantity</td>
-            <td>@(balance += item.quantity) </td>
-        </tr>
+<tr>
+    <td>@item.date</td>
+    @*<td>@item.date.ToShortDateString()</td>*@
+    <td>@item.name</td>
+    <td>@item.quantity</td>
+    @*<td>@(balance += item.quantity) </td>*@
+</tr>
     }
 
 </table>
