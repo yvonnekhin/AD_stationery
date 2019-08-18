@@ -30,7 +30,7 @@ namespace stationeryapp.Controllers
         }
 
        
-        public ActionResult Details(string id, string sessionId)
+        public ActionResult Details(string id, string sessionId, string errorMeg)
         {
             if (sessionId == null)
             {
@@ -84,6 +84,7 @@ namespace stationeryapp.Controllers
                 ViewData["sessionId"] = storeclerk.SessionId;
                 ViewData["username"] = storeclerk.UserName;
                 ViewData["tag"] = "storeclerk";
+                ViewData["errorMeg"] = errorMeg;
                 return View(disbursementDetailRecord);
             }
             else if (storeManager != null)
@@ -103,6 +104,7 @@ namespace stationeryapp.Controllers
                 ViewData["sessionId"] = storeManager.SessionId;
                 ViewData["username"] = storeManager.UserName;
                 ViewData["tag"] = "storeManager";
+                ViewData["errorMeg"] = errorMeg;
                 return View(disbursementDetailRecord);
             }
             else if (storeSupervisor != null)
@@ -122,6 +124,7 @@ namespace stationeryapp.Controllers
                 ViewData["sessionId"] = storeSupervisor.SessionId;
                 ViewData["username"] = storeSupervisor.UserName;
                 ViewData["tag"] = "storeSupervisor";
+                ViewData["errorMeg"] = errorMeg;
                 return View(disbursementDetailRecord);
             }
             else
@@ -147,6 +150,16 @@ namespace stationeryapp.Controllers
             bool flag = false;
             int countnotshow = 0;
             int recivedX;
+
+            foreach (ViewModelDDetails item in Details)
+            {
+                DisbursementListDetail existing = db.DisbursementListDetails.Find(item.disbursementListDetail.ListDetailsNumber);
+                if (item.disbursementListDetail.QuantityReceived < 0 || item.disbursementListDetail.QuantityReceived > existing.Quantity)
+                {
+                    string errorMeg = "Error: " + "QuantityReceived cannot be LESS THAN 0 or GREATER THAN Quantity";
+                    return RedirectToAction("Details", "DisbursementListDetails", new { @sessionId = sessionId, @id = Details[0].disbursementList.ListNumber, @errorMeg = errorMeg });
+                }
+            }
 
             foreach (ViewModelDDetails item in Details)
             {

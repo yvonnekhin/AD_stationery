@@ -43,19 +43,21 @@
                 <tr>
                     @if (req_pending_forms)
                     {
-                        using (Html.BeginForm("approve_reject", "Hod", new { sid=sid},FormMethod.Post))
+                        using (Html.BeginForm("approve_reject", "Hod", new { sid = sid }, FormMethod.Post))
                         {
                             <td>
-                                Comments:
-                                <input type="text" value="" name="comment" />
+                                <p>Comments:</p>
+                                <textarea rows="4" cols="50" type="text" value="" name="comment"></textarea>
                                 <input type="hidden" value=@form.FormNumber name="form_id" />
                                 <input type="hidden" value=@user.Id name="approved_by" />
                                 @*<input type="hidden" id="hidden_status" value="" name="form_status" />*@
                             </td>
-                            <td>
+                            <td style="vertical-align: bottom">
                                 <input id="approve_btn" type="submit" value="APPROVE" name="form_status" />
+                               
                                 <input id="reject_btn" type="submit" value="REJECT" name="form_status" />
                             </td>
+                            
                         }
                     }
                     else
