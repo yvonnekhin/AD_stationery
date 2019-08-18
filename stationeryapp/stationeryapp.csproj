@@ -556,7 +556,6 @@
     </Compile>
     <Compile Include="Util\GenerateID.cs" />
     <Compile Include="Util\StringExtension.cs" />
-    <Compile Include="ViewModelDDetails.cs" />
     <Compile Include="Views\StationeryCatalogReport\Report.aspx.cs">
       <DependentUpon>Report.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
