@@ -289,7 +289,7 @@ namespace stationeryapp.Controllers
             }      
         }
 
-        // GET: PurchaseOrders/Details/5
+        // GET: PurchaseOrders/Receive/5
         public ActionResult Receive(string id, string sessionId)
         {
             if (id == null)
@@ -765,7 +765,7 @@ namespace stationeryapp.Controllers
         }
 
         // GET: PurchaseOrders/Edit/5
-        public ActionResult Edit(string id)
+        public ActionResult Edit(string id, string sessionId)
         {
             if (id == null)
             {
@@ -776,30 +776,111 @@ namespace stationeryapp.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Attention = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.Attention);
-            ViewBag.OrderedBy = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.OrderedBy);
-            ViewBag.ApprovedBy = new SelectList(db.StoreSupervisors, "Id", "FirstName", purchaseOrder.ApprovedBy);
-            ViewBag.SupplierCode = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", purchaseOrder.SupplierCode);
-            return View(purchaseOrder);
+            if (sessionId == null)
+            {
+                return RedirectToAction("Login", "Login");
+            }
+            StoreClerk storeclerk = db.StoreClerks.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreManager storeManager = db.StoreManagers.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            StoreSupervisor storeSupervisor = db.StoreSupervisors.Where(p => p.SessionId == sessionId).FirstOrDefault();
+            List<PurchaseOrder> purchaseOrders = db.PurchaseOrders.ToList();
+            List<PurchaseOrderDetail> purchaseOrderDetails = db.PurchaseOrderDetails.ToList();
+            List<SupplierList> suppliers = db.SupplierLists.ToList();
+            List<StationeryCatalog> stationeryCatalogs = db.StationeryCatalogs.ToList();
+
+            var purchaseJoinResult = (from sc in stationeryCatalogs
+                                      join pod in purchaseOrderDetails on sc.ItemNumber equals pod.ItemNumber into table1
+                                      from pod in table1.ToList()
+                                      join p in purchaseOrders on pod.PONumber equals p.PONumber into table2
+                                      from p in table2.ToList()
+                                      join s in suppliers on p.SupplierCode equals s.SupplierCode into table3
+                                      from s in table3.ToList()
+                                      select new POForm
+                                      { // result selector 
+                                          purchaseOrder = p,
+                                          purchaseOrderDetail = pod,
+                                          supplierList = s,
+                                          stationeryCatalog = sc
+                                      }).Where(x => x.purchaseOrder.PONumber == id);
+
+            SupplierList approvedSupplier1 = db.SupplierLists.Find(purchaseJoinResult.ToList()[0].stationeryCatalog.SupplierCode1);
+            SupplierList approvedSupplier2 = db.SupplierLists.Find(purchaseJoinResult.ToList()[0].stationeryCatalog.SupplierCode2);
+            SupplierList approvedSupplier3 = db.SupplierLists.Find(purchaseJoinResult.ToList()[0].stationeryCatalog.SupplierCode3);
+
+            List<SupplierList> approvedSupplierList = new List<SupplierList> { approvedSupplier1, approvedSupplier2, approvedSupplier3 };
+
+            ViewBag.SupplierCode1 = new SelectList(approvedSupplierList, "SupplierCode", "SupplierName");
+
+            if (storeclerk != null)
+            {
+
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
+                ViewData["sessionId"] = storeclerk.SessionId;
+                ViewData["username"] = storeclerk.UserName;
+                ViewData["tag"] = "storeclerk";
+                return View(purchaseJoinResult.ToList());
+            }
+            else if (storeManager != null)
+            {
+
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
+                ViewData["sessionId"] = storeManager.SessionId;
+                ViewData["username"] = storeManager.UserName;
+                ViewData["tag"] = "storeManager";
+                return View(purchaseJoinResult.ToList());
+
+            }
+            else if (storeSupervisor != null)
+            {
+
+                int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
+                int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
+                int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
+                int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
+                ViewData["sumTotal"] = (num + numDisbuserment + numOutS + numRetrive + numPO + numStock).ToString();
+                ViewData["sessionId"] = storeSupervisor.SessionId;
+                ViewData["username"] = storeSupervisor.UserName;
+                ViewData["tag"] = "storeSupervisor";
+                return View(purchaseJoinResult.ToList());
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+            }
+
         }
 
         // POST: PurchaseOrders/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PONumber,SupplierCode,DeliverTo,Attention,SupplyByDate,OrderedBy,DateOrdered,ApprovedBy,DateApproved,ReceivedGoodsFormNo,ReceivedDate,ReceivedValue,Status")] PurchaseOrder purchaseOrder)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(purchaseOrder).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Attention = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.Attention);
-            ViewBag.OrderedBy = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.OrderedBy);
-            ViewBag.ApprovedBy = new SelectList(db.StoreSupervisors, "Id", "FirstName", purchaseOrder.ApprovedBy);
-            ViewBag.SupplierCode = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", purchaseOrder.SupplierCode);
-            return View(purchaseOrder);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit([Bind(Include = "PONumber,SupplierCode,DeliverTo,Attention,SupplyByDate,OrderedBy,DateOrdered,ApprovedBy,DateApproved,ReceivedGoodsFormNo,ReceivedDate,ReceivedValue,Status")] PurchaseOrder purchaseOrder)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.Entry(purchaseOrder).State = EntityState.Modified;
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.Attention = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.Attention);
+        //    ViewBag.OrderedBy = new SelectList(db.StoreClerks, "Id", "FirstName", purchaseOrder.OrderedBy);
+        //    ViewBag.ApprovedBy = new SelectList(db.StoreSupervisors, "Id", "FirstName", purchaseOrder.ApprovedBy);
+        //    ViewBag.SupplierCode = new SelectList(db.SupplierLists, "SupplierCode", "SupplierName", purchaseOrder.SupplierCode);
+        //    return View(purchaseOrder);
+        //}
 
         // GET: PurchaseOrders/Delete/5
         public ActionResult Delete(string id,string sessionId)
