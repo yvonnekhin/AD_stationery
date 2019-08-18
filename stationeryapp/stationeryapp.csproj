@@ -262,6 +262,7 @@
     </Compile>
     <Compile Include="Models\util.cs" />
     <Compile Include="Models\ViewModelD.cs" />
+    <Compile Include="Models\ViewModelDDetails.cs" />
     <Compile Include="Models\ViewModelOutstanding.cs" />
     <Compile Include="Models\ViewModelRetrieval.cs" />
     <Compile Include="Reports\InventoryStatusReport.cs">
