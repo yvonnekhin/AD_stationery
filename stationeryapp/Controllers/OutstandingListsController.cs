@@ -39,7 +39,7 @@ namespace stationeryapp.Controllers
                                              ItemCode = srfd.ItemNumber,
                                              Description = sc.Description,
                                              ShortageQuantity = (int)(srfd.Needed - srfd.Actual),
-                                             InventoryBalance = (int)sc.Balance,
+                                             InventoryBalance = sc.Balance ==null? 0:(int)sc.Balance, //to test
                                              Status = o.Status
                                          }).ToList();
 
