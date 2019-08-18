@@ -8,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using stationeryapp.Models;
 
 namespace stationeryapp.Controllers
@@ -15,8 +16,8 @@ namespace stationeryapp.Controllers
     public class DisbursementListDetailsController : Controller
     {
         private ModelDBContext db = new ModelDBContext();
-        private ModelDBContext adb = new ModelDBContext();   
-        public JsonResult GetDetails(String id)
+        private ModelDBContext adb = new ModelDBContext();
+        public JsonResult GetDetails(string id)
         {
             var disbursementListDetail = db.DisbursementListDetails.Include(d => d.DisbursementList).Include(d => d.StationeryCatalog)
                                         .Where(DisbursementListDetails => DisbursementListDetails.ListNumber == id)
@@ -26,10 +27,91 @@ namespace stationeryapp.Controllers
             CollectionPoint collectionPoint = db.CollectionPoints.Where(c => c.CollectionPointCode == departmentList.CollectionPoint).Single();
             Employee employee = db.Employees.Where(e => e.Id == departmentList.RepresentativeId).Single();
 
-            return Json(disbursementListDetail, JsonRequestBehavior.AllowGet);
+            return Json(new { data = new { detailId = disbursementListDetail.Select(x => x.ListDetailsNumber), listId = disbursementListDetail.Select(x => x.DisbursementList.ListNumber), ItemNumber = disbursementListDetail.Select(x => x.ItemNumber), Category = disbursementListDetail.Select(x => x.StationeryCatalog.Category), desc = disbursementListDetail.Select(x => x.StationeryCatalog.Description), quantity = disbursementListDetail.Select(x => x.Quantity), received = disbursementListDetail.Select(x => x.QuantityReceived), remark = disbursementListDetail.Select(x => x.Remarks) } }, JsonRequestBehavior.AllowGet);
+
         }
 
-       
+        [HttpPost]
+        public JsonResult PostDetails(Detail Details)
+        {
+            List<Infos> bb = JsonConvert.DeserializeObject<List<Infos>>(Details.Infos1[0]);
+            DisbursementList disbursementList = db.DisbursementLists.Find(bb[0].ListId);
+            int newNumer = db.StockAdjustmentVouchers.Count();
+            int length = bb.Count() + newNumer + 1;
+            int newNumer2 = db.StockAdjustmentVoucherDetails.Count() + 1;
+            bool flag = false;
+            int countnotshow = 0;
+            int recivedX;
+
+            foreach (Infos item in bb)
+            {
+                DisbursementListDetail existing = db.DisbursementListDetails.Find(item.DetailId);
+                existing.QuantityReceived = Convert.ToInt32(item.Actual);
+                existing.Remarks = item.Remark;
+                recivedX = Convert.ToInt32(existing.Quantity) - Convert.ToInt32(item.Actual);
+                if (recivedX > 0)
+                {
+                    flag = true;
+
+                }
+                if (Convert.ToInt32(item.Actual) == 0)
+                {
+                    countnotshow++;
+                }
+                db.Entry(existing).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            if (flag)
+            {
+                StockAdjustmentVoucher stockAdjustment = new StockAdjustmentVoucher();
+                stockAdjustment.AdjustmentVoucherNumber = Convert.ToString(newNumer + 1);
+                stockAdjustment.Status = "Pending";
+                stockAdjustment.Date = DateTime.Now;
+                stockAdjustment.Remarks = "System Genarate";
+                adb.StockAdjustmentVouchers.Add(stockAdjustment);
+                adb.SaveChanges();
+            }
+
+
+            foreach (Infos item in bb)
+            {
+                DisbursementListDetail existing = db.DisbursementListDetails.Find(item.DetailId);
+                existing.QuantityReceived = Convert.ToInt32(item.Actual);
+                existing.Remarks = item.Remark;
+                recivedX = Convert.ToInt32(existing.Quantity) - Convert.ToInt32(item.Actual);
+                if (recivedX > 0)
+                {
+                    StockAdjustmentVoucherDetail adjustmentVoucherDetail = new StockAdjustmentVoucherDetail();
+                    adjustmentVoucherDetail.AdjustmentVoucherNumber = (newNumer + 1).ToString();
+                    adjustmentVoucherDetail.AdjustmentDetailsNumber = newNumer2;
+                    newNumer2++;
+                    adjustmentVoucherDetail.QuantityAdjusted = recivedX;
+                    adjustmentVoucherDetail.ItemNumber = existing.ItemNumber;
+                    // remarks from where?
+                    adjustmentVoucherDetail.Reason = existing.Remarks;
+                    db.StockAdjustmentVoucherDetails.Add(adjustmentVoucherDetail);
+                    db.SaveChanges();
+                }
+            }
+
+            if (countnotshow == bb.Count())
+            {
+                disbursementList.Status = "Cancelled";
+                db.Entry(disbursementList).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+            else
+            {
+                disbursementList.Status = "Collected";
+                db.Entry(disbursementList).State = EntityState.Modified;
+                db.SaveChanges();
+            }
+
+            return Json(new { status = "Submitted Successfully" });
+        }
+
+
         public ActionResult Details(string id, string sessionId, string errorMeg)
         {
             if (sessionId == null)

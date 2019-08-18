@@ -29,6 +29,12 @@ namespace stationeryapp.Controllers
         [HttpPost]
         public JsonResult SetPerson(StoreClerk storeClerk)
         {
+            PurchaseOrdersController purchaseOrdersController = new PurchaseOrdersController();
+            purchaseOrdersController.SystemGeneratePO();
+
+            StationeryRetrievalFormsController stationeryRetrievalFormsController = new StationeryRetrievalFormsController();
+            stationeryRetrievalFormsController.GenerateRetrievalForm();
+            stationeryRetrievalFormsController.MergeRetrievalForms();
             StoreClerk storeclerk = db1.StoreClerks.Where(p => p.UserName == storeClerk.UserName).FirstOrDefault();
             string hashedPassword = CalculateMD5Hash(storeClerk.Password);
             if (ModelState.IsValid)

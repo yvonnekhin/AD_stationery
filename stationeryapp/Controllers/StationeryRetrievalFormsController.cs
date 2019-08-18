@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using stationeryapp.Models;
 using stationeryapp.Util;
 
@@ -14,6 +15,131 @@ namespace stationeryapp.Controllers
     public class StationeryRetrievalFormsController : Controller
     {
         private ModelDBContext db = new ModelDBContext();
+
+        public JsonResult GetRetrieval()
+        {
+            StationeryRetrievalForm stationeryRetrievalForm = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").FirstOrDefault();
+            if (stationeryRetrievalForm == null)
+            {
+                return Json(new { status = "fail" }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                string id = stationeryRetrievalForm.FormNumber;
+                List<StationeryRetrievalFormDetail> srfd = db.StationeryRetrievalFormDetails.ToList();
+                List<StationeryCatalog> sc = db.StationeryCatalogs.ToList();
+
+                var retrievalFormDetailsSelected = (from stationeryRetrievalFormDetail in srfd
+                                                    join stationeryCatalog in sc on stationeryRetrievalFormDetail.ItemNumber equals stationeryCatalog.ItemNumber into table1
+                                                    from stationeryCatalog in table1
+                                                    where stationeryRetrievalFormDetail.FormNumber == id
+                                                    select new RForm
+                                                    {
+                                                        stationeryRetrievalFormDetail = stationeryRetrievalFormDetail,
+                                                        Description = stationeryCatalog.Description,
+                                                        BinNumber = stationeryCatalog.BinNumber
+                                                    }).OrderBy(x => x.Description).ToList();
+
+                return Json(new { data = new { FormNumber = retrievalFormDetailsSelected.Select(x => x.stationeryRetrievalFormDetail.FormNumber), FormDetailsnumber = retrievalFormDetailsSelected.Select(x => x.stationeryRetrievalFormDetail.FormDetailsNumber), ItemNumber = retrievalFormDetailsSelected.Select(x => x.stationeryRetrievalFormDetail.ItemNumber), BinNumber = retrievalFormDetailsSelected.Select(x => x.BinNumber), Description = retrievalFormDetailsSelected.Select(x => x.Description), Dept = retrievalFormDetailsSelected.Select(x => x.stationeryRetrievalFormDetail.DepartmentCode), Needed = retrievalFormDetailsSelected.Select(x => x.stationeryRetrievalFormDetail.Needed), Actual = retrievalFormDetailsSelected.Select(x => x.stationeryRetrievalFormDetail.Actual) }, status = "success" }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult PostRetrieval(Retrieval Details)
+        {
+            List<RetrievalItem> cc = JsonConvert.DeserializeObject<List<RetrievalItem>>(Details.RetData[0]);
+            if (ModelState.IsValid)
+            {
+                List<string> departmentList = new List<string>();
+                int outstandingListCount = db.OutstandingLists.Count();
+
+                //update retrieval form status to "Submitted" 
+                StationeryRetrievalForm existingStationeryRetrievalForm = db.StationeryRetrievalForms.Find(cc[0].FormNumber);
+                existingStationeryRetrievalForm.Status = "Submitted";
+
+                foreach (RetrievalItem commitedFormDetail in cc)
+                {
+                    //Update actual values into retrieval form details
+                    StationeryRetrievalFormDetail existingStationeryRetrievalFormDetail = db.StationeryRetrievalFormDetails.Find(commitedFormDetail.FormDetailsnumber);
+                    existingStationeryRetrievalFormDetail.Actual = Convert.ToInt32(commitedFormDetail.Actual);
+
+                    //update stationery catalog
+                    StationeryCatalog existingCatalog = db.StationeryCatalogs.Find(commitedFormDetail.ItemNumber);
+                    existingCatalog.Balance -= Convert.ToInt32(commitedFormDetail.Actual);
+
+                    //add the department code to our department list created above, to generate disbursement list by department below
+                    if (!departmentList.Contains(commitedFormDetail.Dept))
+                    {
+                        departmentList.Add(commitedFormDetail.Dept);
+                    }
+
+                    //If insufficient inventory, add the item code to our item code list created above, so that we can generate a Outstanding List by item code 
+                    if (Convert.ToInt32(commitedFormDetail.Needed) > Convert.ToInt32(commitedFormDetail.Actual))
+                    {
+                        outstandingListCount++;
+
+                        OutstandingList outstandingItem = new OutstandingList
+                        {
+                            OutstandingListNumber = outstandingListCount.ToString(),
+                            RetrievalFormDetailsNumber = commitedFormDetail.FormDetailsnumber,
+                            Status = "Outstanding"
+                        };
+                        db.OutstandingLists.Add(outstandingItem);
+                    }
+
+                    db.SaveChanges();
+                }
+
+                //create a single disbursement list for each department
+                foreach (string deptCode in departmentList)
+                {
+
+                    DisbursementList dl = new DisbursementList
+                    {
+                        ListNumber = (db.DisbursementLists.Count() + 1).ToString(),
+                        DepartmentCode = deptCode,
+                        Date = DateTime.Today,
+                        Status = "Pending"
+                    };
+                    db.DisbursementLists.Add(dl);
+                    db.SaveChanges();
+
+                    DepartmentList dept = db.DepartmentLists.Where(x => x.DepartmentCode == deptCode).FirstOrDefault();
+                    string Eid = dept.RepresentativeId;
+                    Employee repo = db.Employees.Find(Eid);
+                    string emailAddress = repo.EmailAddress;
+                    string pointId = dept.CollectionPoint;
+                    CollectionPoint point = db.CollectionPoints.Find(pointId);
+                    string subject = "Your items are ready for collection";
+                    string message = "<p>Dear " + repo.UserName + "." + "</p><br/><p>Your items are ready for collection</p><br/><p>Collection point and time: " + point.CollectionPointName + "---" + point.CollectionTime + "</p><br/><p>Stationery Management Team</p>";
+                    util.SendEmail(emailAddress, subject, message);
+
+                    int disbursementListDetailsCount = db.DisbursementListDetails.Count();
+
+                    foreach (RetrievalItem commitedFormDetail in cc)
+                    {
+                        if (commitedFormDetail.Dept.Equals(deptCode))
+                        {
+                            disbursementListDetailsCount++;
+
+                            DisbursementListDetail dld = new DisbursementListDetail
+                            {
+                                ListDetailsNumber = disbursementListDetailsCount.ToString(),
+                                ListNumber = dl.ListNumber,
+                                ItemNumber = commitedFormDetail.ItemNumber,
+                                Quantity = Convert.ToInt32(commitedFormDetail.Actual)
+                            };
+
+                            db.DisbursementListDetails.Add(dld);
+                            db.SaveChanges();
+                        }
+
+                    }
+                }
+            }
+            return Json(new { status = "success" });
+        }
 
         // GET: StationeryRetrievalForms
         public ActionResult Index(string sessionId)
@@ -439,7 +565,7 @@ namespace stationeryapp.Controllers
                         departmentList.Add(commitedFormDetail.stationeryRetrievalFormDetail.DepartmentCode);
                     }
 
-                    //If insufficient inventory, add the item code to our item code list created above, so that we can generate a Outstanding List by item code 
+                    //If insufficient inventory, generate a outstanding list object for each retrieval form detail 
                     if(commitedFormDetail.stationeryRetrievalFormDetail.Needed>commitedFormDetail.stationeryRetrievalFormDetail.Actual)
                     { 
                     outstandingListCount++;
