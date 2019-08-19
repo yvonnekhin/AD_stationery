@@ -27,7 +27,7 @@ namespace stationeryapp.Controllers
             {
                 int num= dbM.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment= dbM.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                int numOutS = dbM.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numOutS = dbM.OutstandingLists.Where(x => x.Status == "Awaiting Goods").Count();
                 int numRetrive = dbM.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
                 int numPO = dbM.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
                 int numStock = dbM.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();

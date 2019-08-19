@@ -40,11 +40,11 @@
                 @Html.DisplayFor(modelItem => item.Status)
             </td>
             <td>
-                @if (tag == "storeSupervisor" || tag == "storeManager")
-                {
-                    <div>@Html.ActionLink("Edit", "Edit", new { id = item.AdjustmentVoucherNumber, sessionId = sessionId }) </div>
-                    <div>@Html.ActionLink("Approve", "Details", new { id = item.AdjustmentVoucherNumber, sessionId = sessionId })</div>
-                }
+                @*<div>@Html.ActionLink("View", "Edit", new { id = item.AdjustmentVoucherNumber, sessionId = sessionId }) </div>*@
+                @*@if (tag == "storeManager" || tag == "storeSupervisor")
+                {*@
+                    <div>@Html.ActionLink("View", "Details", new { id = item.AdjustmentVoucherNumber, sessionId = sessionId })</div>
+                @*}*@
 
                 @*@Html.ActionLink("Delete", "Delete", new { id = item.AdjustmentVoucherNumber, sessionId = sessionId })*@
             </td>

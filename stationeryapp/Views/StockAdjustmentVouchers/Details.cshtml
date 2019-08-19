@@ -2,14 +2,14 @@
 @using stationeryapp.Models
 
 @{
-    ViewBag.Title = "Supervisor/Manager";
+    ViewBag.Title = "Stock Adjustment Voucher";
     List<StockAdjustmentVoucherDetail> savdList = ViewBag.savd;
     string sessionId = (string)ViewData["sessionId"];
     string username = (string)ViewData["username"];
     string tag = (string)ViewData["tag"];
 }
 <br>
-<h3>Stock Adjustment Voucher (Supervisor/Manager) </h3>
+<h3>Stock Adjustment Voucher </h3>
 
 <div>
 
@@ -77,8 +77,12 @@
             <td></td>
             <td></td>
             <td></td>
-            <td align="right"> <input type="submit" value="Reject" name="Command" class="btn btn-danger" /> </td>
-            <td align="right"> <input type="submit" value="Approve" name="Command" class="btn btn-success" /> </td>
+            @if (tag == "storeManager" || tag == "storeSupervisor")
+            {
+                <td align="right"> <input type="submit" value="Reject" name="Command" class="btn btn-danger" /> </td>
+                <td align="right"> <input type="submit" value="Approve" name="Command" class="btn btn-success" /> </td>
+            }
+
         </tr>
     </table>
 }
