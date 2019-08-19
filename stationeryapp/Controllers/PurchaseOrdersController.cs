@@ -414,7 +414,7 @@ namespace stationeryapp.Controllers
 
                     //update stationery catalog balance
                     StationeryCatalog existingSC = db.StationeryCatalogs.Find(po.purchaseOrderDetail.ItemNumber);
-                    existingSC.Balance = po.purchaseOrderDetail.ReceivedQuantity;
+                    existingSC.Balance += po.purchaseOrderDetail.ReceivedQuantity;
 
                     //update purchase order status
                     PurchaseOrder existingPO = db.PurchaseOrders.Find(po.purchaseOrder.PONumber);
@@ -589,7 +589,7 @@ namespace stationeryapp.Controllers
             //2.Order to stock up to predicted level (forward looking)
 
             var lowStockToOrder = (from sc in stationeryCatalogs
-                                   where sc.Balance < sc.ReorderLevel
+                                   where sc.Balance <= sc.ReorderLevel
                                    select sc.ItemNumber).ToList();
 
             var alreadyOrdered = (from po in purchaseOrders1
