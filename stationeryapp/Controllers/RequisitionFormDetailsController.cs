@@ -52,7 +52,7 @@ namespace stationeryapp.Controllers
                 db1.SaveChanges();
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Awaiting Goods").Count();
                 int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
                 int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
                 int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
@@ -66,7 +66,7 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Awaiting Goods").Count();
                 int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
                 int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
                 int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
@@ -80,7 +80,7 @@ namespace stationeryapp.Controllers
             {
                 int num = db.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                int numOutS = db.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numOutS = db.OutstandingLists.Where(x => x.Status == "Awaiting Goods").Count();
                 int numRetrive = db.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
                 int numPO = db.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
                 int numStock = db.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();

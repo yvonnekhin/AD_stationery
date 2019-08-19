@@ -33,7 +33,7 @@ namespace stationeryapp.Controllers
                 ViewData["tag"] = "storeclerk";
                 int num = db2.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db2.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                int numOutS = db2.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numOutS = db2.OutstandingLists.Where(x => x.Status == "Awaiting Goods").Count();
                 int numRetrive = db2.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
                 int numPO = db2.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
                 int numStock = db2.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
@@ -48,7 +48,7 @@ namespace stationeryapp.Controllers
                 ViewData["tag"] = "storeManager";
                 int num = db2.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db2.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                int numOutS = db2.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numOutS = db2.OutstandingLists.Where(x => x.Status == "Awaiting Goods").Count();
                 int numRetrive = db2.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
                 int numPO = db2.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
                 int numStock = db2.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
@@ -63,7 +63,7 @@ namespace stationeryapp.Controllers
                 ViewData["tag"] = "storeSupervisor";
                 int num = db2.RequisitionForms.Where(x => x.Status == "Approved").Count();
                 int numDisbuserment = db2.DisbursementLists.Where(x => x.Status == "Pending").Count();
-                int numOutS = db2.OutstandingLists.Where(x => x.Status == "Outstanding").Count();
+                int numOutS = db2.OutstandingLists.Where(x => x.Status == "Awaiting Goods").Count();
                 int numRetrive = db2.StationeryRetrievalForms.Where(x => x.Status == "Pending").Count();
                 int numPO = db2.PurchaseOrders.Where(x => x.Status == "Not Submitted").Count();
                 int numStock = db2.StockAdjustmentVouchers.Where(x => x.Status == "Pending").Count();
