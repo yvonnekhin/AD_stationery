@@ -414,7 +414,7 @@ namespace stationeryapp.Controllers
 
                     //update stationery catalog balance
                     StationeryCatalog existingSC = db.StationeryCatalogs.Find(po.purchaseOrderDetail.ItemNumber);
-                    existingSC.Balance = po.purchaseOrderDetail.Quantity;
+                    existingSC.Balance = po.purchaseOrderDetail.ReceivedQuantity;
 
                     //update purchase order status
                     PurchaseOrder existingPO = db.PurchaseOrders.Find(po.purchaseOrder.PONumber);
